@@ -1,0 +1,15 @@
+node_modules
+.next
+npm-debug.log
+Dockerfile
+.dockerignore
+docker-compose*.yml
+.git
+.gitignore
+README.md
+*.md
+# Never bake secrets into the image — injected at runtime via compose env_file.
+.env
+.env.*
+!.env.example
+nginx

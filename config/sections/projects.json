@@ -1,0 +1,115 @@
+{
+  "_readme": "Projects section. `domain` is the primary filter category; `secondaryDomains` add extra badges and filter matches. `highlights` render as the 'key decisions' list in the expandable case study. Links: set `demo` / `repo` / `writeup` URLs or delete the keys you don't need.",
+  "label": "featured work",
+  "heading": "Work that shipped.",
+  "showFilters": true,
+  "filterAllLabel": "all",
+  "filterGroupLabel": "Filter projects by domain",
+  "indexPrefix": "P-",
+  "resultsPrefix": "▲ ",
+  "caseStudy": {
+    "summaryLabel": "$ cat case-study.md",
+    "problemLabel": "problem",
+    "roleLabel": "my role",
+    "decisionsLabel": "key decisions"
+  },
+  "linkLabels": { "demo": "demo", "repo": "repo", "writeup": "write-up" },
+  "items": [
+    {
+      "id": "usapp",
+      "title": "Usapp",
+      "hook": "Secure real-time messaging platform — the notification backbone for an entire product suite.",
+      "problem": "The company's product suite needed one secure, real-time channel for messaging and push notifications instead of fragmented per-app integrations and an SMS dependency.",
+      "role": "Sole developer & architect — mobile client, distributed backend microservices, deployment pipeline, and production server operations, all built and run single-handedly.",
+      "stack": ["Microservices", "Real-Time", "Mobile", "Messaging", "Infrastructure"],
+      "highlights": [
+        "Distributed microservice backend with real-time messaging.",
+        "Mobile application with push notification delivery.",
+        "Full CI/CD pipeline with automated security scanning and signed artifacts.",
+        "Production infrastructure and monitoring owned end to end."
+      ],
+      "results": "Live · the notification backbone for the company's entire product suite · positioned as a super-app foundation.",
+      "links": { "demo": "https://usapp.ph" },
+      "domain": "backend",
+      "secondaryDomains": ["mobile", "DevSecOps"],
+      "featured": true
+    },
+    {
+      "id": "jms-e-talyer",
+      "title": "JMS E-Talyer",
+      "hook": "Multi-branch automotive service management, self-hosted and self-operated.",
+      "problem": "Multi-branch automotive service operations needed real-time monitoring and reliable daily transaction reporting — on infrastructure owned and operated end to end, not rented as a black box.",
+      "role": "Sole developer, owner & maintainer — application, DevSecOps pipeline, and a self-provisioned VPS I secure, manage and operate myself.",
+      "stack": ["Full-Stack", "DevSecOps", "CI/CD", "Docker", "Node.js", "React", "MongoDB", "MySQL", "VPS Operations"],
+      "highlights": [
+        "Self-provisioned and self-managed VPS — provisioning, deployment, monitoring and maintenance owned end to end.",
+        "Multi-branch operations with real-time monitoring and daily transaction reports.",
+        "Four-workflow CI/CD: continuous integration, security scanning, gated deployment, and automated dependency management.",
+        "Layered security scanning — static analysis, dependency auditing, secret scanning across full git history, dynamic testing, and container vulnerability scanning.",
+        "Hardened container runtime: multi-stage builds, production-only dependencies, non-root user, correct signal handling, health checks.",
+        "Application hardening: security headers, origin allow-listing, tiered rate limiting, scoped CSRF protection, and production error sanitisation.",
+        "Manual-gated deployments with branch and environment guards; secrets injected at runtime with no credentials written to disk."
+      ],
+      "results": "Live in production on a self-managed VPS · four-workflow CI/CD · layered security scanning · ongoing feature development.",
+      "links": { "demo": "https://jms-e-talyer.shop" },
+      "domain": "full-stack",
+      "secondaryDomains": ["DevSecOps", "security"],
+      "featured": true
+    },
+    {
+      "id": "peraplano",
+      "title": "PeraPlano",
+      "hook": "Privacy-first Android budgeting that tracks spending from your transaction notifications.",
+      "problem": "Manual expense logging is high-friction and most budgeting apps expose sensitive financial data. Users needed private tracking that updates itself.",
+      "role": "Sole developer — Android app, encryption model, and notification-derived transaction tracking.",
+      "stack": ["Mobile", "Android", "React Native", "Fintech", "Encryption", "Privacy"],
+      "highlights": [
+        "Encrypted user financial data — privacy-by-design for sensitive personal records.",
+        "Derives income and expense tracking from transaction push notifications, minimising manual input.",
+        "Daily, monthly and annual budgeting and savings goals with threshold alerts.",
+        "Roadmap includes optional premium features via in-app purchases."
+      ],
+      "results": "In development · free-to-use · privacy-by-design · tracking derived from transaction push notifications.",
+      "links": {},
+      "domain": "mobile",
+      "secondaryDomains": ["security"],
+      "featured": true
+    },
+    {
+      "id": "kalusugapp",
+      "title": "Kalusugapp",
+      "hook": "Digital health records and scheduling for rural clinics.",
+      "problem": "Rural clinics relied on paper records and manual scheduling, limiting record accessibility and efficiency for underserved communities.",
+      "role": "Developer — patient records and appointment management built for low-resource clinic environments.",
+      "stack": ["Healthcare", "Full-Stack", "React", "Node.js", "MySQL", "Social Impact"],
+      "highlights": [
+        "Digital patient records replacing paper-based systems.",
+        "Appointment scheduling and management.",
+        "Built for low-resource clinic environments."
+      ],
+      "results": "Live (2024–2025) · digital records replacing paper · improved accessibility and scheduling for underserved communities.",
+      "links": { "demo": "https://kalusugapp.com" },
+      "domain": "full-stack",
+      "secondaryDomains": [],
+      "featured": false
+    },
+    {
+      "id": "flood-notification-system",
+      "title": "Flood Notification System",
+      "hook": "IoT flood early-warning with sirens, warning lights, and SMS alerts.",
+      "problem": "Flood-prone communities needed early warning that conveys not just that water crossed a threshold, but how fast it is rising — so residents can judge how quickly conditions are worsening.",
+      "role": "Sole developer — sensors, embedded firmware, and multi-channel alerting.",
+      "stack": ["IoT", "Arduino", "C++", "GSM", "Embedded", "Disaster Response", "Social Impact"],
+      "highlights": [
+        "Multi-channel alerting: audible sirens, warning lights, and GSM SMS dispatch.",
+        "Tracks both water level and rate of rise per monitored area.",
+        "Designed for community-level deployment in flood-prone areas."
+      ],
+      "results": "Completed (2024–2025) · multi-channel alerting · tracks water level and rate of rise per area.",
+      "links": { "repo": "https://github.com/JohnFilhmar/FloodSystem" },
+      "domain": "iot",
+      "secondaryDomains": [],
+      "featured": false
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "_readme": "Identity, links, navigation, footer, command palette copy and the section registry. The `sections` array controls which sections render and in what order; flip `enabled` or reorder entries to reshape the page without touching code.",
+  "name": "John Filhmar Ola",
+  "prompt": {
+    "user": "john",
+    "host": "filhmar"
+  },
+  "role": "Lead IT · Full-Stack Engineer · DevSecOps & Infrastructure",
+  "tagline": "I build systems end to end — from first commit to production operation.",
+  "description": "John Filhmar Ola — Lead IT and full-stack engineer. I architect, build, secure and operate production systems: mobile, backend microservices, and on-premise infrastructure. This site is a live, config-driven demo with an AI assistant.",
+  "siteUrl": "https://filhmar.online",
+  "locale": "en_PH",
+  "contact": {
+    "email": "olajohnfilhmar@gmail.com"
+  },
+  "socials": [
+    {
+      "label": "github",
+      "href": "https://github.com/JohnFilhmar",
+      "icon": "github"
+    },
+    {
+      "label": "linkedin",
+      "href": "https://linkedin.com/in/john-filhmar-ola-631a15344",
+      "icon": "linkedin"
+    }
+  ],
+  "resume": {
+    "label": "résumé.pdf",
+    "href": "/resume.pdf"
+  },
+  "nav": [
+    {
+      "label": "./about",
+      "href": "#about"
+    },
+    {
+      "label": "./skills",
+      "href": "#skills"
+    },
+    {
+      "label": "./work",
+      "href": "#work"
+    },
+    {
+      "label": "./exp",
+      "href": "#experience"
+    },
+    {
+      "label": "./ai",
+      "href": "#assistant"
+    },
+    {
+      "label": "./contact",
+      "href": "#contact"
+    }
+  ],
+  "footer": {
+    "note": "Built by hand as a live demo of my work — no template, no framework boilerplate. Every word and color on this page comes from editable config files.",
+    "copyright": "© 2026 john filhmar ola · exit code 0"
+  },
+  "palette": {
+    "buttonLabel": "⌘K",
+    "buttonTitle": "Command palette (Cmd/Ctrl + K)",
+    "placeholder": "type a command…",
+    "emptyMessage": "no matching commands — try \"work\" or \"email\"",
+    "footerHint": "↑↓ navigate · ↵ run · esc close",
+    "escLabel": "esc",
+    "gotoPrefix": "goto: ",
+    "openPrefix": "open: ",
+    "actions": {
+      "askAssistant": {
+        "label": "run: ask the ai assistant",
+        "hint": "chat"
+      },
+      "copyEmail": {
+        "label": "run: copy email address",
+        "hint": "clipboard"
+      },
+      "replayBoot": {
+        "label": "run: replay boot sequence",
+        "hint": "hero"
+      }
+    },
+    "inputAriaLabel": "Type a command"
+  },
+  "sections": [
+    {
+      "type": "hero",
+      "enabled": true,
+      "id": "top"
+    },
+    {
+      "type": "about",
+      "enabled": true
+    },
+    {
+      "type": "skills",
+      "enabled": true
+    },
+    {
+      "type": "projects",
+      "enabled": true,
+      "id": "work"
+    },
+    {
+      "type": "experience",
+      "enabled": true
+    },
+    {
+      "type": "assistant",
+      "enabled": true
+    },
+    {
+      "type": "contact",
+      "enabled": true
+    }
+  ]
+}

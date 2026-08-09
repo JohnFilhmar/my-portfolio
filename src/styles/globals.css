@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * All values below reference CSS custom properties emitted at runtime from
+ * config/theme.json (see src/components/layout/ThemeTokens.tsx) — no raw
+ * colors or magic numbers here.
+ */
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-selection-contrast);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+@keyframes blink {
+  0%,
+  52% {
+    opacity: 1;
+  }
+  53%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Custom disclosure marker for project case studies. */
+summary.no-marker {
+  list-style: none;
+}
+summary.no-marker::-webkit-details-marker {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Accent halo behind the top-right of the page (driven by the accent token). */
+.bg-accent-glow {
+  background: radial-gradient(
+    900px 520px at 75% -10%,
+    var(--color-accent-soft),
+    transparent 70%
+  );
+}
+
+/* Full prefers-reduced-motion support: static fallbacks for everything. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+}

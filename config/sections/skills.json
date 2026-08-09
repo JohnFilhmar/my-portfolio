@@ -1,0 +1,150 @@
+{
+  "_readme": "Skills section. Skills with `level` >= `coreLevel` render with the core-strength marker and accent styling. `level` is 1–5; omit it for a plain tag.",
+  "label": "expertise",
+  "heading": "Across the stack. Deep where it counts.",
+  "legend": "▸ = core strength",
+  "coreMarker": "▸",
+  "coreLevel": 4,
+  "groups": [
+    {
+      "id": "languages",
+      "label": "languages",
+      "blurb": "Typed everywhere, from web to firmware.",
+      "skills": [
+        { "name": "TypeScript", "level": 5 },
+        { "name": "JavaScript", "level": 5 },
+        { "name": "Python", "level": 4 },
+        { "name": "Bash", "level": 4 },
+        { "name": "PHP", "level": 4 },
+        { "name": "C / C++", "level": 3 },
+        { "name": "C#", "level": 3 },
+        { "name": "Java", "level": 3 }
+      ]
+    },
+    {
+      "id": "frontend",
+      "label": "frontend & mobile",
+      "blurb": "Interfaces that feel instant.",
+      "skills": [
+        { "name": "React", "level": 5 },
+        { "name": "React Native (Expo)", "level": 5 },
+        { "name": "TailwindCSS", "level": 4 },
+        { "name": "HTML5", "level": 4 },
+        { "name": "CSS", "level": 4 },
+        { "name": "Responsive UI", "level": 4 }
+      ]
+    },
+    {
+      "id": "backend",
+      "label": "backend & apis",
+      "blurb": "Distributed services that stay up under load.",
+      "skills": [
+        { "name": "NestJS", "level": 5 },
+        { "name": "Node.js", "level": 5 },
+        { "name": "Microservices", "level": 4 },
+        { "name": "gRPC", "level": 4 },
+        { "name": "WebSockets", "level": 4 },
+        { "name": "RabbitMQ", "level": 4 },
+        { "name": "Express", "level": 4 },
+        { "name": "REST APIs", "level": 4 }
+      ]
+    },
+    {
+      "id": "data",
+      "label": "databases & storage",
+      "blurb": "Schema-first, cached where it matters.",
+      "skills": [
+        { "name": "PostgreSQL", "level": 4 },
+        { "name": "MongoDB", "level": 4 },
+        { "name": "MySQL", "level": 4 },
+        { "name": "Redis", "level": 4 },
+        { "name": "Schema design", "level": 4 },
+        { "name": "MinIO / S3-compatible", "level": 3 }
+      ]
+    },
+    {
+      "id": "DevSecOps",
+      "label": "DevSecOps & ci/cd",
+      "blurb": "Automated from commit to production.",
+      "skills": [
+        { "name": "Docker", "level": 5 },
+        { "name": "GitHub Actions", "level": 5 },
+        { "name": "Self-hosted runners", "level": 4 },
+        { "name": "Automated pipelines", "level": 4 },
+        { "name": "Docker Compose", "level": 4 },
+        { "name": "nginx", "level": 4 },
+        { "name": "Traefik", "level": 3 }
+      ]
+    },
+    {
+      "id": "infrastructure",
+      "label": "infrastructure",
+      "blurb": "On-premise servers, provisioned and hardened by hand.",
+      "skills": [
+        { "name": "Linux (Ubuntu/Debian)", "level": 5 },
+        { "name": "On-premise VPS", "level": 5 },
+        { "name": "SSH hardening", "level": 4 },
+        { "name": "systemd", "level": 4 },
+        { "name": "cron", "level": 4 },
+        { "name": "Networking", "level": 4 },
+        { "name": "WireGuard VPN", "level": 3 }
+      ]
+    },
+    {
+      "id": "security",
+      "label": "security engineering",
+      "blurb": "Shift-left, supply-chain aware.",
+      "skills": [
+        { "name": "Dependabot", "level": 4 },
+        { "name": "Semgrep", "level": 3 },
+        { "name": "CodeQL", "level": 3 },
+        { "name": "Snyk", "level": 3 },
+        { "name": "Trivy", "level": 3 },
+        { "name": "gitleaks", "level": 3 },
+        { "name": "OWASP ZAP", "level": 3 },
+        { "name": "cosign", "level": 3 },
+        { "name": "SBOM", "level": 3 },
+        { "name": "SLSA provenance", "level": 3 }
+      ]
+    },
+    {
+      "id": "monitoring",
+      "label": "monitoring & testing",
+      "blurb": "Observability and load testing before it breaks.",
+      "skills": [
+        { "name": "Prometheus", "level": 4 },
+        { "name": "Grafana", "level": 4 },
+        { "name": "k6", "level": 4 },
+        { "name": "Incident diagnosis", "level": 4 },
+        { "name": "Loki", "level": 3 },
+        { "name": "node-exporter", "level": 3 },
+        { "name": "cAdvisor", "level": 3 },
+        { "name": "fio", "level": 3 }
+      ]
+    },
+    {
+      "id": "iot",
+      "label": "embedded & iot",
+      "blurb": "Where software meets metal.",
+      "skills": [
+        { "name": "Arduino", "level": 4 },
+        { "name": "Embedded C/C++", "level": 4 },
+        { "name": "Sensor integration", "level": 4 },
+        { "name": "GSM / SMS", "level": 3 }
+      ]
+    },
+    {
+      "id": "practices",
+      "label": "practices & leadership",
+      "blurb": "Full-stack ownership, teams that ship.",
+      "skills": [
+        { "name": "Full-stack ownership", "level": 5 },
+        { "name": "Microservice design", "level": 4 },
+        { "name": "Cross-team collaboration", "level": 4 },
+        { "name": "Code review", "level": 4 },
+        { "name": "Technical documentation", "level": 4 },
+        { "name": "Agile delivery", "level": 4 }
+      ]
+    }
+  ]
+}

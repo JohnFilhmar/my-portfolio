@@ -1,0 +1,36 @@
+{
+  "_readme": "Hero section. The typed tagline comes from site.json (`tagline`); everything else about the hero lives here, including the boot-sequence terminal lines. Tones map to theme color tokens: default | bright | heading | prose | muted | subtle | faint | dim | ghost | accent.",
+  "promptLine": { "path": "~/john-filhmar-ola", "command": "./introduce --brief" },
+  "nameSuffix": ".",
+  "ctas": [
+    {
+      "label": "▸ ask my AI assistant",
+      "action": "assistant",
+      "variant": "solid"
+    },
+    { "label": "view work", "href": "#work", "variant": "outline" },
+    { "label": "get in touch →", "href": "#contact", "variant": "ghost" }
+  ],
+  "statusLine": [
+    {
+      "text": "role: Lead IT @ YouCode Technologies · systems shipped: 5+ · status: ",
+      "tone": "dim"
+    },
+    { "text": "open to conversations", "tone": "accent" }
+  ],
+  "boot": {
+    "windowTitle": "profile.sh — boot",
+    "skipHint": "click to skip",
+    "lines": [
+      { "text": "$ ./init --profile john.filhmar.ola", "tone": "bright" },
+      { "text": "▸ loading modules …", "tone": "dim" },
+      {
+        "text": "  full-stack ✓   microservices ✓   DevSecOps ✓   infra ✓   security ✓",
+        "tone": "accent"
+      },
+      { "text": "▸ role: Lead IT @ YouCode Technologies", "tone": "dim" },
+      { "text": "▸ owning systems end to end — first commit to production", "tone": "dim" },
+      { "text": "$ ready — scroll, or press ⌘K", "tone": "bright" }
+    ]
+  }
+}

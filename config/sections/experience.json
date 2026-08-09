@@ -1,0 +1,35 @@
+{
+  "_readme": "Experience section. `end: null` marks the current role (dates render in accent with `presentLabel`).",
+  "label": "experience",
+  "heading": "Building and operating production systems.",
+  "presentLabel": "now",
+  "items": [
+    {
+      "company": "YouCode Technologies",
+      "title": "Lead IT",
+      "start": "Jul 2025",
+      "end": null,
+      "bullets": [
+        "Promoted from Developer to Lead IT (2026) within the first year; own multiple production systems end to end — architecture, development, CI/CD, security automation, and on-premise infrastructure across the product suite.",
+        "Sole developer of Usapp, a secure real-time messaging platform — architected and built from scratch across the mobile app, distributed backend microservices, deployment pipeline and production server management.",
+        "Delivered production systems now in active commercial marketing: an LGU citizen-services application, a flexible-hierarchy HRIS serving government and private-sector clients, and a learning management system.",
+        "Own CI/CD across the product suite — automated build, test, security scanning, artifact signing and deployment pipelines, including self-hosted runner infrastructure.",
+        "Lead on-premise infrastructure operations: server provisioning, container orchestration, monitoring stack deployment, and production incident diagnosis — including automated diagnostic tooling for resource saturation and service health.",
+        "Designed cross-product notification architecture — all company systems dispatch push notifications through the messaging platform, consolidating delivery and reducing SMS dependency and cost.",
+        "Built hardware-to-server integration for a campus management system, enabling automated daily attendance capture and school security monitoring.",
+        "Established performance and capacity baselines through load testing and infrastructure benchmarking, producing formal technical findings used in vendor and stakeholder decisions."
+      ]
+    },
+    {
+      "company": "Ynnovision Enterprise Solutions",
+      "title": "Frontend / Web Developer Intern",
+      "start": "Feb 2025",
+      "end": "May 2025",
+      "bullets": [
+        "486-hour development internship building and improving web application features.",
+        "Delivered assigned development tasks to deadline with consistent code quality.",
+        "Contributed improvements to system stability, usability and overall performance."
+      ]
+    }
+  ]
+}
