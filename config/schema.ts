@@ -375,6 +375,10 @@ export const contactSchema = z.object({
     messageLabel: z.string(),
     messagePlaceholder: z.string(),
     submitLabel: z.string(),
+    /** Button label while a message is sending. */
+    sendingLabel: z.string().default("sending…"),
+    /** Shown on the button during the post-send cooldown. `{s}` = seconds left. */
+    cooldownLabel: z.string().default("wait {s}s"),
     /** `{{name}}` is replaced with the visitor's name. */
     subjectTemplate: z.string(),
     sentMessage: z.string(),

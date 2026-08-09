@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import type { ContactConfig, SiteConfig } from "@config/schema";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -15,6 +15,10 @@ export interface ContactProps {
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
 
+/** Client-side send throttle (seconds). The server enforces the real per-IP
+ * rate limit; this just stops accidental/rapid re-submits from one browser. */
+const COOLDOWN_SECONDS = 30;
+
 /** Contact: email CTA + socials on the left, send-message card on the right. */
 export function Contact({
   number,
@@ -26,6 +30,19 @@ export function Contact({
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
+  const [cooldown, setCooldown] = useState(0);
+
+  // Tick the post-send cooldown down to zero.
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const timer = setTimeout(() => setCooldown((c) => c - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [cooldown]);
+
+  // Clear a sent/error notice as soon as the visitor edits the form again.
+  const clearNotice = () => {
+    setStatus((s) => (s === "sent" || s === "error" ? "idle" : s));
+  };
 
   const composeMailto = () => {
     const subject = encodeURIComponent(
@@ -52,6 +69,7 @@ export function Contact({
       });
       if (!res.ok) throw new Error(`contact endpoint returned ${res.status}`);
       setStatus("sent");
+      setCooldown(COOLDOWN_SECONDS);
       setName("");
       setEmail("");
       setMessage("");
@@ -113,7 +131,10 @@ export function Contact({
             <input
               id="contact-name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                setName(e.target.value);
+                clearNotice();
+              }}
               placeholder={contact.form.namePlaceholder}
               className={`${inputClass} mb-3.5`}
             />
@@ -127,7 +148,10 @@ export function Contact({
               id="contact-email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                clearNotice();
+              }}
               placeholder={contact.form.emailPlaceholder}
               className={`${inputClass} mb-3.5`}
             />
@@ -140,7 +164,10 @@ export function Contact({
             <textarea
               id="contact-message"
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={(e) => {
+                setMessage(e.target.value);
+                clearNotice();
+              }}
               rows={4}
               placeholder={contact.form.messagePlaceholder}
               className={`${inputClass} mb-4 resize-y leading-relaxed`}
@@ -150,11 +177,27 @@ export function Contact({
                 variant="solid"
                 type="submit"
                 className="px-[18px] py-[11px] text-[13px]"
-                disabled={status === "sending"}
+                disabled={
+                  status === "sending" ||
+                  cooldown > 0 ||
+                  message.trim().length === 0
+                }
+                aria-busy={status === "sending"}
               >
-                {contact.form.submitLabel}
+                {status === "sending"
+                  ? contact.form.sendingLabel
+                  : cooldown > 0
+                    ? contact.form.cooldownLabel.replace("{s}", String(cooldown))
+                    : contact.form.submitLabel}
               </Button>
-              <span role="status" className="font-mono text-xs">
+              <span
+                role="status"
+                aria-live="polite"
+                className="font-mono text-xs"
+              >
+                {status === "sending" && (
+                  <span className="text-dim">{contact.form.sendingLabel}</span>
+                )}
                 {status === "sent" && (
                   <span className="text-success">
                     {contact.form.sentMessage}

@@ -29,7 +29,8 @@ export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
 const base =
   "inline-block cursor-pointer rounded-lg font-mono no-underline transition duration-fast " +
-  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent " +
+  "disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:brightness-100";
 
 const variantClass: Record<Variant, string> = {
   solid:

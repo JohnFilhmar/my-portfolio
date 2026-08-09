@@ -19,7 +19,7 @@ re-implements it as modular, token-driven components.
 
 ```bash
 pnpm install
-pnpm dev          # http://localhost:3000 — no env vars needed
+pnpm dev          # http://localhost:3001 — no env vars needed
 ```
 
 That's it. The assistant answers in **demo mode** (server-side intent matching over

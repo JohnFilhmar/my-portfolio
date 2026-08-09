@@ -9,10 +9,10 @@ services:
       - .env.local
     environment:
       NODE_ENV: production
-      PORT: "3000"
+      PORT: "3001"
       HOSTNAME: 0.0.0.0
     expose:
-      - "3000"          # internal only — nginx is the public entrypoint
+      - "3001"          # internal only — nginx is the public entrypoint
     restart: unless-stopped
     networks:
       - app
