@@ -179,6 +179,21 @@ export const paletteSchema = z.object({
 });
 export type PaletteConfig = z.infer<typeof paletteSchema>;
 
+/** Social / search metadata. All optional with sensible defaults. */
+export const seoSchema = z
+  .object({
+    /** Open Graph / Twitter card image. Root-relative or absolute URL. 1200×630. */
+    image: z.string().default("/og.png"),
+    /** Accessible description of the card image. Falls back to the page title. */
+    imageAlt: z.string().default(""),
+    /** e.g. "@yourhandle" — enables twitter:site / twitter:creator when set. */
+    twitterHandle: z.string().optional(),
+    /** Optional keyword hints (low SEO weight, but harmless). */
+    keywords: z.array(z.string()).default([]),
+  })
+  .default({});
+export type SeoMeta = z.infer<typeof seoSchema>;
+
 export const siteSchema = z.object({
   _readme: readme,
   name: z.string(),
@@ -190,6 +205,7 @@ export const siteSchema = z.object({
   siteUrl: z.string().url(),
   locale: z.string().default("en_US"),
   contact: z.object({ email: z.string().email() }),
+  seo: seoSchema,
   socials: z.array(socialSchema),
   resume: z.object({ label: z.string(), href: z.string() }),
   nav: z.array(navItemSchema),

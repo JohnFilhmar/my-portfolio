@@ -13,6 +13,26 @@
   "contact": {
     "email": "olajohnfilhmar@gmail.com"
   },
+  "seo": {
+    "image": "/og.png",
+    "imageAlt": "John Filhmar Ola — Lead IT, Full-Stack Engineer, DevSecOps & Infrastructure",
+    "keywords": [
+      "John Filhmar Ola",
+      "Lead IT",
+      "full-stack engineer",
+      "DevOps",
+      "DevSecOps",
+      "infrastructure engineer",
+      "Next.js",
+      "React",
+      "NestJS",
+      "microservices",
+      "Docker",
+      "CI/CD",
+      "Philippines",
+      "software engineer portfolio"
+    ]
+  },
   "socials": [
     {
       "label": "github",
