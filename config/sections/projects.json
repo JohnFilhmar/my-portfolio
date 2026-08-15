@@ -35,6 +35,82 @@
       "featured": true
     },
     {
+      "id": "youcode-hris",
+      "title": "YouCode HRIS",
+      "hook": "Per-client HR platform covering the full employee lifecycle — hiring to payroll to compliance.",
+      "problem": "Organisations, both government and private, needed one system to run their entire HR operation — delivered as an isolated per-client instance whose data never mixes with any other client's.",
+      "role": "Sole developer — built the product end to end at YouCode Technologies.",
+      "stack": ["HR Tech", "SaaS", "Multi-tenant", "Full-Stack", "Web", "Enterprise"],
+      "highlights": [
+        "Covers the full employee lifecycle: onboarding, time & attendance, leave, payroll, performance, recruitment, training, records and compliance.",
+        "Client-specific behaviour — branding, leave policies, single sign-on — is configured by admins in-app, so one product serves many organisations with no code changes.",
+        "Access is governed by a permission model tied to each organisation's own hierarchy: a person can only ever delegate a subset of the access they hold.",
+        "Shipped as a self-contained, isolated deployment per client — no shared multi-client data store."
+      ],
+      "results": "In production as a per-client system for government and private-sector organisations. Architecture, structure and stack withheld under NDA.",
+      "links": {},
+      "domain": "full-stack",
+      "secondaryDomains": ["backend"],
+      "featured": true
+    },
+    {
+      "id": "youcode-civic-superapp",
+      "title": "Civic Super App Platform",
+      "hook": "White-label super-app that lets a city run its own branded resident app — three cities live.",
+      "problem": "Every local government wanted its own citizen app and admin consoles, but building one per city doesn't scale. The design mandate: every per-city difference is data, never code.",
+      "role": "Sole developer — resident mobile app, the city and platform web consoles, and the backend, end to end.",
+      "stack": ["Civic Tech", "GovTech", "White-label", "Multi-tenant", "Mobile", "Web"],
+      "highlights": [
+        "One platform serves many cities — a new city is onboarded through configuration and content, not a code branch.",
+        "Resident app: government services, 311 issue reporting, emergency SOS, news, tourism, transport, evacuation centres and a digital ID — usable offline.",
+        "A city console for staff (content, maps, dispatch, alerts, submission queues) plus a separate platform console for operating the whole fleet of cities.",
+        "Live emergency dispatch on a real-time command map, and targeted alerts with per-recipient delivery tracking."
+      ],
+      "results": "Live for three cities — MyDasma (Dasmariñas), MySorsogon (Sorsogon City) and MyLegazpi (Legazpi) — with new cities added by configuration alone. Internal architecture and stack withheld under NDA.",
+      "links": {},
+      "domain": "full-stack",
+      "secondaryDomains": ["mobile"],
+      "featured": true
+    },
+    {
+      "id": "youcode-lms",
+      "title": "Offline-First Learning Platform",
+      "hook": "An LMS that keeps working with no signal — offline exams, lessons and verifiable credentials.",
+      "problem": "Large, distributed organisations needed to train and test thousands of learners on modest phones over unreliable networks — where a dropped connection must never lose a learner's work.",
+      "role": "Sole developer — built the platform end to end at YouCode Technologies.",
+      "stack": ["EdTech", "LMS", "Offline-first", "PWA", "Full-Stack", "Web"],
+      "highlights": [
+        "Computer-based testing runs entirely on the device and syncs answers back when a connection returns — nothing is lost to a dropped signal.",
+        "Offline course player for reading and studying lessons, including video, with no connection.",
+        "Verifiable micro-credentials anyone can check through a public verification portal.",
+        "Bulk onboarding of thousands of learners processed in the background, so large imports never stall or time out."
+      ],
+      "results": "Built for large, distributed organisations with thousands of concurrent learners on unreliable networks. Implementation details withheld under NDA.",
+      "links": {},
+      "domain": "full-stack",
+      "secondaryDomains": ["mobile"],
+      "featured": false
+    },
+    {
+      "id": "youcode-youguard-bridge",
+      "title": "YouGuard Edge Bridge",
+      "hook": "Self-hosted edge server linking on-site access-control and camera hardware to the cloud.",
+      "problem": "A facility's turnstiles and face-recognition cameras each spoke different protocols and needed a reliable, offline-tolerant link to the cloud platform — without opening any inbound firewall holes.",
+      "role": "Sole developer — designed and built the edge service and its web admin console end to end.",
+      "stack": ["IoT", "Edge", "Access Control", "Hardware Integration", "Backend", "Surveillance"],
+      "highlights": [
+        "One deployable service per site hosts every hardware family behind a common adapter, replacing separate single-purpose bridges.",
+        "Accepts scan events from turnstiles and face-recognition cameras, decides entry/exit direction, and forwards them to the cloud durably.",
+        "Keeps operating while the cloud is unreachable, then replays everything it buffered — nothing is lost.",
+        "All cloud traffic is outbound-initiated, so sites need no inbound firewall openings; ships its own admin console and live video wall."
+      ],
+      "results": "Deployed per site (schools, offices, campuses) as the bridge between on-premise security hardware and the cloud platform. Architecture, protocols and stack withheld under NDA.",
+      "links": {},
+      "domain": "iot",
+      "secondaryDomains": ["backend"],
+      "featured": false
+    },
+    {
       "id": "jms-e-talyer",
       "title": "JMS E-Talyer",
       "hook": "Multi-branch automotive service management, self-hosted and self-operated.",

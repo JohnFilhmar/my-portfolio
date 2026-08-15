@@ -39,7 +39,7 @@
       },
       {
         "title": "Projects",
-        "content": "Usapp — secure real-time messaging platform (distributed microservices + mobile) that serves as the notification backbone for the company's entire product suite; proprietary, so implementation details are withheld. JMS E-Talyer — multi-branch automotive service management, live on a self-provisioned VPS with a four-workflow CI/CD pipeline and layered security scanning. PeraPlano — privacy-first Android budgeting app that derives income and expense tracking from transaction push notifications; in development. Kalusugapp — digital health records and appointment scheduling for rural clinics. Flood Notification System — IoT early-warning with sirens, warning lights and GSM SMS, tracking both water level and rate of rise per area."
+        "content": "At YouCode Technologies (all sole-developed; internal architecture, structure and stack withheld under NDA): Usapp — a secure real-time messaging platform and the notification backbone for the company's product suite; a per-client HR platform (HRIS) covering the full employee lifecycle for government and private organisations; a white-label civic super-app live for three cities (MyDasma / Dasmariñas, MySorsogon / Sorsogon City, MyLegazpi / Legazpi); an offline-first learning platform (LMS) with on-device exams and verifiable micro-credentials; and the YouGuard edge bridge linking on-site access-control and camera hardware to the cloud. Independent work: JMS E-Talyer — multi-branch automotive service management, live on a self-managed VPS with a four-workflow CI/CD pipeline and layered security scanning. PeraPlano — privacy-first Android budgeting app that derives tracking from transaction push notifications; in development. Kalusugapp — digital health records for rural clinics. Flood Notification System — IoT early-warning with sirens, warning lights and GSM SMS."
       },
       {
         "title": "Stack",
@@ -65,6 +65,11 @@
       "intents": ["full-stack", "full stack", "frontend", "web app", "react", "web dev"],
       "question": "Tell me about your full-stack work",
       "answer": "John builds across the whole stack: React and React Native on the front, NestJS/Node microservices behind them, and PostgreSQL/MongoDB/MySQL/Redis for data. JMS E-Talyer is a good example — a multi-branch automotive service system he built, secured, deployed and now operates himself."
+    },
+    {
+      "intents": ["youcode", "what did you build", "products", "hris", "lms", "lgu", "civic", "super app", "superapp", "youguard"],
+      "question": "What have you built at YouCode?",
+      "answer": "At YouCode Technologies John is the sole developer behind several production systems (details withheld under NDA): Usapp, a secure real-time messaging platform; a per-client HR platform covering the full employee lifecycle; a white-label civic super-app now live for three cities (MyDasma, MySorsogon, MyLegazpi); an offline-first learning platform with on-device exams and verifiable credentials; and the YouGuard edge bridge linking on-site access-control and camera hardware to the cloud. He owns each end to end — mobile/web, backend, and deployment."
     },
     {
       "intents": ["microservice", "backend", "distributed", "real-time", "messaging", "usapp", "api", "grpc"],
