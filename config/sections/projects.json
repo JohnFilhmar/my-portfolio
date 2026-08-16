@@ -111,6 +111,25 @@
       "featured": false
     },
     {
+      "id": "youcode-youflow",
+      "title": "YouFlow",
+      "hook": "AI-native Kanban — automatic work estimation, daily management reports, and a native interface for AI agents.",
+      "problem": "Ordinary Kanban tools track where work sits but not who produced how much, force managers to assemble end-of-day updates by hand, and give AI assistants no safe, permissioned way to participate as real team members.",
+      "role": "Sole developer — built the platform end to end at YouCode Technologies.",
+      "stack": ["Project Management", "AI-native", "MCP", "PWA", "Full-Stack", "SaaS"],
+      "highlights": [
+        "AI-suggested story-point estimates and due dates on new cards, with human confirmation — only confirmed estimates count toward reporting, so the numbers stay trustworthy.",
+        "Automated end-of-day reports: a scheduled job compiles each workspace's finished work and delivers it to management over SMS or email at a set local time.",
+        "A native Model Context Protocol (MCP) interface lets AI assistants read and drive the board as an authenticated team member — with exactly that user's permissions.",
+        "External intake tokens let other systems post bug reports straight onto a board; a per-workspace role hierarchy governs who can do what."
+      ],
+      "results": "In use for AI-assisted team workflows — the team tracks YouFlow's own development inside YouFlow. Architecture, structure and stack withheld under NDA.",
+      "links": {},
+      "domain": "full-stack",
+      "secondaryDomains": ["backend"],
+      "featured": true
+    },
+    {
       "id": "jms-e-talyer",
       "title": "JMS E-Talyer",
       "hook": "Multi-branch automotive service management, self-hosted and self-operated.",
