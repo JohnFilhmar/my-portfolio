@@ -93,6 +93,26 @@
       ]
     }
   ],
+  "education": [
+    {
+      "institution": "Mindoro State University",
+      "studyType": "Bachelor of Science",
+      "area": "Information Technology (BSIT)",
+      "startDate": "2021",
+      "endDate": "2025",
+      "status": "graduated",
+      "note": "Graduated. Shifted from AB English (2019–2021) to BSIT."
+    },
+    {
+      "institution": "Mindoro State University",
+      "studyType": "Bachelor of Arts",
+      "area": "English (AB English)",
+      "startDate": "2019",
+      "endDate": "2021",
+      "status": "shifted",
+      "note": "Shifted to BS Information Technology in 2021."
+    }
+  ],
   "projects": [
     {
       "name": "Usapp",
