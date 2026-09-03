@@ -130,6 +130,7 @@ export const sectionTypeSchema = z.enum([
   "skills",
   "projects",
   "experience",
+  "education",
   "assistant",
   "contact",
 ]);
@@ -374,6 +375,28 @@ export const experienceSchema = z.object({
 });
 export type ExperienceConfig = z.infer<typeof experienceSchema>;
 
+/* -------------------------------- education -------------------------------- */
+
+export const educationItemSchema = z.object({
+  institution: z.string(),
+  degree: z.string(),
+  start: z.string(),
+  /** null / omitted = ongoing (rendered with `presentLabel` in accent). */
+  end: z.string().nullable().default(null),
+  /** Optional one-line note, e.g. a shift of program or an honour. */
+  note: z.string().optional(),
+});
+export type EducationItem = z.infer<typeof educationItemSchema>;
+
+export const educationSchema = z.object({
+  _readme: readme,
+  label: z.string(),
+  heading: z.string(),
+  presentLabel: z.string().default("now"),
+  items: z.array(educationItemSchema),
+});
+export type EducationConfig = z.infer<typeof educationSchema>;
+
 /* --------------------------------- contact --------------------------------- */
 
 export const contactSchema = z.object({
@@ -461,6 +484,7 @@ export interface AppConfig {
   skills: SkillsConfig;
   projects: ProjectsConfig;
   experience: ExperienceConfig;
+  education: EducationConfig;
   contact: ContactConfig;
   assistant: AssistantConfig;
 }

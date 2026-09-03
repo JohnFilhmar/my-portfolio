@@ -13,7 +13,11 @@
     "roleLabel": "my role",
     "decisionsLabel": "key decisions"
   },
-  "linkLabels": { "demo": "demo", "repo": "repo", "writeup": "write-up" },
+  "linkLabels": {
+    "demo": "demo",
+    "repo": "repo",
+    "writeup": "write-up"
+  },
   "items": [
     {
       "id": "usapp",
@@ -21,7 +25,13 @@
       "hook": "Secure real-time messaging platform — the notification backbone for an entire product suite.",
       "problem": "The company's product suite needed one secure, real-time channel for messaging and push notifications instead of fragmented per-app integrations and an SMS dependency.",
       "role": "Sole developer & architect — mobile client, distributed backend microservices, deployment pipeline, and production server operations, all built and run single-handedly.",
-      "stack": ["Microservices", "Real-Time", "Mobile", "Messaging", "Infrastructure"],
+      "stack": [
+        "Microservices",
+        "Real-Time",
+        "Mobile",
+        "Messaging",
+        "Infrastructure"
+      ],
       "highlights": [
         "Distributed microservice backend with real-time messaging.",
         "Mobile application with push notification delivery.",
@@ -29,9 +39,14 @@
         "Production infrastructure and monitoring owned end to end."
       ],
       "results": "Live · the notification backbone for the company's entire product suite · positioned as a super-app foundation.",
-      "links": { "demo": "https://usapp.ph" },
+      "links": {
+        "demo": "https://usapp.ph"
+      },
       "domain": "backend",
-      "secondaryDomains": ["mobile", "DevSecOps"],
+      "secondaryDomains": [
+        "mobile",
+        "DevSecOps"
+      ],
       "featured": true
     },
     {
@@ -40,7 +55,14 @@
       "hook": "Per-client HR platform covering the full employee lifecycle — hiring to payroll to compliance.",
       "problem": "Organisations, both government and private, needed one system to run their entire HR operation — delivered as an isolated per-client instance whose data never mixes with any other client's.",
       "role": "Sole developer — built the product end to end at YouCode Technologies.",
-      "stack": ["HR Tech", "SaaS", "Multi-tenant", "Full-Stack", "Web", "Enterprise"],
+      "stack": [
+        "HR Tech",
+        "SaaS",
+        "Multi-tenant",
+        "Full-Stack",
+        "Web",
+        "Enterprise"
+      ],
       "highlights": [
         "Covers the full employee lifecycle: onboarding, time & attendance, leave, payroll, performance, recruitment, training, records and compliance.",
         "Client-specific behaviour — branding, leave policies, single sign-on — is configured by admins in-app, so one product serves many organisations with no code changes.",
@@ -50,7 +72,9 @@
       "results": "In production as a per-client system for government and private-sector organisations. Architecture, structure and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": ["backend"],
+      "secondaryDomains": [
+        "backend"
+      ],
       "featured": true
     },
     {
@@ -59,7 +83,14 @@
       "hook": "White-label super-app that lets a city run its own branded resident app — three cities live.",
       "problem": "Every local government wanted its own citizen app and admin consoles, but building one per city doesn't scale. The design mandate: every per-city difference is data, never code.",
       "role": "Sole developer — resident mobile app, the city and platform web consoles, and the backend, end to end.",
-      "stack": ["Civic Tech", "GovTech", "White-label", "Multi-tenant", "Mobile", "Web"],
+      "stack": [
+        "Civic Tech",
+        "GovTech",
+        "White-label",
+        "Multi-tenant",
+        "Mobile",
+        "Web"
+      ],
       "highlights": [
         "One platform serves many cities — a new city is onboarded through configuration and content, not a code branch.",
         "Resident app: government services, 311 issue reporting, emergency SOS, news, tourism, transport, evacuation centres and a digital ID — usable offline.",
@@ -69,7 +100,9 @@
       "results": "Live for three cities — MyDasma (Dasmariñas), MySorsogon (Sorsogon City) and MyLegazpi (Legazpi) — with new cities added by configuration alone. Internal architecture and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": ["mobile"],
+      "secondaryDomains": [
+        "mobile"
+      ],
       "featured": true
     },
     {
@@ -78,7 +111,14 @@
       "hook": "An LMS that keeps working with no signal — offline exams, lessons and verifiable credentials.",
       "problem": "Large, distributed organisations needed to train and test thousands of learners on modest phones over unreliable networks — where a dropped connection must never lose a learner's work.",
       "role": "Sole developer — built the platform end to end at YouCode Technologies.",
-      "stack": ["EdTech", "LMS", "Offline-first", "PWA", "Full-Stack", "Web"],
+      "stack": [
+        "EdTech",
+        "LMS",
+        "Offline-first",
+        "PWA",
+        "Full-Stack",
+        "Web"
+      ],
       "highlights": [
         "Computer-based testing runs entirely on the device and syncs answers back when a connection returns — nothing is lost to a dropped signal.",
         "Offline course player for reading and studying lessons, including video, with no connection.",
@@ -88,7 +128,9 @@
       "results": "Built for large, distributed organisations with thousands of concurrent learners on unreliable networks. Implementation details withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": ["mobile"],
+      "secondaryDomains": [
+        "mobile"
+      ],
       "featured": false
     },
     {
@@ -97,7 +139,14 @@
       "hook": "Self-hosted edge server linking on-site access-control and camera hardware to the cloud.",
       "problem": "A facility's turnstiles and face-recognition cameras each spoke different protocols and needed a reliable, offline-tolerant link to the cloud platform — without opening any inbound firewall holes.",
       "role": "Sole developer — designed and built the edge service and its web admin console end to end.",
-      "stack": ["IoT", "Edge", "Access Control", "Hardware Integration", "Backend", "Surveillance"],
+      "stack": [
+        "IoT",
+        "Edge",
+        "Access Control",
+        "Hardware Integration",
+        "Backend",
+        "Surveillance"
+      ],
       "highlights": [
         "One deployable service per site hosts every hardware family behind a common adapter, replacing separate single-purpose bridges.",
         "Accepts scan events from turnstiles and face-recognition cameras, decides entry/exit direction, and forwards them to the cloud durably.",
@@ -107,7 +156,9 @@
       "results": "Deployed per site (schools, offices, campuses) as the bridge between on-premise security hardware and the cloud platform. Architecture, protocols and stack withheld under NDA.",
       "links": {},
       "domain": "iot",
-      "secondaryDomains": ["backend"],
+      "secondaryDomains": [
+        "backend"
+      ],
       "featured": false
     },
     {
@@ -116,7 +167,14 @@
       "hook": "AI-native Kanban — automatic work estimation, daily management reports, and a native interface for AI agents.",
       "problem": "Ordinary Kanban tools track where work sits but not who produced how much, force managers to assemble end-of-day updates by hand, and give AI assistants no safe, permissioned way to participate as real team members.",
       "role": "Sole developer — built the platform end to end at YouCode Technologies.",
-      "stack": ["Project Management", "AI-native", "MCP", "PWA", "Full-Stack", "SaaS"],
+      "stack": [
+        "Project Management",
+        "AI-native",
+        "MCP",
+        "PWA",
+        "Full-Stack",
+        "SaaS"
+      ],
       "highlights": [
         "AI-suggested story-point estimates and due dates on new cards, with human confirmation — only confirmed estimates count toward reporting, so the numbers stay trustworthy.",
         "Automated end-of-day reports: a scheduled job compiles each workspace's finished work and delivers it to management over SMS or email at a set local time.",
@@ -126,7 +184,9 @@
       "results": "In use for AI-assisted team workflows — the team tracks YouFlow's own development inside YouFlow. Architecture, structure and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": ["backend"],
+      "secondaryDomains": [
+        "backend"
+      ],
       "featured": true
     },
     {
@@ -135,7 +195,17 @@
       "hook": "Multi-branch automotive service management, self-hosted and self-operated.",
       "problem": "Multi-branch automotive service operations needed real-time monitoring and reliable daily transaction reporting — on infrastructure owned and operated end to end, not rented as a black box.",
       "role": "Sole developer, owner & maintainer — application, DevSecOps pipeline, and a self-provisioned VPS I secure, manage and operate myself.",
-      "stack": ["Full-Stack", "DevSecOps", "CI/CD", "Docker", "Node.js", "React", "MongoDB", "MySQL", "VPS Operations"],
+      "stack": [
+        "Full-Stack",
+        "DevSecOps",
+        "CI/CD",
+        "Docker",
+        "Node.js",
+        "React",
+        "MongoDB",
+        "MySQL",
+        "VPS Operations"
+      ],
       "highlights": [
         "Self-provisioned and self-managed VPS — provisioning, deployment, monitoring and maintenance owned end to end.",
         "Multi-branch operations with real-time monitoring and daily transaction reports.",
@@ -146,9 +216,14 @@
         "Manual-gated deployments with branch and environment guards; secrets injected at runtime with no credentials written to disk."
       ],
       "results": "Live in production on a self-managed VPS · four-workflow CI/CD · layered security scanning · ongoing feature development.",
-      "links": { "demo": "https://jms-e-talyer.shop" },
+      "links": {
+        "demo": "https://jms-e-talyer.shop"
+      },
       "domain": "full-stack",
-      "secondaryDomains": ["DevSecOps", "security"],
+      "secondaryDomains": [
+        "DevSecOps",
+        "security"
+      ],
       "featured": true
     },
     {
@@ -157,7 +232,14 @@
       "hook": "Privacy-first Android budgeting that tracks spending from your transaction notifications.",
       "problem": "Manual expense logging is high-friction and most budgeting apps expose sensitive financial data. Users needed private tracking that updates itself.",
       "role": "Sole developer — Android app, encryption model, and notification-derived transaction tracking.",
-      "stack": ["Mobile", "Android", "React Native", "Fintech", "Encryption", "Privacy"],
+      "stack": [
+        "Mobile",
+        "Android",
+        "React Native",
+        "Fintech",
+        "Encryption",
+        "Privacy"
+      ],
       "highlights": [
         "Encrypted user financial data — privacy-by-design for sensitive personal records.",
         "Derives income and expense tracking from transaction push notifications, minimising manual input.",
@@ -165,9 +247,13 @@
         "Roadmap includes optional premium features via in-app purchases."
       ],
       "results": "In development · free-to-use · privacy-by-design · tracking derived from transaction push notifications.",
-      "links": {},
+      "links": {
+        "demo": "https://peraplano.filhmar.online"
+      },
       "domain": "mobile",
-      "secondaryDomains": ["security"],
+      "secondaryDomains": [
+        "security"
+      ],
       "featured": true
     },
     {
@@ -176,14 +262,23 @@
       "hook": "Digital health records and scheduling for rural clinics.",
       "problem": "Rural clinics relied on paper records and manual scheduling, limiting record accessibility and efficiency for underserved communities.",
       "role": "Developer — patient records and appointment management built for low-resource clinic environments.",
-      "stack": ["Healthcare", "Full-Stack", "React", "Node.js", "MySQL", "Social Impact"],
+      "stack": [
+        "Healthcare",
+        "Full-Stack",
+        "React",
+        "Node.js",
+        "MySQL",
+        "Social Impact"
+      ],
       "highlights": [
         "Digital patient records replacing paper-based systems.",
         "Appointment scheduling and management.",
         "Built for low-resource clinic environments."
       ],
       "results": "Live (2024–2025) · digital records replacing paper · improved accessibility and scheduling for underserved communities.",
-      "links": { "demo": "https://kalusugapp.com" },
+      "links": {
+        "demo": "https://kalusugapp.com"
+      },
       "domain": "full-stack",
       "secondaryDomains": [],
       "featured": false
@@ -213,14 +308,24 @@
       "hook": "IoT flood early-warning with sirens, warning lights, and SMS alerts.",
       "problem": "Flood-prone communities needed early warning that conveys not just that water crossed a threshold, but how fast it is rising — so residents can judge how quickly conditions are worsening.",
       "role": "Sole developer — sensors, embedded firmware, and multi-channel alerting.",
-      "stack": ["IoT", "Arduino", "C++", "GSM", "Embedded", "Disaster Response", "Social Impact"],
+      "stack": [
+        "IoT",
+        "Arduino",
+        "C++",
+        "GSM",
+        "Embedded",
+        "Disaster Response",
+        "Social Impact"
+      ],
       "highlights": [
         "Multi-channel alerting: audible sirens, warning lights, and GSM SMS dispatch.",
         "Tracks both water level and rate of rise per monitored area.",
         "Designed for community-level deployment in flood-prone areas."
       ],
       "results": "Completed (2024–2025) · multi-channel alerting · tracks water level and rate of rise per area.",
-      "links": { "repo": "https://github.com/JohnFilhmar/FloodSystem" },
+      "links": {
+        "repo": "https://github.com/JohnFilhmar/FloodSystem"
+      },
       "domain": "iot",
       "secondaryDomains": [],
       "featured": false

@@ -1,0 +1,15 @@
+{
+  "_readme": "Education section. `end: null` marks an ongoing program (dates render in accent with `presentLabel`). Same timeline shape as experience.",
+  "label": "education",
+  "heading": "Where the fundamentals came from.",
+  "presentLabel": "now",
+  "items": [
+    {
+      "institution": "Mindoro State University",
+      "degree": "BS Information Technology (BSIT)",
+      "start": "2021",
+      "end": "2025",
+      "note": "Graduated. Shifted from AB English (2019 – 2021) to BSIT."
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import {
   aboutSchema,
   assistantSchema,
   contactSchema,
+  educationSchema,
   experienceSchema,
   heroSchema,
   projectsSchema,
@@ -78,6 +79,7 @@ export function loadConfig(): AppConfig {
     skills: loadFile("sections/skills.json", skillsSchema),
     projects: loadFile("sections/projects.json", projectsSchema),
     experience: loadFile("sections/experience.json", experienceSchema),
+    education: loadFile("sections/education.json", educationSchema),
     contact: loadFile("sections/contact.json", contactSchema),
     assistant: loadFile("assistant.json", assistantSchema),
   };

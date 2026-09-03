@@ -23,6 +23,7 @@ export function resolveSections(config: AppConfig): ResolvedSection[] {
     skills: config.skills.label,
     projects: config.projects.label,
     experience: config.experience.label,
+    education: config.education.label,
     assistant: config.assistant.label,
     contact: config.contact.label,
   };

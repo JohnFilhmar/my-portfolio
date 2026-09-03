@@ -67,6 +67,10 @@
       "href": "#experience"
     },
     {
+      "label": "./edu",
+      "href": "#education"
+    },
+    {
       "label": "./ai",
       "href": "#assistant"
     },
@@ -125,6 +129,10 @@
     },
     {
       "type": "experience",
+      "enabled": true
+    },
+    {
+      "type": "education",
       "enabled": true
     },
     {
