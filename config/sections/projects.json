@@ -189,6 +189,25 @@
       "featured": false
     },
     {
+      "id": "genesys",
+      "title": "GeneSys",
+      "hook": "Game-based learning platform for General Biology — teachers host quiz rooms, students join with a code.",
+      "problem": "Lecture-driven biology instruction leaves Filipino senior-high STEM students disengaged and struggling to retain complex topics like genetics, evolution and homeostasis.",
+      "role": "Sole developer — full-stack platform (teacher dashboard, student quiz engine, backend and deployment), built for a Grade-12 research study.",
+      "stack": ["Next.js", "React", "TypeScript", "TailwindCSS", "Node.js", "Express", "MongoDB", "Redis", "Docker"],
+      "highlights": [
+        "Room-based model: teachers build quizzes and host private rooms; students join with a 6-character code, no account required.",
+        "Flexible assessment builder with six question types, a reusable question bank, and auto-expiring rooms.",
+        "Resilient student quiz engine — answers auto-save to the device with an offline retry queue (exponential backoff), so a dropped connection never loses work.",
+        "Real-time room monitoring plus analytics exportable to Excel and PDF: class distribution, per-question analysis, and individual reports."
+      ],
+      "results": "Live at genesys.filhmar.online · deployed for a quasi-experimental Grade-12 STEM study (Puerto Galera NHS, AY 2025–2026).",
+      "links": { "demo": "https://genesys.filhmar.online" },
+      "domain": "full-stack",
+      "secondaryDomains": [],
+      "featured": false
+    },
+    {
       "id": "flood-notification-system",
       "title": "Flood Notification System",
       "hook": "IoT flood early-warning with sirens, warning lights, and SMS alerts.",
