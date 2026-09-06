@@ -107,10 +107,20 @@ function withResolvedImage<T extends { image?: string }>(item: T): T {
   return { ...item, image: undefined };
 }
 
+/** Drop the photos of a timeline entry that have no file behind them. */
+function withResolvedPhotos<T extends { photos: Array<{ src: string }> }>(
+  item: T,
+): T {
+  const photos = item.photos.filter((photo) => publicAssetExists(photo.src));
+  return photos.length === item.photos.length ? item : { ...item, photos };
+}
+
 /** Load and validate the complete site configuration. */
 export function loadConfig(): AppConfig {
   const projects = loadFile("sections/projects.json", projectsSchema);
   const proof = loadFile("sections/proof.json", proofSchema);
+  const experience = loadFile("sections/experience.json", experienceSchema);
+  const education = loadFile("sections/education.json", educationSchema);
   const certifications = loadFile(
     "sections/certifications.json",
     certificationsSchema,
@@ -129,8 +139,11 @@ export function loadConfig(): AppConfig {
       ...proof,
       items: proof.items.filter((item) => publicAssetExists(item.src)),
     },
-    experience: loadFile("sections/experience.json", experienceSchema),
-    education: loadFile("sections/education.json", educationSchema),
+    experience: {
+      ...experience,
+      items: experience.items.map(withResolvedPhotos),
+    },
+    education: { ...education, items: education.items.map(withResolvedPhotos) },
     certifications: {
       ...certifications,
       items: certifications.items.map(withResolvedImage),

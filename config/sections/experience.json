@@ -1,8 +1,9 @@
 {
-  "_readme": "Experience section. `end: null` marks the current role (dates render in accent with `presentLabel`).",
+  "_readme": "Experience section. `end: null` marks the current role (dates render in accent with `presentLabel`). Each role can carry a `photos` array rendered as a small strip under its bullets: {src, alt, caption, aspect}. `src` is a path under ./public, and the loader drops any photo whose file is missing, so the placeholders below stay invisible until you add the file at that exact path. Use aspect \"4/3\" for normal photos, \"16/9\" for wide shots and \"9/16\" for phone photos.",
   "label": "experience",
   "heading": "Building and operating production systems.",
   "presentLabel": "now",
+  "photosLabelTemplate": "Photos from {name}",
   "items": [
     {
       "company": "YouCode Technologies",
@@ -18,6 +19,32 @@
         "Designed cross-product notification architecture — all company systems dispatch push notifications through the messaging platform, consolidating delivery and reducing SMS dependency and cost.",
         "Built hardware-to-server integration for a campus management system, enabling automated daily attendance capture and school security monitoring.",
         "Established performance and capacity baselines through load testing and infrastructure benchmarking, producing formal technical findings used in vendor and stakeholder decisions."
+      ],
+      "photos": [
+        {
+          "src": "/experience/youcode-team.jpg",
+          "alt": "The YouCode Technologies team",
+          "caption": "The team at YouCode Technologies",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/experience/youcode-desk.jpg",
+          "alt": "My working setup at YouCode Technologies",
+          "caption": "Where the systems get built",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/experience/youcode-server-room.jpg",
+          "alt": "The on-premise server room I operate at YouCode Technologies",
+          "caption": "On-premise infrastructure I provision and operate",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/experience/youcode-lead-promotion.jpg",
+          "alt": "Being announced as Lead IT at YouCode Technologies",
+          "caption": "Promoted to Lead IT within the first year",
+          "aspect": "4/3"
+        }
       ]
     },
     {
@@ -29,6 +56,20 @@
         "486-hour development internship building and improving web application features.",
         "Delivered assigned development tasks to deadline with consistent code quality.",
         "Contributed improvements to system stability, usability and overall performance."
+      ],
+      "photos": [
+        {
+          "src": "/experience/ynnovision-team.jpg",
+          "alt": "The Ynnovision Enterprise Solutions team during my internship",
+          "caption": "Internship team at Ynnovision Enterprise Solutions",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/experience/ynnovision-certificate.jpg",
+          "alt": "Certificate of completion for the 486-hour internship at Ynnovision Enterprise Solutions",
+          "caption": "Certificate of completion · 486 hours",
+          "aspect": "4/3"
+        }
       ]
     }
   ]

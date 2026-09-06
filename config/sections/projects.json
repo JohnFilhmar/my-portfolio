@@ -1,5 +1,5 @@
 {
-  "_readme": "Projects section. `domain` is the primary filter category; `secondaryDomains` add extra badges and filter matches. `highlights` render as the 'key decisions' list in the expandable case study. Links: set `demo` / `repo` / `writeup` URLs or delete the keys you don't need.",
+  "_readme": "Projects section. `domain` is the primary filter category; `secondaryDomains` add extra badges and filter matches. `highlights` render as the 'key decisions' list in the expandable case study. Links: set `demo` / `repo` / `writeup` URLs or delete the keys you don't need. Each item also carries an optional `image` / `imageAlt` shown at the top of its card. The paths below point at ./public/projects/<id>.png and are dropped by the loader until that file exists, so a card simply stays text-only until you add a screenshot. Prefer a shot of the product actually doing its job over a landing page.",
   "label": "featured work",
   "heading": "Work that shipped.",
   "showFilters": true,
@@ -43,11 +43,10 @@
         "demo": "https://usapp.ph"
       },
       "domain": "backend",
-      "secondaryDomains": [
-        "mobile",
-        "DevSecOps"
-      ],
-      "featured": true
+      "secondaryDomains": ["mobile", "DevSecOps"],
+      "featured": true,
+      "image": "/projects/usapp.png",
+      "imageAlt": "Usapp interface"
     },
     {
       "id": "youcode-hris",
@@ -72,10 +71,10 @@
       "results": "In production as a per-client system for government and private-sector organisations. Architecture, structure and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": [
-        "backend"
-      ],
-      "featured": true
+      "secondaryDomains": ["backend"],
+      "featured": true,
+      "image": "/projects/youcode-hris.png",
+      "imageAlt": "YouCode HRIS interface"
     },
     {
       "id": "youcode-civic-superapp",
@@ -100,10 +99,10 @@
       "results": "Live for three cities — MyDasma (Dasmariñas), MySorsogon (Sorsogon City) and MyLegazpi (Legazpi) — with new cities added by configuration alone. Internal architecture and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": [
-        "mobile"
-      ],
-      "featured": true
+      "secondaryDomains": ["mobile"],
+      "featured": true,
+      "image": "/projects/youcode-civic-superapp.png",
+      "imageAlt": "Civic Super App Platform interface"
     },
     {
       "id": "youcode-lms",
@@ -111,14 +110,7 @@
       "hook": "An LMS that keeps working with no signal — offline exams, lessons and verifiable credentials.",
       "problem": "Large, distributed organisations needed to train and test thousands of learners on modest phones over unreliable networks — where a dropped connection must never lose a learner's work.",
       "role": "Sole developer — built the platform end to end at YouCode Technologies.",
-      "stack": [
-        "EdTech",
-        "LMS",
-        "Offline-first",
-        "PWA",
-        "Full-Stack",
-        "Web"
-      ],
+      "stack": ["EdTech", "LMS", "Offline-first", "PWA", "Full-Stack", "Web"],
       "highlights": [
         "Computer-based testing runs entirely on the device and syncs answers back when a connection returns — nothing is lost to a dropped signal.",
         "Offline course player for reading and studying lessons, including video, with no connection.",
@@ -128,10 +120,10 @@
       "results": "Built for large, distributed organisations with thousands of concurrent learners on unreliable networks. Implementation details withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": [
-        "mobile"
-      ],
-      "featured": false
+      "secondaryDomains": ["mobile"],
+      "featured": false,
+      "image": "/projects/youcode-lms.png",
+      "imageAlt": "Offline-First Learning Platform interface"
     },
     {
       "id": "youcode-youguard-bridge",
@@ -156,10 +148,10 @@
       "results": "Deployed per site (schools, offices, campuses) as the bridge between on-premise security hardware and the cloud platform. Architecture, protocols and stack withheld under NDA.",
       "links": {},
       "domain": "iot",
-      "secondaryDomains": [
-        "backend"
-      ],
-      "featured": false
+      "secondaryDomains": ["backend"],
+      "featured": false,
+      "image": "/projects/youcode-youguard-bridge.png",
+      "imageAlt": "YouGuard Edge Bridge interface"
     },
     {
       "id": "youcode-youflow",
@@ -184,10 +176,10 @@
       "results": "In use for AI-assisted team workflows — the team tracks YouFlow's own development inside YouFlow. Architecture, structure and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": [
-        "backend"
-      ],
-      "featured": true
+      "secondaryDomains": ["backend"],
+      "featured": true,
+      "image": "/projects/youcode-youflow.png",
+      "imageAlt": "YouFlow interface"
     },
     {
       "id": "jms-e-talyer",
@@ -220,11 +212,10 @@
         "demo": "https://jms-e-talyer.shop"
       },
       "domain": "full-stack",
-      "secondaryDomains": [
-        "DevSecOps",
-        "security"
-      ],
-      "featured": true
+      "secondaryDomains": ["DevSecOps", "security"],
+      "featured": true,
+      "image": "/projects/jms-e-talyer.png",
+      "imageAlt": "JMS E-Talyer interface"
     },
     {
       "id": "peraplano",
@@ -251,10 +242,10 @@
         "demo": "https://peraplano.filhmar.online"
       },
       "domain": "mobile",
-      "secondaryDomains": [
-        "security"
-      ],
-      "featured": true
+      "secondaryDomains": ["security"],
+      "featured": true,
+      "image": "/projects/peraplano.png",
+      "imageAlt": "PeraPlano interface"
     },
     {
       "id": "kalusugapp",
@@ -281,7 +272,9 @@
       },
       "domain": "full-stack",
       "secondaryDomains": [],
-      "featured": false
+      "featured": false,
+      "image": "/projects/kalusugapp.png",
+      "imageAlt": "Kalusugapp interface"
     },
     {
       "id": "genesys",
@@ -289,7 +282,17 @@
       "hook": "Game-based learning platform for General Biology — teachers host quiz rooms, students join with a code.",
       "problem": "Lecture-driven biology instruction leaves Filipino senior-high STEM students disengaged and struggling to retain complex topics like genetics, evolution and homeostasis.",
       "role": "Sole developer — full-stack platform (teacher dashboard, student quiz engine, backend and deployment), built for a Grade-12 research study.",
-      "stack": ["Next.js", "React", "TypeScript", "TailwindCSS", "Node.js", "Express", "MongoDB", "Redis", "Docker"],
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "TailwindCSS",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "Redis",
+        "Docker"
+      ],
       "highlights": [
         "Room-based model: teachers build quizzes and host private rooms; students join with a 6-character code, no account required.",
         "Flexible assessment builder with six question types, a reusable question bank, and auto-expiring rooms.",
@@ -297,10 +300,14 @@
         "Real-time room monitoring plus analytics exportable to Excel and PDF: class distribution, per-question analysis, and individual reports."
       ],
       "results": "Live at genesys.filhmar.online · deployed for a quasi-experimental Grade-12 STEM study (Puerto Galera NHS, AY 2025–2026).",
-      "links": { "demo": "https://genesys.filhmar.online" },
+      "links": {
+        "demo": "https://genesys.filhmar.online"
+      },
       "domain": "full-stack",
       "secondaryDomains": [],
-      "featured": false
+      "featured": false,
+      "image": "/projects/genesys.png",
+      "imageAlt": "GeneSys interface"
     },
     {
       "id": "flood-notification-system",
@@ -328,7 +335,9 @@
       },
       "domain": "iot",
       "secondaryDomains": [],
-      "featured": false
+      "featured": false,
+      "image": "/projects/flood-notification-system.png",
+      "imageAlt": "Flood Notification System interface"
     }
   ]
 }

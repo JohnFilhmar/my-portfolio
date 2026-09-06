@@ -91,6 +91,14 @@
     "note": "Built by hand as a live demo of my work — no template, no framework boilerplate. Every word and color on this page comes from editable config files.",
     "copyright": "© 2026 john filhmar ola · exit code 0"
   },
+  "lightbox": {
+    "closeLabel": "close",
+    "prevLabel": "previous",
+    "nextLabel": "next",
+    "counterTemplate": "{i}/{n}",
+    "hint": "← → navigate · esc close",
+    "visitLabel": "open live"
+  },
   "palette": {
     "buttonLabel": "⌘K",
     "buttonTitle": "Command palette (Cmd/Ctrl + K)",

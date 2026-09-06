@@ -1,14 +1,15 @@
-import type { ExperienceConfig } from "@config/schema";
+import type { ExperienceConfig, LightboxConfig } from "@config/schema";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { TimelineItem } from "@/components/sections/TimelineItem";
 
 export interface ExperienceProps {
   number: string;
   experience: ExperienceConfig;
+  lightbox: LightboxConfig;
 }
 
 /** Experience: vertical timeline of roles. */
-export function Experience({ number, experience }: ExperienceProps) {
+export function Experience({ number, experience, lightbox }: ExperienceProps) {
   return (
     <>
       <SectionLabel number={number} label={experience.label} />
@@ -21,6 +22,11 @@ export function Experience({ number, experience }: ExperienceProps) {
             key={`${item.company}-${item.start}`}
             item={item}
             presentLabel={experience.presentLabel}
+            photosLabel={experience.photosLabelTemplate.replace(
+              "{name}",
+              item.company,
+            )}
+            lightbox={lightbox}
           />
         ))}
       </div>

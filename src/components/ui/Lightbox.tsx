@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from "react";
+import type { LightboxConfig } from "@config/schema";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { cn, isExternalHref } from "@/lib/utils";
 
@@ -13,23 +14,13 @@ export interface LightboxItem {
   aspect: string;
 }
 
-export interface LightboxLabels {
-  closeLabel: string;
-  prevLabel: string;
-  nextLabel: string;
-  /** `{i}` = 1-based position, `{n}` = total. */
-  counterTemplate: string;
-  hint: string;
-  visitLabel: string;
-}
-
 export interface LightboxProps {
   items: LightboxItem[];
   /** null closes the dialog. */
   index: number | null;
   onIndexChange: (index: number) => void;
   onClose: () => void;
-  labels: LightboxLabels;
+  labels: LightboxConfig;
 }
 
 /**

@@ -92,7 +92,11 @@ export function SectionRenderer({
                 ariaLabel={config.proof.label}
                 reducedMotion={reducedMotion}
               >
-                <Proof number={number} proof={config.proof} />
+                <Proof
+                  number={number}
+                  proof={config.proof}
+                  lightbox={config.site.lightbox}
+                />
               </Section>
             );
           case "experience":
@@ -103,7 +107,11 @@ export function SectionRenderer({
                 ariaLabel={config.experience.label}
                 reducedMotion={reducedMotion}
               >
-                <Experience number={number} experience={config.experience} />
+                <Experience
+                  number={number}
+                  experience={config.experience}
+                  lightbox={config.site.lightbox}
+                />
               </Section>
             );
           case "education":
@@ -114,7 +122,11 @@ export function SectionRenderer({
                 ariaLabel={config.education.label}
                 reducedMotion={reducedMotion}
               >
-                <Education number={number} education={config.education} />
+                <Education
+                  number={number}
+                  education={config.education}
+                  lightbox={config.site.lightbox}
+                />
               </Section>
             );
           case "certifications":

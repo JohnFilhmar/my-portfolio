@@ -1,14 +1,16 @@
-import type { EducationConfig } from "@config/schema";
+import type { EducationConfig, LightboxConfig } from "@config/schema";
+import { PhotoStrip } from "@/components/ui/PhotoStrip";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { cn } from "@/lib/utils";
 
 export interface EducationProps {
   number: string;
   education: EducationConfig;
+  lightbox: LightboxConfig;
 }
 
 /** Education: vertical timeline of schools, mirroring the experience layout. */
-export function Education({ number, education }: EducationProps) {
+export function Education({ number, education, lightbox }: EducationProps) {
   return (
     <>
       <SectionLabel number={number} label={education.label} />
@@ -44,6 +46,14 @@ export function Education({ number, education }: EducationProps) {
                     {item.note}
                   </p>
                 ) : null}
+                <PhotoStrip
+                  photos={item.photos}
+                  groupLabel={education.photosLabelTemplate.replace(
+                    "{name}",
+                    item.institution,
+                  )}
+                  labels={lightbox}
+                />
               </div>
             </div>
           );

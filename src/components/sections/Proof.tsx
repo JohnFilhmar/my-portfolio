@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { ProofConfig } from "@config/schema";
+import type { LightboxConfig, ProofConfig } from "@config/schema";
 import { FilterChips } from "@/components/ui/FilterChips";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -8,10 +8,11 @@ import { ProofTile } from "@/components/sections/ProofTile";
 export interface ProofProps {
   number: string;
   proof: ProofConfig;
+  lightbox: LightboxConfig;
 }
 
 /** Evidence: filterable grid of captures, each expandable to full size. */
-export function Proof({ number, proof }: ProofProps) {
+export function Proof({ number, proof, lightbox }: ProofProps) {
   const [filter, setFilter] = useState(proof.filterAllLabel);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -83,7 +84,7 @@ export function Proof({ number, proof }: ProofProps) {
         index={openIndex}
         onIndexChange={setOpenIndex}
         onClose={() => setOpenIndex(null)}
-        labels={proof.lightbox}
+        labels={lightbox}
       />
     </>
   );

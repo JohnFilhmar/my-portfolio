@@ -1,15 +1,36 @@
 {
-  "_readme": "Education section. `end: null` marks an ongoing program (dates render in accent with `presentLabel`). Same timeline shape as experience.",
+  "_readme": "Education section. `end: null` marks an ongoing program (dates render in accent with `presentLabel`). Same timeline shape as experience, including the optional `photos` strip: {src, alt, caption, aspect}. Photos whose file is missing under ./public are dropped, so the placeholders below stay invisible until you add them.",
   "label": "education",
   "heading": "Where the fundamentals came from.",
   "presentLabel": "now",
+  "photosLabelTemplate": "Photos from {name}",
   "items": [
     {
       "institution": "Mindoro State University",
       "degree": "BS Information Technology (BSIT)",
       "start": "2021",
       "end": "2025",
-      "note": "Graduated. Shifted from AB English (2019 – 2021) to BSIT."
+      "note": "Graduated. Shifted from AB English (2019 – 2021) to BSIT.",
+      "photos": [
+        {
+          "src": "/education/graduation.jpg",
+          "alt": "Graduating with a BS in Information Technology from Mindoro State University",
+          "caption": "BSIT graduation · Mindoro State University",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/education/diploma.jpg",
+          "alt": "BS Information Technology diploma from Mindoro State University",
+          "caption": "Diploma",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/education/thesis-defense.jpg",
+          "alt": "Presenting at the undergraduate thesis defence",
+          "caption": "Thesis defence",
+          "aspect": "4/3"
+        }
+      ]
     }
   ]
 }

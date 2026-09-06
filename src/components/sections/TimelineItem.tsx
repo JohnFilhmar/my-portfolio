@@ -1,13 +1,22 @@
-import type { ExperienceItem } from "@config/schema";
+import type { ExperienceItem, LightboxConfig } from "@config/schema";
+import { PhotoStrip } from "@/components/ui/PhotoStrip";
 import { cn } from "@/lib/utils";
 
 export interface TimelineItemProps {
   item: ExperienceItem;
   presentLabel: string;
+  /** Accessible name for this role's photo strip, already interpolated. */
+  photosLabel: string;
+  lightbox: LightboxConfig;
 }
 
 /** One role: date range column + title, company and bullets. */
-export function TimelineItem({ item, presentLabel }: TimelineItemProps) {
+export function TimelineItem({
+  item,
+  presentLabel,
+  photosLabel,
+  lightbox,
+}: TimelineItemProps) {
   const current = item.end === null;
   return (
     <div className="grid grid-cols-[minmax(92px,130px)_1fr] gap-[clamp(14px,3vw,28px)] border-t border-border-muted py-[22px]">
@@ -41,6 +50,11 @@ export function TimelineItem({ item, presentLabel }: TimelineItemProps) {
             </li>
           ))}
         </ul>
+        <PhotoStrip
+          photos={item.photos}
+          groupLabel={photosLabel}
+          labels={lightbox}
+        />
       </div>
     </div>
   );

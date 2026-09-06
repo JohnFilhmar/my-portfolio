@@ -8,14 +8,6 @@
   "filterAllLabel": "all",
   "filterGroupLabel": "Filter evidence by kind",
   "openLabelTemplate": "Open {title} full size",
-  "lightbox": {
-    "closeLabel": "close",
-    "prevLabel": "previous",
-    "nextLabel": "next",
-    "counterTemplate": "{i}/{n}",
-    "hint": "← → navigate · esc close",
-    "visitLabel": "open live"
-  },
   "items": [
     {
       "id": "usapp-home",

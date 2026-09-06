@@ -39,6 +39,33 @@ export type Span = z.infer<typeof spanSchema>;
 
 const readme = z.string().optional();
 
+/**
+ * A picture attached to any section. `src` is a root-relative path under
+ * ./public; the config loader drops entries whose file is not there, so a
+ * placeholder can sit in config until the real photo exists.
+ */
+export const mediaItemSchema = z.object({
+  src: z.string(),
+  /** Describe what the picture shows, not that it is a picture. */
+  alt: z.string(),
+  caption: z.string().default(""),
+  /** CSS aspect-ratio, e.g. "4/3" for photos or "9/16" for phone shots. */
+  aspect: z.string().default("4/3"),
+});
+export type MediaItem = z.infer<typeof mediaItemSchema>;
+
+/** Copy for the full-size viewer, shared by every section that opens one. */
+export const lightboxSchema = z.object({
+  closeLabel: z.string().default("close"),
+  prevLabel: z.string().default("previous"),
+  nextLabel: z.string().default("next"),
+  /** `{i}` = 1-based position, `{n}` = total. */
+  counterTemplate: z.string().default("{i}/{n}"),
+  hint: z.string().default("← → navigate · esc close"),
+  visitLabel: z.string().default("open live"),
+});
+export type LightboxConfig = z.infer<typeof lightboxSchema>;
+
 /* ---------------------------------- theme ---------------------------------- */
 
 export const themeSchema = z.object({
@@ -213,6 +240,8 @@ export const siteSchema = z.object({
   resume: z.object({ label: z.string(), href: z.string() }),
   nav: z.array(navItemSchema),
   footer: z.object({ note: z.string(), copyright: z.string() }),
+  /** One viewer, one set of labels, wherever a picture opens full size. */
+  lightbox: lightboxSchema.default({}),
   /** Interface strings that belong to no single section. */
   a11y: z
     .object({
@@ -405,15 +434,6 @@ export const proofSchema = z.object({
   filterGroupLabel: z.string().default("Filter evidence by kind"),
   /** Accessible name for a tile button. `{title}` is replaced. */
   openLabelTemplate: z.string().default("Open {title} full size"),
-  lightbox: z.object({
-    closeLabel: z.string().default("close"),
-    prevLabel: z.string().default("previous"),
-    nextLabel: z.string().default("next"),
-    /** `{i}` = 1-based position, `{n}` = total. */
-    counterTemplate: z.string().default("{i}/{n}"),
-    hint: z.string().default("← → navigate · esc close"),
-    visitLabel: z.string().default("open live"),
-  }),
   items: z.array(proofItemSchema),
 });
 export type ProofConfig = z.infer<typeof proofSchema>;
@@ -427,6 +447,8 @@ export const experienceItemSchema = z.object({
   /** null / omitted = current role (rendered with `presentLabel` in accent). */
   end: z.string().nullable().default(null),
   bullets: z.array(z.string()),
+  /** Photos from this role. The strip hides itself when none of them exist. */
+  photos: z.array(mediaItemSchema).default([]),
 });
 export type ExperienceItem = z.infer<typeof experienceItemSchema>;
 
@@ -435,6 +457,8 @@ export const experienceSchema = z.object({
   label: z.string(),
   heading: z.string(),
   presentLabel: z.string().default("now"),
+  /** Accessible name for a role's photo strip. `{name}` = the company. */
+  photosLabelTemplate: z.string().default("Photos from {name}"),
   items: z.array(experienceItemSchema),
 });
 export type ExperienceConfig = z.infer<typeof experienceSchema>;
@@ -449,6 +473,8 @@ export const educationItemSchema = z.object({
   end: z.string().nullable().default(null),
   /** Optional one-line note, e.g. a shift of program or an honour. */
   note: z.string().optional(),
+  /** Graduation and campus photos. Same strip as the experience timeline. */
+  photos: z.array(mediaItemSchema).default([]),
 });
 export type EducationItem = z.infer<typeof educationItemSchema>;
 
@@ -457,6 +483,8 @@ export const educationSchema = z.object({
   label: z.string(),
   heading: z.string(),
   presentLabel: z.string().default("now"),
+  /** Accessible name for an entry's photo strip. `{name}` = the institution. */
+  photosLabelTemplate: z.string().default("Photos from {name}"),
   items: z.array(educationItemSchema),
 });
 export type EducationConfig = z.infer<typeof educationSchema>;
