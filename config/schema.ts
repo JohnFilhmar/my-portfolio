@@ -365,7 +365,12 @@ export const projectSchema = z.object({
   links: projectLinksSchema.default({}),
   domain: z.string(),
   secondaryDomains: z.array(z.string()).default([]),
-  featured: z.boolean().default(false),
+  /**
+   * Visual weight, not ordering. `flagship` gets a full-width card, `standard`
+   * a card in the grid, `compact` a single expandable row. Keep flagships to
+   * two or three: the point of the tier is that most projects are not one.
+   */
+  tier: z.enum(["flagship", "standard", "compact"]).default("standard"),
   /**
    * Optional screenshot shown at the top of the card. Root-relative path under
    * ./public — dropped automatically by the loader when the file is absent, so
