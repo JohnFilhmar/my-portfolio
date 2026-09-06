@@ -4,11 +4,13 @@ import type { z } from "zod";
 import {
   aboutSchema,
   assistantSchema,
+  certificationsSchema,
   contactSchema,
   educationSchema,
   experienceSchema,
   heroSchema,
   projectsSchema,
+  proofSchema,
   siteSchema,
   skillsSchema,
   themeSchema,
@@ -25,6 +27,7 @@ import {
  */
 
 const CONFIG_DIR = path.join(process.cwd(), "config");
+const PUBLIC_DIR = path.join(process.cwd(), "public");
 
 function readJsonFile(relativePath: string): unknown {
   const filePath = path.join(CONFIG_DIR, relativePath);
@@ -69,17 +72,69 @@ function loadFile<S extends z.ZodTypeAny>(
   return result.data;
 }
 
+/**
+ * True when a config image path points at a file that is really there.
+ * Absolute URLs are trusted as-is; everything else must resolve to a file
+ * inside ./public. Anything that fails is treated as missing so the site
+ * never ships a broken image or an unverifiable claim.
+ */
+function publicAssetExists(src: string): boolean {
+  if (/^https?:\/\//i.test(src)) return true;
+  if (!src.startsWith("/")) return false;
+  const withoutQuery = src.split(/[?#]/)[0] ?? src;
+  let resolved: string;
+  try {
+    resolved = path.join(PUBLIC_DIR, decodeURIComponent(withoutQuery));
+  } catch {
+    return false;
+  }
+  if (resolved !== PUBLIC_DIR && !resolved.startsWith(PUBLIC_DIR + path.sep)) {
+    return false;
+  }
+  try {
+    // The path is already pinned inside PUBLIC_DIR by the check above, so the
+    // opt-out is safe: without it Turbopack traces the entire project into the
+    // standalone server output because it cannot see that scoping itself.
+    return fs.statSync(/*turbopackIgnore: true*/ resolved).isFile();
+  } catch {
+    return false;
+  }
+}
+
+/** Strip an optional `image` that has no file behind it, keeping the entry. */
+function withResolvedImage<T extends { image?: string }>(item: T): T {
+  if (!item.image || publicAssetExists(item.image)) return item;
+  return { ...item, image: undefined };
+}
+
 /** Load and validate the complete site configuration. */
 export function loadConfig(): AppConfig {
+  const projects = loadFile("sections/projects.json", projectsSchema);
+  const proof = loadFile("sections/proof.json", proofSchema);
+  const certifications = loadFile(
+    "sections/certifications.json",
+    certificationsSchema,
+  );
+
   return {
     site: loadFile("site.json", siteSchema),
     theme: loadFile("theme.json", themeSchema),
     hero: loadFile("sections/hero.json", heroSchema),
     about: loadFile("sections/about.json", aboutSchema),
     skills: loadFile("sections/skills.json", skillsSchema),
-    projects: loadFile("sections/projects.json", projectsSchema),
+    projects: { ...projects, items: projects.items.map(withResolvedImage) },
+    // A proof tile is only evidence if the picture exists, so entries whose
+    // file is not in ./public are dropped rather than rendered as a gap.
+    proof: {
+      ...proof,
+      items: proof.items.filter((item) => publicAssetExists(item.src)),
+    },
     experience: loadFile("sections/experience.json", experienceSchema),
     education: loadFile("sections/education.json", educationSchema),
+    certifications: {
+      ...certifications,
+      items: certifications.items.map(withResolvedImage),
+    },
     contact: loadFile("sections/contact.json", contactSchema),
     assistant: loadFile("assistant.json", assistantSchema),
   };

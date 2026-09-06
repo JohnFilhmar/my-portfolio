@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import type { ProjectsConfig } from "@config/schema";
+import { FilterChips } from "@/components/ui/FilterChips";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ProjectCard } from "@/components/sections/ProjectCard";
-import { ProjectFilter } from "@/components/sections/ProjectFilter";
 
 export interface ProjectsProps {
   number: string;
@@ -45,14 +45,15 @@ export function Projects({ number, projects }: ProjectsProps) {
       <p className="m-0 mb-6 text-section font-bold tracking-[-0.02em] text-heading">
         {projects.heading}
       </p>
-      {projects.showFilters && (
-        <ProjectFilter
-          projects={projects}
-          domains={domains}
-          active={filter}
-          onChange={setFilter}
-        />
-      )}
+      <FilterChips
+        groupLabel={projects.filterGroupLabel}
+        options={
+          projects.showFilters ? [projects.filterAllLabel, ...domains] : []
+        }
+        active={filter}
+        onChange={setFilter}
+        className="mb-[26px]"
+      />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-3.5">
         {visible.map(({ project, index }) => (
           <ProjectCard

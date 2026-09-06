@@ -22,19 +22,28 @@ export function resolveSections(config: AppConfig): ResolvedSection[] {
     about: config.about.label,
     skills: config.skills.label,
     projects: config.projects.label,
+    proof: config.proof.label,
     experience: config.experience.label,
     education: config.education.label,
+    certifications: config.certifications.label,
     assistant: config.assistant.label,
     contact: config.contact.label,
   };
 
+  /**
+   * Sections that hide themselves when there is nothing to show, so an empty
+   * proof or certifications list never leaves a heading over blank space —
+   * and never shifts the numbering of the sections that follow.
+   */
+  const hasContent: Partial<Record<SectionType, boolean>> = {
+    proof: config.proof.items.length > 0,
+    certifications: config.certifications.items.length > 0,
+    assistant: config.assistant.enabled,
+  };
+
   let counter = 0;
   return config.site.sections
-    .filter(
-      (entry) =>
-        entry.enabled &&
-        (entry.type !== "assistant" || config.assistant.enabled),
-    )
+    .filter((entry) => entry.enabled && hasContent[entry.type] !== false)
     .map((entry) => {
       const number =
         entry.type === "hero" ? null : String(++counter).padStart(2, "0");

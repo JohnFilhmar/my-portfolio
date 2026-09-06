@@ -63,12 +63,20 @@
       "href": "#work"
     },
     {
+      "label": "./proof",
+      "href": "#proof"
+    },
+    {
       "label": "./exp",
       "href": "#experience"
     },
     {
       "label": "./edu",
       "href": "#education"
+    },
+    {
+      "label": "./certs",
+      "href": "#certifications"
     },
     {
       "label": "./ai",
@@ -128,11 +136,19 @@
       "id": "work"
     },
     {
+      "type": "proof",
+      "enabled": true
+    },
+    {
       "type": "experience",
       "enabled": true
     },
     {
       "type": "education",
+      "enabled": true
+    },
+    {
+      "type": "certifications",
       "enabled": true
     },
     {

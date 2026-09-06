@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type TagVariant = "default" | "core" | "stack" | "domain";
+type TagVariant = "default" | "core" | "stack" | "domain" | "verified";
 
 export interface TagProps {
   variant?: TagVariant;
@@ -21,6 +21,9 @@ const variantClass: Record<TagVariant, string> = {
   // Project domain badge
   domain:
     "rounded-xs border border-border-chip px-[7px] py-0.5 text-2xs uppercase tracking-[0.06em] text-faint",
+  // Credential that carries a public verification link
+  verified:
+    "rounded-xs border border-accent-border bg-accent-soft px-[7px] py-0.5 text-2xs uppercase tracking-[0.06em] text-accent",
 };
 
 /** Small mono label chip; variants cover skills, stack and domain badges. */

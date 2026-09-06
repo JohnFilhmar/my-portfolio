@@ -21,6 +21,9 @@ import { ThemeTokens } from "@/components/layout/ThemeTokens";
 import { AssistantLauncher } from "@/components/assistant/AssistantLauncher";
 import { SectionRenderer } from "@/components/sections/SectionRenderer";
 
+/** Target for the keyboard skip link and the main landmark. */
+const MAIN_ID = "main";
+
 interface PageProps {
   config: AppConfig;
   assistantMode: AssistantMode;
@@ -80,12 +83,23 @@ export default function Home({
         )}
 
         <div className="relative z-10">
+          <a
+            href={`#${MAIN_ID}`}
+            className="skip-link rounded-lg border border-accent bg-surface px-[13px] py-2 font-mono text-sm text-accent no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            {config.site.a11y.skipToContentLabel}
+          </a>
           <Header
             site={config.site}
             sections={sections}
             onOpenPalette={() => setPaletteOpen(true)}
           />
-          <main>
+          <main
+            id={MAIN_ID}
+            tabIndex={-1}
+            aria-label={config.site.a11y.mainLandmarkLabel}
+            className="scroll-mt-scroll-margin focus:outline-none"
+          >
             <SectionRenderer
               config={config}
               sections={sections}

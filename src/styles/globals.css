@@ -70,6 +70,46 @@ summary.no-marker::-webkit-details-marker {
   display: none;
 }
 
+/*
+ * Softens both ends of the nav's horizontal scroller so it reads as "there is
+ * more this way" instead of a hard cut. Only below the width where the nav
+ * stops fitting, since a fade over a non-scrolling row just dims the first
+ * and last link.
+ */
+@media (max-width: 900px) {
+  .edge-fade {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 16px,
+      #000 calc(100% - 16px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0,
+      #000 16px,
+      #000 calc(100% - 16px),
+      transparent 100%
+    );
+  }
+}
+
+/*
+ * Keyboard-only escape hatch past the nav. Off-screen until focused, then it
+ * lands under the sticky header.
+ */
+.skip-link {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  z-index: 60;
+  transform: translateY(-200%);
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* Accent halo behind the top-right of the page (driven by the accent token). */
 .bg-accent-glow {
   background: radial-gradient(

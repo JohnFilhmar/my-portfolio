@@ -1,0 +1,105 @@
+{
+  "_readme": "Evidence section. Every item points at a real file under ./public — the config loader drops any entry whose file is missing, and the section hides itself when nothing is left, so this list can safely hold entries for pictures you have not taken yet. That is why the placeholder entries below are invisible on the site until you drop a file at the exact path in `src` (extension included). `category` drives the filter chips, and the chip row hides itself when only one category survives. `meta` is the credibility line: put the capture date and the host or environment there. `aspect` is a CSS aspect-ratio, so use \"9/16\" for phone screenshots and \"4/3\" for photos.",
+  "label": "evidence",
+  "heading": "Screens from systems that are running.",
+  "blurb": "Claims are cheap. These are captures from deployments that are live right now, each one linked to an address you can open yourself.",
+  "commandLine": "$ ls -la ~/proof/  # {n} artifacts",
+  "showFilters": true,
+  "filterAllLabel": "all",
+  "filterGroupLabel": "Filter evidence by kind",
+  "openLabelTemplate": "Open {title} full size",
+  "lightbox": {
+    "closeLabel": "close",
+    "prevLabel": "previous",
+    "nextLabel": "next",
+    "counterTemplate": "{i}/{n}",
+    "hint": "← → navigate · esc close",
+    "visitLabel": "open live"
+  },
+  "items": [
+    {
+      "id": "usapp-home",
+      "src": "/proof/usapp-home.webp",
+      "alt": "Usapp landing page: sign in with a phone number, one-to-one chats with delivery and seen receipts, and app store links",
+      "title": "usapp-home.webp",
+      "caption": "Usapp · secure real-time messaging, shipping on Play Store and App Store",
+      "category": "live systems",
+      "meta": "captured 2026-09-06 · usapp.ph",
+      "href": "https://usapp.ph",
+      "aspect": "16/10"
+    },
+    {
+      "id": "peraplano-home",
+      "src": "/proof/peraplano-home.webp",
+      "alt": "PeraPlano landing page showing a bank notification being parsed into a categorised ledger entry",
+      "title": "peraplano-home.webp",
+      "caption": "PeraPlano · turns bank and e-wallet notifications into a ledger, on device",
+      "category": "live systems",
+      "meta": "captured 2026-09-06 · peraplano.filhmar.online",
+      "href": "https://peraplano.filhmar.online",
+      "aspect": "16/10"
+    },
+    {
+      "id": "genesys-home",
+      "src": "/proof/genesys-home.webp",
+      "alt": "GeneSys landing page with a live biology quiz room and a room-code join box",
+      "title": "genesys-home.webp",
+      "caption": "GeneSys · live quiz rooms for the Philippine K-12 biology curriculum",
+      "category": "live systems",
+      "meta": "captured 2026-09-06 · genesys.filhmar.online",
+      "href": "https://genesys.filhmar.online",
+      "aspect": "16/10"
+    },
+    {
+      "id": "jms-e-talyer-home",
+      "src": "/proof/jms-e-talyer-home.webp",
+      "alt": "JMS E-Talyer storefront for motor parts and mechanic services",
+      "title": "jms-e-talyer-home.webp",
+      "caption": "JMS E-Talyer · motor parts inventory and service booking",
+      "category": "live systems",
+      "meta": "captured 2026-09-06 · jms-e-talyer.shop",
+      "href": "https://jms-e-talyer.shop",
+      "aspect": "16/10"
+    },
+    {
+      "id": "workspace",
+      "src": "/proof/workspace.jpg",
+      "alt": "The desk and machines this work is built on",
+      "title": "workspace.jpg",
+      "caption": "Where the work happens",
+      "category": "the human",
+      "meta": "add public/proof/workspace.jpg to publish this tile",
+      "aspect": "4/3"
+    },
+    {
+      "id": "team",
+      "src": "/proof/team.jpg",
+      "alt": "The YouCode Technologies team",
+      "title": "team.jpg",
+      "caption": "The team at YouCode Technologies",
+      "category": "the human",
+      "meta": "add public/proof/team.jpg to publish this tile",
+      "aspect": "4/3"
+    },
+    {
+      "id": "infra-rack",
+      "src": "/proof/infra-rack.jpg",
+      "alt": "The on-premise server rack these systems run on",
+      "title": "infra-rack.jpg",
+      "caption": "On-premise infrastructure I operate",
+      "category": "infrastructure",
+      "meta": "add public/proof/infra-rack.jpg to publish this tile",
+      "aspect": "4/3"
+    },
+    {
+      "id": "pipeline-run",
+      "src": "/proof/pipeline-run.png",
+      "alt": "A CI/CD pipeline run showing security scanning and signed artifacts",
+      "title": "pipeline-run.png",
+      "caption": "CI/CD run · scanning, signing, manual-gated deploy",
+      "category": "infrastructure",
+      "meta": "add public/proof/pipeline-run.png to publish this tile",
+      "aspect": "16/10"
+    }
+  ]
+}

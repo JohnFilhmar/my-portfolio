@@ -129,8 +129,10 @@ export const sectionTypeSchema = z.enum([
   "about",
   "skills",
   "projects",
+  "proof",
   "experience",
   "education",
+  "certifications",
   "assistant",
   "contact",
 ]);
@@ -211,6 +213,14 @@ export const siteSchema = z.object({
   resume: z.object({ label: z.string(), href: z.string() }),
   nav: z.array(navItemSchema),
   footer: z.object({ note: z.string(), copyright: z.string() }),
+  /** Interface strings that belong to no single section. */
+  a11y: z
+    .object({
+      skipToContentLabel: z.string().default("skip to content"),
+      mainLandmarkLabel: z.string().default("Main content"),
+      scrollProgressLabel: z.string().default("Reading progress"),
+    })
+    .default({}),
   palette: paletteSchema,
   sections: z.array(sectionEntrySchema),
 });
@@ -327,6 +337,13 @@ export const projectSchema = z.object({
   domain: z.string(),
   secondaryDomains: z.array(z.string()).default([]),
   featured: z.boolean().default(false),
+  /**
+   * Optional screenshot shown at the top of the card. Root-relative path under
+   * ./public — dropped automatically by the loader when the file is absent, so
+   * a card never renders a broken image.
+   */
+  image: z.string().optional(),
+  imageAlt: z.string().optional(),
 });
 export type Project = z.infer<typeof projectSchema>;
 
@@ -353,6 +370,53 @@ export const projectsSchema = z.object({
   items: z.array(projectSchema),
 });
 export type ProjectsConfig = z.infer<typeof projectsSchema>;
+
+/* ---------------------------------- proof ---------------------------------- */
+
+export const proofItemSchema = z.object({
+  id: z.string(),
+  /** Root-relative path under ./public, e.g. "/proof/usapp-home.png". */
+  src: z.string(),
+  /** Describe what the picture shows, not that it is a picture. */
+  alt: z.string(),
+  /** Rendered in the tile's title bar, so keep it filename-shaped. */
+  title: z.string(),
+  caption: z.string(),
+  /** Filter category — free text, the section derives the chip list from it. */
+  category: z.string(),
+  /** Verifiable one-liner under the caption: capture date, host, environment. */
+  meta: z.string().default(""),
+  /** Optional link to the running system this was captured from. */
+  href: z.string().optional(),
+  /** CSS aspect-ratio for the frame, e.g. "16/10" or "9/16" for phone shots. */
+  aspect: z.string().default("16/10"),
+});
+export type ProofItem = z.infer<typeof proofItemSchema>;
+
+export const proofSchema = z.object({
+  _readme: readme,
+  label: z.string(),
+  heading: z.string(),
+  blurb: z.string(),
+  /** Terminal line above the grid. `{n}` is replaced with the item count. */
+  commandLine: z.string().default("$ ls -la ~/proof/"),
+  showFilters: z.boolean().default(true),
+  filterAllLabel: z.string().default("all"),
+  filterGroupLabel: z.string().default("Filter evidence by kind"),
+  /** Accessible name for a tile button. `{title}` is replaced. */
+  openLabelTemplate: z.string().default("Open {title} full size"),
+  lightbox: z.object({
+    closeLabel: z.string().default("close"),
+    prevLabel: z.string().default("previous"),
+    nextLabel: z.string().default("next"),
+    /** `{i}` = 1-based position, `{n}` = total. */
+    counterTemplate: z.string().default("{i}/{n}"),
+    hint: z.string().default("← → navigate · esc close"),
+    visitLabel: z.string().default("open live"),
+  }),
+  items: z.array(proofItemSchema),
+});
+export type ProofConfig = z.infer<typeof proofSchema>;
 
 /* -------------------------------- experience ------------------------------- */
 
@@ -396,6 +460,44 @@ export const educationSchema = z.object({
   items: z.array(educationItemSchema),
 });
 export type EducationConfig = z.infer<typeof educationSchema>;
+
+/* ----------------------------- certifications ------------------------------ */
+
+export const certificationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  issuer: z.string(),
+  /** Free-form so "2025", "Mar 2025" and "2025-03" all work. */
+  issued: z.string(),
+  /** null / omitted = the credential does not expire. */
+  expires: z.string().nullable().default(null),
+  /** Printed verbatim as the credential's checksum line. */
+  credentialId: z.string().optional(),
+  /** Public verification URL from the issuer. Drives the "verified" chip. */
+  verifyUrl: z.string().optional(),
+  /** Badge or certificate scan under ./public. Dropped if the file is absent. */
+  image: z.string().optional(),
+  imageAlt: z.string().optional(),
+  /** What the credential actually covers. */
+  skills: z.array(z.string()).default([]),
+});
+export type Certification = z.infer<typeof certificationSchema>;
+
+export const certificationsSchema = z.object({
+  _readme: readme,
+  label: z.string(),
+  heading: z.string(),
+  blurb: z.string(),
+  issuedLabel: z.string().default("issued"),
+  expiresLabel: z.string().default("expires"),
+  neverExpiresLabel: z.string().default("no expiry"),
+  credentialLabel: z.string().default("id"),
+  verifyLabel: z.string().default("verify"),
+  /** Chip shown when the entry carries a public verification URL. */
+  verifiedLabel: z.string().default("verifiable"),
+  items: z.array(certificationSchema),
+});
+export type CertificationsConfig = z.infer<typeof certificationsSchema>;
 
 /* --------------------------------- contact --------------------------------- */
 
@@ -483,8 +585,10 @@ export interface AppConfig {
   about: AboutConfig;
   skills: SkillsConfig;
   projects: ProjectsConfig;
+  proof: ProofConfig;
   experience: ExperienceConfig;
   education: EducationConfig;
+  certifications: CertificationsConfig;
   contact: ContactConfig;
   assistant: AssistantConfig;
 }

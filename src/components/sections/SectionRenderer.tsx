@@ -2,11 +2,13 @@ import type { AppConfig, AssistantMode } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
 import { Section } from "@/components/layout/Section";
 import { About } from "@/components/sections/About";
+import { Certifications } from "@/components/sections/Certifications";
 import { Contact } from "@/components/sections/Contact";
 import { Education } from "@/components/sections/Education";
 import { Experience } from "@/components/sections/Experience";
 import { Hero } from "@/components/sections/Hero";
 import { Projects } from "@/components/sections/Projects";
+import { Proof } from "@/components/sections/Proof";
 import { Skills } from "@/components/sections/Skills";
 import { AssistantSection } from "@/components/assistant/AssistantSection";
 
@@ -82,6 +84,17 @@ export function SectionRenderer({
                 <Projects number={number} projects={config.projects} />
               </Section>
             );
+          case "proof":
+            return (
+              <Section
+                key={section.id}
+                id={section.id}
+                ariaLabel={config.proof.label}
+                reducedMotion={reducedMotion}
+              >
+                <Proof number={number} proof={config.proof} />
+              </Section>
+            );
           case "experience":
             return (
               <Section
@@ -102,6 +115,20 @@ export function SectionRenderer({
                 reducedMotion={reducedMotion}
               >
                 <Education number={number} education={config.education} />
+              </Section>
+            );
+          case "certifications":
+            return (
+              <Section
+                key={section.id}
+                id={section.id}
+                ariaLabel={config.certifications.label}
+                reducedMotion={reducedMotion}
+              >
+                <Certifications
+                  number={number}
+                  certifications={config.certifications}
+                />
               </Section>
             );
           case "assistant":

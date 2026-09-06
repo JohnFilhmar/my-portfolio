@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import type { SiteConfig } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
+import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { Cursor } from "@/components/ui/Cursor";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,7 @@ export function Header({ site, sections, onOpenPalette }: HeaderProps) {
   // Spy over sections in document order; hide nav links whose section is
   // disabled in the registry.
   const active = useScrollSpy(sectionIds);
+  const progress = useScrollProgress();
   const navItems = useMemo(
     () =>
       site.nav.filter(
@@ -33,6 +35,20 @@ export function Header({ site, sections, onOpenPalette }: HeaderProps) {
       aria-label="Main"
       className="sticky top-0 z-50 border-b border-border-nav bg-nav-veil backdrop-blur-xl"
     >
+      {/* Reading progress sits on the header's own bottom edge. */}
+      <div
+        role="progressbar"
+        aria-label={site.a11y.scrollProgressLabel}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(progress * 100)}
+        className="absolute inset-x-0 bottom-[-1px] h-px"
+      >
+        <span
+          style={{ transform: `scaleX(${progress})` }}
+          className="block h-full origin-left bg-accent"
+        />
+      </div>
       <div className="mx-auto flex h-header max-w-container items-center gap-3 px-container-pad">
         <a
           href={`#${topId}`}
@@ -45,7 +61,7 @@ export function Header({ site, sections, onOpenPalette }: HeaderProps) {
           <Cursor size="nav" />
         </a>
         <div className="flex-1" />
-        <div className="no-scrollbar flex max-w-[70vw] gap-0.5 overflow-x-auto">
+        <div className="no-scrollbar edge-fade flex max-w-[70vw] gap-0.5 overflow-x-auto">
           {navItems.map((item) => {
             const id = item.href.replace(/^#/, "");
             return (

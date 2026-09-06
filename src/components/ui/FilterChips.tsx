@@ -1,34 +1,40 @@
-import type { ProjectsConfig } from "@config/schema";
 import { cn } from "@/lib/utils";
 
-export interface ProjectFilterProps {
-  projects: ProjectsConfig;
-  domains: string[];
+export interface FilterChipsProps {
+  /** Accessible name for the button group. */
+  groupLabel: string;
+  options: string[];
   active: string;
-  onChange: (domain: string) => void;
+  onChange: (option: string) => void;
+  className?: string;
 }
 
-/** Domain filter chips (aria-pressed toggle buttons). */
-export function ProjectFilter({
-  projects,
-  domains,
+/**
+ * Single-choice chip row (aria-pressed toggles), shared by the project and
+ * evidence grids. Renders nothing when there is only one thing to choose.
+ */
+export function FilterChips({
+  groupLabel,
+  options,
   active,
   onChange,
-}: ProjectFilterProps) {
+  className,
+}: FilterChipsProps) {
+  if (options.length < 2) return null;
   return (
     <div
       role="group"
-      aria-label={projects.filterGroupLabel}
-      className="mb-[26px] flex flex-wrap gap-2"
+      aria-label={groupLabel}
+      className={cn("flex flex-wrap gap-2", className)}
     >
-      {[projects.filterAllLabel, ...domains].map((domain) => {
-        const isActive = active === domain;
+      {options.map((option) => {
+        const isActive = active === option;
         return (
           <button
-            key={domain}
+            key={option}
             type="button"
             aria-pressed={isActive}
-            onClick={() => onChange(domain)}
+            onClick={() => onChange(option)}
             className={cn(
               "cursor-pointer rounded-md border px-[13px] py-[7px] font-mono text-xs transition-colors duration-fast",
               "hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
@@ -37,7 +43,7 @@ export function ProjectFilter({
                 : "border-border-chip bg-surface text-subtle",
             )}
           >
-            {domain}
+            {option}
           </button>
         );
       })}
