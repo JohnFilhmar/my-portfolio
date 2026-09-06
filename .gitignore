@@ -30,3 +30,6 @@ next-env.d.ts
 
 # youcode projects
 youcode-**.md
+
+# local MCP server config (contains a bearer token)
+.mcp.json
