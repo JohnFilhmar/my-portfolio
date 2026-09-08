@@ -413,9 +413,12 @@ export const proofItemSchema = z.object({
   src: z.string(),
   /** Describe what the picture shows, not that it is a picture. */
   alt: z.string(),
-  /** Rendered in the tile's title bar, so keep it filename-shaped. */
+  /** Rendered in the window title bar, so keep it filename-shaped. */
   title: z.string(),
+  /** Short headline for the row. Name the thing, do not describe the picture. */
   caption: z.string(),
+  /** One supporting sentence under the headline. */
+  blurb: z.string().default(""),
   /** Filter category — free text, the section derives the chip list from it. */
   category: z.string(),
   /** Verifiable one-liner under the caption: capture date, host, environment. */
