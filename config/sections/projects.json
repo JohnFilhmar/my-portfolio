@@ -43,7 +43,10 @@
         "demo": "https://usapp.ph"
       },
       "domain": "backend",
-      "secondaryDomains": ["mobile", "DevSecOps"],
+      "secondaryDomains": [
+        "mobile",
+        "DevSecOps"
+      ],
       "tier": "flagship",
       "image": "/projects/usapp.png",
       "imageAlt": "Usapp interface"
@@ -71,8 +74,10 @@
       "results": "In production as a per-client system for government and private-sector organisations. Architecture, structure and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": ["backend"],
-      "tier": "flagship",
+      "secondaryDomains": [
+        "backend"
+      ],
+      "tier": "standard",
       "image": "/projects/youcode-hris.png",
       "imageAlt": "YouCode HRIS interface"
     },
@@ -99,8 +104,10 @@
       "results": "Live for three cities — MyDasma (Dasmariñas), MySorsogon (Sorsogon City) and MyLegazpi (Legazpi) — with new cities added by configuration alone. Internal architecture and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": ["mobile"],
-      "tier": "flagship",
+      "secondaryDomains": [
+        "mobile"
+      ],
+      "tier": "standard",
       "image": "/projects/youcode-civic-superapp.png",
       "imageAlt": "Civic Super App Platform interface"
     },
@@ -110,7 +117,14 @@
       "hook": "An LMS that keeps working with no signal — offline exams, lessons and verifiable credentials.",
       "problem": "Large, distributed organisations needed to train and test thousands of learners on modest phones over unreliable networks — where a dropped connection must never lose a learner's work.",
       "role": "Sole developer — built the platform end to end at YouCode Technologies.",
-      "stack": ["EdTech", "LMS", "Offline-first", "PWA", "Full-Stack", "Web"],
+      "stack": [
+        "EdTech",
+        "LMS",
+        "Offline-first",
+        "PWA",
+        "Full-Stack",
+        "Web"
+      ],
       "highlights": [
         "Computer-based testing runs entirely on the device and syncs answers back when a connection returns — nothing is lost to a dropped signal.",
         "Offline course player for reading and studying lessons, including video, with no connection.",
@@ -120,7 +134,9 @@
       "results": "Built for large, distributed organisations with thousands of concurrent learners on unreliable networks. Implementation details withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": ["mobile"],
+      "secondaryDomains": [
+        "mobile"
+      ],
       "tier": "standard",
       "image": "/projects/youcode-lms.png",
       "imageAlt": "Offline-First Learning Platform interface"
@@ -148,7 +164,9 @@
       "results": "Deployed per site (schools, offices, campuses) as the bridge between on-premise security hardware and the cloud platform. Architecture, protocols and stack withheld under NDA.",
       "links": {},
       "domain": "iot",
-      "secondaryDomains": ["backend"],
+      "secondaryDomains": [
+        "backend"
+      ],
       "tier": "compact",
       "image": "/projects/youcode-youguard-bridge.png",
       "imageAlt": "YouGuard Edge Bridge interface"
@@ -176,7 +194,9 @@
       "results": "In use for AI-assisted team workflows — the team tracks YouFlow's own development inside YouFlow. Architecture, structure and stack withheld under NDA.",
       "links": {},
       "domain": "full-stack",
-      "secondaryDomains": ["backend"],
+      "secondaryDomains": [
+        "backend"
+      ],
       "tier": "standard",
       "image": "/projects/youcode-youflow.png",
       "imageAlt": "YouFlow interface"
@@ -212,8 +232,11 @@
         "demo": "https://jms-e-talyer.shop"
       },
       "domain": "full-stack",
-      "secondaryDomains": ["DevSecOps", "security"],
-      "tier": "compact",
+      "secondaryDomains": [
+        "DevSecOps",
+        "security"
+      ],
+      "tier": "flagship",
       "image": "/projects/jms-e-talyer.png",
       "imageAlt": "JMS E-Talyer interface"
     },
@@ -242,8 +265,10 @@
         "demo": "https://peraplano.filhmar.online"
       },
       "domain": "mobile",
-      "secondaryDomains": ["security"],
-      "tier": "standard",
+      "secondaryDomains": [
+        "security"
+      ],
+      "tier": "flagship",
       "image": "/projects/peraplano.png",
       "imageAlt": "PeraPlano interface"
     },
