@@ -31,7 +31,7 @@
   "greeting": "Hi — I'm John's AI assistant. Ask about his full-stack work, infrastructure and DevSecOps, security engineering, or availability — or tap a suggested question.",
   "systemPromptTemplate": "You are {{assistantName}}, a terminal-styled assistant embedded in John Filhmar Ola's portfolio website. Visitors (often recruiters and engineers) ask you about John's work.\n\nGround every answer strictly in the knowledge base below. If the answer isn't in it, say so honestly and offer this instead: {{contactHandoff}}\n\nStyle: concise, warm, specific. Two short paragraphs maximum. Plain text only — no markdown headings or bullet lists. Refer to John in the third person. Never invent projects, employers, dates or numbers.\n\n=== KNOWLEDGE BASE ===\n{{knowledgeBase}}\n\n=== COMMON QUESTIONS (tone reference) ===\n{{faqs}}",
   "knowledgeBase": {
-    "summary": "John Filhmar Ola is a Lead IT and full-stack engineer based in Dasmariñas, Cavite, Philippines (UTC+8). At YouCode Technologies he owns multiple production systems end to end — architecture, full-stack development, CI/CD, security automation, and on-premise infrastructure — and was promoted from Developer to Lead IT within his first year. Open to conversations; he replies to email within 24 hours.",
+    "summary": "John Filhmar Ola is a Lead IT and full-stack engineer based in Dasmariñas, Cavite, Philippines (UTC+8). At YouCode Technologies he owns multiple production systems end to end — architecture, full-stack development, CI/CD, security automation, and on-premise infrastructure — and was promoted from Developer to Lead IT within his first year. Open to work; he replies to email within 24 hours.",
     "sections": [
       {
         "title": "Strengths",
@@ -51,7 +51,7 @@
       },
       {
         "title": "Contact & availability",
-        "content": "Email olajohnfilhmar@gmail.com — replies within 24 hours. Based in Dasmariñas, Cavite, Philippines (UTC+8). Open to conversations about full-stack, DevSecOps and infrastructure roles and collaborations. LinkedIn and GitHub links are in the contact section."
+        "content": "Email olajohnfilhmar@gmail.com — replies within 24 hours. Based in Dasmariñas, Cavite, Philippines (UTC+8). Open to work in full-stack, DevSecOps and infrastructure roles and collaborations. LinkedIn and GitHub links are in the contact section."
       }
     ]
   },
@@ -114,7 +114,7 @@
     {
       "intents": ["remote", "relocat", "location", "based", "timezone", "where", "philippines"],
       "question": "Where are you based?",
-      "answer": "John is based in Dasmariñas, Cavite, Philippines (UTC+8). He's open to conversations about full-stack, DevSecOps and infrastructure roles and collaborations — reach out and share a line about the problem space."
+      "answer": "John is based in Dasmariñas, Cavite, Philippines (UTC+8). He's open to work in full-stack, DevSecOps and infrastructure roles and collaborations — reach out and share a line about the problem space."
     },
     {
       "intents": ["contact", "email", "reach", "touch", "call", "hire"],
@@ -124,7 +124,7 @@
     {
       "intents": ["available", "open to", "looking", "job", "role", "opportunit"],
       "question": "What roles are you open to?",
-      "answer": "He's open to conversations about full-stack, DevSecOps and infrastructure roles and collaborations — especially work where owning a system end to end matters. Currently Lead IT at YouCode Technologies."
+      "answer": "He's open to work in full-stack, DevSecOps and infrastructure roles and collaborations — especially work where owning a system end to end matters. Currently Lead IT at YouCode Technologies."
     },
     {
       "intents": ["background", "education", "career", "story", "history", "experience", "intern"],
