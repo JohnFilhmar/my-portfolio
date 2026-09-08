@@ -1,5 +1,5 @@
 {
-  "_readme": "DESIGN TOKENS — extracted from design/reference.html. Every color, font, radius, shadow and motion value the site uses lives here. Edit and refresh: tokens are read server-side per request and emitted as CSS custom properties, so no rebuild is needed.",
+  "_readme": "DESIGN TOKENS: extracted from design/reference.html. Every color, font, radius, shadow and motion value the site uses lives here. Edit and refresh: tokens are read server-side per request and emitted as CSS custom properties, so no rebuild is needed.",
   "mode": "dark",
   "colors": {
     "background": "#0b0f14",

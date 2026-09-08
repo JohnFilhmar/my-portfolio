@@ -83,7 +83,7 @@ export default async function handler(
     // response generic so paths/schema internals never leak.
     console.error("[api/assistant] configuration error:", err);
     res.status(500).json({
-      error: "The assistant is misconfigured — check the server logs.",
+      error: "The assistant is misconfigured. Check the server logs.",
     });
     return;
   }

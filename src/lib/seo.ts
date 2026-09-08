@@ -27,7 +27,7 @@ function absoluteUrl(siteUrl: string, path: string): string {
 /** Build all page metadata + structured data from site.json. */
 export function buildSeo(site: SiteConfig, siteUrlRaw: string): SeoData {
   const siteUrl = siteUrlRaw.replace(/\/+$/, "");
-  const title = `${site.name} — ${site.role}`;
+  const title = `${site.name}: ${site.role}`;
   const image = absoluteUrl(siteUrl, site.seo.image);
   const imageAlt = site.seo.imageAlt || title;
 

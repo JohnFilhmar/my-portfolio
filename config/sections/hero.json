@@ -13,13 +13,13 @@
   ],
   "statusLine": [
     {
-      "text": "role: Lead IT @ YouCode Technologies · systems shipped: 5+ · status: ",
+      "text": "most recently: Lead IT @ YouCode Technologies · systems shipped: 5+ · status: ",
       "tone": "dim"
     },
     { "text": "open to work", "tone": "accent" }
   ],
   "boot": {
-    "windowTitle": "profile.sh — boot",
+    "windowTitle": "profile.sh · boot",
     "skipHint": "click to skip",
     "lines": [
       { "text": "$ ./init --profile john.filhmar.ola", "tone": "bright" },
@@ -28,9 +28,9 @@
         "text": "  full-stack ✓   microservices ✓   DevSecOps ✓   infra ✓   security ✓",
         "tone": "accent"
       },
-      { "text": "▸ role: Lead IT @ YouCode Technologies", "tone": "dim" },
-      { "text": "▸ owning systems end to end — first commit to production", "tone": "dim" },
-      { "text": "$ ready — scroll, or press ⌘K", "tone": "bright" }
+      { "text": "▸ most recently: Lead IT @ YouCode Technologies", "tone": "dim" },
+      { "text": "▸ owning systems end to end, first commit to production", "tone": "dim" },
+      { "text": "$ ready, scroll, or press ⌘K", "tone": "bright" }
     ]
   }
 }

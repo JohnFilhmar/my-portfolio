@@ -49,7 +49,7 @@ export function Contact({
       contact.form.subjectTemplate.replaceAll("{{name}}", name || site.name),
     );
     const body = encodeURIComponent(
-      email ? `${message}\n\n— reply to: ${email}` : message,
+      email ? `${message}\n\nreply to: ${email}` : message,
     );
     window.location.href = `mailto:${site.contact.email}?subject=${subject}&body=${body}`;
   };

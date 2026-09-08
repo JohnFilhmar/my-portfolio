@@ -2,7 +2,7 @@
   "_readme": "Contact section. The email button and social links come from site.json. The form composes a mailto: link by default; set CONTACT_ENDPOINT in the environment to POST to your own endpoint instead (see README).",
   "label": "contact",
   "heading": "Let's build something.",
-  "blurb": "If you're hiring for full-stack, DevSecOps or infrastructure work — or you just want a second opinion on an architecture or a production setup — my inbox is open. I reply within 24 hours.",
+  "blurb": "If you're hiring for full-stack, DevSecOps or infrastructure work, or you just want a second opinion on an architecture or a production setup, my inbox is open. I reply within 24 hours.",
   "form": {
     "commandLine": "$ ./send-message",
     "commandComment": "# sends your message straight to my inbox",
@@ -16,7 +16,7 @@
     "sendingLabel": "sending…",
     "cooldownLabel": "wait {s}s",
     "subjectTemplate": "Hello from {{name}}",
-    "sentMessage": "✓ message sent — thank you!",
-    "errorMessage": "something went wrong — email me directly instead."
+    "sentMessage": "✓ message sent, thank you!",
+    "errorMessage": "something went wrong, email me directly instead."
   }
 }
