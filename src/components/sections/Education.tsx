@@ -31,7 +31,7 @@ export function Education({ number, education, lightbox }: EducationProps) {
                   current ? "text-accent" : "text-dim",
                 )}
               >
-                {item.start} —{"\n"}
+                {item.start} –{"\n"}
                 {current ? education.presentLabel : item.end}
               </p>
               <div>

@@ -44,7 +44,7 @@ export default async function handler(
   if (!smtp && !endpoint) {
     res.status(501).json({
       error:
-        "Contact API is not configured — the contact form uses mailto: instead.",
+        "Contact API is not configured. The contact form uses mailto: instead.",
     });
     return;
   }
@@ -60,7 +60,7 @@ export default async function handler(
   const rate = checkRateLimit(`contact:${ip}`, limitPerMinute);
   if (!rate.ok) {
     res.setHeader("Retry-After", String(rate.retryAfterSeconds));
-    res.status(429).json({ error: "Rate limit reached — try again shortly." });
+    res.status(429).json({ error: "Rate limit reached, try again shortly." });
     return;
   }
 
@@ -85,7 +85,7 @@ export default async function handler(
         from: smtp.from,
         to: smtp.to,
         replyTo: email || undefined,
-        subject: `Portfolio contact — ${name.trim() || "no name"}`,
+        subject: `Portfolio contact: ${name.trim() || "no name"}`,
         text: `From: ${who}${email ? ` <${email}>` : ""}\n\n${message}`,
       });
       res.status(200).json({ ok: true });

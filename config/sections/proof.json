@@ -1,8 +1,8 @@
 {
-  "_readme": "Evidence section. Every item points at a real file under ./public — the config loader drops any entry whose file is missing, and the section hides itself when nothing is left, so this list can safely hold entries for pictures you have not taken yet. That is why the placeholder entries below are invisible on the site until you drop a file at the exact path in `src` (extension included). `category` drives the filter chips, and the chip row hides itself when only one category survives. `meta` is the credibility line: put the capture date and the host or environment there. `aspect` is a CSS aspect-ratio, so use \"9/16\" for phone screenshots and \"4/3\" for photos.",
+  "_readme": "Evidence section, rendered as full-width rows with the picture alternating sides. Every item points at a real file under ./public: the config loader drops any entry whose file is missing, and the section hides itself when nothing is left, so this list can safely hold entries for pictures you have not taken yet. That is why the placeholder entries below are invisible on the site until you drop a file at the exact path in `src` (extension included). `caption` is the headline, `blurb` the supporting sentence, and `meta` the credibility line: put the capture date and the host there. `aspect` is a CSS aspect-ratio taken from the real pixel size of the file; anything narrower than 0.9 is treated as a portrait shot and held to a narrower column so it cannot tower over its neighbours. `category` drives the filter chips, and the chip row hides itself when only one category survives.",
   "label": "evidence",
-  "heading": "Screens from systems that are running.",
-  "blurb": "Claims are cheap. These are captures from deployments that are live right now, each one linked to an address you can open yourself.",
+  "heading": "Systems caught in the act of working.",
+  "blurb": "Claims are cheap. These are captures of the real products doing the job they were built for, each one linked to an address you can open yourself.",
   "commandLine": "$ ls -la ~/proof/  # {n} artifacts",
   "showFilters": true,
   "filterAllLabel": "all",
@@ -10,44 +10,48 @@
   "openLabelTemplate": "Open {title} full size",
   "items": [
     {
-      "id": "usapp-home",
-      "src": "/proof/usapp-home.webp",
-      "alt": "Usapp landing page: sign in with a phone number, one-to-one chats with delivery and seen receipts, and app store links",
-      "title": "usapp-home.webp",
-      "caption": "Usapp · secure real-time messaging, shipping on Play Store and App Store",
+      "id": "usapp-chat",
+      "src": "/proof/usapp-chat.webp",
+      "alt": "A Usapp conversation showing an end-to-end encrypted badge, a sent message marked Seen, and a reply in the thread",
+      "title": "usapp-chat.webp",
+      "caption": "Usapp",
+      "blurb": "A live conversation: end-to-end encrypted, with delivery and seen receipts. Built solo across the mobile client, the microservices behind it, and the servers it runs on.",
       "category": "live systems",
-      "meta": "captured 2026-09-06 · usapp.ph",
+      "meta": "captured 2026-09-08 · usapp.ph",
       "href": "https://usapp.ph",
-      "aspect": "16/10"
+      "aspect": "281/581"
     },
     {
-      "id": "peraplano-home",
-      "src": "/proof/peraplano-home.webp",
-      "alt": "PeraPlano landing page showing a bank notification being parsed into a categorised ledger entry",
-      "title": "peraplano-home.webp",
-      "caption": "PeraPlano · turns bank and e-wallet notifications into a ledger, on device",
+      "id": "peraplano-ledger",
+      "src": "/proof/peraplano-ledger.webp",
+      "alt": "PeraPlano parsing a BPI credit notification into amount, direction, merchant, wallet and category fields, then writing a Payroll entry to the ledger",
+      "title": "peraplano-ledger.webp",
+      "caption": "PeraPlano",
+      "blurb": "One bank notification becoming a ledger entry: parsed into amount, direction, merchant and category, then committed and reflected in what is safe to spend. All of it on the device.",
       "category": "live systems",
-      "meta": "captured 2026-09-06 · peraplano.filhmar.online",
+      "meta": "captured 2026-09-08 · peraplano.filhmar.online",
       "href": "https://peraplano.filhmar.online",
-      "aspect": "16/10"
+      "aspect": "432/859"
     },
     {
-      "id": "genesys-home",
-      "src": "/proof/genesys-home.webp",
-      "alt": "GeneSys landing page with a live biology quiz room and a room-code join box",
-      "title": "genesys-home.webp",
-      "caption": "GeneSys · live quiz rooms for the Philippine K-12 biology curriculum",
+      "id": "genesys-quiz",
+      "src": "/proof/genesys-quiz.webp",
+      "alt": "A GeneSys quiz question on recombinant DNA technology with four options, a countdown timer and a running score",
+      "title": "genesys-quiz.webp",
+      "caption": "GeneSys",
+      "blurb": "A quiz room mid-round, timer counting down and score tracking correct, wrong and missed. Written to the Philippine K-12 General Biology curriculum.",
       "category": "live systems",
-      "meta": "captured 2026-09-06 · genesys.filhmar.online",
+      "meta": "captured 2026-09-08 · genesys.filhmar.online",
       "href": "https://genesys.filhmar.online",
-      "aspect": "16/10"
+      "aspect": "540/476"
     },
     {
       "id": "jms-e-talyer-home",
       "src": "/proof/jms-e-talyer-home.webp",
-      "alt": "JMS E-Talyer storefront for motor parts and mechanic services",
+      "alt": "The JMS E-Talyer storefront for motor parts and mechanic services",
       "title": "jms-e-talyer-home.webp",
-      "caption": "JMS E-Talyer · motor parts inventory and service booking",
+      "caption": "JMS E-Talyer",
+      "blurb": "Motor parts inventory and service booking, running on a VPS provisioned, secured and deployed end to end. The working views sit behind a sign-in, so this is the public storefront.",
       "category": "live systems",
       "meta": "captured 2026-09-06 · jms-e-talyer.shop",
       "href": "https://jms-e-talyer.shop",
@@ -59,8 +63,9 @@
       "alt": "The desk and machines this work is built on",
       "title": "workspace.jpg",
       "caption": "Where the work happens",
+      "blurb": "The desk, the machines, the second monitor with the logs on it.",
       "category": "the human",
-      "meta": "add public/proof/workspace.jpg to publish this tile",
+      "meta": "add public/proof/workspace.jpg to publish this row",
       "aspect": "4/3"
     },
     {
@@ -69,8 +74,9 @@
       "alt": "The YouCode Technologies team",
       "title": "team.jpg",
       "caption": "The team at YouCode Technologies",
+      "blurb": "The people the systems were built alongside.",
       "category": "the human",
-      "meta": "add public/proof/team.jpg to publish this tile",
+      "meta": "add public/proof/team.jpg to publish this row",
       "aspect": "4/3"
     },
     {
@@ -78,9 +84,10 @@
       "src": "/proof/infra-rack.jpg",
       "alt": "The on-premise server rack these systems run on",
       "title": "infra-rack.jpg",
-      "caption": "On-premise infrastructure I operate",
+      "caption": "On-premise infrastructure",
+      "blurb": "The rack I provisioned, monitored and diagnosed at three in the morning.",
       "category": "infrastructure",
-      "meta": "add public/proof/infra-rack.jpg to publish this tile",
+      "meta": "add public/proof/infra-rack.jpg to publish this row",
       "aspect": "4/3"
     },
     {
@@ -88,9 +95,10 @@
       "src": "/proof/pipeline-run.png",
       "alt": "A CI/CD pipeline run showing security scanning and signed artifacts",
       "title": "pipeline-run.png",
-      "caption": "CI/CD run · scanning, signing, manual-gated deploy",
+      "caption": "A pipeline run",
+      "blurb": "Build, test, security scanning, artifact signing and a manual-gated deploy, green all the way down.",
       "category": "infrastructure",
-      "meta": "add public/proof/pipeline-run.png to publish this tile",
+      "meta": "add public/proof/pipeline-run.png to publish this row",
       "aspect": "16/10"
     }
   ]

@@ -31,6 +31,27 @@
           "aspect": "4/3"
         }
       ]
+    },
+    {
+      "institution": "BCRV Tech-Voc, Inc.",
+      "degree": "Programming (Java) NC III · TESDA",
+      "start": "Jul 2024",
+      "end": "Oct 2024",
+      "note": "TESDA-accredited technical-vocational qualification taken alongside the degree, in Calapan City, Oriental Mindoro.",
+      "photos": [
+        {
+          "src": "/education/bcrv-training.jpg",
+          "alt": "Java programming training at BCRV Tech-Voc",
+          "caption": "Java programming training · BCRV Tech-Voc",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/education/bcrv-certificate.jpg",
+          "alt": "TESDA Programming (Java) NC III certificate from BCRV Tech-Voc",
+          "caption": "Programming (Java) NC III certificate",
+          "aspect": "4/3"
+        }
+      ]
     }
   ]
 }

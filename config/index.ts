@@ -101,10 +101,20 @@ function publicAssetExists(src: string): boolean {
   }
 }
 
-/** Strip an optional `image` that has no file behind it, keeping the entry. */
-function withResolvedImage<T extends { image?: string }>(item: T): T {
+/**
+ * Strip an optional `image` that has no file behind it, keeping the entry.
+ * The keys are deleted rather than set to undefined: this config is returned
+ * from `getServerSideProps`, which serializes props as JSON, and `undefined`
+ * is not valid JSON.
+ */
+function withResolvedImage<T extends { image?: string; imageAlt?: string }>(
+  item: T,
+): T {
   if (!item.image || publicAssetExists(item.image)) return item;
-  return { ...item, image: undefined };
+  const next = { ...item };
+  delete next.image;
+  delete next.imageAlt;
+  return next;
 }
 
 /** Drop the photos of a timeline entry that have no file behind them. */

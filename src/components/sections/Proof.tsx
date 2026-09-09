@@ -3,7 +3,7 @@ import type { LightboxConfig, ProofConfig } from "@config/schema";
 import { FilterChips } from "@/components/ui/FilterChips";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { ProofTile } from "@/components/sections/ProofTile";
+import { ProofRow } from "@/components/sections/ProofRow";
 
 export interface ProofProps {
   number: string;
@@ -65,15 +65,16 @@ export function Proof({ number, proof, lightbox }: ProofProps) {
         className="mb-[26px]"
       />
 
-      {/* Wider than the project grid on purpose: a 1440px capture shrunk into
-          a 340px card is unreadable, which defeats the point of showing it. */}
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] items-start gap-3.5">
+      {/* Full-width rows with the picture alternating sides. A capture only
+          works as evidence if it is big enough to read. */}
+      <div className="grid gap-[clamp(40px,6vw,72px)]">
         {visible.map((item, index) => (
-          <ProofTile
+          <ProofRow
             key={item.id}
             item={item}
             openLabelTemplate={proof.openLabelTemplate}
-            eager={index < 2}
+            flipped={index % 2 === 1}
+            eager={index === 0}
             onOpen={() => setOpenIndex(index)}
           />
         ))}

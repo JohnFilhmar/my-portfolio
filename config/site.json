@@ -6,8 +6,8 @@
     "host": "filhmar"
   },
   "role": "Lead IT · Full-Stack Engineer · DevSecOps & Infrastructure",
-  "tagline": "I build systems end to end — from first commit to production operation.",
-  "description": "John Filhmar Ola — Lead IT and full-stack engineer. I architect, build, secure and operate production systems: mobile, backend microservices, and on-premise infrastructure. This site is a live, config-driven demo with an AI assistant.",
+  "tagline": "I build systems end to end, from first commit to production operation.",
+  "description": "John Filhmar Ola: Lead IT and full-stack engineer. I architect, build, secure and operate production systems: mobile, backend microservices, and on-premise infrastructure. This site is a live, config-driven demo with an AI assistant.",
   "siteUrl": "https://filhmar.online",
   "locale": "en_PH",
   "contact": {
@@ -15,7 +15,7 @@
   },
   "seo": {
     "image": "/og.png",
-    "imageAlt": "John Filhmar Ola — Lead IT, Full-Stack Engineer, DevSecOps & Infrastructure",
+    "imageAlt": "John Filhmar Ola: Lead IT, Full-Stack Engineer, DevSecOps & Infrastructure",
     "keywords": [
       "John Filhmar Ola",
       "Lead IT",
@@ -88,7 +88,7 @@
     }
   ],
   "footer": {
-    "note": "Built by hand as a live demo of my work — no template, no framework boilerplate. Every word and color on this page comes from editable config files.",
+    "note": "Built by hand as a live demo of my work: no template, no framework boilerplate. Every word and color on this page comes from editable config files.",
     "copyright": "© 2026 john filhmar ola · exit code 0"
   },
   "lightbox": {
@@ -103,7 +103,7 @@
     "buttonLabel": "⌘K",
     "buttonTitle": "Command palette (Cmd/Ctrl + K)",
     "placeholder": "type a command…",
-    "emptyMessage": "no matching commands — try \"work\" or \"email\"",
+    "emptyMessage": "no matching commands, try \"work\" or \"email\"",
     "footerHint": "↑↓ navigate · ↵ run · esc close",
     "escLabel": "esc",
     "gotoPrefix": "goto: ",
