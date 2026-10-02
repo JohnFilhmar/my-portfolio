@@ -18,7 +18,7 @@ export function AssistantLauncher({
       type="button"
       onClick={() => goToAssistant(sectionId, reducedMotion)}
       aria-label={assistant.launcher.ariaLabel}
-      className="fixed bottom-[18px] right-[18px] z-[60] cursor-pointer rounded-pill border border-accent-halo bg-launcher-veil px-4 py-2.5 font-mono text-sm text-accent shadow-float backdrop-blur transition-colors duration-fast hover:bg-accent hover:text-accent-contrast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
+      className="fixed bottom-[18px] right-[18px] z-[60] cursor-pointer rounded-pill border border-accent-halo bg-surface px-4 py-2.5 font-mono text-sm text-accent shadow-float transition-colors duration-fast hover:bg-accent hover:text-accent-contrast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
     >
       <span
         aria-hidden="true"

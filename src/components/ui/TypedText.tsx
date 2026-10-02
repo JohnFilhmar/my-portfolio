@@ -1,5 +1,4 @@
 import { useTypewriter } from "@/hooks/useTypewriter";
-import { Cursor } from "@/components/ui/Cursor";
 
 export interface TypedTextProps {
   text: string;
@@ -11,7 +10,7 @@ export interface TypedTextProps {
 }
 
 /**
- * Typed-out text with a blinking cursor. The full text ships in a
+ * Typed-out text. The full text ships in a
  * visually-hidden span (screen readers get the complete sentence once);
  * the animated copy is aria-hidden so AT never hears partial fragments.
  */
@@ -27,7 +26,6 @@ export function TypedText({
     <p className={className}>
       <span className="sr-only">{text}</span>
       <span aria-hidden="true">{displayed}</span>
-      <Cursor size="text" />
     </p>
   );
 }

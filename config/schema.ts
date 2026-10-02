@@ -128,8 +128,6 @@ export const themeSchema = z.object({
     easings: z.record(z.string(), z.string()),
     typing: z.object({
       heroCharMs: z.number().int().positive(),
-      bootCharMs: z.number().int().positive(),
-      bootLinePauseMs: z.number().int().positive(),
       bootStartDelayMs: z.number().int().nonnegative(),
       chatCharsPerTick: z.number().int().positive(),
       chatTickMs: z.number().int().positive(),
@@ -137,7 +135,6 @@ export const themeSchema = z.object({
     }),
   }),
   terminal: z.object({
-    cursorColor: z.string(),
     promptColor: z.string(),
     texture: z.enum(["grid", "scanlines", "none"]).default("grid"),
     textureLine: z.string(),
@@ -204,7 +201,6 @@ export const paletteSchema = z.object({
   actions: z.object({
     askAssistant: paletteActionSchema,
     copyEmail: paletteActionSchema,
-    replayBoot: paletteActionSchema,
   }),
 });
 export type PaletteConfig = z.infer<typeof paletteSchema>;
@@ -282,7 +278,6 @@ export const heroSchema = z.object({
   statusLine: z.array(spanSchema),
   boot: z.object({
     windowTitle: z.string(),
-    skipHint: z.string(),
     lines: z.array(bootLineSchema),
   }),
 });

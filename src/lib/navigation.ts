@@ -4,7 +4,6 @@
  */
 
 export const ASSISTANT_INPUT_ID = "assistant-chat-input";
-export const REPLAY_BOOT_EVENT = "portfolio:replay-boot";
 
 /** Header offset for anchored scrolling, read from the theme token. */
 function headerOffset(): number {
@@ -34,9 +33,4 @@ export function goToAssistant(sectionId: string, reduced: boolean): void {
     },
     reduced ? 50 : 550,
   );
-}
-
-/** Ask the hero to replay its boot sequence (used by the command palette). */
-export function requestBootReplay(): void {
-  window.dispatchEvent(new CustomEvent(REPLAY_BOOT_EVENT));
 }

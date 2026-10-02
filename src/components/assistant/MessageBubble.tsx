@@ -14,7 +14,7 @@ export function MessageBubble({ message, tags }: MessageBubbleProps) {
     <div>
       <p
         className={cn(
-          "m-0 mb-1 font-mono text-[11px]",
+          "m-0 mb-1 font-mono text-2xs",
           isAssistant ? "text-accent" : "text-dim",
         )}
       >

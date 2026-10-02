@@ -30,7 +30,8 @@ export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 const base =
   "inline-block cursor-pointer rounded-lg font-mono no-underline transition duration-fast " +
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent " +
-  "disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:brightness-100";
+  // A solid neutral, not an opacity fade: faded text drops below readable contrast.
+  "disabled:cursor-not-allowed disabled:border-border-strong disabled:bg-surface-inset disabled:text-faint disabled:hover:brightness-100";
 
 const variantClass: Record<Variant, string> = {
   solid:

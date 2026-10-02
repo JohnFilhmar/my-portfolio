@@ -1,12 +1,9 @@
-import { useEffect } from "react";
 import type { HeroConfig, SiteConfig, ThemeConfig } from "@config/schema";
-import { useBootSequence } from "@/hooks/useBootSequence";
 import { Button } from "@/components/ui/Button";
-import { Cursor } from "@/components/ui/Cursor";
 import { SpanLine } from "@/components/ui/TerminalLines";
 import { TerminalWindow } from "@/components/ui/TerminalWindow";
 import { TypedText } from "@/components/ui/TypedText";
-import { REPLAY_BOOT_EVENT, goToAssistant } from "@/lib/navigation";
+import { goToAssistant } from "@/lib/navigation";
 import { toneTextClass } from "@/lib/utils";
 
 export interface HeroProps {
@@ -19,7 +16,7 @@ export interface HeroProps {
   assistantSectionId: string | null;
 }
 
-/** Hero: typed intro on the left, boot-sequence terminal on the right. */
+/** Hero: typed intro on the left, profile terminal on the right. */
 export function Hero({
   sectionId,
   hero,
@@ -28,32 +25,6 @@ export function Hero({
   reducedMotion,
   assistantSectionId,
 }: HeroProps) {
-  const boot = useBootSequence(hero.boot.lines, {
-    charMs: typing.bootCharMs,
-    linePauseMs: typing.bootLinePauseMs,
-    startDelayMs: typing.bootStartDelayMs,
-    instant: reducedMotion,
-  });
-
-  // Escape skips the boot animation; the command palette can replay it.
-  const { booting, skip, replay } = boot;
-  useEffect(() => {
-    if (!booting) return;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") skip();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [booting, skip]);
-
-  useEffect(() => {
-    const onReplay = () => {
-      if (!reducedMotion) replay();
-    };
-    window.addEventListener(REPLAY_BOOT_EVENT, onReplay);
-    return () => window.removeEventListener(REPLAY_BOOT_EVENT, onReplay);
-  }, [replay, reducedMotion]);
-
   return (
     <header
       id={sectionId}
@@ -106,35 +77,16 @@ export function Hero({
         <SpanLine spans={hero.statusLine} className="font-mono text-[12px]" />
       </div>
 
-      <TerminalWindow
-        title={hero.boot.windowTitle}
-        titleRight={
-          boot.booting ? (
-            <span className="font-mono text-2xs text-dim">
-              {hero.boot.skipHint}
-            </span>
-          ) : undefined
-        }
-        onClick={boot.booting ? boot.skip : undefined}
-      >
-        <div className="min-h-[236px] px-5 pb-5 pt-[18px] font-mono text-[13px] leading-[1.85]">
-          {/* Static transcript for AT; the animated lines are decorative. */}
-          <div className="sr-only">
-            {hero.boot.lines.map((line, i) => (
-              <p key={i}>{line.text}</p>
-            ))}
-          </div>
-          <div aria-hidden="true">
-            {boot.lines.map((line, i) => (
-              <div
-                key={i}
-                className={`whitespace-pre-wrap ${toneTextClass[line.tone]}`}
-              >
-                {line.text}
-              </div>
-            ))}
-            <Cursor size="boot" />
-          </div>
+      <TerminalWindow title={hero.boot.windowTitle}>
+        <div className="px-5 pb-5 pt-[18px] font-mono text-[13px] leading-[1.85]">
+          {hero.boot.lines.map((line, i) => (
+            <p
+              key={i}
+              className={`m-0 whitespace-pre-wrap ${toneTextClass[line.tone]}`}
+            >
+              {line.text}
+            </p>
+          ))}
         </div>
       </TerminalWindow>
     </header>

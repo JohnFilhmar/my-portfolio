@@ -99,7 +99,7 @@ export function Lightbox({
         onClick={(event) => event.stopPropagation()}
         className="mx-auto w-full max-w-[1000px] overflow-hidden rounded-xl border border-border-strong bg-surface shadow-modal"
       >
-        <div className="flex items-center gap-2 border-b border-border bg-surface-alt px-3.5 py-[11px]">
+        <div className="flex items-center gap-2 border-b border-border px-3.5 py-[11px]">
           <span
             aria-hidden="true"
             className="h-2.5 w-2.5 rounded-full bg-dot"

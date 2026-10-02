@@ -266,7 +266,7 @@
         "Appointment scheduling and management.",
         "Built for low-resource clinic environments."
       ],
-      "results": "Live (2024–2025) · digital records replacing paper · improved accessibility and scheduling for underserved communities.",
+      "results": "Live (2024 to 2025) · digital records replacing paper · improved accessibility and scheduling for underserved communities.",
       "links": {
         "demo": "https://kalusugapp.com"
       },
@@ -299,7 +299,7 @@
         "Resilient student quiz engine: answers auto-save to the device with an offline retry queue (exponential backoff), so a dropped connection never loses work.",
         "Real-time room monitoring plus analytics exportable to Excel and PDF: class distribution, per-question analysis, and individual reports."
       ],
-      "results": "Live at genesys.filhmar.online · deployed for a quasi-experimental Grade-12 STEM study (Puerto Galera NHS, AY 2025–2026).",
+      "results": "Live at genesys.filhmar.online · deployed for a quasi-experimental Grade-12 STEM study (Puerto Galera NHS, AY 2025 to 2026).",
       "links": {
         "demo": "https://genesys.filhmar.online"
       },
@@ -329,7 +329,7 @@
         "Tracks both water level and rate of rise per monitored area.",
         "Designed for community-level deployment in flood-prone areas."
       ],
-      "results": "Completed (2024–2025) · multi-channel alerting · tracks water level and rate of rise per area.",
+      "results": "Completed (2024 to 2025) · multi-channel alerting · tracks water level and rate of rise per area.",
       "links": {
         "repo": "https://github.com/JohnFilhmar/FloodSystem"
       },
