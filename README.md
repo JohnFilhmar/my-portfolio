@@ -27,14 +27,17 @@ That's it. The assistant answers in **demo mode** (server-side intent matching o
 
 ### Scripts
 
-| Script           | What it does                  |
-| ---------------- | ----------------------------- |
-| `pnpm dev`       | Dev server                    |
-| `pnpm build`     | Production build              |
-| `pnpm start`     | Serve the production build    |
-| `pnpm lint`      | ESLint (next/core-web-vitals) |
-| `pnpm typecheck` | `tsc --noEmit` (strict)       |
-| `pnpm format`    | Prettier over the repo        |
+| Script                              | What it does                                                  |
+| ----------------------------------- | ------------------------------------------------------------- |
+| `pnpm dev`                          | Dev server                                                    |
+| `pnpm build`                        | Production build                                              |
+| `pnpm start`                        | Serve the production build                                    |
+| `pnpm lint`                         | ESLint (next/core-web-vitals)                                 |
+| `pnpm typecheck`                    | `tsc --noEmit` (strict)                                       |
+| `pnpm format`                       | Prettier over the repo                                        |
+| `pnpm test`                         | Unit tests (node:test)                                        |
+| `pnpm images`                       | Originals in `assets/` to WebP in `public/`                   |
+| `pnpm sample:seed` / `sample:clean` | Fill every empty slot with labelled samples, then remove them |
 
 ---
 
@@ -120,6 +123,26 @@ including the derived tints like tag borders that `src/lib/theme.ts` computes. `
 (`src/fonts/*.woff2`, OFL-licensed — see `src/fonts/LICENSE-OFL.txt`); no external
 font requests at build or runtime. To swap families, replace the files referenced in
 `src/lib/fonts.ts` and update the fallback stacks in `theme.json → fonts`.
+
+### Images
+
+Put originals (phone photos, screenshots, a transparent PNG of yourself) in
+`assets/` at the path the config names, then run `pnpm images`. It writes a WebP
+copy to the same path under `public/`, turned upright from the phone's EXIF
+orientation, capped at 1920px on the long edge, with camera and GPS metadata
+removed. `assets/photos/team.jpg` becomes `public/photos/team.webp`, so the config
+points at `/photos/team.webp`. `assets/` stays out of git and the Docker image; the
+WebP copies are what ship. Restart the server after adding images.
+
+### Sample content
+
+`pnpm sample:seed` fills every empty slot with pictures and entries stamped
+`SAMPLE`: portraits (including an opaque, non-square one), case-study shots,
+evidence, timeline photos, credentials and notes, a few deliberately off their
+slot's ratio. Use it to check layouts before the real assets exist.
+`pnpm sample:clean` removes exactly what seed wrote. A file you replaced while
+seeded is kept, and an edited `certifications.json` keeps its original in
+`.sample-content/` instead of being overwritten. Never commit while seeded.
 
 ---
 

@@ -13,19 +13,19 @@
       "note": "Graduated. Shifted from AB English (2019 to 2021) to BSIT.",
       "photos": [
         {
-          "src": "/education/graduation.jpg",
+          "src": "/education/graduation.webp",
           "alt": "Graduating with a BS in Information Technology from Mindoro State University",
           "caption": "BSIT graduation · Mindoro State University",
           "aspect": "4/3"
         },
         {
-          "src": "/education/diploma.jpg",
+          "src": "/education/diploma.webp",
           "alt": "BS Information Technology diploma from Mindoro State University",
           "caption": "Diploma",
           "aspect": "4/3"
         },
         {
-          "src": "/education/thesis-defense.jpg",
+          "src": "/education/thesis-defense.webp",
           "alt": "Presenting at the undergraduate thesis defence",
           "caption": "Thesis defence",
           "aspect": "4/3"
@@ -40,13 +40,13 @@
       "note": "TESDA-accredited technical-vocational qualification taken alongside the degree, in Calapan City, Oriental Mindoro.",
       "photos": [
         {
-          "src": "/education/bcrv-training.jpg",
+          "src": "/education/bcrv-training.webp",
           "alt": "Java programming training at BCRV Tech-Voc",
           "caption": "Java programming training · BCRV Tech-Voc",
           "aspect": "4/3"
         },
         {
-          "src": "/education/bcrv-certificate.jpg",
+          "src": "/education/bcrv-certificate.webp",
           "alt": "TESDA Programming (Java) NC III certificate from BCRV Tech-Voc",
           "caption": "Programming (Java) NC III certificate",
           "aspect": "4/3"

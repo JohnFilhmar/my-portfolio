@@ -68,7 +68,7 @@ export function Hero({
         </div>
         <HeroPortrait
           portrait={hero.portrait}
-          className="-mx-container-pad w-[calc(100%+2*var(--space-container-pad))] lg:ml-0 lg:w-[calc(100%+var(--space-container-pad))]"
+          className="-mx-container-pad w-[calc(100%+2*var(--space-container-pad))] lg:ml-auto lg:w-[calc(100%+var(--space-container-pad))]"
         />
       </div>
 

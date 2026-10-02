@@ -45,7 +45,7 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
   return (
     <figure
       className={cn(
-        "group relative m-0 aspect-square max-h-[calc(100dvh-var(--space-header-height))] w-full animate-rise-in",
+        "group relative m-0 aspect-square w-full max-w-[calc(100dvh-var(--space-header-height)-var(--space-hero-top))] animate-rise-in",
         className,
       )}
     >

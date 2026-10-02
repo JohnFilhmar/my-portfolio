@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import type { NotesConfig } from "@config/notesSchema";
 import { NoteRow } from "@/components/notes/NoteRow";
 import { FilterChips } from "@/components/ui/FilterChips";
+import { sharedValues } from "@/lib/utils";
 
 export interface NoteListProps {
   notes: NotesConfig;
@@ -14,7 +15,7 @@ export interface NoteListProps {
 export function NoteList({ notes }: NoteListProps) {
   const all = notes.allTagsLabel;
   const tags = useMemo(
-    () => [all, ...new Set(notes.posts.flatMap((post) => post.tags))],
+    () => [all, ...sharedValues(notes.posts.map((post) => post.tags))],
     [all, notes.posts],
   );
   const [active, setActive] = useState(all);

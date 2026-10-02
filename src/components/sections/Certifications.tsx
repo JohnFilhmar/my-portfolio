@@ -3,6 +3,7 @@ import type { CertificationsConfig } from "@config/schema";
 import { CertificationCard } from "@/components/sections/CertificationCard";
 import { FilterChips } from "@/components/ui/FilterChips";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { sharedValues } from "@/lib/utils";
 
 export interface CertificationsProps {
   certifications: CertificationsConfig;
@@ -26,7 +27,7 @@ export function Certifications({
   const skills = useMemo(
     () => [
       all,
-      ...new Set(certifications.items.flatMap((item) => item.skills)),
+      ...sharedValues(certifications.items.map((item) => item.skills)),
     ],
     [all, certifications.items],
   );

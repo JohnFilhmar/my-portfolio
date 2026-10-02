@@ -41,8 +41,8 @@ export function CertificationCard({
           <Heading className="m-0 mb-1 text-[17px] font-semibold leading-snug text-heading">
             {item.name}
           </Heading>
-          <div className="flex items-center gap-2">
-            <p className="m-0 truncate font-mono text-sm text-faint">
+          <div className="flex items-start gap-2">
+            <p className="m-0 min-w-0 break-words font-mono text-sm text-faint">
               {item.issuer}
             </p>
             <span className="flex-1" />
@@ -68,6 +68,11 @@ export function CertificationCard({
           </dt>
           <dd className="m-0 text-subtle">
             {item.expires ?? labels.neverExpiresLabel}
+            {item.expired && (
+              <span className="ml-1.5 text-danger">
+                · {labels.expiredLabel}
+              </span>
+            )}
           </dd>
         </div>
         {item.credentialId && (
@@ -75,9 +80,7 @@ export function CertificationCard({
             <dt className="m-0 uppercase tracking-[0.08em] text-dim">
               {labels.credentialLabel}
             </dt>
-            <dd className="m-0 truncate tracking-[0.06em] text-subtle">
-              {item.credentialId}
-            </dd>
+            <dd className="m-0 break-all text-subtle">{item.credentialId}</dd>
           </div>
         )}
       </dl>
