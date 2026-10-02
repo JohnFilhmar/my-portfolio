@@ -9,11 +9,14 @@ import { SuggestedChips } from "@/components/assistant/SuggestedChips";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export interface AssistantSectionProps {
-  number: string;
+  /** Section number in the home flow. Omitted on the standalone page. */
+  number?: string;
   assistant: AssistantConfig;
   mode: AssistantMode;
   typing: ThemeConfig["motion"]["typing"];
   reducedMotion: boolean;
+  /** On its own page the heading is the page's h1 and the section label is dropped. */
+  standalone?: boolean;
 }
 
 /** Assistant section: pitch + suggested questions on the left, chat on the right. */
@@ -23,17 +26,19 @@ export function AssistantSection({
   mode,
   typing,
   reducedMotion,
+  standalone = false,
 }: AssistantSectionProps) {
   const chat = useAssistant({ assistant, typing, reduced: reducedMotion });
+  const Heading = standalone ? "h1" : "p";
 
   return (
     <>
-      <SectionLabel number={number} label={assistant.label} />
+      {!standalone && <SectionLabel number={number} label={assistant.label} />}
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-column-gap">
         <div>
-          <p className="m-0 mb-4 text-section font-bold tracking-[-0.02em] text-heading">
+          <Heading className="m-0 mb-4 text-section font-bold tracking-[-0.02em] text-heading">
             {assistant.heading}
-          </p>
+          </Heading>
           <p className="m-0 mb-3 text-[16px] leading-[1.7] text-prose">
             {assistant.description}
           </p>

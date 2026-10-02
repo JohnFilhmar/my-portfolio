@@ -3,17 +3,21 @@ import type { SiteConfig } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
+import { homeAnchor } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 export interface HeaderProps {
   site: SiteConfig;
-  /** Resolved (enabled) sections — nav filters against them, spy follows them. */
+  /** Resolved home sections. Nav filters against them, spy follows them. */
   sections: ResolvedSection[];
+  /** Current route, e.g. "/" or "/work/usapp". Anchors resolve against home. */
+  path: string;
   onOpenPalette: () => void;
 }
 
 /** Sticky command-prompt nav with scroll-spy highlighting and ⌘K button. */
-export function Header({ site, sections, onOpenPalette }: HeaderProps) {
+export function Header({ site, sections, path, onOpenPalette }: HeaderProps) {
+  const onHome = path === "/";
   const sectionIds = useMemo(() => sections.map((s) => s.id), [sections]);
   const topId = sections[0]?.id ?? "top";
   // Spy over sections in document order; hide nav links whose section is
@@ -50,7 +54,7 @@ export function Header({ site, sections, onOpenPalette }: HeaderProps) {
       </div>
       <div className="mx-auto flex h-header max-w-container items-center gap-3 px-container-pad">
         <a
-          href={`#${topId}`}
+          href={onHome ? `#${topId}` : "/"}
           className="whitespace-nowrap font-mono text-[13.5px] font-medium text-bright no-underline hover:text-heading focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
         >
           {site.prompt.user}
@@ -61,16 +65,18 @@ export function Header({ site, sections, onOpenPalette }: HeaderProps) {
         <div className="flex-1" />
         <div className="no-scrollbar edge-fade flex max-w-[70vw] gap-0.5 overflow-x-auto">
           {navItems.map((item) => {
-            const id = item.href.replace(/^#/, "");
+            const current = item.href.startsWith("#")
+              ? onHome && active === item.href.slice(1)
+              : item.href === path;
             return (
               <a
                 key={item.href}
-                href={item.href}
-                aria-current={active === id ? "true" : undefined}
+                href={homeAnchor(item.href, onHome)}
+                aria-current={current ? "true" : undefined}
                 className={cn(
                   "whitespace-nowrap rounded-sm px-2.5 py-[7px] font-mono text-sm no-underline transition-colors duration-fast",
                   "hover:bg-hover-tint hover:text-heading focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent",
-                  active === id ? "text-accent" : "text-subtle",
+                  current ? "text-accent" : "text-subtle",
                 )}
               >
                 {item.label}

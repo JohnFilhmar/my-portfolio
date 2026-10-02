@@ -17,7 +17,7 @@ export function Seo({ seo, themeColor }: { seo: SeoData; themeColor: string }) {
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content={themeColor} />
-      <link rel="canonical" href={seo.siteUrl} />
+      <link rel="canonical" href={seo.url} />
 
       {/* Icons */}
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -26,7 +26,7 @@ export function Seo({ seo, themeColor }: { seo: SeoData; themeColor: string }) {
       {/* Open Graph (Facebook, LinkedIn, Discord, Slack, …) */}
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={seo.siteName} />
-      <meta property="og:url" content={seo.siteUrl} />
+      <meta property="og:url" content={seo.url} />
       <meta property="og:title" content={seo.ogTitle} />
       <meta property="og:description" content={seo.ogDescription} />
       <meta property="og:locale" content={seo.locale} />

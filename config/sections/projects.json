@@ -2,7 +2,7 @@
   "_readme": "Projects section. `domain` is the primary filter category; `secondaryDomains` add extra badges and filter matches. `highlights` render as the 'key decisions' list in the expandable case study. Links: set `demo` / `repo` / `writeup` URLs or delete the keys you don't need. `image` / `imageAlt` point at ./public/projects/<id>.png and are dropped by the loader until that file exists, so a card stays text-only until you add a screenshot; prefer a shot of the product doing its job over a landing page. `tier` sets visual weight, not order: \"flagship\" renders a full-width card, \"standard\" a card in the grid, \"compact\" a single expandable row. Keep flagships to two or three, since the whole point of the tier is that most projects are not one.",
   "label": "featured work",
   "heading": "Work that shipped.",
-  "showFilters": true,
+  "showFilters": false,
   "filterAllLabel": "all",
   "filterGroupLabel": "Filter projects by domain",
   "indexPrefix": "P-",
@@ -45,8 +45,31 @@
       "domain": "backend",
       "secondaryDomains": ["mobile", "DevSecOps"],
       "tier": "flagship",
-      "image": "/projects/usapp.png",
-      "imageAlt": "Usapp interface"
+      "cover": {
+        "src": "/work/usapp/cover.webp",
+        "alt": "Usapp interface",
+        "aspect": "16/10"
+      },
+      "shots": [
+        {
+          "src": "/work/usapp/architecture.webp",
+          "alt": "Usapp system architecture diagram",
+          "caption": "System architecture",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/usapp/screen-1.webp",
+          "alt": "Usapp main screen",
+          "caption": "Main screen",
+          "aspect": "9/19.5"
+        },
+        {
+          "src": "/work/usapp/screen-2.webp",
+          "alt": "Usapp key workflow screen",
+          "caption": "Key workflow",
+          "aspect": "9/19.5"
+        }
+      ]
     },
     {
       "id": "youcode-hris",
@@ -72,9 +95,7 @@
       "links": {},
       "domain": "full-stack",
       "secondaryDomains": ["backend"],
-      "tier": "standard",
-      "image": "/projects/youcode-hris.png",
-      "imageAlt": "YouCode HRIS interface"
+      "tier": "compact"
     },
     {
       "id": "youcode-civic-superapp",
@@ -100,9 +121,7 @@
       "links": {},
       "domain": "full-stack",
       "secondaryDomains": ["mobile"],
-      "tier": "standard",
-      "image": "/projects/youcode-civic-superapp.png",
-      "imageAlt": "Civic Super App Platform interface"
+      "tier": "compact"
     },
     {
       "id": "youcode-lms",
@@ -121,9 +140,7 @@
       "links": {},
       "domain": "full-stack",
       "secondaryDomains": ["mobile"],
-      "tier": "standard",
-      "image": "/projects/youcode-lms.png",
-      "imageAlt": "Offline-First Learning Platform interface"
+      "tier": "compact"
     },
     {
       "id": "youcode-youguard-bridge",
@@ -149,9 +166,7 @@
       "links": {},
       "domain": "iot",
       "secondaryDomains": ["backend"],
-      "tier": "compact",
-      "image": "/projects/youcode-youguard-bridge.png",
-      "imageAlt": "YouGuard Edge Bridge interface"
+      "tier": "compact"
     },
     {
       "id": "youcode-youflow",
@@ -177,9 +192,7 @@
       "links": {},
       "domain": "full-stack",
       "secondaryDomains": ["backend"],
-      "tier": "standard",
-      "image": "/projects/youcode-youflow.png",
-      "imageAlt": "YouFlow interface"
+      "tier": "compact"
     },
     {
       "id": "jms-e-talyer",
@@ -214,8 +227,31 @@
       "domain": "full-stack",
       "secondaryDomains": ["DevSecOps", "security"],
       "tier": "flagship",
-      "image": "/projects/jms-e-talyer.png",
-      "imageAlt": "JMS E-Talyer interface"
+      "cover": {
+        "src": "/work/jms-e-talyer/cover.webp",
+        "alt": "JMS E-Talyer interface",
+        "aspect": "16/10"
+      },
+      "shots": [
+        {
+          "src": "/work/jms-e-talyer/architecture.webp",
+          "alt": "JMS E-Talyer system architecture diagram",
+          "caption": "System architecture",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/jms-e-talyer/screen-1.webp",
+          "alt": "JMS E-Talyer main screen",
+          "caption": "Main screen",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/jms-e-talyer/screen-2.webp",
+          "alt": "JMS E-Talyer key workflow screen",
+          "caption": "Key workflow",
+          "aspect": "16/10"
+        }
+      ]
     },
     {
       "id": "peraplano",
@@ -244,8 +280,31 @@
       "domain": "mobile",
       "secondaryDomains": ["security"],
       "tier": "flagship",
-      "image": "/projects/peraplano.png",
-      "imageAlt": "PeraPlano interface"
+      "cover": {
+        "src": "/work/peraplano/cover.webp",
+        "alt": "PeraPlano interface",
+        "aspect": "16/10"
+      },
+      "shots": [
+        {
+          "src": "/work/peraplano/architecture.webp",
+          "alt": "PeraPlano system architecture diagram",
+          "caption": "System architecture",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/peraplano/screen-1.webp",
+          "alt": "PeraPlano main screen",
+          "caption": "Main screen",
+          "aspect": "9/19.5"
+        },
+        {
+          "src": "/work/peraplano/screen-2.webp",
+          "alt": "PeraPlano key workflow screen",
+          "caption": "Key workflow",
+          "aspect": "9/19.5"
+        }
+      ]
     },
     {
       "id": "kalusugapp",
@@ -272,9 +331,7 @@
       },
       "domain": "full-stack",
       "secondaryDomains": [],
-      "tier": "compact",
-      "image": "/projects/kalusugapp.png",
-      "imageAlt": "Kalusugapp interface"
+      "tier": "compact"
     },
     {
       "id": "genesys",
@@ -305,9 +362,7 @@
       },
       "domain": "full-stack",
       "secondaryDomains": [],
-      "tier": "standard",
-      "image": "/projects/genesys.png",
-      "imageAlt": "GeneSys interface"
+      "tier": "compact"
     },
     {
       "id": "flood-notification-system",
@@ -335,9 +390,7 @@
       },
       "domain": "iot",
       "secondaryDomains": [],
-      "tier": "compact",
-      "image": "/projects/flood-notification-system.png",
-      "imageAlt": "Flood Notification System interface"
+      "tier": "compact"
     }
   ]
 }

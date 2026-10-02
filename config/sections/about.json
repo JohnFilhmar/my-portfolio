@@ -8,6 +8,11 @@
     "I care about the unglamorous parts too: **security scanning in CI, hardened containers, monitoring, and incident diagnosis at 3 a.m.** This site is part of the evidence: **every section, color and sentence is editable config, no code changes.**"
   ],
   "philosophy": "\"Build it, secure it, ship it, run it, end to end.\"",
+  "portrait": {
+    "src": "/me.png",
+    "alt": "John Filhmar Ola",
+    "aspect": "1/1"
+  },
   "terminal": {
     "entries": [
       {

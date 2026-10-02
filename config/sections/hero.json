@@ -5,7 +5,7 @@
   "ctas": [
     {
       "label": "▸ ask my AI assistant",
-      "action": "assistant",
+      "href": "/ask",
       "variant": "solid"
     },
     { "label": "view work", "href": "#work", "variant": "outline" },

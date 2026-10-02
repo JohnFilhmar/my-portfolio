@@ -63,21 +63,31 @@ export function ProofRow({
               {item.title}
             </span>
           </div>
-          <button
-            type="button"
-            onClick={onOpen}
-            aria-label={openLabelTemplate.replace("{title}", item.title)}
-            className="block w-full cursor-zoom-in border-none bg-transparent p-0 transition duration-base hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
-          >
+          {item.missing ? (
             <ImageFrame
               src={item.src}
               alt={item.alt}
               aspect={item.aspect}
-              eager={eager}
-              fit={portrait ? "contain" : "cover"}
-              fallbackLabel={item.title}
+              fallbackLabel={item.caption}
+              missing
             />
-          </button>
+          ) : (
+            <button
+              type="button"
+              onClick={onOpen}
+              aria-label={openLabelTemplate.replace("{title}", item.title)}
+              className="block w-full cursor-zoom-in border-none bg-transparent p-0 transition duration-base hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
+            >
+              <ImageFrame
+                src={item.src}
+                alt={item.alt}
+                aspect={item.aspect}
+                eager={eager}
+                fit={portrait ? "contain" : "cover"}
+                fallbackLabel={item.title}
+              />
+            </button>
+          )}
         </div>
       </div>
 

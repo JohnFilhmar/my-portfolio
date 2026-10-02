@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import type { Project, ProjectsConfig } from "@config/schema";
 import { FilterChips } from "@/components/ui/FilterChips";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { FlagshipTile } from "@/components/sections/FlagshipTile";
 import { ProjectCard } from "@/components/sections/ProjectCard";
 import { ProjectRow } from "@/components/sections/ProjectRow";
 
@@ -17,10 +18,10 @@ interface IndexedProject {
 }
 
 /**
- * Projects, grouped by the `tier` each one is given in config: flagships take
- * the full width, standard projects share the card grid, and everything else
- * collapses into expandable rows. Filtering narrows all three groups at once
- * and any group with nothing in it renders nothing.
+ * Projects, grouped by the `tier` each one is given in config: flagships get
+ * a tile that leads to their case study, standard projects share the card
+ * grid, and everything else collapses into expandable rows under a heading.
+ * Filtering narrows all three groups at once and an empty group renders nothing.
  */
 export function Projects({ number, projects }: ProjectsProps) {
   const [filter, setFilter] = useState(projects.filterAllLabel);
@@ -68,20 +69,21 @@ export function Projects({ number, projects }: ProjectsProps) {
       />
 
       {flagships.length > 0 && (
-        <div className="mb-3.5 grid gap-3.5">
-          {flagships.map(({ project, index }) => (
-            <ProjectCard
+        <div className="mb-section-y mt-10 grid gap-[clamp(48px,7vw,96px)]">
+          {flagships.map(({ project, index }, position) => (
+            <FlagshipTile
               key={project.id}
               project={project}
               index={index}
               projects={projects}
+              flipped={position % 2 === 1}
             />
           ))}
         </div>
       )}
 
       {standard.length > 0 && (
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-3.5">
+        <div className="mb-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-3.5">
           {standard.map(({ project, index }) => (
             <ProjectCard
               key={project.id}
@@ -94,16 +96,21 @@ export function Projects({ number, projects }: ProjectsProps) {
       )}
 
       {compact.length > 0 && (
-        <div className="mt-7">
-          {compact.map(({ project, index }) => (
-            <ProjectRow
-              key={project.id}
-              project={project}
-              index={index}
-              projects={projects}
-            />
-          ))}
-        </div>
+        <>
+          <h3 className="m-0 mb-2 text-xl font-bold tracking-[-0.01em] text-heading">
+            {projects.moreHeading}
+          </h3>
+          <div>
+            {compact.map(({ project, index }) => (
+              <ProjectRow
+                key={project.id}
+                project={project}
+                index={index}
+                projects={projects}
+              />
+            ))}
+          </div>
+        </>
       )}
     </>
   );

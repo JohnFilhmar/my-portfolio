@@ -8,6 +8,11 @@ export interface ImageFrameProps {
   aspect?: string;
   /** Shown instead of the picture if the file cannot be decoded. */
   fallbackLabel?: string;
+  /**
+   * The config loader found no file at `src`. Renders a placeholder that names
+   * the path and ratio to upload, without requesting the missing file.
+   */
+  missing?: boolean;
   /** `cover` crops to fill the box; `contain` shows the whole picture. */
   fit?: "cover" | "contain";
   /** Skip lazy loading for the first tiles, which are usually above the fold. */
@@ -19,15 +24,16 @@ export interface ImageFrameProps {
 /**
  * Fixed-ratio picture box. The inset background is painted by the wrapper and
  * the image simply covers it once decoded, so the layout is stable and nothing
- * depends on JavaScript for the normal path. The only scripted behaviour is the
- * swap to a placeholder when a file 404s or fails to decode — the config loader
- * already drops entries with no file behind them, so this is the last resort.
+ * depends on JavaScript for the normal path. A slot the loader marked
+ * `missing` renders its placeholder on the server; the client-side swap on a
+ * 404 or decode failure stays as the last resort.
  */
 export function ImageFrame({
   src,
   alt,
   aspect = "16/10",
   fallbackLabel,
+  missing = false,
   fit = "cover",
   eager = false,
   className,
@@ -43,7 +49,23 @@ export function ImageFrame({
         className,
       )}
     >
-      {failed ? (
+      {missing ? (
+        <div
+          role="img"
+          aria-label={alt}
+          className="absolute inset-0 flex flex-col items-center justify-center gap-2 border border-dashed border-border-strong px-4 text-center"
+        >
+          <span aria-hidden="true" className="font-mono text-lg text-ghost">
+            ▨
+          </span>
+          <span className="font-mono text-2xs text-subtle">
+            {fallbackLabel ?? alt}
+          </span>
+          <span className="break-all font-mono text-2xs text-dim">
+            {src} · {aspect.replace("/", ":")}
+          </span>
+        </div>
+      ) : failed ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 px-4 text-center">
           <span aria-hidden="true" className="font-mono text-lg text-ghost">
             ▨

@@ -4,6 +4,8 @@ export interface SeoData {
   title: string;
   description: string;
   siteUrl: string;
+  /** Absolute canonical URL of this page. */
+  url: string;
   siteName: string;
   ogTitle: string;
   ogDescription: string;
@@ -63,6 +65,7 @@ export function buildSeo(site: SiteConfig, siteUrlRaw: string): SeoData {
     title,
     description: site.description,
     siteUrl,
+    url: siteUrl,
     siteName: site.name,
     ogTitle: title,
     ogDescription: site.tagline,
@@ -72,5 +75,28 @@ export function buildSeo(site: SiteConfig, siteUrlRaw: string): SeoData {
     keywords: site.seo.keywords.join(", "),
     twitterHandle: site.seo.twitterHandle ?? "",
     jsonLd,
+  };
+}
+
+/**
+ * Metadata for a page other than home: same site identity and social image,
+ * with its own title, description and canonical URL.
+ *
+ * @param base - The home metadata from `buildSeo`.
+ * @param page.path - Root-relative route, e.g. "/work/usapp".
+ * @returns A copy of `base` with page-level fields replaced.
+ */
+export function pageSeo(
+  base: SeoData,
+  page: { title: string; description: string; path: string },
+): SeoData {
+  const title = `${page.title} · ${base.siteName}`;
+  return {
+    ...base,
+    title,
+    ogTitle: title,
+    description: page.description,
+    ogDescription: page.description,
+    url: absoluteUrl(base.siteUrl, page.path),
   };
 }

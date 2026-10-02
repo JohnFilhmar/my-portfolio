@@ -11,31 +11,36 @@ export interface ProofProps {
   lightbox: LightboxConfig;
 }
 
-/** Evidence: filterable grid of captures, each expandable to full size. */
+/**
+ * Evidence: filterable grid of captures, each expandable to full size. Only
+ * captures not bound to a project show here; bound ones live on their case study.
+ */
 export function Proof({ number, proof, lightbox }: ProofProps) {
   const [filter, setFilter] = useState(proof.filterAllLabel);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const unbound = useMemo(
+    () => proof.items.filter((item) => item.project === undefined),
+    [proof.items],
+  );
+
   const categories = useMemo(() => {
     const seen: string[] = [];
-    for (const item of proof.items) {
+    for (const item of unbound) {
       if (!seen.includes(item.category)) seen.push(item.category);
     }
     return seen;
-  }, [proof.items]);
+  }, [unbound]);
 
   const visible = useMemo(
     () =>
-      proof.items.filter(
+      unbound.filter(
         (item) => filter === proof.filterAllLabel || item.category === filter,
       ),
-    [proof.items, proof.filterAllLabel, filter],
+    [unbound, proof.filterAllLabel, filter],
   );
 
-  const commandLine = proof.commandLine.replace(
-    "{n}",
-    String(proof.items.length),
-  );
+  const commandLine = proof.commandLine.replace("{n}", String(unbound.length));
 
   return (
     <>

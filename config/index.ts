@@ -117,6 +117,13 @@ function withResolvedImage<T extends { image?: string; imageAlt?: string }>(
   return next;
 }
 
+/** Keep a picture slot but record whether its file exists, for placeholders. */
+function withMissingFlag<T extends { src: string }>(
+  item: T,
+): T & { missing: boolean } {
+  return { ...item, missing: !publicAssetExists(item.src) };
+}
+
 /** Drop the photos of a timeline entry that have no file behind them. */
 function withResolvedPhotos<T extends { photos: Array<{ src: string }> }>(
   item: T,
@@ -129,6 +136,7 @@ function withResolvedPhotos<T extends { photos: Array<{ src: string }> }>(
 export function loadConfig(): AppConfig {
   const projects = loadFile("sections/projects.json", projectsSchema);
   const proof = loadFile("sections/proof.json", proofSchema);
+  const about = loadFile("sections/about.json", aboutSchema);
   const experience = loadFile("sections/experience.json", experienceSchema);
   const education = loadFile("sections/education.json", educationSchema);
   const certifications = loadFile(
@@ -140,14 +148,27 @@ export function loadConfig(): AppConfig {
     site: loadFile("site.json", siteSchema),
     theme: loadFile("theme.json", themeSchema),
     hero: loadFile("sections/hero.json", heroSchema),
-    about: loadFile("sections/about.json", aboutSchema),
+    about: {
+      ...about,
+      ...(about.portrait && { portrait: withMissingFlag(about.portrait) }),
+    },
     skills: loadFile("sections/skills.json", skillsSchema),
-    projects: { ...projects, items: projects.items.map(withResolvedImage) },
-    // A proof tile is only evidence if the picture exists, so entries whose
-    // file is not in ./public are dropped rather than rendered as a gap.
+    projects: {
+      ...projects,
+      items: projects.items.map((item) => ({
+        ...item,
+        ...(item.cover && { cover: withMissingFlag(item.cover) }),
+        shots: item.shots.map(withMissingFlag),
+      })),
+    },
+    // A capture bound to a case study keeps its slot as a placeholder until the
+    // file lands. An unbound one is home-page evidence, which is only evidence
+    // if the picture exists, so it is dropped rather than rendered as a gap.
     proof: {
       ...proof,
-      items: proof.items.filter((item) => publicAssetExists(item.src)),
+      items: proof.items
+        .map(withMissingFlag)
+        .filter((item) => item.project !== undefined || !item.missing),
     },
     experience: {
       ...experience,
