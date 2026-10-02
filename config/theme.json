@@ -1,39 +1,41 @@
 {
-  "_readme": "DESIGN TOKENS: extracted from design/reference.html. Every color, font, radius, shadow and motion value the site uses lives here. Edit and refresh: tokens are read server-side per request and emitted as CSS custom properties, so no rebuild is needed.",
-  "mode": "dark",
+  "_readme": "DESIGN TOKENS. Every color, font, radius, shadow and motion value the site uses lives here. Edit and refresh: tokens are read server-side per request and emitted as CSS custom properties, so no rebuild is needed. `mode` sets the browser color-scheme (scrollbars, form controls) and must match the palette. Text colors are checked at 4.5:1 or better against every background and surface; re-check after changing either. `signal` is reserved for live-status marks and never used for text.",
+  "mode": "light",
   "colors": {
-    "background": "#0b0f14",
-    "backgroundAlt": "#0a0e13",
-    "surface": "#0e141c",
-    "surfaceAlt": "#0c1118",
-    "surfaceInset": "#0b1017",
-    "foreground": "#c9d4df",
-    "heading": "#eef4fa",
-    "bright": "#e9f1f8",
-    "prose": "#a7b6c5",
-    "muted": "#93a5b6",
-    "subtle": "#8fa1b3",
-    "faint": "#7c8fa1",
-    "dim": "#71869c",
-    "ghost": "#6b8198",
-    "border": "#1d2836",
-    "borderMuted": "#1a2432",
-    "borderNav": "#1c2735",
-    "borderChip": "#223042",
-    "borderStrong": "#2b3c4f",
-    "borderHover": "#2c3f54",
-    "dot": "#2a3a4d",
-    "accent": "#4af78d",
-    "accentMuted": "#2e9a58",
-    "accentContrast": "#06130b",
-    "selectionContrast": "#071009",
-    "success": "#4af78d",
-    "warning": "#ffc857",
-    "danger": "#ff6b6b",
-    "hoverTint": "rgba(255, 255, 255, 0.05)",
-    "overlay": "rgba(4, 8, 12, 0.72)"
+    "background": "#E3E5E2",
+    "backgroundAlt": "#D9DCD8",
+    "surface": "#EEF0ED",
+    "surfaceAlt": "#E8EAE7",
+    "surfaceInset": "#D5D8D4",
+    "foreground": "#1E2320",
+    "heading": "#101412",
+    "bright": "#161A18",
+    "prose": "#2C322F",
+    "muted": "#3A413D",
+    "subtle": "#465049",
+    "faint": "#4F5853",
+    "dim": "#535C56",
+    "ghost": "#56605A",
+    "border": "#BFC4BF",
+    "borderMuted": "#CCD0CB",
+    "borderNav": "#BFC4BF",
+    "borderChip": "#B3B9B3",
+    "borderStrong": "#8E968F",
+    "borderHover": "#6E766F",
+    "dot": "#A3A9A3",
+    "accent": "#101412",
+    "accentMuted": "#3A413D",
+    "accentContrast": "#EEF0ED",
+    "selectionContrast": "#EEF0ED",
+    "signal": "#D4470F",
+    "success": "#1D6A3A",
+    "warning": "#7A4F00",
+    "danger": "#A8241C",
+    "hoverTint": "rgba(16, 20, 18, 0.06)",
+    "overlay": "rgba(16, 20, 18, 0.62)"
   },
   "fonts": {
+    "display": "'Archivo', 'Arial Narrow', system-ui, sans-serif",
     "mono": "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
     "sans": "'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif"
   },
@@ -44,16 +46,16 @@
     "md": "13.5px",
     "base": "14.5px",
     "lg": "16.5px",
-    "hero": "clamp(42px, 6.5vw, 74px)",
-    "section": "clamp(26px, 3.4vw, 38px)",
-    "tagline": "clamp(16px, 1.9vw, 18.5px)",
-    "roleLine": "clamp(14.5px, 1.8vw, 18px)"
+    "hero": "clamp(36px, 5vw, 66px)",
+    "section": "clamp(30px, 3.8vw, 48px)",
+    "index": "clamp(38px, 7.2vw, 96px)",
+    "tagline": "clamp(16px, 1.9vw, 18.5px)"
   },
   "spacing": {
     "containerMax": "1180px",
     "containerPad": "clamp(16px, 4vw, 32px)",
     "sectionY": "clamp(56px, 8vw, 96px)",
-    "heroTop": "clamp(56px, 9vh, 104px)",
+    "heroTop": "clamp(40px, 7vh, 88px)",
     "heroBottom": "clamp(48px, 7vh, 84px)",
     "contactBottom": "clamp(72px, 10vw, 120px)",
     "columnGap": "clamp(28px, 4vw, 56px)",
@@ -70,35 +72,31 @@
     "full": "9999px"
   },
   "shadows": {
-    "window": "0 24px 60px -24px rgba(0, 0, 0, 0.7)",
-    "float": "0 10px 30px -10px rgba(0, 0, 0, 0.6)",
-    "modal": "0 40px 90px -20px rgba(0, 0, 0, 0.85)"
+    "window": "0 18px 40px -24px rgba(16, 20, 18, 0.35)",
+    "float": "0 10px 24px -12px rgba(16, 20, 18, 0.35)",
+    "modal": "0 40px 90px -20px rgba(16, 20, 18, 0.5)"
   },
   "motion": {
     "durations": {
       "fast": "150ms",
       "base": "250ms",
-      "reveal": "600ms",
-      "pulse": "2s"
+      "reveal": "600ms"
     },
     "easings": {
-      "standard": "ease",
-      "reveal": "ease"
+      "standard": "cubic-bezier(0.23, 1, 0.32, 1)",
+      "reveal": "cubic-bezier(0.23, 1, 0.32, 1)"
     },
     "typing": {
-      "heroCharMs": 16,
-      "bootStartDelayMs": 350,
       "chatCharsPerTick": 3,
       "chatTickMs": 14,
       "chatReplyDelayMs": 360
     }
   },
   "terminal": {
-    "promptColor": "#71869c",
     "texture": "none",
-    "textureLine": "rgba(148, 178, 208, 0.05)",
+    "textureLine": "rgba(16, 20, 18, 0.05)",
     "textureSize": "44px",
     "glow": false,
-    "scanlineColor": "rgba(2, 6, 10, 0.4)"
+    "scanlineColor": "rgba(16, 20, 18, 0.08)"
   }
 }

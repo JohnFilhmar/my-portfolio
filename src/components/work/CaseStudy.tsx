@@ -107,7 +107,7 @@ export function CaseStudy({
           {project.metrics.map((metric) => (
             <div key={metric.label}>
               <dt className="font-mono text-sm text-subtle">{metric.label}</dt>
-              <dd className="m-0 mt-1 text-section font-bold tracking-[-0.02em] text-heading">
+              <dd className="m-0 mt-1 font-display text-section font-semibold tracking-[-0.02em] text-heading">
                 {metric.value}
               </dd>
             </div>
@@ -191,7 +191,7 @@ export function CaseStudy({
             <span className="font-mono text-sm text-subtle">
               {labels.nextLabel}
             </span>
-            <span className="text-section font-bold tracking-[-0.02em] text-heading group-hover:text-accent">
+            <span className="font-display text-section font-semibold tracking-[-0.02em] text-heading group-hover:underline">
               {next.title} →
             </span>
           </a>

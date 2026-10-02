@@ -3,10 +3,9 @@ import type { ContactConfig, SiteConfig } from "@config/schema";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { IconLink } from "@/components/ui/IconLink";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 
 export interface ContactProps {
-  number: string;
   contact: ContactConfig;
   site: SiteConfig;
   /** True when CONTACT_ENDPOINT is configured — form POSTs instead of mailto. */
@@ -21,7 +20,6 @@ const COOLDOWN_SECONDS = 30;
 
 /** Contact: email CTA + socials on the left, send-message card on the right. */
 export function Contact({
-  number,
   contact,
   site,
   contactViaApi,
@@ -83,12 +81,9 @@ export function Contact({
 
   return (
     <>
-      <SectionLabel number={number} label={contact.label} />
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-column-gap">
         <div>
-          <p className="m-0 mb-4 text-section font-bold tracking-[-0.02em] text-heading">
-            {contact.heading}
-          </p>
+          <SectionHeading className="mb-4">{contact.heading}</SectionHeading>
           <p className="m-0 mb-[26px] max-w-[46ch] text-[16px] leading-[1.7] text-prose">
             {contact.blurb}
           </p>
@@ -117,10 +112,6 @@ export function Contact({
         </div>
 
         <Card>
-          <p className="m-0 mb-3.5 font-mono text-[12px] text-dim">
-            {contact.form.commandLine}{" "}
-            <span className="text-ghost">{contact.form.commandComment}</span>
-          </p>
           <form onSubmit={onSubmit}>
             <label
               htmlFor="contact-name"

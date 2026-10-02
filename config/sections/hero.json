@@ -1,35 +1,21 @@
 {
-  "_readme": "Hero section. The typed tagline comes from site.json (`tagline`); everything else about the hero lives here, including the boot-sequence terminal lines. Tones map to theme color tokens: default | bright | heading | prose | muted | subtle | faint | dim | ghost | accent.",
-  "promptLine": { "path": "~/john-filhmar-ola", "command": "./introduce --brief" },
-  "nameSuffix": ".",
+  "_readme": "Hero section. `headline` is the page's h1. `statusLine` sits under it; its tones map to theme color tokens: default | bright | heading | prose | muted | subtle | faint | dim | ghost | accent. The index under the hero lists every project whose tier is \"flagship\" in projects.json, each with its `status` and the host of its demo link, and each row opens that project's case study.",
+  "headline": "I build, secure, ship and run production systems.",
   "ctas": [
-    {
-      "label": "▸ ask my AI assistant",
-      "href": "/ask",
-      "variant": "solid"
-    },
-    { "label": "view work", "href": "#work", "variant": "outline" },
-    { "label": "get in touch →", "href": "#contact", "variant": "ghost" }
+    { "label": "Get in touch", "href": "#contact", "variant": "solid" },
+    { "label": "Ask my AI assistant", "href": "/ask", "variant": "outline" }
   ],
   "statusLine": [
     {
-      "text": "most recently: Lead IT @ YouCode Technologies · systems shipped: 5+ · status: ",
-      "tone": "dim"
+      "text": "Most recently Lead IT at YouCode Technologies · Dasmariñas, PH (UTC+8) · ",
+      "tone": "subtle"
     },
     { "text": "open to work", "tone": "accent" }
   ],
-  "boot": {
-    "windowTitle": "profile.sh · boot",
-    "lines": [
-      { "text": "$ ./init --profile john.filhmar.ola", "tone": "bright" },
-      { "text": "▸ loading modules …", "tone": "dim" },
-      {
-        "text": "  full-stack ✓   microservices ✓   DevSecOps ✓   infra ✓   security ✓",
-        "tone": "accent"
-      },
-      { "text": "▸ most recently: Lead IT @ YouCode Technologies", "tone": "dim" },
-      { "text": "▸ owning systems end to end, first commit to production", "tone": "dim" },
-      { "text": "$ ready, scroll, or press ⌘K", "tone": "bright" }
-    ]
+  "indexLabel": "Systems I own, end to end",
+  "statusLabels": {
+    "live": "live",
+    "in-development": "in development",
+    "completed": "completed"
   }
 }

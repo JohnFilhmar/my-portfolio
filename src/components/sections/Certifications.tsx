@@ -1,12 +1,11 @@
 import type { CertificationsConfig } from "@config/schema";
 import { Card } from "@/components/ui/Card";
 import { ImageFrame } from "@/components/ui/ImageFrame";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Tag } from "@/components/ui/Tag";
 import { isExternalHref } from "@/lib/utils";
 
 export interface CertificationsProps {
-  number: string;
   certifications: CertificationsConfig;
 }
 
@@ -15,16 +14,10 @@ export interface CertificationsProps {
  * credential number are printed plainly and the verify link points at the
  * issuer's own page, so an employer can check an entry without asking.
  */
-export function Certifications({
-  number,
-  certifications,
-}: CertificationsProps) {
+export function Certifications({ certifications }: CertificationsProps) {
   return (
     <>
-      <SectionLabel number={number} label={certifications.label} />
-      <p className="m-0 mb-4 text-section font-bold tracking-[-0.02em] text-heading">
-        {certifications.heading}
-      </p>
+      <SectionHeading className="mb-4">{certifications.heading}</SectionHeading>
       <p className="m-0 mb-7 max-w-[62ch] text-lg leading-[1.7] text-prose">
         {certifications.blurb}
       </p>

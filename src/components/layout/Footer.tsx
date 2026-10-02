@@ -20,11 +20,8 @@ export function Footer({ site, sections, path }: FooterProps) {
     <footer className="border-t border-border-nav bg-background-alt">
       <div className="mx-auto flex max-w-container flex-wrap items-start gap-6 px-container-pad py-9">
         <div className="min-w-[260px] flex-1 basis-[260px]">
-          <p className="m-0 mb-2 font-mono text-[13px] text-bright">
-            {site.prompt.user}
-            <span className="text-accent">@</span>
-            {site.prompt.host}
-            <span className="text-dim">:~</span>
+          <p className="stretch-expanded m-0 mb-2 font-display text-sm font-extrabold uppercase text-heading">
+            {site.name}
           </p>
           <p className="m-0 max-w-[40ch] text-[13px] leading-relaxed text-dim">
             {site.footer.note}

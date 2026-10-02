@@ -33,7 +33,7 @@ export function CaseHeader({ project, projects, backHref }: CaseHeaderProps) {
 
       <header className="mt-8 grid gap-x-column-gap gap-y-6 md:grid-cols-12 md:items-end">
         <div className="md:col-span-8">
-          <h1 className="m-0 text-hero font-bold leading-[1.02] tracking-[-0.025em] text-heading">
+          <h1 className="stretch-semi-expanded m-0 font-display text-hero font-semibold leading-[1.02] tracking-[-0.02em] text-heading">
             {project.title}
           </h1>
           <p className="m-0 mt-5 max-w-[56ch] text-tagline leading-[1.6] text-muted">

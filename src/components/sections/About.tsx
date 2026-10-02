@@ -1,20 +1,17 @@
 import type { AboutConfig, EducationConfig } from "@config/schema";
-import { Card } from "@/components/ui/Card";
 import { ImageFrame } from "@/components/ui/ImageFrame";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { SpanLine } from "@/components/ui/TerminalLines";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { renderInline } from "@/lib/richtext";
 import { cn } from "@/lib/utils";
 
 export interface AboutProps {
-  number: string;
   about: AboutConfig;
   /** Summarised into one line, so education needs no section of its own. */
   education: EducationConfig;
 }
 
-/** About: portrait, prose with a one-line education summary, `$ whoami` card. */
-export function About({ number, about, education }: AboutProps) {
+/** About: portrait beside the prose, closed by a one-line education summary. */
+export function About({ about, education }: AboutProps) {
   const { portrait } = about;
   const schooling = education.items
     .map(
@@ -25,10 +22,7 @@ export function About({ number, about, education }: AboutProps) {
 
   return (
     <>
-      <SectionLabel number={number} label={about.label} />
-      <p className="m-0 mb-9 text-section font-bold tracking-[-0.02em] text-heading">
-        {about.heading}
-      </p>
+      <SectionHeading className="mb-9">{about.heading}</SectionHeading>
       <div className="grid items-start gap-x-column-gap gap-y-8 md:grid-cols-12">
         {portrait && (
           <ImageFrame
@@ -51,28 +45,10 @@ export function About({ number, about, education }: AboutProps) {
           </div>
           {schooling && (
             <p className="m-0 mt-6 max-w-prose font-mono text-sm leading-relaxed text-subtle">
-              <span className="text-accent">{about.educationLabel}</span>{" "}
+              <span className="text-heading">{about.educationLabel}</span>{" "}
               {schooling}
             </p>
           )}
-          <Card className="mt-8 font-mono text-[13px] leading-[1.9]">
-            {about.terminal.entries.map((entry) => (
-              <div key={entry.cmd} className="mb-3.5 last:mb-0">
-                <p className="m-0 text-[var(--terminal-prompt)]">
-                  $ {entry.cmd}
-                </p>
-                {entry.lines.map((line, i) =>
-                  line.philosophy ? (
-                    <p key={i} className="m-0 text-accent">
-                      {about.philosophy}
-                    </p>
-                  ) : (
-                    <SpanLine key={i} spans={line.spans ?? []} />
-                  ),
-                )}
-              </div>
-            ))}
-          </Card>
         </div>
       </div>
     </>

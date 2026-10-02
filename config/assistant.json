@@ -21,7 +21,7 @@
   "sendLabel": "↵ send",
   "sendAriaLabel": "Send question",
   "launcher": {
-    "label": "ask_ai",
+    "label": "Ask my assistant",
     "ariaLabel": "Ask my AI assistant"
   },
   "messageTags": {

@@ -1,62 +1,49 @@
 import { useMemo, useState } from "react";
 import type { Project, ProjectsConfig } from "@config/schema";
 import { FilterChips } from "@/components/ui/FilterChips";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { FlagshipTile } from "@/components/sections/FlagshipTile";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProjectCard } from "@/components/sections/ProjectCard";
 import { ProjectRow } from "@/components/sections/ProjectRow";
 
 export interface ProjectsProps {
-  number: string;
   projects: ProjectsConfig;
 }
 
-interface IndexedProject {
-  project: Project;
-  /** Position in the full config list, so P-0N ids never shift. */
-  index: number;
-}
-
 /**
- * Projects, grouped by the `tier` each one is given in config: flagships get
- * a tile that leads to their case study, standard projects share the card
- * grid, and everything else collapses into expandable rows under a heading.
- * Filtering narrows all three groups at once and an empty group renders nothing.
+ * Everything that is not a flagship (flagships lead the hero index and have
+ * their own pages): standard projects share the card grid, compact ones
+ * collapse into expandable rows. Filtering narrows both groups at once and an
+ * empty group renders nothing.
  */
-export function Projects({ number, projects }: ProjectsProps) {
+export function Projects({ projects }: ProjectsProps) {
   const [filter, setFilter] = useState(projects.filterAllLabel);
+  const rest = useMemo(
+    () => projects.items.filter((item) => item.tier !== "flagship"),
+    [projects.items],
+  );
 
   const domains = useMemo(() => {
     const seen: string[] = [];
-    for (const item of projects.items) {
+    for (const item of rest) {
       for (const domain of [item.domain, ...item.secondaryDomains]) {
         if (!seen.includes(domain)) seen.push(domain);
       }
     }
     return seen;
-  }, [projects.items]);
+  }, [rest]);
 
-  const visible: IndexedProject[] = projects.items
-    .map((project, index) => ({ project, index }))
-    .filter(
-      ({ project }) =>
-        filter === projects.filterAllLabel ||
-        project.domain === filter ||
-        project.secondaryDomains.includes(filter),
-    );
-
-  const byTier = (tier: Project["tier"]) =>
-    visible.filter(({ project }) => project.tier === tier);
-  const flagships = byTier("flagship");
-  const standard = byTier("standard");
-  const compact = byTier("compact");
+  const visible: Project[] = rest.filter(
+    (project) =>
+      filter === projects.filterAllLabel ||
+      project.domain === filter ||
+      project.secondaryDomains.includes(filter),
+  );
+  const standard = visible.filter((project) => project.tier === "standard");
+  const compact = visible.filter((project) => project.tier === "compact");
 
   return (
     <>
-      <SectionLabel number={number} label={projects.label} />
-      <p className="m-0 mb-6 text-section font-bold tracking-[-0.02em] text-heading">
-        {projects.heading}
-      </p>
+      <SectionHeading className="mb-6">{projects.heading}</SectionHeading>
 
       <FilterChips
         groupLabel={projects.filterGroupLabel}
@@ -68,27 +55,12 @@ export function Projects({ number, projects }: ProjectsProps) {
         className="mb-[26px]"
       />
 
-      {flagships.length > 0 && (
-        <div className="mb-section-y mt-10 grid gap-[clamp(48px,7vw,96px)]">
-          {flagships.map(({ project, index }, position) => (
-            <FlagshipTile
-              key={project.id}
-              project={project}
-              index={index}
-              projects={projects}
-              flipped={position % 2 === 1}
-            />
-          ))}
-        </div>
-      )}
-
       {standard.length > 0 && (
         <div className="mb-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-3.5">
-          {standard.map(({ project, index }) => (
+          {standard.map((project) => (
             <ProjectCard
               key={project.id}
               project={project}
-              index={index}
               projects={projects}
             />
           ))}
@@ -96,21 +68,15 @@ export function Projects({ number, projects }: ProjectsProps) {
       )}
 
       {compact.length > 0 && (
-        <>
-          <h3 className="m-0 mb-2 text-xl font-bold tracking-[-0.01em] text-heading">
-            {projects.moreHeading}
-          </h3>
-          <div>
-            {compact.map(({ project, index }) => (
-              <ProjectRow
-                key={project.id}
-                project={project}
-                index={index}
-                projects={projects}
-              />
-            ))}
-          </div>
-        </>
+        <div>
+          {compact.map((project) => (
+            <ProjectRow
+              key={project.id}
+              project={project}
+              projects={projects}
+            />
+          ))}
+        </div>
       )}
     </>
   );

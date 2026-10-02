@@ -1,21 +1,17 @@
 import type { ExperienceConfig, LightboxConfig } from "@config/schema";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TimelineItem } from "@/components/sections/TimelineItem";
 
 export interface ExperienceProps {
-  number: string;
   experience: ExperienceConfig;
   lightbox: LightboxConfig;
 }
 
 /** Experience: vertical timeline of roles. */
-export function Experience({ number, experience, lightbox }: ExperienceProps) {
+export function Experience({ experience, lightbox }: ExperienceProps) {
   return (
     <>
-      <SectionLabel number={number} label={experience.label} />
-      <p className="m-0 mb-9 text-section font-bold tracking-[-0.02em] text-heading">
-        {experience.heading}
-      </p>
+      <SectionHeading className="mb-9">{experience.heading}</SectionHeading>
       <div className="grid max-w-[860px] gap-0">
         {experience.items.map((item) => (
           <TimelineItem

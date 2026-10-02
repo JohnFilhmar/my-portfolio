@@ -1,11 +1,9 @@
 import type { Project, ProjectsConfig } from "@config/schema";
 import { Tag } from "@/components/ui/Tag";
-import { formatIndex, isExternalHref } from "@/lib/utils";
+import { isExternalHref } from "@/lib/utils";
 
 export interface ProjectRowProps {
   project: Project;
-  /** Index within the full (unfiltered) project list, for stable P-0N ids. */
-  index: number;
   projects: ProjectsConfig;
 }
 
@@ -14,7 +12,7 @@ export interface ProjectRowProps {
  * place. Everything a card shows is still here, it just starts folded, so the
  * smaller projects stay readable without competing with the flagships.
  */
-export function ProjectRow({ project, index, projects }: ProjectRowProps) {
+export function ProjectRow({ project, projects }: ProjectRowProps) {
   const links = (
     [
       ["demo", project.links.demo],
@@ -36,9 +34,6 @@ export function ProjectRow({ project, index, projects }: ProjectRowProps) {
   return (
     <details className="group border-t border-border-muted last:border-b">
       <summary className="no-marker flex cursor-pointer flex-wrap items-baseline gap-x-3 gap-y-1 py-3.5 transition-colors duration-fast hover:bg-hover-tint focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent">
-        <span className="font-mono text-xs text-accent">
-          {formatIndex(projects.indexPrefix, index)}
-        </span>
         <span className="text-base font-semibold text-heading">
           {project.title}
         </span>
