@@ -3,8 +3,9 @@ import type { SiteConfig } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
-import { homeAnchor } from "@/lib/navigation";
+import { homeAnchor, visibleNav } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export interface HeaderProps {
   site: SiteConfig;
@@ -13,10 +14,20 @@ export interface HeaderProps {
   /** Current route, e.g. "/" or "/work/usapp". Anchors resolve against home. */
   path: string;
   onOpenPalette: () => void;
+  reducedMotion: boolean;
+  /** Page links to hide because the page has nothing to show yet. */
+  hiddenPaths: string[];
 }
 
 /** Sticky command-prompt nav with scroll-spy highlighting and ⌘K button. */
-export function Header({ site, sections, path, onOpenPalette }: HeaderProps) {
+export function Header({
+  site,
+  sections,
+  path,
+  onOpenPalette,
+  reducedMotion,
+  hiddenPaths,
+}: HeaderProps) {
   const onHome = path === "/";
   const sectionIds = useMemo(() => sections.map((s) => s.id), [sections]);
   const topId = sections[0]?.id ?? "top";
@@ -25,12 +36,8 @@ export function Header({ site, sections, path, onOpenPalette }: HeaderProps) {
   const active = useScrollSpy(sectionIds);
   const progress = useScrollProgress();
   const navItems = useMemo(
-    () =>
-      site.nav.filter(
-        (item) =>
-          !item.href.startsWith("#") || sectionIds.includes(item.href.slice(1)),
-      ),
-    [site.nav, sectionIds],
+    () => visibleNav(site.nav, sectionIds, hiddenPaths),
+    [site.nav, sectionIds, hiddenPaths],
   );
 
   return (
@@ -64,7 +71,7 @@ export function Header({ site, sections, path, onOpenPalette }: HeaderProps) {
           {navItems.map((item) => {
             const current = item.href.startsWith("#")
               ? onHome && active === item.href.slice(1)
-              : item.href === path;
+              : path === item.href || path.startsWith(`${item.href}/`);
             return (
               <a
                 key={item.href}
@@ -83,6 +90,10 @@ export function Header({ site, sections, path, onOpenPalette }: HeaderProps) {
             );
           })}
         </div>
+        <ThemeToggle
+          label={site.a11y.themeToggleLabel}
+          reducedMotion={reducedMotion}
+        />
         <button
           type="button"
           onClick={onOpenPalette}

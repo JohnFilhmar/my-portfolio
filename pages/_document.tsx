@@ -7,12 +7,16 @@ import Document, {
   type DocumentInitialProps,
 } from "next/document";
 import { loadConfig } from "@config/index";
+import { THEME_INIT_SCRIPT } from "@/lib/themeMode";
 
 interface Props extends DocumentInitialProps {
   lang: string;
 }
 
-/** Custom document: sets <html lang> from the configured locale. */
+/**
+ * Custom document: sets <html lang> from the configured locale and picks the
+ * light or dark palette before first paint.
+ */
 export default class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext): Promise<Props> {
     const initialProps = await Document.getInitialProps(ctx);
@@ -28,7 +32,9 @@ export default class MyDocument extends Document<Props> {
   render() {
     return (
       <Html lang={this.props.lang}>
-        <Head />
+        <Head>
+          <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        </Head>
         <body>
           <Main />
           <NextScript />

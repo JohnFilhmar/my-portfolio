@@ -50,8 +50,6 @@ export default function AskPage({
         <AssistantSection
           assistant={config.assistant}
           mode={assistantMode}
-          typing={config.theme.motion.typing}
-          reducedMotion={reducedMotion}
           standalone
         />
       </Section>

@@ -11,9 +11,13 @@ export interface ChatMessage {
 
 export interface LLMStreamOptions {
   model: string;
+  /** Stable across requests, so adapters may cache it. */
   system: string;
   messages: ChatMessage[];
+  /** Hard ceiling on output tokens, thinking included where the model thinks. */
   maxTokens: number;
+  /** How much reasoning to spend. Short factual answers need little. */
+  effort: "low" | "medium" | "high";
   signal?: AbortSignal;
 }
 

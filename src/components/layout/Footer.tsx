@@ -1,20 +1,22 @@
 import type { SiteConfig } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
-import { homeAnchor } from "@/lib/navigation";
+import { homeAnchor, visibleNav } from "@/lib/navigation";
 
 export interface FooterProps {
   site: SiteConfig;
   sections: ResolvedSection[];
   /** Current route. Anchors resolve against home everywhere else. */
   path: string;
+  /** Page links to hide because the page has nothing to show yet. */
+  hiddenPaths: string[];
 }
 
-/** Footer: prompt brand, note, quick nav (filtered to enabled sections). */
-export function Footer({ site, sections, path }: FooterProps) {
-  const sectionIds = sections.map((s) => s.id);
-  const navItems = site.nav.filter(
-    (item) =>
-      !item.href.startsWith("#") || sectionIds.includes(item.href.slice(1)),
+/** Footer: prompt brand, note, quick nav (filtered like the header's). */
+export function Footer({ site, sections, path, hiddenPaths }: FooterProps) {
+  const navItems = visibleNav(
+    site.nav,
+    sections.map((s) => s.id),
+    hiddenPaths,
   );
   return (
     <footer className="border-t border-border-nav bg-background-alt">

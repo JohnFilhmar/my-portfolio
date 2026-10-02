@@ -1,38 +1,74 @@
 {
-  "_readme": "DESIGN TOKENS. Every color, font, radius, shadow and motion value the site uses lives here. Edit and refresh: tokens are read server-side per request and emitted as CSS custom properties, so no rebuild is needed. `mode` sets the browser color-scheme (scrollbars, form controls) and must match the palette. Text colors are checked at 4.5:1 or better against every background and surface; re-check after changing either. `signal` is reserved for live-status marks and never used for text.",
-  "mode": "light",
-  "colors": {
-    "background": "#E3E5E2",
-    "backgroundAlt": "#D9DCD8",
-    "surface": "#EEF0ED",
-    "surfaceAlt": "#E8EAE7",
-    "surfaceInset": "#D5D8D4",
-    "foreground": "#1E2320",
-    "heading": "#101412",
-    "bright": "#161A18",
-    "prose": "#2C322F",
-    "muted": "#3A413D",
-    "subtle": "#465049",
-    "faint": "#4F5853",
-    "dim": "#535C56",
-    "ghost": "#56605A",
-    "border": "#BFC4BF",
-    "borderMuted": "#CCD0CB",
-    "borderNav": "#BFC4BF",
-    "borderChip": "#B3B9B3",
-    "borderStrong": "#8E968F",
-    "borderHover": "#6E766F",
-    "dot": "#A3A9A3",
-    "accent": "#101412",
-    "accentMuted": "#3A413D",
-    "accentContrast": "#EEF0ED",
-    "selectionContrast": "#EEF0ED",
-    "signal": "#D4470F",
-    "success": "#1D6A3A",
-    "warning": "#7A4F00",
-    "danger": "#A8241C",
-    "hoverTint": "rgba(16, 20, 18, 0.06)",
-    "overlay": "rgba(16, 20, 18, 0.62)"
+  "_readme": "DESIGN TOKENS. Every color, font, radius, shadow and motion value the site uses lives here. Edit and refresh: tokens are read server-side per request and emitted as CSS custom properties, so no rebuild is needed. `palettes.light` and `palettes.dark` each hold the full color set; dark applies when the visitor's system prefers it or they pick it with the header toggle. Steel-blue neutrals (hue 205 to 210), one deep-blue accent for links, buttons and focus, and an orange `signal` reserved for live-status marks and never used for text. Text colors clear 4.5:1 against every background and surface in both palettes (light worst 5.05:1, dark worst 5.66:1); `controlBorder` clears 3:1. Re-check after changing any of them.",
+  "palettes": {
+    "light": {
+      "background": "#D8E3EB",
+      "backgroundAlt": "#CEDAE4",
+      "surface": "#E7EEF3",
+      "surfaceAlt": "#DFE8EF",
+      "surfaceInset": "#C9D6E0",
+      "foreground": "#172736",
+      "heading": "#0B1824",
+      "bright": "#0F1E2B",
+      "prose": "#213140",
+      "muted": "#34475A",
+      "subtle": "#3A4D5F",
+      "faint": "#3E5062",
+      "dim": "#405264",
+      "ghost": "#435565",
+      "border": "#A6B6C4",
+      "borderMuted": "#B7C5D1",
+      "borderNav": "#A6B6C4",
+      "borderChip": "#97A9B9",
+      "borderStrong": "#7D8FA0",
+      "borderHover": "#627486",
+      "controlBorder": "#627486",
+      "dot": "#8FA1B1",
+      "accent": "#1A4C8A",
+      "accentMuted": "#24548F",
+      "accentContrast": "#F2F6F9",
+      "selectionContrast": "#F2F6F9",
+      "signal": "#A3360A",
+      "success": "#17613A",
+      "warning": "#6E4700",
+      "danger": "#9A2018",
+      "hoverTint": "rgba(11, 24, 36, 0.06)",
+      "overlay": "rgba(11, 24, 36, 0.55)"
+    },
+    "dark": {
+      "background": "#13232F",
+      "backgroundAlt": "#0F1E29",
+      "surface": "#1A2C3A",
+      "surfaceAlt": "#172836",
+      "surfaceInset": "#0D1922",
+      "foreground": "#D6E0E8",
+      "heading": "#EAF0F5",
+      "bright": "#DFE7EE",
+      "prose": "#C3D0DB",
+      "muted": "#A9B9C6",
+      "subtle": "#A0B1BF",
+      "faint": "#9AACBB",
+      "dim": "#97A9B8",
+      "ghost": "#93A5B5",
+      "border": "#2F4555",
+      "borderMuted": "#263A49",
+      "borderNav": "#2F4555",
+      "borderChip": "#3B5264",
+      "borderStrong": "#506879",
+      "borderHover": "#6F8597",
+      "controlBorder": "#6F8597",
+      "dot": "#506879",
+      "accent": "#93B8E8",
+      "accentMuted": "#86AEE2",
+      "accentContrast": "#0D1922",
+      "selectionContrast": "#0D1922",
+      "signal": "#F08A4B",
+      "success": "#72C595",
+      "warning": "#E3B866",
+      "danger": "#F29589",
+      "hoverTint": "rgba(234, 240, 245, 0.07)",
+      "overlay": "rgba(4, 10, 15, 0.66)"
+    }
   },
   "fonts": {
     "display": "'Archivo', 'Arial Narrow', system-ui, sans-serif",
@@ -46,13 +82,14 @@
     "md": "13.5px",
     "base": "14.5px",
     "lg": "16.5px",
+    "title": "clamp(22px, 2.4vw, 32px)",
     "hero": "clamp(36px, 5vw, 66px)",
     "section": "clamp(30px, 3.8vw, 48px)",
     "index": "clamp(38px, 7.2vw, 96px)",
     "tagline": "clamp(16px, 1.9vw, 18.5px)"
   },
   "spacing": {
-    "containerMax": "1180px",
+    "containerMax": "none",
     "containerPad": "clamp(16px, 4vw, 32px)",
     "sectionY": "clamp(56px, 8vw, 96px)",
     "heroTop": "clamp(40px, 7vh, 88px)",
@@ -72,9 +109,9 @@
     "full": "9999px"
   },
   "shadows": {
-    "window": "0 18px 40px -24px rgba(16, 20, 18, 0.35)",
-    "float": "0 10px 24px -12px rgba(16, 20, 18, 0.35)",
-    "modal": "0 40px 90px -20px rgba(16, 20, 18, 0.5)"
+    "window": "0 18px 40px -24px rgba(11, 24, 36, 0.35)",
+    "float": "0 10px 24px -12px rgba(11, 24, 36, 0.35)",
+    "modal": "0 40px 90px -20px rgba(4, 10, 15, 0.55)"
   },
   "motion": {
     "durations": {
@@ -92,11 +129,14 @@
       "chatReplyDelayMs": 360
     }
   },
+  "media": {
+    "portraitTint": "grayscale(1) sepia(0.55) hue-rotate(170deg) saturate(1.5)"
+  },
   "terminal": {
     "texture": "none",
-    "textureLine": "rgba(16, 20, 18, 0.05)",
+    "textureLine": "rgba(11, 24, 36, 0.05)",
     "textureSize": "44px",
     "glow": false,
-    "scanlineColor": "rgba(16, 20, 18, 0.08)"
+    "scanlineColor": "rgba(11, 24, 36, 0.08)"
   }
 }

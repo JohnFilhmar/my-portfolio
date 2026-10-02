@@ -1,0 +1,36 @@
+{
+  "_readme": "Template, never published (the leading underscore skips it). Copy to config/notes/<your-slug>.json, use lowercase words joined by hyphens for the file name, and set draft to false. `body` is a list: a plain string is a paragraph, and the objects below are the other block types. Inline text supports **bold**, *italic*, `code` and [links](https://example.com). Image blocks must point at a file under ./public or they are dropped.",
+  "title": "How we cut deploy time from 14 minutes to 3",
+  "date": "2026-10-01",
+  "summary": "One sentence that tells a hiring manager why this post is worth two minutes.",
+  "tags": ["devops", "ci"],
+  "draft": true,
+  "body": [
+    "Open with the problem and the number that made it worth fixing.",
+    {
+      "type": "heading",
+      "text": "What was slow"
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": ["Cold Docker layer cache on every run", "Tests ran serially"]
+    },
+    {
+      "type": "code",
+      "lang": "yaml",
+      "code": "cache-from: type=gha\ncache-to: type=gha,mode=max"
+    },
+    {
+      "type": "quote",
+      "text": "A pull quote or a line from an incident channel."
+    },
+    {
+      "type": "image",
+      "src": "/notes/deploy-times.png",
+      "alt": "Deploy duration before and after",
+      "caption": "Median deploy time over six weeks."
+    },
+    "Close with the result and what you would do next. Link to the [pull request](https://github.com/) if it is public."
+  ]
+}

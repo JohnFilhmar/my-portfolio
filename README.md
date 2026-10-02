@@ -110,9 +110,10 @@ Reorder the array to reorder the page; set `enabled: false` to drop a section
 ### Theming
 
 `config/theme.json` is emitted as CSS custom properties on `:root` per request and
-mapped into Tailwind (`tailwind.config.ts`). Change `colors.accent` and refresh —
-the whole site (including derived tints like tag borders and the page glow, computed
-in `src/lib/theme.ts`) follows. `terminal.texture` switches the page backdrop between
+mapped into Tailwind (`tailwind.config.ts`). Light colors live in `palettes.light` and
+dark ones in `palettes.dark`; the header toggle switches between them and remembers the
+choice. Change `palettes.light.accent` and refresh, and the light theme follows,
+including the derived tints like tag borders that `src/lib/theme.ts` computes. `terminal.texture` switches the page backdrop between
 `grid`, `scanlines`, and `none`.
 
 **Fonts:** IBM Plex Sans/Mono are self-hosted via `next/font/local`

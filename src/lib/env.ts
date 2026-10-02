@@ -6,8 +6,12 @@ import type { AssistantMode } from "@config/schema";
  * the variables it needs — never silently degrades a misconfigured deploy.
  */
 
-export const DEFAULT_LLM_MODEL = "claude-opus-4-8";
-export const DEFAULT_RATE_LIMIT_PER_MINUTE = 20;
+export const DEFAULT_LLM_MODEL = "claude-opus-5-5";
+export const DEFAULT_RATE_LIMIT_PER_MINUTE = 10;
+/** Real model answers one visitor (IP + user agent) gets per 24 hours. */
+export const DEFAULT_LLM_QUOTA = 5;
+/** Real model answers the whole site serves per 24 hours, across all visitors. */
+export const DEFAULT_DAILY_LLM_CAP = 150;
 
 export interface AssistantEnv {
   provider: string;
@@ -16,6 +20,8 @@ export interface AssistantEnv {
   /** Raw setting from ASSISTANT_MODE. */
   modeSetting: "auto" | "demo" | "live";
   rateLimitPerMinute: number;
+  llmQuota: number;
+  dailyLlmCap: number;
 }
 
 function readTrimmed(name: string): string | null {
@@ -23,6 +29,16 @@ function readTrimmed(name: string): string | null {
   if (typeof value !== "string") return null;
   const trimmed = value.trim();
   return trimmed.length > 0 ? trimmed : null;
+}
+
+function readPositiveInt(name: string, fallback: number): number {
+  const raw = readTrimmed(name);
+  if (raw === null) return fallback;
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    throw new Error(`[env] ${name} must be a positive number, got "${raw}".`);
+  }
+  return Math.floor(parsed);
 }
 
 export function getAssistantEnv(): AssistantEnv {
@@ -33,24 +49,17 @@ export function getAssistantEnv(): AssistantEnv {
     );
   }
 
-  const rateRaw = readTrimmed("ASSISTANT_RATE_LIMIT");
-  let rateLimitPerMinute = DEFAULT_RATE_LIMIT_PER_MINUTE;
-  if (rateRaw !== null) {
-    const parsed = Number(rateRaw);
-    if (!Number.isFinite(parsed) || parsed <= 0) {
-      throw new Error(
-        `[env] ASSISTANT_RATE_LIMIT must be a positive number — got "${rateRaw}".`,
-      );
-    }
-    rateLimitPerMinute = Math.floor(parsed);
-  }
-
   return {
     provider: (readTrimmed("LLM_PROVIDER") ?? "anthropic").toLowerCase(),
     apiKey: readTrimmed("LLM_API_KEY"),
     model: readTrimmed("LLM_MODEL") ?? DEFAULT_LLM_MODEL,
     modeSetting: modeRaw,
-    rateLimitPerMinute,
+    rateLimitPerMinute: readPositiveInt(
+      "ASSISTANT_RATE_LIMIT",
+      DEFAULT_RATE_LIMIT_PER_MINUTE,
+    ),
+    llmQuota: readPositiveInt("ASSISTANT_LLM_QUOTA", DEFAULT_LLM_QUOTA),
+    dailyLlmCap: readPositiveInt("ASSISTANT_DAILY_LLM_CAP", DEFAULT_DAILY_LLM_CAP),
   };
 }
 

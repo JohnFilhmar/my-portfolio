@@ -72,7 +72,11 @@
     },
     {
       "label": "Certifications",
-      "href": "#certifications"
+      "href": "/certifications"
+    },
+    {
+      "label": "Notes",
+      "href": "/notes"
     },
     {
       "label": "Ask",
@@ -149,6 +153,10 @@
     },
     {
       "type": "certifications",
+      "enabled": true
+    },
+    {
+      "type": "notes",
       "enabled": true
     },
     {

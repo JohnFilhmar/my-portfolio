@@ -1,20 +1,31 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { AssistantConfig, ThemeConfig } from "@config/schema";
+import type {
+  AssistantConfig,
+  AssistantMode,
+  ThemeConfig,
+} from "@config/schema";
 import {
   MAX_HISTORY_ITEM_CHARS,
   MAX_HISTORY_ITEMS,
   MAX_MESSAGE_CHARS,
 } from "@/lib/assistant";
+import {
+  restoreConversation,
+  saveConversation,
+  type AssistantMessage,
+} from "@/lib/assistantSession";
 
-export interface AssistantMessage {
-  role: "assistant" | "user";
-  text: string;
-}
+export type { AssistantMessage };
 
 interface UseAssistantOptions {
   assistant: AssistantConfig;
   typing: ThemeConfig["motion"]["typing"];
   reduced: boolean;
+  /** Called with what the server reported on each answer (mode, answers left). */
+  onServed?: (served: {
+    mode: AssistantMode | null;
+    remaining: number | null;
+  }) => void;
 }
 
 export interface UseAssistantResult {
@@ -35,17 +46,19 @@ export interface UseAssistantResult {
 }
 
 /**
- * Chat state + streaming for the assistant.
+ * Chat state, streaming and session memory for the assistant.
  *
  * The API streams plain text; incoming chunks land in a buffer and a
  * typewriter "pump" moves them into the last assistant message a few
- * characters per tick — so both demo and live mode feel like a terminal
- * typing. Reduced motion drains the buffer instantly.
+ * characters per tick. Reduced motion drains the buffer instantly. The
+ * conversation lives in sessionStorage, so it follows the visitor across
+ * pages in the tab and clears on reload.
  */
 export function useAssistant({
   assistant,
   typing,
   reduced,
+  onServed,
 }: UseAssistantOptions): UseAssistantResult {
   const [messages, setMessages] = useState<AssistantMessage[]>([
     { role: "assistant", text: "" },
@@ -59,6 +72,8 @@ export function useAssistant({
     messagesRef.current = messages;
   }, [messages]);
 
+  const onServedRef = useRef(onServed);
+  onServedRef.current = onServed;
   const bufferRef = useRef("");
   const doneRef = useRef(true);
   const targetRef = useRef(0);
@@ -89,10 +104,10 @@ export function useAssistant({
           stopPump();
           busyRef.current = false;
           setBusy(false);
-          // Reply fully typed — announce it once to assistive tech.
           const finished = messagesRef.current[targetRef.current];
           if (finished && finished.role === "assistant" && finished.text) {
             setAnnouncement(finished.text);
+            saveConversation(messagesRef.current);
           }
         }
         return;
@@ -114,13 +129,18 @@ export function useAssistant({
     }
   }, [appendToTarget]);
 
-  // Type the greeting on mount. Restart-safe: on StrictMode's dev
-  // mount→unmount→mount cycle the cleanup stops the timer and the re-run
-  // resumes pumping whatever is left in the buffer.
-  const greetedRef = useRef(false);
+  // Restore this tab's conversation, or type the greeting. Runs after
+  // hydration so the server and first client render agree. Restart-safe under
+  // StrictMode: the cleanup stops the timer and the re-run resumes the buffer.
+  const startedRef = useRef(false);
   useEffect(() => {
-    if (!greetedRef.current) {
-      greetedRef.current = true;
+    if (!startedRef.current) {
+      startedRef.current = true;
+      const restored = restoreConversation();
+      if (restored) {
+        setMessages(restored);
+        return stopPump;
+      }
       targetRef.current = 0;
       doneRef.current = true;
       bufferRef.current = assistant.greeting;
@@ -178,6 +198,13 @@ export function useAssistant({
                 : assistant.fallbackMessage;
             return;
           }
+
+          const left = res.headers.get("X-Assistant-Remaining");
+          const served = res.headers.get("X-Assistant-Mode");
+          onServedRef.current?.({
+            mode: served === "demo" || served === "live" ? served : null,
+            remaining: left !== null && /^\d+$/.test(left) ? Number(left) : null,
+          });
 
           if (!reducedRef.current && typing.chatReplyDelayMs > 0) {
             await new Promise((r) =>

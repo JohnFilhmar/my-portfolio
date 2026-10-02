@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { NotesConfig } from "./notesSchema";
 
 /**
  * Zod schemas + TypeScript types for every config file under ./config.
@@ -71,45 +72,53 @@ export type LightboxConfig = z.infer<typeof lightboxSchema>;
 
 /* ---------------------------------- theme ---------------------------------- */
 
+/** One theme's colors. Light and dark each declare the full set. */
+export const colorSetSchema = z.object({
+  background: z.string(),
+  backgroundAlt: z.string(),
+  surface: z.string(),
+  surfaceAlt: z.string(),
+  surfaceInset: z.string(),
+  foreground: z.string(),
+  heading: z.string(),
+  bright: z.string(),
+  prose: z.string(),
+  muted: z.string(),
+  subtle: z.string(),
+  faint: z.string(),
+  dim: z.string(),
+  ghost: z.string(),
+  border: z.string(),
+  borderMuted: z.string(),
+  borderNav: z.string(),
+  borderChip: z.string(),
+  borderStrong: z.string(),
+  borderHover: z.string(),
+  dot: z.string(),
+  accent: z.string(),
+  accentMuted: z.string(),
+  accentContrast: z.string(),
+  selectionContrast: z.string(),
+  /** Live-status marks only. Never text, so it is exempt from text contrast. */
+  signal: z.string(),
+  success: z.string(),
+  warning: z.string(),
+  danger: z.string(),
+  /** Neutral hover tint for nav links / palette rows. */
+  hoverTint: z.string(),
+  /** Modal backdrop veil (command palette overlay). */
+  overlay: z.string(),
+  /** Input, toggle and chip outlines. Holds 3:1 against every surface. */
+  controlBorder: z.string(),
+});
+export type ColorSet = z.infer<typeof colorSetSchema>;
+
 export const themeSchema = z.object({
   _readme: readme,
-  /** Browser color-scheme for scrollbars and form controls. Match the palette. */
-  mode: z.enum(["dark", "light"]).default("dark"),
-  colors: z.object({
-    background: z.string(),
-    backgroundAlt: z.string(),
-    surface: z.string(),
-    surfaceAlt: z.string(),
-    surfaceInset: z.string(),
-    foreground: z.string(),
-    heading: z.string(),
-    bright: z.string(),
-    prose: z.string(),
-    muted: z.string(),
-    subtle: z.string(),
-    faint: z.string(),
-    dim: z.string(),
-    ghost: z.string(),
-    border: z.string(),
-    borderMuted: z.string(),
-    borderNav: z.string(),
-    borderChip: z.string(),
-    borderStrong: z.string(),
-    borderHover: z.string(),
-    dot: z.string(),
-    accent: z.string(),
-    accentMuted: z.string(),
-    accentContrast: z.string(),
-    selectionContrast: z.string(),
-    /** Live-status marks only. Never text, so it is exempt from text contrast. */
-    signal: z.string(),
-    success: z.string(),
-    warning: z.string(),
-    danger: z.string(),
-    /** Neutral hover tint for nav links / palette rows. */
-    hoverTint: z.string(),
-    /** Modal backdrop veil (command palette overlay). */
-    overlay: z.string(),
+  /** Light is the default; dark applies by system preference or the toggle. */
+  palettes: z.object({
+    light: colorSetSchema,
+    dark: colorSetSchema,
   }),
   fonts: z.object({
     /** Headings and the hero index only; used with restraint. */
@@ -140,6 +149,10 @@ export const themeSchema = z.object({
       chatReplyDelayMs: z.number().int().nonnegative(),
     }),
   }),
+  media: z.object({
+    /** CSS filter that tones the hero portrait into the palette's blue. */
+    portraitTint: z.string(),
+  }),
   terminal: z.object({
     texture: z.enum(["grid", "scanlines", "none"]).default("grid"),
     textureLine: z.string(),
@@ -162,6 +175,7 @@ export const sectionTypeSchema = z.enum([
   "experience",
   "education",
   "certifications",
+  "notes",
   "assistant",
   "contact",
 ]);
@@ -247,6 +261,7 @@ export const siteSchema = z.object({
       skipToContentLabel: z.string().default("skip to content"),
       mainLandmarkLabel: z.string().default("Main content"),
       scrollProgressLabel: z.string().default("Reading progress"),
+      themeToggleLabel: z.string().default("Dark theme"),
     })
     .default({}),
   palette: paletteSchema,
@@ -280,6 +295,15 @@ export const heroSchema = z.object({
   ctas: z.array(ctaSchema),
   /** Line under the headline: current role, location, availability. */
   statusLine: z.array(spanSchema),
+  /** The big photo beside the headline. Clicking it shows the next one. */
+  portrait: z.object({
+    alt: z.string(),
+    cycleLabel: z.string().default("Show the next photo"),
+    /** Placeholder text until a photo lands in public/portrait. */
+    emptyLabel: z.string().default("portrait"),
+    /** Filled by the loader: every image in public/portrait, by file name. */
+    images: z.array(z.string()).default([]),
+  }),
   /** Heading over the index of flagship projects. */
   indexLabel: z.string(),
   /** Visible text for each project `status` in the index. */
@@ -542,6 +566,10 @@ export const certificationsSchema = z.object({
   verifyLabel: z.string().default("verify"),
   /** Chip shown when the entry carries a public verification URL. */
   verifiedLabel: z.string().default("verifiable"),
+  /** Shown on /certifications while `items` is empty. */
+  emptyMessage: z.string().default("No credentials listed yet."),
+  filterLabel: z.string().default("Filter credentials by skill"),
+  allSkillsLabel: z.string().default("all"),
   items: z.array(certificationSchema),
 });
 export type CertificationsConfig = z.infer<typeof certificationsSchema>;
@@ -618,6 +646,21 @@ export const assistantSchema = z.object({
   /** Shown in the chat when the per-IP rate limit is hit. */
   rateLimitMessage: z.string(),
   contactHandoff: z.string(),
+  /** Reply to off-topic or instruction-injection messages, without a model call. */
+  guardMessage: z
+    .string()
+    .default(
+      "I can only answer questions about John's work, projects, experience, skills, education, credentials and availability.",
+    ),
+  /** Reply once a visitor's daily model answers are spent. `{limit}` is replaced. */
+  quotaMessage: z
+    .string()
+    .default(
+      "You've used the {limit} AI answers available per visitor today. Common questions still get instant answers, and you can always email John directly.",
+    ),
+  /** Counter under the chat. `{n}` is replaced with the answers left. */
+  remainingTemplate: z.string().default("{n} AI answers left today"),
+  closeLabel: z.string().default("Close the assistant"),
 });
 export type AssistantConfig = z.infer<typeof assistantSchema>;
 
@@ -634,6 +677,7 @@ export interface AppConfig {
   experience: ExperienceConfig;
   education: EducationConfig;
   certifications: CertificationsConfig;
+  notes: NotesConfig;
   contact: ContactConfig;
   assistant: AssistantConfig;
 }

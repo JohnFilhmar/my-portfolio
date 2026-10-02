@@ -1,0 +1,16 @@
+{
+  "_readme": "Copy for the notes pages and the home section. Posts live one per file in config/notes/<slug>.json, where the file name becomes the URL (/notes/<slug>). Copy config/notes/_template.json to start a post; files whose name starts with \"_\" are skipped, and so is any post with \"draft\": true. Posts show newest first by `date`. The home section shows the newest `latestCount` posts, and the home section and the nav link hide themselves until at least one post is published.",
+  "label": "notes",
+  "heading": "Field notes from running production.",
+  "blurb": "Write-ups of what I built, broke and fixed: deploys, incidents, security work and the tooling around them.",
+  "latestHeading": "Latest notes",
+  "latestCount": 3,
+  "allLabel": "All notes",
+  "backLabel": "All notes",
+  "emptyMessage": "Nothing published yet. The first write-ups are in progress.",
+  "filterLabel": "Filter notes by tag",
+  "allTagsLabel": "all",
+  "minutesTemplate": "{n} min read",
+  "newerLabel": "Newer",
+  "olderLabel": "Older"
+}

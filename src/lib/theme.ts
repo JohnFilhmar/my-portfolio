@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { ThemeConfig } from "@config/schema";
+import type { ColorSet, ThemeConfig } from "@config/schema";
 import { kebab } from "@/lib/utils";
 
 /**
@@ -55,28 +55,15 @@ export interface LoadedFonts {
   mono: string;
 }
 
-/**
- * Build the full `:root { … }` CSS text from the theme tokens.
- * Derived accent tints are computed here so component code (and content JSON)
- * never contains alpha math or raw colors. `loadedFonts` are the
- * next/font-generated family lists, placed ahead of the configured stacks.
- */
-export function buildCssVariables(
-  theme: ThemeConfig,
-  loadedFonts?: LoadedFonts,
-): string {
-  const vars: string[] = [];
-  const add = (name: string, value: string) => vars.push(`${name}: ${value};`);
-
+/** One palette's color custom properties, plus the tints derived from it. */
+function colorVariables(scheme: "light" | "dark", colors: ColorSet): string {
   // Scrollbars and native form controls follow the palette's lightness.
-  add("color-scheme", theme.mode);
-
-  for (const [name, value] of Object.entries(theme.colors)) {
+  const vars = [`color-scheme: ${scheme};`];
+  const add = (name: string, value: string) => vars.push(`${name}: ${value};`);
+  for (const [name, value] of Object.entries(colors)) {
     add(`--color-${kebab(name)}`, value);
   }
-
-  // Derived accent tints (match the color-mix() values in the design spec).
-  const { accent, dot, background, surfaceAlt } = theme.colors;
+  const { accent, dot, background, surfaceAlt } = colors;
   add("--color-accent-border", rgba(accent, 0.38));
   add("--color-accent-soft", rgba(accent, 0.07));
   add("--color-accent-selected", rgba(accent, 0.1));
@@ -87,6 +74,23 @@ export function buildCssVariables(
   // are precomputed here instead of `bg-background/85`-style classes.)
   add("--color-nav-veil", rgba(background, 0.84));
   add("--color-launcher-veil", rgba(surfaceAlt, 0.92));
+  return vars.join("\n");
+}
+
+/**
+ * Build the full theme CSS text from the tokens. Light colors sit on :root,
+ * dark colors apply under `data-theme="dark"`, or by system preference when
+ * no script set the attribute. Derived accent tints are computed here so
+ * component code (and content JSON) never contains alpha math or raw colors.
+ * `loadedFonts` are the next/font-generated family lists, placed ahead of the
+ * configured stacks.
+ */
+export function buildCssVariables(
+  theme: ThemeConfig,
+  loadedFonts?: LoadedFonts,
+): string {
+  const vars: string[] = [];
+  const add = (name: string, value: string) => vars.push(`${name}: ${value};`);
 
   // Fonts: the self-hosted (next/font) families first, then the configured
   // stacks from theme.json as fallbacks.
@@ -124,10 +128,17 @@ export function buildCssVariables(
     add(`--easing-${kebab(name)}`, value);
   }
 
+  add("--portrait-tint", theme.media.portraitTint);
   add("--texture-line", theme.terminal.textureLine);
   add("--texture-size", theme.terminal.textureSize);
 
-  return `:root {\n${vars.join("\n")}\n}`;
+  const light = colorVariables("light", theme.palettes.light);
+  const dark = colorVariables("dark", theme.palettes.dark);
+  return [
+    `:root {\n${light}\n${vars.join("\n")}\n}`,
+    `:root[data-theme="dark"] {\n${dark}\n}`,
+    `@media (prefers-color-scheme: dark) {\n:root:not([data-theme]) {\n${dark}\n}\n}`,
+  ].join("\n");
 }
 
 /** Fixed full-page texture overlay (grid / scanlines / none) from theme tokens. */

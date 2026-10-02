@@ -1,6 +1,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import type { AppConfig } from "@config/schema";
 import type { SeoData } from "@/lib/seo";
+import { CERTIFICATIONS_PATH, NOTES_PATH } from "@/lib/navigation";
 import { resolveSections } from "@/lib/sections";
 import { textureStyle } from "@/lib/theme";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -10,6 +11,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Seo } from "@/components/layout/Seo";
 import { ThemeTokens } from "@/components/layout/ThemeTokens";
+import { AssistantProvider } from "@/providers/AssistantProvider";
 
 /** Target for the keyboard skip link and the main landmark. */
 const MAIN_ID = "main";
@@ -40,65 +42,93 @@ export function SiteShell({
   const reducedMotion = useReducedMotion();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const sections = useMemo(() => resolveSections(config), [config]);
+  const hiddenPaths = useMemo(
+    () => [
+      ...(config.notes.posts.length === 0 ? [NOTES_PATH] : []),
+      ...(config.certifications.items.length === 0
+        ? [CERTIFICATIONS_PATH]
+        : []),
+    ],
+    [config],
+  );
   const texture = textureStyle(config.theme);
 
   return (
     <>
-      <Seo seo={seo} themeColor={config.theme.colors.background} />
+      <Seo
+        seo={seo}
+        themeColors={{
+          light: config.theme.palettes.light.background,
+          dark: config.theme.palettes.dark.background,
+        }}
+      />
       <ThemeTokens theme={config.theme} />
 
-      <div className="relative min-h-dvh">
-        {/* Fixed background texture + accent glow (decorative). */}
-        {texture && (
-          <div
-            aria-hidden="true"
-            className="pointer-events-none fixed inset-0 z-0"
-            style={texture}
-          />
-        )}
-        {config.theme.terminal.glow && (
-          <div
-            aria-hidden="true"
-            className="bg-accent-glow pointer-events-none fixed inset-0 z-0"
-          />
-        )}
-
-        <div className="relative z-10">
-          <a
-            href={`#${MAIN_ID}`}
-            className="skip-link rounded-lg border border-accent bg-surface px-[13px] py-2 font-mono text-sm text-accent no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          >
-            {config.site.a11y.skipToContentLabel}
-          </a>
-          <Header
-            site={config.site}
-            sections={sections}
-            path={path}
-            onOpenPalette={() => setPaletteOpen(true)}
-          />
-          <main
-            id={MAIN_ID}
-            tabIndex={-1}
-            aria-label={config.site.a11y.mainLandmarkLabel}
-            className="scroll-mt-scroll-margin focus:outline-none"
-          >
-            {children}
-          </main>
-          <Footer site={config.site} sections={sections} path={path} />
-
-          {config.assistant.enabled && !hideLauncher && (
-            <AssistantLauncher assistant={config.assistant} />
+      <AssistantProvider
+        assistant={config.assistant}
+        typing={config.theme.motion.typing}
+        reducedMotion={reducedMotion}
+      >
+        <div className="relative min-h-dvh">
+          {/* Fixed background texture + accent glow (decorative). */}
+          {texture && (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none fixed inset-0 z-0"
+              style={texture}
+            />
+          )}
+          {config.theme.terminal.glow && (
+            <div
+              aria-hidden="true"
+              className="bg-accent-glow pointer-events-none fixed inset-0 z-0"
+            />
           )}
 
-          <CommandPalette
-            config={config}
-            sections={sections}
-            open={paletteOpen}
-            onOpenChange={setPaletteOpen}
-            reducedMotion={reducedMotion}
-          />
+          <div className="relative z-10">
+            <a
+              href={`#${MAIN_ID}`}
+              className="skip-link rounded-lg border border-accent bg-surface px-[13px] py-2 font-mono text-sm text-accent no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              {config.site.a11y.skipToContentLabel}
+            </a>
+            <Header
+              site={config.site}
+              sections={sections}
+              path={path}
+              onOpenPalette={() => setPaletteOpen(true)}
+              reducedMotion={reducedMotion}
+              hiddenPaths={hiddenPaths}
+            />
+            <main
+              id={MAIN_ID}
+              tabIndex={-1}
+              aria-label={config.site.a11y.mainLandmarkLabel}
+              className="scroll-mt-scroll-margin focus:outline-none"
+            >
+              {children}
+            </main>
+            <Footer
+              site={config.site}
+              sections={sections}
+              path={path}
+              hiddenPaths={hiddenPaths}
+            />
+
+            {config.assistant.enabled && !hideLauncher && (
+              <AssistantLauncher assistant={config.assistant} />
+            )}
+
+            <CommandPalette
+              config={config}
+              sections={sections}
+              open={paletteOpen}
+              onOpenChange={setPaletteOpen}
+              reducedMotion={reducedMotion}
+            />
+          </div>
         </div>
-      </div>
+      </AssistantProvider>
     </>
   );
 }

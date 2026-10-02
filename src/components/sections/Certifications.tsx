@@ -1,12 +1,16 @@
+import { useMemo, useState } from "react";
 import type { CertificationsConfig } from "@config/schema";
-import { Card } from "@/components/ui/Card";
-import { ImageFrame } from "@/components/ui/ImageFrame";
+import { CertificationCard } from "@/components/sections/CertificationCard";
+import { FilterChips } from "@/components/ui/FilterChips";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Tag } from "@/components/ui/Tag";
-import { isExternalHref } from "@/lib/utils";
 
 export interface CertificationsProps {
   certifications: CertificationsConfig;
+  /**
+   * On /certifications the heading is the page's h1, a skill filter appears
+   * and an empty list shows `emptyMessage`.
+   */
+  standalone?: boolean;
 }
 
 /**
@@ -14,99 +18,63 @@ export interface CertificationsProps {
  * credential number are printed plainly and the verify link points at the
  * issuer's own page, so an employer can check an entry without asking.
  */
-export function Certifications({ certifications }: CertificationsProps) {
+export function Certifications({
+  certifications,
+  standalone = false,
+}: CertificationsProps) {
+  const all = certifications.allSkillsLabel;
+  const skills = useMemo(
+    () => [
+      all,
+      ...new Set(certifications.items.flatMap((item) => item.skills)),
+    ],
+    [all, certifications.items],
+  );
+  const [active, setActive] = useState(all);
+  const shown =
+    active === all
+      ? certifications.items
+      : certifications.items.filter((item) => item.skills.includes(active));
+
   return (
     <>
-      <SectionHeading className="mb-4">{certifications.heading}</SectionHeading>
+      <SectionHeading as={standalone ? "h1" : "h2"} className="mb-4">
+        {certifications.heading}
+      </SectionHeading>
       <p className="m-0 mb-7 max-w-[62ch] text-lg leading-[1.7] text-prose">
         {certifications.blurb}
       </p>
 
-      <ul className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-start gap-3.5 p-0">
-        {certifications.items.map((item) => (
-          <li key={item.id} className="h-full">
-            <Card interactive className="flex h-full flex-col gap-3">
-              <div className="flex items-start gap-3.5">
-                {item.image && (
-                  <div className="w-14 shrink-0 overflow-hidden rounded-md border border-border-muted">
-                    <ImageFrame
-                      src={item.image}
-                      alt={item.imageAlt ?? `${item.issuer} ${item.name} badge`}
-                      aspect="1/1"
-                      fit="contain"
-                      fallbackLabel={item.issuer}
-                    />
-                  </div>
-                )}
-                {/* The chip sits beside the issuer rather than the title, so
-                    a long credential name keeps the full card width. */}
-                <div className="min-w-0 flex-1">
-                  <h3 className="m-0 mb-1 text-[17px] font-semibold leading-snug text-heading">
-                    {item.name}
-                  </h3>
-                  <div className="flex items-center gap-2">
-                    <p className="m-0 truncate font-mono text-sm text-faint">
-                      {item.issuer}
-                    </p>
-                    <span className="flex-1" />
-                    {item.verifyUrl && (
-                      <Tag variant="verified" className="shrink-0">
-                        ✓ {certifications.verifiedLabel}
-                      </Tag>
-                    )}
-                  </div>
-                </div>
-              </div>
+      {standalone && certifications.items.length === 0 && (
+        <p className="m-0 border-y-2 border-heading py-10 font-mono text-sm text-subtle">
+          {certifications.emptyMessage}
+        </p>
+      )}
+      {standalone && (
+        <FilterChips
+          groupLabel={certifications.filterLabel}
+          options={skills}
+          active={active}
+          onChange={setActive}
+          className="mb-6"
+        />
+      )}
 
-              <dl className="m-0 flex flex-wrap gap-x-5 gap-y-1 font-mono text-2xs">
-                <div className="flex gap-1.5">
-                  <dt className="m-0 uppercase tracking-[0.08em] text-dim">
-                    {certifications.issuedLabel}
-                  </dt>
-                  <dd className="m-0 text-subtle">{item.issued}</dd>
-                </div>
-                <div className="flex gap-1.5">
-                  <dt className="m-0 uppercase tracking-[0.08em] text-dim">
-                    {certifications.expiresLabel}
-                  </dt>
-                  <dd className="m-0 text-subtle">
-                    {item.expires ?? certifications.neverExpiresLabel}
-                  </dd>
-                </div>
-                {item.credentialId && (
-                  <div className="flex min-w-0 gap-1.5">
-                    <dt className="m-0 uppercase tracking-[0.08em] text-dim">
-                      {certifications.credentialLabel}
-                    </dt>
-                    <dd className="m-0 truncate tracking-[0.06em] text-subtle">
-                      {item.credentialId}
-                    </dd>
-                  </div>
-                )}
-              </dl>
-
-              {item.skills.length > 0 && (
-                <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
-                  {item.skills.map((skill) => (
-                    <li key={skill}>
-                      <Tag variant="stack">{skill}</Tag>
-                    </li>
-                  ))}
-                </ul>
-              )}
-
-              {item.verifyUrl && (
-                <a
-                  href={item.verifyUrl}
-                  {...(isExternalHref(item.verifyUrl)
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="mt-auto font-mono text-sm text-accent no-underline hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                >
-                  {certifications.verifyLabel} ↗
-                </a>
-              )}
-            </Card>
+      <ul
+        key={active}
+        className="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] items-start gap-3.5 p-0"
+      >
+        {shown.map((item, i) => (
+          <li
+            key={item.id}
+            className="h-full animate-row-in"
+            style={{ animationDelay: `${Math.min(i, 8) * 50}ms` }}
+          >
+            <CertificationCard
+              item={item}
+              labels={certifications}
+              headingLevel={standalone ? "h2" : "h3"}
+            />
           </li>
         ))}
       </ul>

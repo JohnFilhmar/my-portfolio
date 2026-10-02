@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
-import type { z } from "zod";
+import { PUBLIC_DIR, loadFile, publicAssetExists } from "./files";
+import { loadNotes } from "./notes";
+import { noteSummarySchema, notesSchema } from "./notesSchema";
 import {
   aboutSchema,
   assistantSchema,
@@ -16,90 +18,6 @@ import {
   themeSchema,
   type AppConfig,
 } from "./schema";
-
-/**
- * Typed config loader. Reads and validates every JSON file under ./config on
- * each call — `getServerSideProps` and the API routes call this per request,
- * which is what makes "edit JSON → refresh" work with no rebuild.
- *
- * Throws a descriptive error (file + zod issues) on invalid config so
- * misconfiguration fails loudly instead of rendering something half-broken.
- */
-
-const CONFIG_DIR = path.join(process.cwd(), "config");
-const PUBLIC_DIR = path.join(process.cwd(), "public");
-
-function readJsonFile(relativePath: string): unknown {
-  const filePath = path.join(CONFIG_DIR, relativePath);
-  let raw: string;
-  try {
-    raw = fs.readFileSync(filePath, "utf-8");
-  } catch (err) {
-    throw new Error(
-      `[config] Could not read ${relativePath} (expected at ${filePath}): ${
-        err instanceof Error ? err.message : String(err)
-      }`,
-    );
-  }
-  try {
-    return JSON.parse(raw);
-  } catch (err) {
-    throw new Error(
-      `[config] ${relativePath} is not valid JSON: ${
-        err instanceof Error ? err.message : String(err)
-      }`,
-    );
-  }
-}
-
-function loadFile<S extends z.ZodTypeAny>(
-  relativePath: string,
-  schema: S,
-): z.output<S> {
-  const data = readJsonFile(relativePath);
-  const result = schema.safeParse(data);
-  if (!result.success) {
-    const issues = result.error.issues
-      .map(
-        (issue) => `  • ${issue.path.join(".") || "(root)"}: ${issue.message}`,
-      )
-      .join("\n");
-    throw new Error(
-      `[config] ${relativePath} failed validation:\n${issues}\n` +
-        `Fix the file (see config/schema.ts for the expected shape) and refresh.`,
-    );
-  }
-  return result.data;
-}
-
-/**
- * True when a config image path points at a file that is really there.
- * Absolute URLs are trusted as-is; everything else must resolve to a file
- * inside ./public. Anything that fails is treated as missing so the site
- * never ships a broken image or an unverifiable claim.
- */
-function publicAssetExists(src: string): boolean {
-  if (/^https?:\/\//i.test(src)) return true;
-  if (!src.startsWith("/")) return false;
-  const withoutQuery = src.split(/[?#]/)[0] ?? src;
-  let resolved: string;
-  try {
-    resolved = path.join(PUBLIC_DIR, decodeURIComponent(withoutQuery));
-  } catch {
-    return false;
-  }
-  if (resolved !== PUBLIC_DIR && !resolved.startsWith(PUBLIC_DIR + path.sep)) {
-    return false;
-  }
-  try {
-    // The path is already pinned inside PUBLIC_DIR by the check above, so the
-    // opt-out is safe: without it Turbopack traces the entire project into the
-    // standalone server output because it cannot see that scoping itself.
-    return fs.statSync(/*turbopackIgnore: true*/ resolved).isFile();
-  } catch {
-    return false;
-  }
-}
 
 /**
  * Strip an optional `image` that has no file behind it, keeping the entry.
@@ -132,6 +50,24 @@ function withResolvedPhotos<T extends { photos: Array<{ src: string }> }>(
   return photos.length === item.photos.length ? item : { ...item, photos };
 }
 
+const PORTRAIT_DIR = "portrait";
+const IMAGE_FILE = /\.(png|jpe?g|webp|avif)$/i;
+
+/** Every image in public/portrait as a public URL, sorted by file name. */
+function portraitImages(): string[] {
+  try {
+    return fs
+      .readdirSync(
+        /*turbopackIgnore: true*/ path.join(PUBLIC_DIR, PORTRAIT_DIR),
+      )
+      .filter((name) => IMAGE_FILE.test(name))
+      .sort()
+      .map((name) => `/${PORTRAIT_DIR}/${encodeURIComponent(name)}`);
+  } catch {
+    return [];
+  }
+}
+
 /** Load and validate the complete site configuration. */
 export function loadConfig(): AppConfig {
   const projects = loadFile("sections/projects.json", projectsSchema);
@@ -147,7 +83,13 @@ export function loadConfig(): AppConfig {
   return {
     site: loadFile("site.json", siteSchema),
     theme: loadFile("theme.json", themeSchema),
-    hero: loadFile("sections/hero.json", heroSchema),
+    hero: (() => {
+      const hero = loadFile("sections/hero.json", heroSchema);
+      return {
+        ...hero,
+        portrait: { ...hero.portrait, images: portraitImages() },
+      };
+    })(),
     about: {
       ...about,
       ...(about.portrait && { portrait: withMissingFlag(about.portrait) }),
@@ -178,6 +120,11 @@ export function loadConfig(): AppConfig {
     certifications: {
       ...certifications,
       items: certifications.items.map(withResolvedImage),
+    },
+    notes: {
+      ...loadFile("sections/notes.json", notesSchema),
+      // Parsing through the summary schema strips each body off the props.
+      posts: loadNotes().map((note) => noteSummarySchema.parse(note)),
     },
     contact: loadFile("sections/contact.json", contactSchema),
     assistant: loadFile("assistant.json", assistantSchema),

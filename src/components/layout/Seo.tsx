@@ -2,7 +2,13 @@ import Head from "next/head";
 import type { SeoData } from "@/lib/seo";
 
 /** Populates title, description, canonical, Open Graph, Twitter and JSON-LD. */
-export function Seo({ seo, themeColor }: { seo: SeoData; themeColor: string }) {
+export function Seo({
+  seo,
+  themeColors,
+}: {
+  seo: SeoData;
+  themeColors: { light: string; dark: string };
+}) {
   const hasTwitter = seo.twitterHandle.length > 0;
   return (
     <Head>
@@ -16,7 +22,16 @@ export function Seo({ seo, themeColor }: { seo: SeoData; themeColor: string }) {
         content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
       />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="theme-color" content={themeColor} />
+      <meta
+        name="theme-color"
+        media="(prefers-color-scheme: light)"
+        content={themeColors.light}
+      />
+      <meta
+        name="theme-color"
+        media="(prefers-color-scheme: dark)"
+        content={themeColors.dark}
+      />
       <link rel="canonical" href={seo.url} />
 
       {/* Icons */}
@@ -44,7 +59,9 @@ export function Seo({ seo, themeColor }: { seo: SeoData; themeColor: string }) {
       <meta name="twitter:image" content={seo.image} />
       <meta name="twitter:image:alt" content={seo.imageAlt} />
       {hasTwitter && <meta name="twitter:site" content={seo.twitterHandle} />}
-      {hasTwitter && <meta name="twitter:creator" content={seo.twitterHandle} />}
+      {hasTwitter && (
+        <meta name="twitter:creator" content={seo.twitterHandle} />
+      )}
 
       {/* Structured data (schema.org) for Google rich results */}
       <script
