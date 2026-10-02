@@ -59,7 +59,11 @@ export function SectionRenderer({
                 ariaLabel={config.about.label}
                 reducedMotion={reducedMotion}
               >
-                <About number={number} about={config.about} />
+                <About
+                  number={number}
+                  about={config.about}
+                  education={config.education}
+                />
               </Section>
             );
           case "skills":

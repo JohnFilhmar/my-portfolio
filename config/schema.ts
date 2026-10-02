@@ -41,8 +41,9 @@ const readme = z.string().optional();
 
 /**
  * A picture attached to any section. `src` is a root-relative path under
- * ./public; the config loader drops entries whose file is not there, so a
- * placeholder can sit in config until the real photo exists.
+ * ./public. Timeline photo strips drop entries whose file is not there; slots
+ * that should stay visible until the real picture lands (project covers and
+ * screens, the about portrait) keep the entry and render a placeholder.
  */
 export const mediaItemSchema = z.object({
   src: z.string(),
@@ -51,6 +52,8 @@ export const mediaItemSchema = z.object({
   caption: z.string().default(""),
   /** CSS aspect-ratio, e.g. "4/3" for photos or "9/16" for phone shots. */
   aspect: z.string().default("4/3"),
+  /** Set by the config loader when `src` has no file in ./public. Never authored. */
+  missing: z.boolean().default(false),
 });
 export type MediaItem = z.infer<typeof mediaItemSchema>;
 
@@ -299,6 +302,10 @@ export const aboutSchema = z.object({
   /** Supports minimal inline markup: **bold** and *italic*. */
   paragraphs: z.array(z.string()),
   philosophy: z.string(),
+  /** Square photo of you, ideally a transparent PNG cut-out. */
+  portrait: mediaItemSchema.optional(),
+  /** Lead-in for the one-line education summary built from education.json. */
+  educationLabel: z.string().default("education"),
   terminal: z.object({
     entries: z.array(
       z.object({
@@ -361,18 +368,23 @@ export const projectSchema = z.object({
   domain: z.string(),
   secondaryDomains: z.array(z.string()).default([]),
   /**
-   * Visual weight, not ordering. `flagship` gets a full-width card, `standard`
-   * a card in the grid, `compact` a single expandable row. Keep flagships to
-   * two or three: the point of the tier is that most projects are not one.
+   * Visual weight, not ordering. `flagship` gets a home tile and its own
+   * case-study page at /work/<id>, `standard` a card in the grid, `compact` a
+   * single expandable row. Keep flagships to two or three: the point of the
+   * tier is that most projects are not one.
    */
   tier: z.enum(["flagship", "standard", "compact"]).default("standard"),
+  /** Lead picture for the home tile and the top of the case study. */
+  cover: mediaItemSchema.optional(),
   /**
-   * Optional screenshot shown at the top of the card. Root-relative path under
-   * ./public — dropped automatically by the loader when the file is absent, so
-   * a card never renders a broken image.
+   * Measured outcomes, e.g. `{ value: "1.2k", label: "daily messages" }`.
+   * Nothing renders until at least one exists, so never pad it with guesses.
    */
-  image: z.string().optional(),
-  imageAlt: z.string().optional(),
+  metrics: z
+    .array(z.object({ value: z.string(), label: z.string() }))
+    .default([]),
+  /** Screens and diagrams shown on the case-study page. */
+  shots: z.array(mediaItemSchema).default([]),
 });
 export type Project = z.infer<typeof projectSchema>;
 
@@ -390,7 +402,16 @@ export const projectsSchema = z.object({
     problemLabel: z.string(),
     roleLabel: z.string(),
     decisionsLabel: z.string(),
+    stackLabel: z.string().default("stack"),
+    resultsLabel: z.string().default("results"),
+    evidenceLabel: z.string().default("evidence"),
+    screensLabel: z.string().default("screens"),
+    readLabel: z.string().default("read the case study →"),
+    backLabel: z.string().default("← all work"),
+    nextLabel: z.string().default("next case study"),
   }),
+  /** Heading over the compact rows under the flagship tiles. */
+  moreHeading: z.string().default("Also built"),
   linkLabels: z.object({
     demo: z.string().default("demo"),
     repo: z.string().default("repo"),
@@ -422,6 +443,14 @@ export const proofItemSchema = z.object({
   href: z.string().optional(),
   /** CSS aspect-ratio for the frame, e.g. "16/10" or "9/16" for phone shots. */
   aspect: z.string().default("16/10"),
+  /**
+   * Flagship project id this capture proves. Bound captures appear on that
+   * project's case study, with a placeholder until the file exists; unbound
+   * ones stay in the home evidence section and only show once the file exists.
+   */
+  project: z.string().optional(),
+  /** Set by the config loader when `src` has no file in ./public. Never authored. */
+  missing: z.boolean().default(false),
 });
 export type ProofItem = z.infer<typeof proofItemSchema>;
 

@@ -79,8 +79,8 @@
       "href": "#certifications"
     },
     {
-      "label": "./ai",
-      "href": "#assistant"
+      "label": "./ask",
+      "href": "/ask"
     },
     {
       "label": "./contact",
@@ -132,7 +132,7 @@
     },
     {
       "type": "skills",
-      "enabled": true
+      "enabled": false
     },
     {
       "type": "projects",
@@ -149,7 +149,7 @@
     },
     {
       "type": "education",
-      "enabled": true
+      "enabled": false
     },
     {
       "type": "certifications",
@@ -157,7 +157,7 @@
     },
     {
       "type": "assistant",
-      "enabled": true
+      "enabled": false
     },
     {
       "type": "contact",

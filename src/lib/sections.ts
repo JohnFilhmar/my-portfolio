@@ -36,7 +36,7 @@ export function resolveSections(config: AppConfig): ResolvedSection[] {
    * and never shifts the numbering of the sections that follow.
    */
   const hasContent: Partial<Record<SectionType, boolean>> = {
-    proof: config.proof.items.length > 0,
+    proof: config.proof.items.some((item) => item.project === undefined),
     certifications: config.certifications.items.length > 0,
     assistant: config.assistant.enabled,
   };

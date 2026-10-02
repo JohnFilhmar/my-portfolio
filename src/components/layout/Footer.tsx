@@ -1,13 +1,16 @@
 import type { SiteConfig } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
+import { homeAnchor } from "@/lib/navigation";
 
 export interface FooterProps {
   site: SiteConfig;
   sections: ResolvedSection[];
+  /** Current route. Anchors resolve against home everywhere else. */
+  path: string;
 }
 
 /** Footer: prompt brand, note, quick nav (filtered to enabled sections). */
-export function Footer({ site, sections }: FooterProps) {
+export function Footer({ site, sections, path }: FooterProps) {
   const sectionIds = sections.map((s) => s.id);
   const navItems = site.nav.filter(
     (item) =>
@@ -34,7 +37,7 @@ export function Footer({ site, sections }: FooterProps) {
           {navItems.map((item) => (
             <a
               key={item.href}
-              href={item.href}
+              href={homeAnchor(item.href, path === "/")}
               className="font-mono text-sm text-subtle no-underline transition-colors duration-fast hover:text-accent"
             >
               {item.label}
