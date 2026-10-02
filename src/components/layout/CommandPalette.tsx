@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { AppConfig } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
-import { ASK_PATH, goToAssistant, scrollToId } from "@/lib/navigation";
+import { scrollToId } from "@/lib/navigation";
+import { useAssistantPanel } from "@/providers/AssistantProvider";
 import { cn } from "@/lib/utils";
 
 interface PaletteCommand {
@@ -42,6 +43,8 @@ export function CommandPalette({
 
   const close = useCallback(() => onOpenChange(false), [onOpenChange]);
 
+  const { open: openAssistant } = useAssistantPanel();
+
   const commands = useMemo<PaletteCommand[]>(() => {
     const list: PaletteCommand[] = [];
 
@@ -55,16 +58,12 @@ export function CommandPalette({
       });
     }
 
-    const assistantSection = sections.find((s) => s.type === "assistant");
     if (config.assistant.enabled) {
       list.push({
         key: "ask-assistant",
         label: palette.actions.askAssistant.label,
         hint: palette.actions.askAssistant.hint,
-        run: () =>
-          assistantSection
-            ? goToAssistant(assistantSection.id, reducedMotion)
-            : window.location.assign(ASK_PATH),
+        run: openAssistant,
       });
     }
 
@@ -98,7 +97,7 @@ export function CommandPalette({
     });
 
     return list;
-  }, [config, palette, reducedMotion, sections]);
+  }, [config, openAssistant, palette, reducedMotion, sections]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();

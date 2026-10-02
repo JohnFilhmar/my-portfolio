@@ -1,9 +1,15 @@
 import type { GetServerSideProps } from "next";
 import { loadConfig } from "@config/index";
 import { getSiteUrl } from "@/lib/env";
-import { ASK_PATH, workPath } from "@/lib/navigation";
+import {
+  ASK_PATH,
+  CERTIFICATIONS_PATH,
+  NOTES_PATH,
+  notePath,
+  workPath,
+} from "@/lib/navigation";
 
-/** /sitemap.xml: home, each flagship case study, and the assistant page. */
+/** /sitemap.xml: home, case studies, notes, credentials and the assistant page. */
 export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const config = loadConfig();
   const siteUrl = getSiteUrl(config.site.siteUrl).replace(/\/+$/, "");
@@ -12,6 +18,18 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
     ...config.projects.items
       .filter((item) => item.tier === "flagship")
       .map((item) => ({ path: workPath(item.id), priority: "0.8" })),
+    ...(config.notes.posts.length > 0
+      ? [
+          { path: NOTES_PATH, priority: "0.6" },
+          ...config.notes.posts.map((post) => ({
+            path: notePath(post.slug),
+            priority: "0.6",
+          })),
+        ]
+      : []),
+    ...(config.certifications.items.length > 0
+      ? [{ path: CERTIFICATIONS_PATH, priority: "0.5" }]
+      : []),
     ...(config.assistant.enabled ? [{ path: ASK_PATH, priority: "0.5" }] : []),
   ];
   const urls = pages

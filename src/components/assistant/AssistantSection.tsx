@@ -1,9 +1,5 @@
-import type {
-  AssistantConfig,
-  AssistantMode,
-  ThemeConfig,
-} from "@config/schema";
-import { useAssistant } from "@/hooks/useAssistant";
+import type { AssistantConfig, AssistantMode } from "@config/schema";
+import { useAssistantPanel } from "@/providers/AssistantProvider";
 import { ChatWindow } from "@/components/assistant/ChatWindow";
 import { SuggestedChips } from "@/components/assistant/SuggestedChips";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -11,21 +7,20 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export interface AssistantSectionProps {
   assistant: AssistantConfig;
   mode: AssistantMode;
-  typing: ThemeConfig["motion"]["typing"];
-  reducedMotion: boolean;
   /** On its own page the heading is the page's h1 instead of an h2. */
   standalone?: boolean;
 }
 
-/** Assistant section: pitch + suggested questions on the left, chat on the right. */
+/**
+ * Assistant section: pitch + suggested questions on the left, chat on the
+ * right. Shares the page's conversation with the overlay.
+ */
 export function AssistantSection({
   assistant,
   mode,
-  typing,
-  reducedMotion,
   standalone = false,
 }: AssistantSectionProps) {
-  const chat = useAssistant({ assistant, typing, reduced: reducedMotion });
+  const { chat } = useAssistantPanel();
 
   return (
     <>
@@ -34,10 +29,10 @@ export function AssistantSection({
           <SectionHeading as={standalone ? "h1" : "h2"} className="mb-4">
             {assistant.heading}
           </SectionHeading>
-          <p className="m-0 mb-3 text-[16px] leading-[1.7] text-prose">
+          <p className="m-0 mb-3 max-w-[60ch] text-[16px] leading-[1.7] text-prose">
             {assistant.description}
           </p>
-          <p className="m-0 mb-6 font-mono text-[12px] leading-[1.7] text-dim">
+          <p className="m-0 mb-6 max-w-[60ch] font-mono text-[12px] leading-[1.7] text-dim">
             {assistant.disclaimer[mode]}
           </p>
           <p className="m-0 mb-2.5 font-mono text-[12px] text-faint">

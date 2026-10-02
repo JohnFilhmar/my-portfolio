@@ -1,8 +1,9 @@
 import type { HeroConfig, Project, SiteConfig } from "@config/schema";
 import { Button } from "@/components/ui/Button";
 import { SpanLine } from "@/components/ui/TerminalLines";
+import { HeroPortrait } from "@/components/sections/HeroPortrait";
 import { SystemIndex } from "@/components/sections/SystemIndex";
-import { goToAssistant } from "@/lib/navigation";
+import { useAssistantPanel } from "@/providers/AssistantProvider";
 
 export interface HeroProps {
   sectionId: string;
@@ -10,52 +11,65 @@ export interface HeroProps {
   site: SiteConfig;
   /** Flagship projects for the index under the headline. */
   flagships: Project[];
-  reducedMotion: boolean;
-  /** Anchor id of the assistant section (CTA target), if it is on the page. */
-  assistantSectionId: string | null;
+  /** Show the assistant call to action. */
+  assistantEnabled: boolean;
 }
 
-/** Hero: role, the one-sentence headline, availability, actions, then the system index. */
+/**
+ * Hero: role, the one-sentence headline, availability and actions beside a
+ * large portrait that bleeds to the page edge, then the system index.
+ */
 export function Hero({
   sectionId,
   hero,
   site,
   flagships,
-  reducedMotion,
-  assistantSectionId,
+  assistantEnabled,
 }: HeroProps) {
+  const { open: openAssistant } = useAssistantPanel();
   return (
     <header
       id={sectionId}
       className="mx-auto w-full max-w-container scroll-mt-scroll-margin px-container-pad pb-hero-bottom pt-hero-top"
     >
-      <p className="m-0 font-mono text-sm text-subtle">{site.role}</p>
-      <h1 className="stretch-semi-expanded m-0 mt-4 font-display text-hero font-semibold leading-[1.02] tracking-[-0.02em] text-heading">
-        {hero.headline}
-      </h1>
-      <SpanLine spans={hero.statusLine} className="mt-5 font-mono text-sm" />
-      <div className="mt-7 flex flex-wrap gap-3">
-        {hero.ctas.map((cta) =>
-          cta.action === "assistant" ? (
-            assistantSectionId && (
-              <Button
-                key={cta.label}
-                variant={cta.variant}
-                onClick={() => goToAssistant(assistantSectionId, reducedMotion)}
-              >
-                {cta.label}
-              </Button>
-            )
-          ) : (
-            <Button
-              key={cta.label}
-              variant={cta.variant}
-              href={cta.href ?? "#"}
-            >
-              {cta.label}
-            </Button>
-          ),
-        )}
+      <div className="grid items-end gap-x-column-gap gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="lg:self-center">
+          <p className="m-0 font-mono text-sm text-subtle">{site.role}</p>
+          <h1 className="stretch-semi-expanded m-0 mt-4 font-display text-hero font-semibold leading-[1.02] tracking-[-0.02em] text-heading">
+            {hero.headline}
+          </h1>
+          <SpanLine
+            spans={hero.statusLine}
+            className="mt-5 font-mono text-sm"
+          />
+          <div className="mt-7 flex flex-wrap gap-3">
+            {hero.ctas.map((cta) =>
+              cta.action === "assistant" ? (
+                assistantEnabled && (
+                  <Button
+                    key={cta.label}
+                    variant={cta.variant}
+                    onClick={openAssistant}
+                  >
+                    {cta.label}
+                  </Button>
+                )
+              ) : (
+                <Button
+                  key={cta.label}
+                  variant={cta.variant}
+                  href={cta.href ?? "#"}
+                >
+                  {cta.label}
+                </Button>
+              ),
+            )}
+          </div>
+        </div>
+        <HeroPortrait
+          portrait={hero.portrait}
+          className="-mx-container-pad w-[calc(100%+2*var(--space-container-pad))] lg:ml-0 lg:w-[calc(100%+var(--space-container-pad))]"
+        />
       </div>
 
       {flagships.length > 0 && (

@@ -19,6 +19,10 @@
   .stretch-expanded {
     font-stretch: 125%;
   }
+  /* The hero portrait's blue duotone, from theme.json `media.portraitTint`. */
+  .portrait-tint {
+    filter: var(--portrait-tint);
+  }
 }
 
 html {
@@ -105,6 +109,13 @@ summary.no-marker::-webkit-details-marker {
     var(--color-accent-soft),
     transparent 70%
   );
+}
+
+/* Theme switch: the toggle animates a circular clip on the new snapshot. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 /* Full prefers-reduced-motion support: static fallbacks for everything. */

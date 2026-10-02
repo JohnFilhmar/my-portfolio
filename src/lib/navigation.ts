@@ -1,3 +1,5 @@
+import type { NavItem } from "@config/schema";
+
 /**
  * Small client-side navigation helpers shared by the nav, hero CTAs,
  * command palette and assistant launcher.
@@ -6,6 +8,15 @@
 export const ASSISTANT_INPUT_ID = "assistant-chat-input";
 /** Route of the standalone assistant page (pages/ask.tsx). */
 export const ASK_PATH = "/ask";
+/** Route of the notes index (pages/notes/index.tsx). */
+export const NOTES_PATH = "/notes";
+/** Route of the credentials page (pages/certifications.tsx). */
+export const CERTIFICATIONS_PATH = "/certifications";
+
+/** Route of one note (pages/notes/[slug].tsx). */
+export function notePath(slug: string): string {
+  return `${NOTES_PATH}/${slug}`;
+}
 
 /** Route of a flagship project's case study (pages/work/[slug].tsx). */
 export function workPath(projectId: string): string {
@@ -41,15 +52,23 @@ export function scrollToId(id: string, reduced: boolean): void {
   window.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
 }
 
-/** Scroll to the assistant section and focus its input. */
-export function goToAssistant(sectionId: string, reduced: boolean): void {
-  scrollToId(sectionId, reduced);
-  window.setTimeout(
-    () => {
-      document
-        .getElementById(ASSISTANT_INPUT_ID)
-        ?.focus({ preventScroll: true });
-    },
-    reduced ? 50 : 550,
+/**
+ * Nav links worth showing: section anchors only while that section renders on
+ * home, page links unless their page is empty.
+ *
+ * @param nav - Links from site.json.
+ * @param sectionIds - Ids of the sections home actually renders.
+ * @param hiddenPaths - Page routes with nothing to show yet.
+ * @returns The links in config order.
+ */
+export function visibleNav(
+  nav: NavItem[],
+  sectionIds: string[],
+  hiddenPaths: string[],
+): NavItem[] {
+  return nav.filter((item) =>
+    item.href.startsWith("#")
+      ? sectionIds.includes(item.href.slice(1))
+      : !hiddenPaths.includes(item.href),
   );
 }

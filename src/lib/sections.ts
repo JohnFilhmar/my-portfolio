@@ -26,6 +26,7 @@ export function resolveSections(config: AppConfig): ResolvedSection[] {
     experience: config.experience.label,
     education: config.education.label,
     certifications: config.certifications.label,
+    notes: config.notes.label,
     assistant: config.assistant.label,
     contact: config.contact.label,
   };
@@ -38,6 +39,7 @@ export function resolveSections(config: AppConfig): ResolvedSection[] {
   const hasContent: Partial<Record<SectionType, boolean>> = {
     proof: config.proof.items.some((item) => item.project === undefined),
     certifications: config.certifications.items.length > 0,
+    notes: config.notes.posts.length > 0,
     assistant: config.assistant.enabled,
   };
 

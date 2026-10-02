@@ -11,6 +11,7 @@ import { Projects } from "@/components/sections/Projects";
 import { Proof } from "@/components/sections/Proof";
 import { Skills } from "@/components/sections/Skills";
 import { AssistantSection } from "@/components/assistant/AssistantSection";
+import { NotesSection } from "@/components/notes/NotesSection";
 
 export interface SectionRendererProps {
   config: AppConfig;
@@ -32,8 +33,6 @@ export function SectionRenderer({
   contactViaApi,
   reducedMotion,
 }: SectionRendererProps) {
-  const assistantSection = sections.find((s) => s.type === "assistant") ?? null;
-
   return (
     <>
       {sections.map((section) => {
@@ -48,8 +47,7 @@ export function SectionRenderer({
                 flagships={config.projects.items.filter(
                   (item) => item.tier === "flagship",
                 )}
-                reducedMotion={reducedMotion}
-                assistantSectionId={assistantSection?.id ?? null}
+                assistantEnabled={config.assistant.enabled}
               />
             );
           case "about":
@@ -135,6 +133,17 @@ export function SectionRenderer({
                 <Certifications certifications={config.certifications} />
               </Section>
             );
+          case "notes":
+            return (
+              <Section
+                key={section.id}
+                id={section.id}
+                ariaLabel={config.notes.label}
+                reducedMotion={reducedMotion}
+              >
+                <NotesSection notes={config.notes} />
+              </Section>
+            );
           case "assistant":
             return (
               <Section
@@ -146,8 +155,6 @@ export function SectionRenderer({
                 <AssistantSection
                   assistant={config.assistant}
                   mode={assistantMode}
-                  typing={config.theme.motion.typing}
-                  reducedMotion={reducedMotion}
                 />
               </Section>
             );
