@@ -3,7 +3,6 @@
   "label": "evidence",
   "heading": "Systems caught in the act of working.",
   "blurb": "Claims are cheap. These are captures of the real products doing the job they were built for, each one linked to an address you can open yourself.",
-  "commandLine": "$ ls -la ~/proof/  # {n} artifacts",
   "showFilters": true,
   "filterAllLabel": "all",
   "filterGroupLabel": "Filter evidence by kind",

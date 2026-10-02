@@ -52,17 +52,6 @@ export function ProofRow({
             portrait && "mx-auto max-w-[320px]",
           )}
         >
-          <div className="flex items-center gap-2 border-b border-border px-3.5 py-[9px]">
-            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-dot" />
-            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-dot" />
-            <span
-              aria-hidden="true"
-              className="h-2 w-2 rounded-full bg-accent-dot"
-            />
-            <span className="ml-1 truncate font-mono text-2xs text-dim">
-              {item.title}
-            </span>
-          </div>
           {item.missing ? (
             <ImageFrame
               src={item.src}

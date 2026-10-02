@@ -7,58 +7,9 @@
     "My favorite work spans the whole stack. I was the sole developer of *Usapp*, a secure real-time messaging platform built from scratch across mobile, distributed microservices, deployment pipeline and production servers, now the notification backbone for the company's entire product suite.",
     "I care about the unglamorous parts too: **security scanning in CI, hardened containers, monitoring, and incident diagnosis at 3 a.m.** This site is part of the evidence: **every section, color and sentence is editable config, no code changes.**"
   ],
-  "philosophy": "\"Build it, secure it, ship it, run it, end to end.\"",
   "portrait": {
     "src": "/me.png",
     "alt": "John Filhmar Ola",
     "aspect": "1/1"
-  },
-  "terminal": {
-    "entries": [
-      {
-        "cmd": "whoami",
-        "lines": [
-          {
-            "spans": [
-              {
-                "text": "john filhmar ola: lead IT · full-stack · DevSecOps",
-                "tone": "bright"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "cmd": "cat focus.txt",
-        "lines": [
-          {
-            "spans": [
-              {
-                "text": "production systems · infrastructure ownership · shift-left security",
-                "tone": "default"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "cmd": "cat philosophy.txt",
-        "lines": [{ "philosophy": true }]
-      },
-      {
-        "cmd": "status",
-        "lines": [
-          {
-            "spans": [
-              {
-                "text": "Lead IT @ YouCode Technologies · Dasmariñas, PH ",
-                "tone": "default"
-              },
-              { "text": "(UTC+8)", "tone": "dim" }
-            ]
-          }
-        ]
-      }
-    ]
   }
 }

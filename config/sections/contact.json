@@ -4,8 +4,6 @@
   "heading": "Let's build something.",
   "blurb": "If you're hiring for full-stack, DevSecOps or infrastructure work, or you just want a second opinion on an architecture or a production setup, my inbox is open. I reply within 24 hours.",
   "form": {
-    "commandLine": "$ ./send-message",
-    "commandComment": "# sends your message straight to my inbox",
     "nameLabel": "your name",
     "namePlaceholder": "Ada Lovelace",
     "emailLabel": "your email",

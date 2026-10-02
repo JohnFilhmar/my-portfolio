@@ -1,27 +1,18 @@
 import type { SkillsConfig } from "@config/schema";
 import { Card } from "@/components/ui/Card";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Tag } from "@/components/ui/Tag";
 
 export interface SkillsProps {
-  number: string;
   skills: SkillsConfig;
 }
 
 /** Skills: grid of group cards with core-strength tags. */
-export function Skills({ number, skills }: SkillsProps) {
+export function Skills({ skills }: SkillsProps) {
   return (
     <>
-      <SectionLabel
-        number={number}
-        label={skills.label}
-        right={
-          <span className="font-mono text-xs text-dim">{skills.legend}</span>
-        }
-      />
-      <p className="m-0 mb-9 text-section font-bold tracking-[-0.02em] text-heading">
-        {skills.heading}
-      </p>
+      <SectionHeading className="mb-3">{skills.heading}</SectionHeading>
+      <p className="m-0 mb-9 font-mono text-xs text-dim">{skills.legend}</p>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,310px),1fr))] gap-3.5">
         {skills.groups.map((group) => (
           <Card key={group.id} interactive>

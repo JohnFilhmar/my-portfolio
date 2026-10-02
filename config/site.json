@@ -1,10 +1,6 @@
 {
   "_readme": "Identity, links, navigation, footer, command palette copy and the section registry. The `sections` array controls which sections render and in what order; flip `enabled` or reorder entries to reshape the page without touching code.",
   "name": "John Filhmar Ola",
-  "prompt": {
-    "user": "john",
-    "host": "filhmar"
-  },
   "role": "Lead IT · Full-Stack Engineer · DevSecOps & Infrastructure",
   "tagline": "I build systems end to end, from first commit to production operation.",
   "description": "John Filhmar Ola: Lead IT and full-stack engineer. I architect, build, secure and operate production systems: mobile, backend microservices, and on-premise infrastructure. This site is a live, config-driven demo with an AI assistant.",
@@ -51,45 +47,45 @@
   },
   "nav": [
     {
-      "label": "./about",
+      "label": "About",
       "href": "#about"
     },
     {
-      "label": "./skills",
+      "label": "Skills",
       "href": "#skills"
     },
     {
-      "label": "./work",
+      "label": "Work",
       "href": "#work"
     },
     {
-      "label": "./proof",
+      "label": "Evidence",
       "href": "#proof"
     },
     {
-      "label": "./exp",
+      "label": "Experience",
       "href": "#experience"
     },
     {
-      "label": "./edu",
+      "label": "Education",
       "href": "#education"
     },
     {
-      "label": "./certs",
+      "label": "Certifications",
       "href": "#certifications"
     },
     {
-      "label": "./ask",
+      "label": "Ask",
       "href": "/ask"
     },
     {
-      "label": "./contact",
+      "label": "Contact",
       "href": "#contact"
     }
   ],
   "footer": {
     "note": "Built by hand as a live demo of my work: no template, no framework boilerplate. Every word and color on this page comes from editable config files.",
-    "copyright": "© 2026 john filhmar ola · exit code 0"
+    "copyright": "© 2026 John Filhmar Ola"
   },
   "lightbox": {
     "closeLabel": "close",

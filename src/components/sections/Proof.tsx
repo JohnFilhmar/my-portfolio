@@ -2,11 +2,10 @@ import { useMemo, useState } from "react";
 import type { LightboxConfig, ProofConfig } from "@config/schema";
 import { FilterChips } from "@/components/ui/FilterChips";
 import { Lightbox } from "@/components/ui/Lightbox";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProofRow } from "@/components/sections/ProofRow";
 
 export interface ProofProps {
-  number: string;
   proof: ProofConfig;
   lightbox: LightboxConfig;
 }
@@ -15,7 +14,7 @@ export interface ProofProps {
  * Evidence: filterable grid of captures, each expandable to full size. Only
  * captures not bound to a project show here; bound ones live on their case study.
  */
-export function Proof({ number, proof, lightbox }: ProofProps) {
+export function Proof({ proof, lightbox }: ProofProps) {
   const [filter, setFilter] = useState(proof.filterAllLabel);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -40,19 +39,11 @@ export function Proof({ number, proof, lightbox }: ProofProps) {
     [unbound, proof.filterAllLabel, filter],
   );
 
-  const commandLine = proof.commandLine.replace("{n}", String(unbound.length));
-
   return (
     <>
-      <SectionLabel number={number} label={proof.label} />
-      <p className="m-0 mb-4 text-section font-bold tracking-[-0.02em] text-heading">
-        {proof.heading}
-      </p>
+      <SectionHeading className="mb-4">{proof.heading}</SectionHeading>
       <p className="m-0 mb-5 max-w-[62ch] text-lg leading-[1.7] text-prose">
         {proof.blurb}
-      </p>
-      <p className="m-0 mb-[26px] font-mono text-sm text-[var(--terminal-prompt)]">
-        {commandLine}
       </p>
 
       <FilterChips

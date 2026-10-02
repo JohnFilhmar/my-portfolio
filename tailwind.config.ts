@@ -71,6 +71,7 @@ const config: Config = {
         "launcher-veil": "var(--color-launcher-veil)",
       },
       fontFamily: {
+        display: "var(--font-display)",
         mono: "var(--font-mono)",
         sans: "var(--font-sans)",
       },
@@ -90,9 +91,6 @@ const config: Config = {
         "column-gap": "var(--space-column-gap)",
         header: "var(--space-header-height)",
         "scroll-margin": "var(--space-scroll-margin)",
-      },
-      animation: {
-        "pulse-dot": "pulseDot var(--duration-pulse) ease-in-out infinite",
       },
     },
   },

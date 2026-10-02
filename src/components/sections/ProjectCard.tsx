@@ -2,20 +2,18 @@ import type { Project, ProjectsConfig } from "@config/schema";
 import { Card } from "@/components/ui/Card";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Tag } from "@/components/ui/Tag";
-import { formatIndex, isExternalHref } from "@/lib/utils";
+import { isExternalHref } from "@/lib/utils";
 
 export interface ProjectCardProps {
   project: Project;
-  /** Index within the full (unfiltered) project list, for stable P-0N ids. */
-  index: number;
   projects: ProjectsConfig;
 }
 
 /**
  * A `standard` project card: badges, hook, impact line, expandable case study,
- * stack and links. Flagships use FlagshipTile and their own page instead.
+ * stack and links. Flagships lead the hero index and have their own page.
  */
-export function ProjectCard({ project, index, projects }: ProjectCardProps) {
+export function ProjectCard({ project, projects }: ProjectCardProps) {
   const domains = [project.domain, ...project.secondaryDomains];
   const links = (
     [
@@ -44,11 +42,7 @@ export function ProjectCard({ project, index, projects }: ProjectCardProps) {
         />
       )}
       <div className="flex flex-1 flex-col gap-3 px-[22px] pb-[18px] pt-[22px]">
-        <div className="flex items-center gap-2">
-          <span className="font-mono text-xs text-accent">
-            {formatIndex(projects.indexPrefix, index)}
-          </span>
-          <span className="flex-1" />
+        <div className="flex flex-wrap items-center justify-end gap-2">
           {domains.map((domain) => (
             <Tag key={domain} variant="domain">
               {domain}

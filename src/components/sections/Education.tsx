@@ -1,22 +1,18 @@
 import type { EducationConfig, LightboxConfig } from "@config/schema";
 import { PhotoStrip } from "@/components/ui/PhotoStrip";
-import { SectionLabel } from "@/components/ui/SectionLabel";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
 
 export interface EducationProps {
-  number: string;
   education: EducationConfig;
   lightbox: LightboxConfig;
 }
 
 /** Education: vertical timeline of schools, mirroring the experience layout. */
-export function Education({ number, education, lightbox }: EducationProps) {
+export function Education({ education, lightbox }: EducationProps) {
   return (
     <>
-      <SectionLabel number={number} label={education.label} />
-      <p className="m-0 mb-9 text-section font-bold tracking-[-0.02em] text-heading">
-        {education.heading}
-      </p>
+      <SectionHeading className="mb-9">{education.heading}</SectionHeading>
       <div className="grid max-w-[860px] gap-0">
         {education.items.map((item) => {
           const current = item.end === null;

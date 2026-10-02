@@ -8,8 +8,17 @@
  * colors or magic numbers here.
  */
 
-:root {
-  color-scheme: dark;
+/*
+ * Archivo's width axis, which Tailwind 3.4 has no scale for. Width encodes
+ * hierarchy: the h1 runs semi-expanded, the hero's system names fully expanded.
+ */
+@layer utilities {
+  .stretch-semi-expanded {
+    font-stretch: 112.5%;
+  }
+  .stretch-expanded {
+    font-stretch: 125%;
+  }
 }
 
 html {
@@ -32,16 +41,6 @@ body {
 
 a {
   color: var(--color-accent);
-}
-
-@keyframes pulseDot {
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
 }
 
 /* Custom disclosure marker for project case studies. */

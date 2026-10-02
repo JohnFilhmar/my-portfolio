@@ -5,10 +5,9 @@
   "showFilters": false,
   "filterAllLabel": "all",
   "filterGroupLabel": "Filter projects by domain",
-  "indexPrefix": "P-",
   "resultsPrefix": "▲ ",
   "caseStudy": {
-    "summaryLabel": "$ cat case-study.md",
+    "summaryLabel": "details",
     "problemLabel": "problem",
     "roleLabel": "my role",
     "decisionsLabel": "key decisions"
@@ -45,6 +44,7 @@
       "domain": "backend",
       "secondaryDomains": ["mobile", "DevSecOps"],
       "tier": "flagship",
+      "status": "live",
       "cover": {
         "src": "/work/usapp/cover.webp",
         "alt": "Usapp interface",
@@ -227,6 +227,7 @@
       "domain": "full-stack",
       "secondaryDomains": ["DevSecOps", "security"],
       "tier": "flagship",
+      "status": "live",
       "cover": {
         "src": "/work/jms-e-talyer/cover.webp",
         "alt": "JMS E-Talyer interface",
@@ -280,6 +281,7 @@
       "domain": "mobile",
       "secondaryDomains": ["security"],
       "tier": "flagship",
+      "status": "in-development",
       "cover": {
         "src": "/work/peraplano/cover.webp",
         "alt": "PeraPlano interface",

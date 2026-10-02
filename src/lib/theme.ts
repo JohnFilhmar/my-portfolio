@@ -50,6 +50,7 @@ export function mixHex(a: string, b: string, weight: number): string {
 }
 
 export interface LoadedFonts {
+  display: string;
   sans: string;
   mono: string;
 }
@@ -66,6 +67,9 @@ export function buildCssVariables(
 ): string {
   const vars: string[] = [];
   const add = (name: string, value: string) => vars.push(`${name}: ${value};`);
+
+  // Scrollbars and native form controls follow the palette's lightness.
+  add("color-scheme", theme.mode);
 
   for (const [name, value] of Object.entries(theme.colors)) {
     add(`--color-${kebab(name)}`, value);
@@ -86,6 +90,12 @@ export function buildCssVariables(
 
   // Fonts: the self-hosted (next/font) families first, then the configured
   // stacks from theme.json as fallbacks.
+  add(
+    "--font-display",
+    loadedFonts
+      ? `${loadedFonts.display}, ${theme.fonts.display}`
+      : theme.fonts.display,
+  );
   add(
     "--font-sans",
     loadedFonts ? `${loadedFonts.sans}, ${theme.fonts.sans}` : theme.fonts.sans,
@@ -114,7 +124,6 @@ export function buildCssVariables(
     add(`--easing-${kebab(name)}`, value);
   }
 
-  add("--terminal-prompt", theme.terminal.promptColor);
   add("--texture-line", theme.terminal.textureLine);
   add("--texture-size", theme.terminal.textureSize);
 

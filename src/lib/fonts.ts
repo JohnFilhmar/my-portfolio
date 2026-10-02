@@ -1,13 +1,23 @@
 import localFont from "next/font/local";
 
 /*
- * IBM Plex, self-hosted via next/font/local (files in src/fonts, OFL
- * licensed) — no external font requests at build or runtime. The generated
- * family names are inlined into the `--font-sans` / `--font-mono` tokens by
+ * Archivo (display) and IBM Plex (body and mono), self-hosted via
+ * next/font/local (files in src/fonts, OFL licensed) — no external font
+ * requests at build or runtime. The generated family names are inlined into
+ * the `--font-display` / `--font-sans` / `--font-mono` tokens by
  * <ThemeTokens> ahead of the stacks configured in config/theme.json.
  *
  * Swapping families = replace the files below + update theme.json's stacks.
  */
+
+// One variable file carries both axes: weight 100-900 and width 62-125%.
+const display = localFont({
+  src: "../fonts/archivo-latin-wdth-normal.woff2",
+  weight: "100 900",
+  style: "normal",
+  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
+  display: "swap",
+});
 
 const sans = localFont({
   src: [
@@ -63,6 +73,7 @@ const mono = localFont({
 
 /** Loaded font-family lists (e.g. "'__sans_x', '__sans_Fallback_x'"). */
 export const loadedFontFamilies = {
+  display: display.style.fontFamily,
   sans: sans.style.fontFamily,
   mono: mono.style.fontFamily,
 };

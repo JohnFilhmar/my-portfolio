@@ -55,12 +55,9 @@ export function Header({ site, sections, path, onOpenPalette }: HeaderProps) {
       <div className="mx-auto flex h-header max-w-container items-center gap-3 px-container-pad">
         <a
           href={onHome ? `#${topId}` : "/"}
-          className="whitespace-nowrap font-mono text-[13.5px] font-medium text-bright no-underline hover:text-heading focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
+          className="stretch-expanded whitespace-nowrap font-display text-sm font-extrabold uppercase text-heading no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
         >
-          {site.prompt.user}
-          <span className="text-accent">@</span>
-          {site.prompt.host}
-          <span className="text-dim">:~</span>
+          {site.name}
         </a>
         <div className="flex-1" />
         <div className="no-scrollbar edge-fade flex max-w-[70vw] gap-0.5 overflow-x-auto">
@@ -76,7 +73,9 @@ export function Header({ site, sections, path, onOpenPalette }: HeaderProps) {
                 className={cn(
                   "whitespace-nowrap rounded-sm px-2.5 py-[7px] font-mono text-sm no-underline transition-colors duration-fast",
                   "hover:bg-hover-tint hover:text-heading focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent",
-                  current ? "text-accent" : "text-subtle",
+                  current
+                    ? "text-heading underline decoration-2 underline-offset-8"
+                    : "text-subtle",
                 )}
               >
                 {item.label}

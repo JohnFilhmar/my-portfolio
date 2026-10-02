@@ -27,11 +27,6 @@ export const toneTextClass: Record<Tone, string> = {
   accent: "text-accent",
 };
 
-/** Zero-padded 1-based index, e.g. formatIndex("P-", 0) → "P-01". */
-export function formatIndex(prefix: string, index: number): string {
-  return `${prefix}${String(index + 1).padStart(2, "0")}`;
-}
-
 /** True for absolute http(s) links — used to add target="_blank". */
 export function isExternalHref(href: string): boolean {
   return /^https?:\/\//i.test(href);

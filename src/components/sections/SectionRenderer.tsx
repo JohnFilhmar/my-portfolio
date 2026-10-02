@@ -37,7 +37,6 @@ export function SectionRenderer({
   return (
     <>
       {sections.map((section) => {
-        const number = section.number ?? "";
         switch (section.type) {
           case "hero":
             return (
@@ -46,7 +45,9 @@ export function SectionRenderer({
                 sectionId={section.id}
                 hero={config.hero}
                 site={config.site}
-                typing={config.theme.motion.typing}
+                flagships={config.projects.items.filter(
+                  (item) => item.tier === "flagship",
+                )}
                 reducedMotion={reducedMotion}
                 assistantSectionId={assistantSection?.id ?? null}
               />
@@ -59,11 +60,7 @@ export function SectionRenderer({
                 ariaLabel={config.about.label}
                 reducedMotion={reducedMotion}
               >
-                <About
-                  number={number}
-                  about={config.about}
-                  education={config.education}
-                />
+                <About about={config.about} education={config.education} />
               </Section>
             );
           case "skills":
@@ -74,7 +71,7 @@ export function SectionRenderer({
                 ariaLabel={config.skills.label}
                 reducedMotion={reducedMotion}
               >
-                <Skills number={number} skills={config.skills} />
+                <Skills skills={config.skills} />
               </Section>
             );
           case "projects":
@@ -85,7 +82,7 @@ export function SectionRenderer({
                 ariaLabel={config.projects.label}
                 reducedMotion={reducedMotion}
               >
-                <Projects number={number} projects={config.projects} />
+                <Projects projects={config.projects} />
               </Section>
             );
           case "proof":
@@ -96,11 +93,7 @@ export function SectionRenderer({
                 ariaLabel={config.proof.label}
                 reducedMotion={reducedMotion}
               >
-                <Proof
-                  number={number}
-                  proof={config.proof}
-                  lightbox={config.site.lightbox}
-                />
+                <Proof proof={config.proof} lightbox={config.site.lightbox} />
               </Section>
             );
           case "experience":
@@ -112,7 +105,6 @@ export function SectionRenderer({
                 reducedMotion={reducedMotion}
               >
                 <Experience
-                  number={number}
                   experience={config.experience}
                   lightbox={config.site.lightbox}
                 />
@@ -127,7 +119,6 @@ export function SectionRenderer({
                 reducedMotion={reducedMotion}
               >
                 <Education
-                  number={number}
                   education={config.education}
                   lightbox={config.site.lightbox}
                 />
@@ -141,10 +132,7 @@ export function SectionRenderer({
                 ariaLabel={config.certifications.label}
                 reducedMotion={reducedMotion}
               >
-                <Certifications
-                  number={number}
-                  certifications={config.certifications}
-                />
+                <Certifications certifications={config.certifications} />
               </Section>
             );
           case "assistant":
@@ -156,7 +144,6 @@ export function SectionRenderer({
                 reducedMotion={reducedMotion}
               >
                 <AssistantSection
-                  number={number}
                   assistant={config.assistant}
                   mode={assistantMode}
                   typing={config.theme.motion.typing}
@@ -174,7 +161,6 @@ export function SectionRenderer({
                 className="!pb-contact-bottom"
               >
                 <Contact
-                  number={number}
                   contact={config.contact}
                   site={config.site}
                   contactViaApi={contactViaApi}

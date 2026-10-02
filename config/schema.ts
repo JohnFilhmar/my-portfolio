@@ -73,7 +73,8 @@ export type LightboxConfig = z.infer<typeof lightboxSchema>;
 
 export const themeSchema = z.object({
   _readme: readme,
-  mode: z.enum(["dark"]).default("dark"),
+  /** Browser color-scheme for scrollbars and form controls. Match the palette. */
+  mode: z.enum(["dark", "light"]).default("dark"),
   colors: z.object({
     background: z.string(),
     backgroundAlt: z.string(),
@@ -100,6 +101,8 @@ export const themeSchema = z.object({
     accentMuted: z.string(),
     accentContrast: z.string(),
     selectionContrast: z.string(),
+    /** Live-status marks only. Never text, so it is exempt from text contrast. */
+    signal: z.string(),
     success: z.string(),
     warning: z.string(),
     danger: z.string(),
@@ -109,6 +112,8 @@ export const themeSchema = z.object({
     overlay: z.string(),
   }),
   fonts: z.object({
+    /** Headings and the hero index only; used with restraint. */
+    display: z.string(),
     mono: z.string(),
     sans: z.string(),
   }),
@@ -130,15 +135,12 @@ export const themeSchema = z.object({
     durations: z.record(z.string(), z.string()),
     easings: z.record(z.string(), z.string()),
     typing: z.object({
-      heroCharMs: z.number().int().positive(),
-      bootStartDelayMs: z.number().int().nonnegative(),
       chatCharsPerTick: z.number().int().positive(),
       chatTickMs: z.number().int().positive(),
       chatReplyDelayMs: z.number().int().nonnegative(),
     }),
   }),
   terminal: z.object({
-    promptColor: z.string(),
     texture: z.enum(["grid", "scanlines", "none"]).default("grid"),
     textureLine: z.string(),
     /** Line color for the `scanlines` texture (darker than the grid line). */
@@ -226,8 +228,6 @@ export type SeoMeta = z.infer<typeof seoSchema>;
 export const siteSchema = z.object({
   _readme: readme,
   name: z.string(),
-  /** Rendered as `user@host:~` in the nav brand and footer. */
-  prompt: z.object({ user: z.string(), host: z.string() }),
   role: z.string(),
   tagline: z.string(),
   description: z.string(),
@@ -266,34 +266,34 @@ export const ctaSchema = z.object({
 });
 export type Cta = z.infer<typeof ctaSchema>;
 
-export const bootLineSchema = z.object({
-  text: z.string(),
-  tone: toneSchema.default("default"),
-});
-export type BootLine = z.infer<typeof bootLineSchema>;
+export const projectStatusSchema = z.enum([
+  "live",
+  "in-development",
+  "completed",
+]);
+export type ProjectStatus = z.infer<typeof projectStatusSchema>;
 
 export const heroSchema = z.object({
   _readme: readme,
-  promptLine: z.object({ path: z.string(), command: z.string() }),
-  /** Accent-colored suffix after the name in the headline (the "." in "Jordan Reyes."). */
-  nameSuffix: z.string().default("."),
+  /** The page's h1: what you do, in one sentence. */
+  headline: z.string(),
   ctas: z.array(ctaSchema),
+  /** Line under the headline: current role, location, availability. */
   statusLine: z.array(spanSchema),
-  boot: z.object({
-    windowTitle: z.string(),
-    lines: z.array(bootLineSchema),
-  }),
+  /** Heading over the index of flagship projects. */
+  indexLabel: z.string(),
+  /** Visible text for each project `status` in the index. */
+  statusLabels: z
+    .object({
+      live: z.string().default("live"),
+      "in-development": z.string().default("in development"),
+      completed: z.string().default("completed"),
+    })
+    .default({}),
 });
 export type HeroConfig = z.infer<typeof heroSchema>;
 
 /* ---------------------------------- about ---------------------------------- */
-
-export const terminalLineSchema = z.object({
-  /** When true, renders the top-level `philosophy` string in accent tone. */
-  philosophy: z.boolean().optional(),
-  spans: z.array(spanSchema).optional(),
-});
-export type TerminalLine = z.infer<typeof terminalLineSchema>;
 
 export const aboutSchema = z.object({
   _readme: readme,
@@ -301,19 +301,10 @@ export const aboutSchema = z.object({
   heading: z.string(),
   /** Supports minimal inline markup: **bold** and *italic*. */
   paragraphs: z.array(z.string()),
-  philosophy: z.string(),
   /** Square photo of you, ideally a transparent PNG cut-out. */
   portrait: mediaItemSchema.optional(),
   /** Lead-in for the one-line education summary built from education.json. */
   educationLabel: z.string().default("education"),
-  terminal: z.object({
-    entries: z.array(
-      z.object({
-        cmd: z.string(),
-        lines: z.array(terminalLineSchema),
-      }),
-    ),
-  }),
 });
 export type AboutConfig = z.infer<typeof aboutSchema>;
 
@@ -368,13 +359,15 @@ export const projectSchema = z.object({
   domain: z.string(),
   secondaryDomains: z.array(z.string()).default([]),
   /**
-   * Visual weight, not ordering. `flagship` gets a home tile and its own
-   * case-study page at /work/<id>, `standard` a card in the grid, `compact` a
-   * single expandable row. Keep flagships to two or three: the point of the
-   * tier is that most projects are not one.
+   * Visual weight, not ordering. `flagship` gets a row in the hero index and
+   * its own case-study page at /work/<id>, `standard` a card in the grid,
+   * `compact` a single expandable row. Keep flagships to two or three: the
+   * point of the tier is that most projects are not one.
    */
   tier: z.enum(["flagship", "standard", "compact"]).default("standard"),
-  /** Lead picture for the home tile and the top of the case study. */
+  /** Where the system stands today. Shown beside it in the hero index. */
+  status: projectStatusSchema.optional(),
+  /** Lead picture for the top of the case study. */
   cover: mediaItemSchema.optional(),
   /**
    * Measured outcomes, e.g. `{ value: "1.2k", label: "daily messages" }`.
@@ -395,7 +388,6 @@ export const projectsSchema = z.object({
   showFilters: z.boolean().default(true),
   filterAllLabel: z.string().default("all"),
   filterGroupLabel: z.string().default("Filter projects by domain"),
-  indexPrefix: z.string().default("P-"),
   resultsPrefix: z.string().default("▲ "),
   caseStudy: z.object({
     summaryLabel: z.string(),
@@ -406,12 +398,9 @@ export const projectsSchema = z.object({
     resultsLabel: z.string().default("results"),
     evidenceLabel: z.string().default("evidence"),
     screensLabel: z.string().default("screens"),
-    readLabel: z.string().default("read the case study →"),
     backLabel: z.string().default("← all work"),
     nextLabel: z.string().default("next case study"),
   }),
-  /** Heading over the compact rows under the flagship tiles. */
-  moreHeading: z.string().default("Also built"),
   linkLabels: z.object({
     demo: z.string().default("demo"),
     repo: z.string().default("repo"),
@@ -459,8 +448,6 @@ export const proofSchema = z.object({
   label: z.string(),
   heading: z.string(),
   blurb: z.string(),
-  /** Terminal line above the grid. `{n}` is replaced with the item count. */
-  commandLine: z.string().default("$ ls -la ~/proof/"),
   showFilters: z.boolean().default(true),
   filterAllLabel: z.string().default("all"),
   filterGroupLabel: z.string().default("Filter evidence by kind"),
@@ -567,8 +554,6 @@ export const contactSchema = z.object({
   heading: z.string(),
   blurb: z.string(),
   form: z.object({
-    commandLine: z.string(),
-    commandComment: z.string(),
     nameLabel: z.string(),
     namePlaceholder: z.string(),
     emailLabel: z.string().default("your email"),
