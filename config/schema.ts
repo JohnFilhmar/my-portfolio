@@ -551,6 +551,8 @@ export const certificationSchema = z.object({
   imageAlt: z.string().optional(),
   /** What the credential actually covers. */
   skills: z.array(z.string()).default([]),
+  /** Set by the config loader from `expires`. Never authored. */
+  expired: z.boolean().default(false),
 });
 export type Certification = z.infer<typeof certificationSchema>;
 
@@ -562,6 +564,8 @@ export const certificationsSchema = z.object({
   issuedLabel: z.string().default("issued"),
   expiresLabel: z.string().default("expires"),
   neverExpiresLabel: z.string().default("no expiry"),
+  /** Shown after the expiry date once it has passed. */
+  expiredLabel: z.string().default("expired"),
   credentialLabel: z.string().default("id"),
   verifyLabel: z.string().default("verify"),
   /** Chip shown when the entry carries a public verification URL. */

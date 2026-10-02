@@ -33,3 +33,9 @@ youcode-**.md
 
 # local MCP server config (contains a bearer token)
 .mcp.json
+
+# original photos; `npm run images` writes the web copies into public/
+/assets/
+
+# sample content written by `npm run sample:seed`
+/.sample-content/

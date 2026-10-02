@@ -22,25 +22,25 @@
       ],
       "photos": [
         {
-          "src": "/experience/youcode-team.jpg",
+          "src": "/experience/youcode-team.webp",
           "alt": "The YouCode Technologies team",
           "caption": "The team at YouCode Technologies",
           "aspect": "4/3"
         },
         {
-          "src": "/experience/youcode-desk.jpg",
+          "src": "/experience/youcode-desk.webp",
           "alt": "My working setup at YouCode Technologies",
           "caption": "Where the systems get built",
           "aspect": "4/3"
         },
         {
-          "src": "/experience/youcode-server-room.jpg",
+          "src": "/experience/youcode-server-room.webp",
           "alt": "The on-premise server room I operate at YouCode Technologies",
           "caption": "On-premise infrastructure I provision and operate",
           "aspect": "4/3"
         },
         {
-          "src": "/experience/youcode-lead-promotion.jpg",
+          "src": "/experience/youcode-lead-promotion.webp",
           "alt": "Being announced as Lead IT at YouCode Technologies",
           "caption": "Promoted to Lead IT within the first year",
           "aspect": "4/3"
@@ -59,13 +59,13 @@
       ],
       "photos": [
         {
-          "src": "/experience/ynnovision-team.jpg",
+          "src": "/experience/ynnovision-team.webp",
           "alt": "The Ynnovision Enterprise Solutions team during my internship",
           "caption": "Internship team at Ynnovision Enterprise Solutions",
           "aspect": "4/3"
         },
         {
-          "src": "/experience/ynnovision-certificate.jpg",
+          "src": "/experience/ynnovision-certificate.webp",
           "alt": "Certificate of completion for the 486-hour internship at Ynnovision Enterprise Solutions",
           "caption": "Certificate of completion · 486 hours",
           "aspect": "4/3"

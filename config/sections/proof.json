@@ -61,46 +61,46 @@
     },
     {
       "id": "workspace",
-      "src": "/proof/workspace.jpg",
+      "src": "/proof/workspace.webp",
       "alt": "The desk and machines this work is built on",
-      "title": "workspace.jpg",
+      "title": "workspace.webp",
       "caption": "Where the work happens",
       "blurb": "The desk, the machines, the second monitor with the logs on it.",
       "category": "the human",
-      "meta": "add public/proof/workspace.jpg to publish this row",
+      "meta": "",
       "aspect": "4/3"
     },
     {
       "id": "team",
-      "src": "/proof/team.jpg",
+      "src": "/proof/team.webp",
       "alt": "The YouCode Technologies team",
-      "title": "team.jpg",
+      "title": "team.webp",
       "caption": "The team at YouCode Technologies",
       "blurb": "The people the systems were built alongside.",
       "category": "the human",
-      "meta": "add public/proof/team.jpg to publish this row",
+      "meta": "",
       "aspect": "4/3"
     },
     {
       "id": "infra-rack",
-      "src": "/proof/infra-rack.jpg",
+      "src": "/proof/infra-rack.webp",
       "alt": "The on-premise server rack these systems run on",
-      "title": "infra-rack.jpg",
+      "title": "infra-rack.webp",
       "caption": "On-premise infrastructure",
       "blurb": "The rack I provisioned, monitored and diagnosed at three in the morning.",
       "category": "infrastructure",
-      "meta": "add public/proof/infra-rack.jpg to publish this row",
+      "meta": "",
       "aspect": "4/3"
     },
     {
       "id": "pipeline-run",
-      "src": "/proof/pipeline-run.png",
+      "src": "/proof/pipeline-run.webp",
       "alt": "A CI/CD pipeline run showing security scanning and signed artifacts",
-      "title": "pipeline-run.png",
+      "title": "pipeline-run.webp",
       "caption": "A pipeline run",
       "blurb": "Build, test, security scanning, artifact signing and a manual-gated deploy, green all the way down.",
       "category": "infrastructure",
-      "meta": "add public/proof/pipeline-run.png to publish this row",
+      "meta": "",
       "aspect": "16/10"
     }
   ]

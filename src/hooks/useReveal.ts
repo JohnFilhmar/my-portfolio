@@ -28,6 +28,8 @@ export function useReveal<T extends HTMLElement>(
     if (el.getBoundingClientRect().top <= window.innerHeight * 0.92) return;
 
     setRevealed(false);
+    // Fires once the top edge is 8% into the viewport. A ratio threshold
+    // would never fire for a section taller than the viewport divided by it.
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -37,7 +39,7 @@ export function useReveal<T extends HTMLElement>(
           }
         }
       },
-      { threshold: 0.12 },
+      { rootMargin: "0px 0px -8% 0px" },
     );
     io.observe(el);
     return () => io.disconnect();

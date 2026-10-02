@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { PUBLIC_DIR, loadFile, publicAssetExists } from "./files";
+import { isExpired } from "./expiry";
 import { loadNotes } from "./notes";
 import { noteSummarySchema, notesSchema } from "./notesSchema";
 import {
@@ -119,7 +120,10 @@ export function loadConfig(): AppConfig {
     education: { ...education, items: education.items.map(withResolvedPhotos) },
     certifications: {
       ...certifications,
-      items: certifications.items.map(withResolvedImage),
+      items: certifications.items.map((item) => ({
+        ...withResolvedImage(item),
+        expired: isExpired(item.expires, new Date()),
+      })),
     },
     notes: {
       ...loadFile("sections/notes.json", notesSchema),

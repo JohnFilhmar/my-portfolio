@@ -13,6 +13,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test \"src/**/*.test.ts\" \"config/**/*.test.ts\"",
+    "images": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=ExperimentalWarning scripts/optimize_images.ts",
+    "sample:seed": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=ExperimentalWarning scripts/sample_content/main.ts seed",
+    "sample:clean": "node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --disable-warning=ExperimentalWarning scripts/sample_content/main.ts clean",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -38,6 +41,7 @@
     "eslint-config-prettier": "^9.1.0",
     "postcss": "^8.4.38",
     "prettier": "^3.3.2",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.10",
     "typescript": "^5.5.3"
   }

@@ -27,7 +27,7 @@
     },
     {
       "type": "image",
-      "src": "/notes/deploy-times.png",
+      "src": "/notes/deploy-times.webp",
       "alt": "Deploy duration before and after",
       "caption": "Median deploy time over six weeks."
     },
