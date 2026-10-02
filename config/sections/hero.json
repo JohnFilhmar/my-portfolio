@@ -20,7 +20,6 @@
   ],
   "boot": {
     "windowTitle": "profile.sh · boot",
-    "skipHint": "click to skip",
     "lines": [
       { "text": "$ ./init --profile john.filhmar.ola", "tone": "bright" },
       { "text": "▸ loading modules …", "tone": "dim" },

@@ -47,7 +47,7 @@
       },
       {
         "title": "Career",
-        "content": "Feb–May 2025: Ynnovision Enterprise Solutions, 486-hour frontend/web development internship. Jul 2025–Sep 2026: YouCode Technologies, joined as Developer and was promoted to Lead IT within the first year; owned multiple production systems, CI/CD across the product suite, and on-premise infrastructure operations."
+        "content": "Feb to May 2025: Ynnovision Enterprise Solutions, 486-hour frontend/web development internship. Jul 2025 to Sep 2026: YouCode Technologies, joined as Developer and was promoted to Lead IT within the first year; owned multiple production systems, CI/CD across the product suite, and on-premise infrastructure operations."
       },
       {
         "title": "Contact & availability",
@@ -129,7 +129,7 @@
     {
       "intents": ["background", "education", "career", "story", "history", "experience", "intern"],
       "question": "What's your background?",
-      "answer": "A fast arc: a 486-hour frontend/web development internship at Ynnovision Enterprise Solutions (Feb–May 2025), then YouCode Technologies (Jul 2025–now), where he joined as a Developer and was promoted to Lead IT within his first year, now owning multiple production systems, CI/CD, and on-premise infrastructure."
+      "answer": "A fast arc: a 486-hour frontend/web development internship at Ynnovision Enterprise Solutions (Feb to May 2025), then YouCode Technologies (Jul 2025 to now), where he joined as a Developer and was promoted to Lead IT within his first year, now owning multiple production systems, CI/CD, and on-premise infrastructure."
     },
     {
       "intents": ["resume", "cv", "download"],

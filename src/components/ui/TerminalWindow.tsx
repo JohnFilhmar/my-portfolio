@@ -26,7 +26,7 @@ export function TerminalWindow({
         className,
       )}
     >
-      <div className="flex items-center gap-2 border-b border-border bg-surface-alt px-3.5 py-[11px]">
+      <div className="flex items-center gap-2 border-b border-border px-3.5 py-[11px]">
         <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-dot" />
         <span aria-hidden="true" className="h-2.5 w-2.5 rounded-full bg-dot" />
         <span

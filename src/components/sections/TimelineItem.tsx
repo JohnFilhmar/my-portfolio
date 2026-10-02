@@ -26,7 +26,7 @@ export function TimelineItem({
           current ? "text-accent" : "text-dim",
         )}
       >
-        {item.start} –{"\n"}
+        {item.start} to{"\n"}
         {current ? presentLabel : item.end}
       </p>
       <div>

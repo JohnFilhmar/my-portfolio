@@ -3,7 +3,6 @@ import type { SiteConfig } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
-import { Cursor } from "@/components/ui/Cursor";
 import { cn } from "@/lib/utils";
 
 export interface HeaderProps {
@@ -33,7 +32,7 @@ export function Header({ site, sections, onOpenPalette }: HeaderProps) {
   return (
     <nav
       aria-label="Main"
-      className="sticky top-0 z-50 border-b border-border-nav bg-nav-veil backdrop-blur-xl"
+      className="sticky top-0 z-50 border-b border-border-nav bg-nav-veil backdrop-blur-lg"
     >
       {/* Reading progress sits on the header's own bottom edge. */}
       <div
@@ -58,7 +57,6 @@ export function Header({ site, sections, onOpenPalette }: HeaderProps) {
           <span className="text-accent">@</span>
           {site.prompt.host}
           <span className="text-dim">:~</span>
-          <Cursor size="nav" />
         </a>
         <div className="flex-1" />
         <div className="no-scrollbar edge-fade flex max-w-[70vw] gap-0.5 overflow-x-auto">

@@ -114,7 +114,6 @@ export function buildCssVariables(
     add(`--easing-${kebab(name)}`, value);
   }
 
-  add("--terminal-cursor", theme.terminal.cursorColor);
   add("--terminal-prompt", theme.terminal.promptColor);
   add("--texture-line", theme.terminal.textureLine);
   add("--texture-size", theme.terminal.textureSize);

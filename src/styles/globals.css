@@ -34,17 +34,6 @@ a {
   color: var(--color-accent);
 }
 
-@keyframes blink {
-  0%,
-  52% {
-    opacity: 1;
-  }
-  53%,
-  100% {
-    opacity: 0;
-  }
-}
-
 @keyframes pulseDot {
   0%,
   100% {

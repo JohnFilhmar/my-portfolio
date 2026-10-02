@@ -58,22 +58,22 @@ export function ProjectRow({ project, index, projects }: ProjectRowProps) {
         </span>
       </summary>
 
-      <div className="grid gap-2.5 pb-4 pl-0 text-md leading-relaxed text-prose sm:pl-[52px]">
+      <div className="grid max-w-prose gap-2.5 pb-4 pl-0 text-md leading-relaxed text-prose sm:pl-[52px]">
         <p className="m-0 text-base text-muted">{project.hook}</p>
         <p className="m-0">
-          <span className="mb-[3px] block font-mono text-[11px] uppercase tracking-[0.08em] text-dim">
+          <span className="mb-[3px] block font-mono text-2xs uppercase tracking-[0.08em] text-dim">
             {projects.caseStudy.problemLabel}
           </span>
           {project.problem}
         </p>
         <p className="m-0">
-          <span className="mb-[3px] block font-mono text-[11px] uppercase tracking-[0.08em] text-dim">
+          <span className="mb-[3px] block font-mono text-2xs uppercase tracking-[0.08em] text-dim">
             {projects.caseStudy.roleLabel}
           </span>
           {project.role}
         </p>
         <p className="m-0">
-          <span className="mb-[3px] block font-mono text-[11px] uppercase tracking-[0.08em] text-dim">
+          <span className="mb-[3px] block font-mono text-2xs uppercase tracking-[0.08em] text-dim">
             {projects.caseStudy.decisionsLabel}
           </span>
           {project.highlights.join(" ")}

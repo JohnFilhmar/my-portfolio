@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { AppConfig } from "@config/schema";
 import type { ResolvedSection } from "@/lib/sections";
-import { goToAssistant, requestBootReplay, scrollToId } from "@/lib/navigation";
+import { goToAssistant, scrollToId } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 interface PaletteCommand {
@@ -25,8 +25,8 @@ const optionId = (key: string) => `palette-option-${key}`;
 /**
  * ⌘K command palette — commands are generated from config, never hardcoded.
  * Keyboard model matches the reference: while open, Escape / arrows / Enter
- * are handled window-wide (capture phase, so e.g. the hero's Escape-to-skip
- * listener never double-fires). Exposed to AT as a combobox + listbox.
+ * are handled window-wide in the capture phase, so no other Escape listener
+ * double-fires. Exposed to AT as a combobox + listbox.
  */
 export function CommandPalette({
   config,
@@ -73,19 +73,6 @@ export function CommandPalette({
         void navigator.clipboard?.writeText(config.site.contact.email);
       },
     });
-
-    const hero = sections.find((s) => s.type === "hero");
-    if (hero) {
-      list.push({
-        key: "replay-boot",
-        label: palette.actions.replayBoot.label,
-        hint: palette.actions.replayBoot.hint,
-        run: () => {
-          scrollToId(hero.id, reducedMotion);
-          requestBootReplay();
-        },
-      });
-    }
 
     for (const social of config.site.socials) {
       list.push({

@@ -114,13 +114,13 @@ export function ProjectCard({ project, index, projects }: ProjectCardProps) {
           </summary>
           <div className="grid gap-2.5 pt-3.5 text-md leading-relaxed text-prose">
             <p className="m-0">
-              <span className="mb-[3px] block font-mono text-[11px] uppercase tracking-[0.08em] text-dim">
+              <span className="mb-[3px] block font-mono text-2xs uppercase tracking-[0.08em] text-dim">
                 {projects.caseStudy.problemLabel}
               </span>
               {project.problem}
             </p>
             <p className="m-0">
-              <span className="mb-[3px] block font-mono text-[11px] uppercase tracking-[0.08em] text-dim">
+              <span className="mb-[3px] block font-mono text-2xs uppercase tracking-[0.08em] text-dim">
                 {projects.caseStudy.roleLabel}
               </span>
               {project.role}
@@ -128,7 +128,7 @@ export function ProjectCard({ project, index, projects }: ProjectCardProps) {
             {/* Flagships already list their decisions above the fold. */}
             {!flagship && (
               <p className="m-0">
-                <span className="mb-[3px] block font-mono text-[11px] uppercase tracking-[0.08em] text-dim">
+                <span className="mb-[3px] block font-mono text-2xs uppercase tracking-[0.08em] text-dim">
                   {projects.caseStudy.decisionsLabel}
                 </span>
                 {/* The reference renders decisions as prose, like problem/role. */}

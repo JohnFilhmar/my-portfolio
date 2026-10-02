@@ -116,10 +116,6 @@
       "copyEmail": {
         "label": "run: copy email address",
         "hint": "clipboard"
-      },
-      "replayBoot": {
-        "label": "run: replay boot sequence",
-        "hint": "hero"
       }
     },
     "inputAriaLabel": "Type a command"

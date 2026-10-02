@@ -52,7 +52,7 @@ export function ProofRow({
             portrait && "mx-auto max-w-[320px]",
           )}
         >
-          <div className="flex items-center gap-2 border-b border-border bg-surface-alt px-3.5 py-[9px]">
+          <div className="flex items-center gap-2 border-b border-border px-3.5 py-[9px]">
             <span aria-hidden="true" className="h-2 w-2 rounded-full bg-dot" />
             <span aria-hidden="true" className="h-2 w-2 rounded-full bg-dot" />
             <span
@@ -82,10 +82,12 @@ export function ProofRow({
       </div>
 
       <div className={cn("min-w-0", flipped && "md:order-1")}>
-        <Tag variant="domain">{item.category}</Tag>
-        <h3 className="m-0 mb-2 mt-3 text-[clamp(20px,2.2vw,26px)] font-bold tracking-[-0.01em] text-heading">
+        <h3 className="m-0 mb-3 text-[clamp(20px,2.2vw,26px)] font-bold tracking-[-0.01em] text-heading">
           {item.caption}
         </h3>
+        <Tag variant="domain" className="mb-3 inline-block">
+          {item.category}
+        </Tag>
         {item.blurb && (
           <p className="m-0 mb-3 max-w-[46ch] text-lg leading-[1.6] text-prose">
             {item.blurb}

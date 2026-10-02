@@ -92,11 +92,12 @@ const config: Config = {
         "scroll-margin": "var(--space-scroll-margin)",
       },
       animation: {
-        blink: "blink var(--duration-blink) steps(1) infinite",
         "pulse-dot": "pulseDot var(--duration-pulse) ease-in-out infinite",
       },
     },
   },
+  // Touch screens fire :hover on tap and leave it stuck; gate every hover: utility.
+  future: { hoverOnlyWhenSupported: true },
   plugins: [],
 };
 

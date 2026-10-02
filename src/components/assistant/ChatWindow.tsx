@@ -16,7 +16,7 @@ export function ChatWindow({ assistant, mode, chat }: ChatWindowProps) {
     <TerminalWindow
       title={assistant.windowTitle}
       titleRight={
-        <span className="rounded-xs border border-accent-border px-[7px] py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-accent">
+        <span className="rounded-xs border border-accent-border px-[7px] py-0.5 font-mono text-2xs uppercase tracking-[0.08em] text-accent">
           {assistant.badge[mode]}
         </span>
       }
