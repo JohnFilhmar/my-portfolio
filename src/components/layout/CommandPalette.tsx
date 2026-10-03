@@ -170,6 +170,7 @@ export function CommandPalette({
   return (
     <div
       onClick={close}
+      data-lenis-prevent
       className="fixed inset-0 z-[100] bg-overlay backdrop-blur-sm"
     >
       <div

@@ -2,6 +2,7 @@ import { useMemo, useState, type ReactNode } from "react";
 import type { AppConfig } from "@config/schema";
 import type { SeoData } from "@/lib/seo";
 import { CERTIFICATIONS_PATH, NOTES_PATH } from "@/lib/navigation";
+import { navCounts } from "@/lib/navCounts";
 import { resolveSections } from "@/lib/sections";
 import { textureStyle } from "@/lib/theme";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
@@ -10,6 +11,7 @@ import { CommandPalette } from "@/components/layout/CommandPalette";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Seo } from "@/components/layout/Seo";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { ThemeTokens } from "@/components/layout/ThemeTokens";
 import { AssistantProvider } from "@/providers/AssistantProvider";
 
@@ -42,6 +44,7 @@ export function SiteShell({
   const reducedMotion = useReducedMotion();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const sections = useMemo(() => resolveSections(config), [config]);
+  const counts = useMemo(() => navCounts(config, sections), [config, sections]);
   const hiddenPaths = useMemo(
     () => [
       ...(config.notes.posts.length === 0 ? [NOTES_PATH] : []),
@@ -63,6 +66,7 @@ export function SiteShell({
         }}
       />
       <ThemeTokens theme={config.theme} />
+      {!reducedMotion && <SmoothScroll />}
 
       <AssistantProvider
         assistant={config.assistant}
@@ -99,6 +103,7 @@ export function SiteShell({
               onOpenPalette={() => setPaletteOpen(true)}
               reducedMotion={reducedMotion}
               hiddenPaths={hiddenPaths}
+              counts={counts}
             />
             <main
               id={MAIN_ID}

@@ -256,6 +256,8 @@ export const siteSchema = z.object({
   /** One viewer, one set of labels, wherever a picture opens full size. */
   lightbox: lightboxSchema.default({}),
   /** Interface strings that belong to no single section. */
+  /** Status chip in the header, e.g. "Open to work" linking to #contact. */
+  availability: z.object({ label: z.string(), href: z.string() }).optional(),
   a11y: z
     .object({
       skipToContentLabel: z.string().default("skip to content"),

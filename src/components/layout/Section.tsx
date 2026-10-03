@@ -13,7 +13,9 @@ export interface SectionProps {
 
 /**
  * Page section: anchor target, fluid vertical rhythm, scroll margin for the
- * sticky header, and reveal-on-scroll as progressive enhancement.
+ * sticky header, and reveal-on-scroll as progressive enhancement. The rise
+ * moves an inner wrapper, never the section, so an in-page link measures
+ * where the section really sits even before it has revealed.
  */
 export function Section({
   id,
@@ -27,14 +29,13 @@ export function Section({
     <section
       id={id}
       ref={ref}
-      style={style}
       aria-label={ariaLabel}
       className={cn(
         "mx-auto w-full max-w-container scroll-mt-scroll-margin px-container-pad py-section-y",
         className,
       )}
     >
-      {children}
+      <div style={style}>{children}</div>
     </section>
   );
 }
