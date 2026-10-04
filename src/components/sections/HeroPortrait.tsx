@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { HeroConfig } from "@config/schema";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { cn } from "@/lib/utils";
@@ -17,10 +17,14 @@ const LAYER = {
 
 const IMG = "absolute inset-0 h-full w-full object-contain object-bottom";
 
+/** The angle the backdrop's light comes from for each photo, cycling. */
+const LIGHT = ["160deg", "215deg", "120deg"];
+
 /**
- * The hero photo, toned blue by the theme. Hover lifts it and fades in the
- * true color. With more than one photo in public/portrait, a click wipes the
- * next one up from the bottom while the current one fades out.
+ * The hero photo, toned blue by the theme, standing in a grain-textured
+ * frame its head rises out of. Hover lifts it and fades in the true color.
+ * With more than one photo in public/portrait, a click wipes the next one up
+ * from the bottom and moves the light in the frame.
  */
 export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
   const { images, alt, cycleLabel, emptyLabel } = portrait;
@@ -41,6 +45,9 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
   }
 
   const cycles = images.length > 1;
+  const light: CSSProperties & Record<"--ga", string> = {
+    "--ga": LIGHT[index % LIGHT.length] ?? "160deg",
+  };
 
   return (
     <figure
@@ -49,6 +56,11 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
         className,
       )}
     >
+      <div
+        aria-hidden="true"
+        style={light}
+        className="portrait-backdrop absolute inset-x-[6%] bottom-0 top-[18%] rounded-3xl"
+      />
       <div
         role="img"
         aria-label={alt}
@@ -100,7 +112,7 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
           />
           <figcaption
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-4 left-4 z-[4] rounded-sm bg-surface px-2 py-1 font-mono text-2xs text-heading"
+            className="pointer-events-none absolute bottom-4 left-[calc(6%+1rem)] z-[4] rounded-sm bg-surface px-2 py-1 font-mono text-2xs text-heading"
           >
             {String(index + 1).padStart(2, "0")} /{" "}
             {String(images.length).padStart(2, "0")}

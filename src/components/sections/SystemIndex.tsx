@@ -24,7 +24,10 @@ export function SystemIndex({
   statusLabels,
 }: SystemIndexProps) {
   return (
-    <section aria-labelledby="system-index-label" className="mt-16">
+    <section
+      aria-labelledby="system-index-label"
+      className="mt-16 overflow-x-clip"
+    >
       <h2
         id="system-index-label"
         className="m-0 border-b-2 border-heading pb-3 font-mono text-sm font-medium text-heading"
@@ -32,22 +35,40 @@ export function SystemIndex({
         {label}
       </h2>
       <ul className="m-0 list-none p-0">
-        {systems.map((system) => {
+        {systems.map((system, i) => {
           const live = system.status === "live";
+          const fromRight = i % 2 === 1;
           return (
             <li key={system.id} className="border-b border-border-strong py-6">
               <a
                 href={workPath(system.id)}
                 className="group block no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
-                {/* Breaks only between words: "JMS E-TALYER" must never split at its hyphen. */}
-                <span className="stretch-expanded block font-display text-index font-extrabold uppercase leading-[0.92] tracking-[-0.01em] text-heading transition-transform duration-fast group-hover:translate-x-2">
-                  {system.title.split(" ").map((word, i) => (
-                    <span key={i}>
-                      {i > 0 && " "}
-                      <span className="whitespace-nowrap">{word}</span>
-                    </span>
-                  ))}
+                {/* Rows alternate edges and slide in from their own side as they scroll into view. */}
+                <span
+                  className={cn(
+                    "index-slide block",
+                    fromRight
+                      ? "index-from-right md:text-right"
+                      : "index-from-left",
+                  )}
+                >
+                  {/* Breaks only between words: "JMS E-TALYER" must never split at its hyphen. */}
+                  <span
+                    className={cn(
+                      "stretch-expanded inline-block font-display text-index font-extrabold uppercase leading-[0.92] tracking-[-0.01em] text-heading transition-transform duration-fast",
+                      fromRight
+                        ? "group-hover:-translate-x-2"
+                        : "group-hover:translate-x-2",
+                    )}
+                  >
+                    {system.title.split(" ").map((word, w) => (
+                      <span key={w}>
+                        {w > 0 && " "}
+                        <span className="whitespace-nowrap">{word}</span>
+                      </span>
+                    ))}
+                  </span>
                 </span>
               </a>
               <div className="mt-3 grid gap-x-column-gap gap-y-3 md:grid-cols-12 md:items-start">

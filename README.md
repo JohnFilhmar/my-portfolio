@@ -139,7 +139,9 @@ WebP copies are what ship. Restart the server after adding images.
 `npm run sample:seed` fills every empty slot with pictures and entries stamped
 `SAMPLE`: portraits (including an opaque, non-square one), case-study shots,
 evidence, timeline photos, credentials and notes, a few deliberately off their
-slot's ratio. Use it to check layouts before the real assets exist.
+slot's ratio. Use it to check layouts before the real assets exist. Add
+`-- --real-photos` to fill photo slots with stock photos from picsum.photos instead
+of drawings.
 `npm run sample:clean` removes exactly what seed wrote. A file you replaced while
 seeded is kept, and an edited `certifications.json` keeps its original in
 `.sample-content/` instead of being overwritten. Never commit while seeded.

@@ -4,7 +4,15 @@ import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
 import { optimizeImages } from "../optimize_images.ts";
-import { badge, diagram, person, photo, screen, seeded } from "./drawings.ts";
+import {
+  badge,
+  diagram,
+  person,
+  photo,
+  screen,
+  seeded,
+  stampOverlay,
+} from "./drawings.ts";
 import {
   SAMPLE_BADGES,
   SAMPLE_CERTIFICATIONS,
@@ -16,6 +24,8 @@ import {
  * whole site can be looked at and tested before the real assets exist.
  *
  *   npm run sample:seed    write samples (only where nothing real exists)
+ *   npm run sample:seed -- --real-photos
+ *                          use stock photos from picsum.photos for photo slots
  *   npm run sample:clean   remove exactly what seed wrote
  *
  * Clean deletes a file only if it is byte-for-byte what seed wrote, and
@@ -77,25 +87,63 @@ function pictureSlots(): Array<{ url: string; aspect: string }> {
   return slots;
 }
 
-/** Picks a drawing for a slot from its path and shape. */
-function drawingFor(url: string, w: number, h: number): string {
-  if (url.endsWith("/me.webp")) {
-    return person(w, h, url, {
-      skin: "#c69277",
-      hair: "#231c18",
-      shirt: "#2b3f57",
-      backdrop: "#9fb4c6",
-    });
+const REAL_PHOTOS = process.argv.includes("--real-photos");
+
+type SlotKind = "person" | "diagram" | "screen" | "photo";
+
+/** What a slot should show, from its path and shape. */
+function kindFor(url: string, w: number, h: number): SlotKind {
+  if (url.endsWith("/me.webp")) return "person";
+  if (url.includes("architecture")) return "diagram";
+  if (url.startsWith("/work/") || url.includes("pipeline") || h > w * 1.3) {
+    return "screen";
   }
-  if (url.includes("architecture")) return diagram(w, h, url);
-  if (url.startsWith("/work/") || h > w * 1.3) return screen(w, h, url);
-  if (url.includes("pipeline")) return screen(w, h, url);
-  return photo(w, h, url);
+  return "photo";
 }
 
-async function render(svgText: string, file: string, manifest: Manifest) {
+function drawingFor(url: string, w: number, h: number): string {
+  switch (kindFor(url, w, h)) {
+    case "person":
+      return person(w, h, url, {
+        skin: "#c69277",
+        hair: "#231c18",
+        shirt: "#2b3f57",
+        backdrop: "#9fb4c6",
+      });
+    case "diagram":
+      return diagram(w, h, url);
+    case "screen":
+      return screen(w, h, url);
+    case "photo":
+      return photo(w, h, url);
+  }
+}
+
+/** A stock photo from picsum.photos for the slot, or null when offline. */
+async function stockPhoto(url: string, w: number, h: number) {
+  try {
+    const res = await fetch(
+      `https://picsum.photos/seed/${url.replace(/[^a-z0-9]+/gi, "-")}/${w}/${h}.jpg`,
+      { signal: AbortSignal.timeout(20_000) },
+    );
+    if (!res.ok) return null;
+    return await sharp(Buffer.from(await res.arrayBuffer()))
+      .composite([{ input: Buffer.from(stampOverlay(w, h, url)) }])
+      .toBuffer();
+  } catch {
+    return null;
+  }
+}
+
+async function render(
+  source: string | Buffer,
+  file: string,
+  manifest: Manifest,
+) {
   ensureDir(path.dirname(file), manifest);
-  const image = sharp(Buffer.from(svgText));
+  const image = sharp(
+    typeof source === "string" ? Buffer.from(source) : source,
+  );
   await (
     file.endsWith(".jpg") ? image.jpeg({ quality: 92 }) : image.png()
   ).toFile(file);
@@ -154,7 +202,11 @@ async function seed(): Promise<void> {
         ? "jpg"
         : "png";
     wanted.set(url, ext);
-    await render(drawingFor(url, w, h), assetFor(url, ext), manifest);
+    const stock =
+      REAL_PHOTOS && kindFor(url, w, h) === "photo"
+        ? await stockPhoto(url, w, h)
+        : null;
+    await render(stock ?? drawingFor(url, w, h), assetFor(url, ext), manifest);
   }
   for (const [url, initials] of Object.entries(SAMPLE_BADGES)) {
     if (publicBefore(url)) continue;

@@ -22,7 +22,7 @@
   "sendAriaLabel": "Send question",
   "launcher": {
     "label": "Ask my assistant",
-    "ariaLabel": "Ask my AI assistant"
+    "ariaLabel": "Ask my assistant, an AI that answers questions about my work"
   },
   "messageTags": {
     "assistant": "assistant ▸",

@@ -17,9 +17,14 @@ export interface HeaderProps {
   reducedMotion: boolean;
   /** Page links to hide because the page has nothing to show yet. */
   hiddenPaths: string[];
+  /** Entries behind each collection link, shown beside it. Keyed by href. */
+  counts: Record<string, number>;
 }
 
-/** Sticky command-prompt nav with scroll-spy highlighting and ⌘K button. */
+/**
+ * Sticky nav: scroll-spy highlighting, entry counts beside collection links,
+ * a live availability chip, the theme toggle and the ⌘K button.
+ */
 export function Header({
   site,
   sections,
@@ -27,6 +32,7 @@ export function Header({
   onOpenPalette,
   reducedMotion,
   hiddenPaths,
+  counts,
 }: HeaderProps) {
   const onHome = path === "/";
   const sectionIds = useMemo(() => sections.map((s) => s.id), [sections]);
@@ -86,10 +92,30 @@ export function Header({
                 )}
               >
                 {item.label}
+                {counts[item.href] !== undefined && (
+                  <sup
+                    aria-hidden="true"
+                    className="ml-0.5 font-mono text-2xs text-subtle"
+                  >
+                    {counts[item.href]}
+                  </sup>
+                )}
               </a>
             );
           })}
         </div>
+        {site.availability && (
+          <a
+            href={homeAnchor(site.availability.href, onHome)}
+            className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-pill border border-control-border px-3 py-1 font-mono text-xs text-heading no-underline transition-colors duration-fast hover:bg-hover-tint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent xl:inline-flex"
+          >
+            <span aria-hidden="true" className="relative flex h-2 w-2">
+              <span className="absolute inset-0 animate-pulse-ring rounded-full bg-signal" />
+              <span className="relative h-2 w-2 rounded-full bg-signal" />
+            </span>
+            {site.availability.label}
+          </a>
+        )}
         <ThemeToggle
           label={site.a11y.themeToggleLabel}
           reducedMotion={reducedMotion}

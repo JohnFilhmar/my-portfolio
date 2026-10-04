@@ -38,6 +38,7 @@ export function MessageList({
         role="log"
         aria-live="off"
         aria-label={ariaLabel}
+        data-lenis-prevent
         className="flex h-[min(400px,56vh)] flex-col gap-3.5 overflow-y-auto px-[18px] pb-2.5 pt-[18px]"
       >
         {messages.map((message, i) => (

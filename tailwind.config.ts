@@ -94,6 +94,10 @@ const config: Config = {
             transform: "translateY(24px)",
           },
         },
+        "pulse-ring": {
+          "0%": { transform: "scale(1)", opacity: "0.55" },
+          "70%, 100%": { transform: "scale(2.6)", opacity: "0" },
+        },
         dot: {
           "0%, 80%, 100%": { opacity: "0.25" },
           "40%": { opacity: "1" },
@@ -104,6 +108,7 @@ const config: Config = {
         "panel-in": "panel-in var(--duration-base) var(--easing-standard) both",
         "row-in": "row-in var(--duration-base) var(--easing-standard) both",
         dot: "dot 1s ease-in-out infinite",
+        "pulse-ring": "pulse-ring 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite",
         "rise-in":
           "rise-in var(--duration-reveal) var(--easing-reveal) 120ms both",
       },

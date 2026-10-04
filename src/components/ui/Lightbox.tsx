@@ -90,6 +90,7 @@ export function Lightbox({
   return (
     <div
       onClick={onClose}
+      data-lenis-prevent
       className="fixed inset-0 z-[120] overflow-y-auto bg-overlay px-4 py-[6vh] backdrop-blur-sm"
     >
       <div

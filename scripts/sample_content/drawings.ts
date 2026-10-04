@@ -21,6 +21,11 @@ const stamp = (w: number, h: number, label: string, dark = false) => {
   return `<text x="${size}" y="${h - size}" font-family="monospace" font-size="${size}" fill="${dark ? "#ffffffcc" : "#0b1824aa"}">SAMPLE · ${label}</text>`;
 };
 
+/** Just the SAMPLE label, to lay over a stock photo. */
+export function stampOverlay(w: number, h: number, label: string): string {
+  return svg(w, h, stamp(w, h, label, true));
+}
+
 /** A room photo: soft light, a floor, a few out-of-focus people and objects. */
 export function photo(w: number, h: number, label: string): string {
   const rand = seeded(label);
