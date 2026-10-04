@@ -18,8 +18,8 @@ re-implements it as modular, token-driven components.
 ## Quick start
 
 ```bash
-pnpm install
-pnpm dev          # http://localhost:3001 — no env vars needed
+npm ci
+npm run dev          # http://localhost:3001, no env vars needed
 ```
 
 That's it. The assistant answers in **demo mode** (server-side intent matching over
@@ -27,17 +27,17 @@ That's it. The assistant answers in **demo mode** (server-side intent matching o
 
 ### Scripts
 
-| Script                              | What it does                                                  |
-| ----------------------------------- | ------------------------------------------------------------- |
-| `pnpm dev`                          | Dev server                                                    |
-| `pnpm build`                        | Production build                                              |
-| `pnpm start`                        | Serve the production build                                    |
-| `pnpm lint`                         | ESLint (next/core-web-vitals)                                 |
-| `pnpm typecheck`                    | `tsc --noEmit` (strict)                                       |
-| `pnpm format`                       | Prettier over the repo                                        |
-| `pnpm test`                         | Unit tests (node:test)                                        |
-| `pnpm images`                       | Originals in `assets/` to WebP in `public/`                   |
-| `pnpm sample:seed` / `sample:clean` | Fill every empty slot with labelled samples, then remove them |
+| Script                                 | What it does                                                  |
+| -------------------------------------- | ------------------------------------------------------------- |
+| `npm run dev`                          | Dev server                                                    |
+| `npm run build`                        | Production build                                              |
+| `npm start`                            | Serve the production build                                    |
+| `npm run lint`                         | ESLint (next/core-web-vitals)                                 |
+| `npm run typecheck`                    | `tsc --noEmit` (strict)                                       |
+| `npm run format`                       | Prettier over the repo                                        |
+| `npm test`                             | Unit tests (node:test)                                        |
+| `npm run images`                       | Originals in `assets/` to WebP in `public/`                   |
+| `npm run sample:seed` / `sample:clean` | Fill every empty slot with labelled samples, then remove them |
 
 ---
 
@@ -127,7 +127,7 @@ font requests at build or runtime. To swap families, replace the files reference
 ### Images
 
 Put originals (phone photos, screenshots, a transparent PNG of yourself) in
-`assets/` at the path the config names, then run `pnpm images`. It writes a WebP
+`assets/` at the path the config names, then run `npm run images`. It writes a WebP
 copy to the same path under `public/`, turned upright from the phone's EXIF
 orientation, capped at 1920px on the long edge, with camera and GPS metadata
 removed. `assets/photos/team.jpg` becomes `public/photos/team.webp`, so the config
@@ -136,11 +136,11 @@ WebP copies are what ship. Restart the server after adding images.
 
 ### Sample content
 
-`pnpm sample:seed` fills every empty slot with pictures and entries stamped
+`npm run sample:seed` fills every empty slot with pictures and entries stamped
 `SAMPLE`: portraits (including an opaque, non-square one), case-study shots,
 evidence, timeline photos, credentials and notes, a few deliberately off their
 slot's ratio. Use it to check layouts before the real assets exist.
-`pnpm sample:clean` removes exactly what seed wrote. A file you replaced while
+`npm run sample:clean` removes exactly what seed wrote. A file you replaced while
 seeded is kept, and an edited `certifications.json` keeps its original in
 `.sample-content/` instead of being overwritten. Never commit while seeded.
 
@@ -215,14 +215,73 @@ smooth scrolling, blinking cursors) has a static fallback.
 
 ## Deployment
 
-Any Node host or Vercel:
+`.github/workflows/pipeline.yml` runs on every PR and every push to `master`.
 
-```bash
-pnpm build && pnpm start
-```
+| Stage      | Runs on                          | What happens                                                                                                                                        |
+| ---------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Checks     | GitHub                           | Lint, typecheck, unit tests, build, and a refusal if `sample:seed` content is committed                                                             |
+| Scans      | GitHub                           | Secrets (gitleaks, full history), code (Semgrep), dependencies and config (Trivy)                                                                   |
+| Image      | GitHub, `master` only            | Build, push to GHCR with an SBOM and provenance, scan the image (Trivy), then sign the digest (cosign, keyless)                                     |
+| Staging    | Your server, automatic           | Verify the signature, start the image on `127.0.0.1:3101` in demo mode, smoke test, ZAP baseline scan, stop it                                      |
+| Production | Your server, after your approval | The same digest on `127.0.0.1:3001` behind the host nginx; rolls back by itself if the healthcheck never passes; smoke tests https://filhmar.online |
 
-The `config/` directory is read at runtime — keep it deployed alongside the app
-(it is by default; SSR reads it per request from the project root).
+Any HIGH or CRITICAL finding, and any ZAP warning not explained in
+`deploy/zap-rules.tsv`, stops the run. `docker-compose.yml` still builds the
+image locally for testing; the server only ever runs signed images.
+
+### One-time server setup
+
+1. **Packages.** Docker Engine with the compose plugin, `curl`, `sops` and
+   `age`. The jobs install cosign themselves.
+2. **Runner.** Create a dedicated user in the `docker` group (that group is
+   root-equivalent, so the user runs nothing else). In GitHub: Settings →
+   Actions → Runners → New self-hosted runner → Linux, and follow the steps
+   as that user, adding `--labels portfolio` to `./config.sh`. Install it as a
+   service with `sudo ./svc.sh install <user> && sudo ./svc.sh start`. Keep
+   the repo private while this runner is attached: on a public repo, a pull
+   request from a fork could run code on your server.
+3. **Environments.** Settings → Environments: create `staging` with no rules,
+   and `production` with yourself as required reviewer and deployments
+   limited to `master`. That approval is the manual gate.
+4. **Production secrets.** As the runner user on the server, run
+   `age-keygen -o ~/.config/sops/age/keys.txt` and note the public key it
+   prints. On your machine, encrypt the production env file to that key (add
+   your own age public key too, so you can edit it later):
+
+   ```bash
+   sops --encrypt --age <server-key>,<your-key> \
+     --input-type dotenv --output-type dotenv \
+     .env.production > deploy/env/production.env.enc
+   ```
+
+   Commit only the `.enc` file. The deploy decrypts it into a private temp
+   file that lives for the length of the deploy. Variables the app reads:
+   `ASSISTANT_MODE`, `LLM_PROVIDER`, `LLM_API_KEY`, `LLM_MODEL`,
+   `ASSISTANT_RATE_LIMIT`, `ASSISTANT_LLM_QUOTA`, `ASSISTANT_DAILY_LLM_CAP`,
+   `NEXT_PUBLIC_SITE_URL`, `CONTACT_ENDPOINT`, `SMTP_HOST`, `SMTP_PORT`,
+   `SMTP_SECURE`, `SMTP_USER`, `SMTP_PASS`, `CONTACT_FROM`, `CONTACT_TO`.
+
+5. **nginx.** In the live site file (certbot has rewritten it, so edit it
+   rather than copying `docs/nginx/filhmar-production.conf` over it), replace
+   the `Upgrade` and `Connection "upgrade"` lines with
+   `proxy_set_header Connection "";`, then `sudo nginx -t && sudo systemctl
+reload nginx`. The site uses no WebSockets, and forwarding `Upgrade` lets
+   a client tunnel past the proxy (h2c smuggling).
+
+### First deploy
+
+The old container still holds `127.0.0.1:3001`, and the deploy refuses to
+take over a port it did not start. Approve the production job only after
+stopping it (`docker compose down` in its directory, or `docker stop` on the
+container). The site is down only between that stop and the new start.
+
+### Rollback
+
+- **Automatic:** if the new image never turns healthy, the previous one is
+  started again and the job fails.
+- **By hand:** open an older successful pipeline run and re-run its
+  Production job; it redeploys that run's signed digest. Every production
+  deploy is listed in `~/portfolio-deploys.log` on the server.
 
 ## Project structure
 
