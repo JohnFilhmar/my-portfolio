@@ -15,6 +15,8 @@ export const CONFIG_DIR = path.join(process.cwd(), "config");
 export const PUBLIC_DIR = path.join(process.cwd(), "public");
 
 function readJsonFile(relativePath: string): unknown {
+  // Callers pass fixed paths or a note slug already checked against SLUG.
+  // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
   const filePath = path.join(CONFIG_DIR, relativePath);
   let raw: string;
   try {
@@ -77,6 +79,8 @@ export function publicAssetExists(src: string): boolean {
   const withoutQuery = src.split(/[?#]/)[0] ?? src;
   let resolved: string;
   try {
+    // Pinned inside PUBLIC_DIR by the check right below.
+    // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
     resolved = path.join(PUBLIC_DIR, decodeURIComponent(withoutQuery));
   } catch {
     return false;

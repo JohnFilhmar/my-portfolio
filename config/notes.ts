@@ -24,6 +24,8 @@ function blockText(block: NoteBlock): string {
 
 function readNote(slug: string): { note: Note; draft: boolean } | null {
   if (!SLUG.test(slug)) return null;
+  // SLUG (checked above) allows only lowercase words joined by hyphens.
+  // nosemgrep: javascript.lang.security.audit.path-traversal.path-join-resolve-traversal.path-join-resolve-traversal
   const file = path.join(CONFIG_DIR, NOTES_DIR, `${slug}.json`);
   if (!fs.existsSync(/*turbopackIgnore: true*/ file)) return null;
   const { draft, body, title, date, summary, tags } = loadFile(

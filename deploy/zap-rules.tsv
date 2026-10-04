@@ -1,0 +1,6 @@
+# ZAP baseline rules for the staging scan (pipeline.yml, staging job).
+# Every rule not listed stays WARN, and any warning fails the job, so a new
+# finding stops the deploy. Format: rule id<TAB>action<TAB>(reason).
+10055	IGNORE	(CSP style-src 'unsafe-inline': the theme tokens are an inline <style> block generated per request from theme.json, and components set runtime style values, so a fixed hash cannot cover them. Scripts stay hash-locked.)
+10049	INFO	(Content cacheability: informational; pages are server-rendered per request on purpose.)
+10109	INFO	(Modern web application: informational; the scanner noting the site uses JavaScript.)
