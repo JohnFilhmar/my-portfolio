@@ -23,6 +23,7 @@ concurrency:
 env:
   NODE_VERSION: "22"
   SEMGREP_IMAGE: semgrep/semgrep@sha256:32e459968daabe7ab86968184a29109b9564aa00392401156f9788452b42786b
+  GITLEAKS_IMAGE: ghcr.io/gitleaks/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f
   TRIVY_IMAGE: aquasec/trivy@sha256:af6acf9a6b85dfe389a1941505c0ce9efef52a4719635e1a962f022a3d855daa
   ZAP_IMAGE: ghcr.io/zaproxy/zaproxy@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef
 
@@ -58,9 +59,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # gitleaks from its own image, pinned by digest: scans every commit,
+      # needs no GitHub API access, and prints no secret values.
+      - name: gitleaks (full history)
+        run: >
+          docker run --rm --user "$(id -u):$(id -g)" -v "$PWD:/repo" "$GITLEAKS_IMAGE"
+          git /repo --redact --no-banner --exit-code 1
 
   sast:
     name: Code scan (Semgrep)
