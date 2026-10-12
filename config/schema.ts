@@ -236,7 +236,7 @@ export const seoSchema = z
     /** Optional keyword hints (low SEO weight, but harmless). */
     keywords: z.array(z.string()).default([]),
   })
-  .default({});
+  .prefault({});
 export type SeoMeta = z.infer<typeof seoSchema>;
 
 export const siteSchema = z.object({
@@ -254,7 +254,7 @@ export const siteSchema = z.object({
   nav: z.array(navItemSchema),
   footer: z.object({ note: z.string(), copyright: z.string() }),
   /** One viewer, one set of labels, wherever a picture opens full size. */
-  lightbox: lightboxSchema.default({}),
+  lightbox: lightboxSchema.prefault({}),
   /** Interface strings that belong to no single section. */
   /** Status chip in the header, e.g. "Open to work" linking to #contact. */
   availability: z.object({ label: z.string(), href: z.string() }).optional(),
@@ -265,7 +265,7 @@ export const siteSchema = z.object({
       scrollProgressLabel: z.string().default("Reading progress"),
       themeToggleLabel: z.string().default("Dark theme"),
     })
-    .default({}),
+    .prefault({}),
   palette: paletteSchema,
   sections: z.array(sectionEntrySchema),
 });
@@ -315,7 +315,7 @@ export const heroSchema = z.object({
       "in-development": z.string().default("in development"),
       completed: z.string().default("completed"),
     })
-    .default({}),
+    .prefault({}),
 });
 export type HeroConfig = z.infer<typeof heroSchema>;
 
@@ -381,7 +381,7 @@ export const projectSchema = z.object({
   stack: z.array(z.string()),
   highlights: z.array(z.string()),
   results: z.string(),
-  links: projectLinksSchema.default({}),
+  links: projectLinksSchema.prefault({}),
   domain: z.string(),
   secondaryDomains: z.array(z.string()).default([]),
   /**
