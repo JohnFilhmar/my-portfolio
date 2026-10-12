@@ -39,6 +39,16 @@ export function CommandPalette({
   const { palette } = config.site;
   const [query, setQuery] = useState("");
   const [index, setIndex] = useState(0);
+  // Every open starts with an empty query. Adjusting state during render on
+  // a prop change avoids an extra effect-driven render.
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
+    if (open) {
+      setQuery("");
+      setIndex(0);
+    }
+  }
   const inputRef = useRef<HTMLInputElement>(null);
 
   const close = useCallback(() => onOpenChange(false), [onOpenChange]);
@@ -114,12 +124,10 @@ export function CommandPalette({
     [close],
   );
 
-  // Reset state, move focus in on open, and restore focus on close.
+  // Move focus in on open, and restore it on close.
   useEffect(() => {
     if (!open) return;
     const previouslyFocused = document.activeElement;
-    setQuery("");
-    setIndex(0);
     inputRef.current?.focus();
     return () => {
       if (previouslyFocused instanceof HTMLElement) previouslyFocused.focus();

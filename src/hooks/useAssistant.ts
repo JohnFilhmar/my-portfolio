@@ -138,6 +138,9 @@ export function useAssistant({
       startedRef.current = true;
       const restored = restoreConversation();
       if (restored) {
+        // sessionStorage exists only in the browser; reading it during render
+        // would make the server and first client render disagree.
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMessages(restored);
         return stopPump;
       }
@@ -203,7 +206,8 @@ export function useAssistant({
           const served = res.headers.get("X-Assistant-Mode");
           onServedRef.current?.({
             mode: served === "demo" || served === "live" ? served : null,
-            remaining: left !== null && /^\d+$/.test(left) ? Number(left) : null,
+            remaining:
+              left !== null && /^\d+$/.test(left) ? Number(left) : null,
           });
 
           if (!reducedRef.current && typing.chatReplyDelayMs > 0) {

@@ -17,6 +17,11 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
+    # Node majors alternate between LTS and short-lived releases; moving to
+    # the next LTS is a deliberate change, so only digest and patch bumps here.
+    ignore:
+      - dependency-name: node
+        update-types: [version-update:semver-major]
   - package-ecosystem: github-actions
     directory: /
     schedule:

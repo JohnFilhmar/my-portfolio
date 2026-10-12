@@ -13,15 +13,12 @@ import {
  */
 export function useReveal<T extends HTMLElement>(
   disabled: boolean,
-): { ref: RefObject<T>; style: CSSProperties } {
+): { ref: RefObject<T | null>; style: CSSProperties } {
   const ref = useRef<T>(null);
   const [revealed, setRevealed] = useState(true);
 
   useEffect(() => {
-    if (disabled) {
-      setRevealed(true);
-      return;
-    }
+    if (disabled) return;
     const el = ref.current;
     if (!el) return;
     // Only animate elements that start below the fold.
@@ -45,14 +42,15 @@ export function useReveal<T extends HTMLElement>(
     return () => io.disconnect();
   }, [disabled]);
 
-  const style: CSSProperties = revealed
-    ? {
-        opacity: 1,
-        transform: "none",
-        transition:
-          "opacity var(--duration-reveal) var(--easing-reveal), transform var(--duration-reveal) var(--easing-reveal)",
-      }
-    : { opacity: 0, transform: "translateY(20px)" };
+  const style: CSSProperties =
+    revealed || disabled
+      ? {
+          opacity: 1,
+          transform: "none",
+          transition:
+            "opacity var(--duration-reveal) var(--easing-reveal), transform var(--duration-reveal) var(--easing-reveal)",
+        }
+      : { opacity: 0, transform: "translateY(20px)" };
 
   return { ref, style };
 }

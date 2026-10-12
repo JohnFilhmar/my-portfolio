@@ -1,10 +1,20 @@
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { currentTheme, setTheme } from "@/lib/themeMode";
 
 export interface ThemeToggleProps {
   /** Accessible name; the button is pressed while the dark theme is on. */
   label: string;
   reducedMotion: boolean;
+}
+
+/** Re-reads the theme whenever anything changes `data-theme` on <html>. */
+function subscribe(onChange: () => void): () => void {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+  return () => observer.disconnect();
 }
 
 const ICON =
@@ -16,8 +26,12 @@ const ICON =
  * knows which theme the init script picked.
  */
 export function ThemeToggle({ label, reducedMotion }: ThemeToggleProps) {
-  const [isDark, setIsDark] = useState<boolean | null>(null);
-  useEffect(() => setIsDark(currentTheme() === "dark"), []);
+  // null on the server: the init script picks the theme before hydration.
+  const isDark = useSyncExternalStore(
+    subscribe,
+    () => currentTheme() === "dark",
+    () => null,
+  );
 
   return (
     <button
@@ -32,7 +46,6 @@ export function ThemeToggle({ label, reducedMotion }: ThemeToggleProps) {
           { x: box.left + box.width / 2, y: box.top + box.height / 2 },
           reducedMotion,
         );
-        setIsDark(next === "dark");
       }}
       className="grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-md border border-control-border bg-surface-alt text-heading transition-colors duration-fast hover:bg-hover-tint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-95"
     >

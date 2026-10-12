@@ -45,6 +45,8 @@ function headerOffset(): number {
 export function scrollToId(id: string, reduced: boolean): void {
   const el = document.getElementById(id);
   if (!el) {
+    // A full load of home at the anchor is intended; this runs outside React.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     window.location.assign(`/#${id}`);
     return;
   }
