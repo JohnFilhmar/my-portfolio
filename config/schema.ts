@@ -542,8 +542,8 @@ export const certificationSchema = z.object({
   issuer: z.string(),
   /** Free-form so "2025", "Mar 2025" and "2025-03" all work. */
   issued: z.string(),
-  /** null / omitted = the credential does not expire. */
-  expires: z.string().nullable().default(null),
+  /** null = the credential does not expire; omitted = no expiry line shown. */
+  expires: z.string().nullable().optional(),
   /** Printed verbatim as the credential's checksum line. */
   credentialId: z.string().optional(),
   /** Public verification URL from the issuer. Drives the "verified" chip. */

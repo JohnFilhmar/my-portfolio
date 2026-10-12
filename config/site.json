@@ -1,9 +1,9 @@
 {
   "_readme": "Identity, links, navigation, footer, command palette copy and the section registry. The `sections` array controls which sections render and in what order; flip `enabled` or reorder entries to reshape the page without touching code.",
   "name": "John Filhmar Ola",
-  "role": "Lead IT · Full-Stack Engineer · DevSecOps & Infrastructure",
+  "role": "Full Stack Software Engineer · Lead IT Systems Developer",
   "tagline": "I build systems end to end, from first commit to production operation.",
-  "description": "John Filhmar Ola: Lead IT and full-stack engineer. I architect, build, secure and operate production systems: mobile, backend microservices, and on-premise infrastructure. This site is a live, config-driven demo with an AI assistant.",
+  "description": "John Filhmar Ola: full-stack software engineer who owns systems end to end, from architecture and TypeScript across React and Node.js to CI/CD and the servers they run on. Lead IT Systems Developer at YouCode Technologies. This site is a live, config-driven demo with an AI assistant.",
   "siteUrl": "https://filhmar.online",
   "locale": "en_PH",
   "contact": {
@@ -11,20 +11,22 @@
   },
   "seo": {
     "image": "/og.png",
-    "imageAlt": "John Filhmar Ola: Lead IT, Full-Stack Engineer, DevSecOps & Infrastructure",
+    "imageAlt": "John Filhmar Ola: Full Stack Software Engineer",
     "keywords": [
       "John Filhmar Ola",
-      "Lead IT",
+      "full stack software engineer",
       "full-stack engineer",
-      "DevOps",
-      "DevSecOps",
-      "infrastructure engineer",
-      "Next.js",
+      "Lead IT",
+      "TypeScript",
       "React",
+      "Next.js",
+      "Node.js",
       "NestJS",
+      "React Native",
+      "real-time systems",
       "microservices",
-      "Docker",
       "CI/CD",
+      "DevSecOps",
       "Philippines",
       "software engineer portfolio"
     ]
