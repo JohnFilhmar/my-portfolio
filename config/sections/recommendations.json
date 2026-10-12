@@ -1,0 +1,20 @@
+{
+  "_readme": "Recommendations from employers, colleagues, clients and the end users of your systems. Each entry can point at what it is about: `experience` takes an id from experience.json (\"youcode\", \"ynnovision\") and `project` an id from projects.json (\"usapp\", \"jms-e-talyer\"). Linked recommendations also show on that project and that role. `relationship` is one of employer, colleague, client, end-user. `photo` must exist under ./public or initials show instead. Add `sourceHref` (for example the LinkedIn recommendation) wherever one exists. The page and its nav link hide themselves while `items` is empty. Copy this shape:\n\n{\n  \"id\": \"maria-santos-youcode\",\n  \"name\": \"Maria Santos\",\n  \"role\": \"Chief Technology Officer\",\n  \"organization\": \"YouCode Technologies\",\n  \"relationship\": \"employer\",\n  \"quote\": \"...\",\n  \"date\": \"Sep 2026\",\n  \"photo\": \"/recommendations/maria-santos.webp\",\n  \"sourceHref\": \"https://www.linkedin.com/in/...\",\n  \"experience\": \"youcode\",\n  \"project\": \"usapp\"\n}",
+  "label": "recommendations",
+  "heading": "In other people's words.",
+  "blurb": "What employers, colleagues, clients and the people using these systems say about working with me.",
+  "emptyMessage": "No recommendations listed yet.",
+  "filterLabel": "Filter recommendations by relationship",
+  "allLabel": "all",
+  "relationshipLabels": {
+    "employer": "employer",
+    "colleague": "colleague",
+    "client": "client",
+    "end-user": "end user"
+  },
+  "aboutExperienceTemplate": "at {name}",
+  "aboutProjectTemplate": "on {name}",
+  "sourceLabel": "verify",
+  "linkedHeading": "What people say",
+  "items": []
+}

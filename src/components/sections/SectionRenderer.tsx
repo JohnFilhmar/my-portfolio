@@ -80,7 +80,10 @@ export function SectionRenderer({
                 ariaLabel={config.projects.label}
                 reducedMotion={reducedMotion}
               >
-                <Projects projects={config.projects} />
+                <Projects
+                  projects={config.projects}
+                  statusLabels={config.hero.statusLabels}
+                />
               </Section>
             );
           case "proof":
@@ -91,7 +94,11 @@ export function SectionRenderer({
                 ariaLabel={config.proof.label}
                 reducedMotion={reducedMotion}
               >
-                <Proof proof={config.proof} lightbox={config.site.lightbox} />
+                <Proof
+                  proof={config.proof}
+                  lightbox={config.site.lightbox}
+                  reducedMotion={reducedMotion}
+                />
               </Section>
             );
           case "experience":
@@ -105,6 +112,7 @@ export function SectionRenderer({
                 <Experience
                   experience={config.experience}
                   lightbox={config.site.lightbox}
+                  recommendations={config.recommendations}
                 />
               </Section>
             );

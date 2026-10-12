@@ -1,9 +1,9 @@
 {
   "_readme": "Identity, links, navigation, footer, command palette copy and the section registry. The `sections` array controls which sections render and in what order; flip `enabled` or reorder entries to reshape the page without touching code.",
   "name": "John Filhmar Ola",
-  "role": "Full Stack Software Engineer · Lead IT Systems Developer",
+  "role": "Full Stack Software Engineer",
   "tagline": "I build systems end to end, from first commit to production operation.",
-  "description": "John Filhmar Ola: full-stack software engineer who owns systems end to end, from architecture and TypeScript across React and Node.js to CI/CD and the servers they run on. Lead IT Systems Developer at YouCode Technologies. This site is a live, config-driven demo with an AI assistant.",
+  "description": "John Filhmar Ola: full-stack software engineer who owns systems end to end, from architecture and TypeScript across React and Node.js to CI/CD and the servers they run on. Most recently Lead IT Systems Developer at YouCode Technologies, and open to work. This site is a live, config-driven demo with an AI assistant.",
   "siteUrl": "https://filhmar.online",
   "locale": "en_PH",
   "contact": {
@@ -65,6 +65,10 @@
       "href": "#work"
     },
     {
+      "label": "Projects",
+      "href": "/projects"
+    },
+    {
       "label": "Evidence",
       "href": "#proof"
     },
@@ -83,6 +87,10 @@
     {
       "label": "Notes",
       "href": "/notes"
+    },
+    {
+      "label": "Recommendations",
+      "href": "/recommendations"
     },
     {
       "label": "Ask",
@@ -138,7 +146,7 @@
     },
     {
       "type": "skills",
-      "enabled": false
+      "enabled": true
     },
     {
       "type": "projects",

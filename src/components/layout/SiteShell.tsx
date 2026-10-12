@@ -1,7 +1,11 @@
 import { useMemo, useState, type ReactNode } from "react";
 import type { AppConfig } from "@config/schema";
 import type { SeoData } from "@/lib/seo";
-import { CERTIFICATIONS_PATH, NOTES_PATH } from "@/lib/navigation";
+import {
+  CERTIFICATIONS_PATH,
+  NOTES_PATH,
+  RECOMMENDATIONS_PATH,
+} from "@/lib/navigation";
 import { navCounts } from "@/lib/navCounts";
 import { resolveSections } from "@/lib/sections";
 import { textureStyle } from "@/lib/theme";
@@ -12,6 +16,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { Seo } from "@/components/layout/Seo";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
+import { AmbientField } from "@/components/layout/AmbientField";
 import { ThemeTokens } from "@/components/layout/ThemeTokens";
 import { AssistantProvider } from "@/providers/AssistantProvider";
 
@@ -48,6 +53,9 @@ export function SiteShell({
   const hiddenPaths = useMemo(
     () => [
       ...(config.notes.posts.length === 0 ? [NOTES_PATH] : []),
+      ...(config.recommendations.items.length === 0
+        ? [RECOMMENDATIONS_PATH]
+        : []),
       ...(config.certifications.items.length === 0
         ? [CERTIFICATIONS_PATH]
         : []),
@@ -82,6 +90,7 @@ export function SiteShell({
               style={texture}
             />
           )}
+          {config.theme.terminal.ambient && !reducedMotion && <AmbientField />}
           {config.theme.terminal.glow && (
             <div
               aria-hidden="true"

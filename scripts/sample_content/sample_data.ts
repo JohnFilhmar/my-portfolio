@@ -174,3 +174,61 @@ export const SAMPLE_BADGES: Record<string, string> = {
   "/certifications/sample-lf.webp": "LF",
   "/certifications/sample-academy.webp": "SA",
 };
+
+/** Sample recommendations, one of each relationship, linked to real ids. */
+export const SAMPLE_RECOMMENDATIONS = [
+  {
+    id: "sample-employer",
+    name: "Sample Employer",
+    role: "Chief Technology Officer",
+    organization: "YouCode Technologies",
+    relationship: "employer",
+    quote:
+      "Sample quote. He took systems from an empty repository to production on his own, and kept them running: when something broke at night, the fix and the write-up were both in by morning.",
+    date: "Sep 2026",
+    experience: "youcode",
+    project: "usapp",
+  },
+  {
+    id: "sample-colleague",
+    name: "Sample Colleague",
+    role: "Mobile Developer",
+    organization: "YouCode Technologies",
+    relationship: "colleague",
+    quote:
+      "Sample quote of medium length. His pull requests explained why, not just what, which made reviewing them a way to learn the system.",
+    date: "Aug 2026",
+    experience: "youcode",
+  },
+  {
+    id: "sample-client",
+    name: "Sample Client",
+    role: "Owner",
+    organization: "Sample Auto Shop",
+    relationship: "client",
+    quote:
+      "Sample short quote. Our branches stopped losing sales when the internet went down.",
+    date: "Jul 2026",
+    project: "jms-e-talyer",
+  },
+  {
+    id: "sample-end-user",
+    name: "Sample End User",
+    role: "Daily user",
+    relationship: "end-user",
+    quote:
+      "Sample quote from someone who uses the app. Messages arrive instantly, and I trust that nobody else can read them.",
+    project: "usapp",
+  },
+  {
+    id: "sample-health-worker",
+    name: "Sample Health Worker",
+    role: "Midwife",
+    organization: "Victoria Municipal Health Office",
+    relationship: "end-user",
+    quote:
+      "Sample quote, deliberately long to test wrapping in the card and in the grid on a phone. Finding a patient's record used to mean searching paper folders; now it takes seconds, and appointments no longer collide.",
+    date: "2025",
+    project: "kalusugapp",
+  },
+];

@@ -12,6 +12,10 @@ export const ASK_PATH = "/ask";
 export const NOTES_PATH = "/notes";
 /** Route of the credentials page (pages/certifications.tsx). */
 export const CERTIFICATIONS_PATH = "/certifications";
+/** Route of every project that is not featured (pages/projects.tsx). */
+export const PROJECTS_PATH = "/projects";
+/** Route of the recommendations page (pages/recommendations.tsx). */
+export const RECOMMENDATIONS_PATH = "/recommendations";
 
 /** Route of one note (pages/notes/[slug].tsx). */
 export function notePath(slug: string): string {

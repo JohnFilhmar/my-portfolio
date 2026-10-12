@@ -1,5 +1,10 @@
 import type { AppConfig, SectionType } from "@config/schema";
-import { CERTIFICATIONS_PATH, NOTES_PATH } from "@/lib/navigation";
+import {
+  CERTIFICATIONS_PATH,
+  NOTES_PATH,
+  PROJECTS_PATH,
+  RECOMMENDATIONS_PATH,
+} from "@/lib/navigation";
 import type { ResolvedSection } from "@/lib/sections";
 
 /**
@@ -34,6 +39,13 @@ export function navCounts(
   }
   if (config.notes.posts.length > 0) {
     counts[NOTES_PATH] = config.notes.posts.length;
+  }
+  const others = config.projects.items.filter(
+    (item) => item.tier !== "flagship",
+  ).length;
+  if (others > 0) counts[PROJECTS_PATH] = others;
+  if (config.recommendations.items.length > 0) {
+    counts[RECOMMENDATIONS_PATH] = config.recommendations.items.length;
   }
   return counts;
 }

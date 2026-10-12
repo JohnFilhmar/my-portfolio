@@ -16,6 +16,7 @@ import {
 import {
   SAMPLE_BADGES,
   SAMPLE_CERTIFICATIONS,
+  SAMPLE_RECOMMENDATIONS,
   SAMPLE_NOTES,
 } from "./sample_data.ts";
 
@@ -37,6 +38,7 @@ const ROOT = process.cwd();
 const STATE_DIR = path.join(ROOT, ".sample-content");
 const MANIFEST = path.join(STATE_DIR, "manifest.json");
 const CERTS_FILE = path.join(ROOT, "config", "sections", "certifications.json");
+const RECS_FILE = path.join(ROOT, "config", "sections", "recommendations.json");
 
 interface Manifest {
   created: Array<{ file: string; sha256: string }>;
@@ -167,18 +169,23 @@ async function seed(): Promise<void> {
     fs.writeFileSync(file, `${JSON.stringify(note, null, 2)}\n`);
     manifest.created.push({ file: rel(file), sha256: sha(file) });
   }
-  const certs = JSON.parse(fs.readFileSync(CERTS_FILE, "utf-8")) as {
-    items: unknown[];
-  };
-  if (certs.items.length === 0) {
-    const backup = path.join(STATE_DIR, "certifications.json");
-    fs.copyFileSync(CERTS_FILE, backup);
-    certs.items = SAMPLE_CERTIFICATIONS;
-    fs.writeFileSync(CERTS_FILE, `${JSON.stringify(certs, null, 2)}\n`);
+  // Lists that are still empty get samples; real entries are never touched.
+  for (const [file, samples] of [
+    [CERTS_FILE, SAMPLE_CERTIFICATIONS],
+    [RECS_FILE, SAMPLE_RECOMMENDATIONS],
+  ] as const) {
+    const data = JSON.parse(fs.readFileSync(file, "utf-8")) as {
+      items: unknown[];
+    };
+    if (data.items.length > 0) continue;
+    const backup = path.join(STATE_DIR, path.basename(file));
+    fs.copyFileSync(file, backup);
+    data.items = [...samples];
+    fs.writeFileSync(file, `${JSON.stringify(data, null, 2)}\n`);
     manifest.replaced.push({
-      file: rel(CERTS_FILE),
+      file: rel(file),
       backup: rel(backup),
-      sha256: sha(CERTS_FILE),
+      sha256: sha(file),
     });
   }
 

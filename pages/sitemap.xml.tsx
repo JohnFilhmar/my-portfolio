@@ -5,6 +5,8 @@ import {
   ASK_PATH,
   CERTIFICATIONS_PATH,
   NOTES_PATH,
+  PROJECTS_PATH,
+  RECOMMENDATIONS_PATH,
   notePath,
   workPath,
 } from "@/lib/navigation";
@@ -26,6 +28,10 @@ export const getServerSideProps: GetServerSideProps = async ({ res }) => {
             priority: "0.6",
           })),
         ]
+      : []),
+    { path: PROJECTS_PATH, priority: "0.7" },
+    ...(config.recommendations.items.length > 0
+      ? [{ path: RECOMMENDATIONS_PATH, priority: "0.6" }]
       : []),
     ...(config.certifications.items.length > 0
       ? [{ path: CERTIFICATIONS_PATH, priority: "0.5" }]

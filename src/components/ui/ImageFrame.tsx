@@ -1,4 +1,9 @@
 import { useState } from "react";
+import {
+  PlaceholderArt,
+  kindForAspect,
+  type PlaceholderKind,
+} from "@/components/ui/PlaceholderArt";
 import { cn } from "@/lib/utils";
 
 export interface ImageFrameProps {
@@ -13,6 +18,10 @@ export interface ImageFrameProps {
    * the path and ratio to upload, without requesting the missing file.
    */
   missing?: boolean;
+  /** Drawing for the empty slot; guessed from `aspect` when omitted. */
+  placeholderKind?: PlaceholderKind;
+  /** Slot position for the empty state, e.g. image 2 of 5. */
+  slot?: { index: number; total: number };
   /** `cover` crops to fill the box; `contain` shows the whole picture. */
   fit?: "cover" | "contain";
   /** Skip lazy loading for the first tiles, which are usually above the fold. */
@@ -38,6 +47,8 @@ export function ImageFrame({
   eager = false,
   className,
   imgClassName,
+  placeholderKind,
+  slot,
 }: ImageFrameProps) {
   const [failed, setFailed] = useState(false);
 
@@ -50,20 +61,13 @@ export function ImageFrame({
       )}
     >
       {missing ? (
-        <div
-          role="img"
-          aria-label={alt}
-          className="absolute inset-0 flex flex-col items-center justify-center gap-2 border border-dashed border-border-strong px-4 text-center"
-        >
-          <span aria-hidden="true" className="font-mono text-lg text-ghost">
-            ▨
-          </span>
-          <span className="font-mono text-2xs text-subtle">
-            {fallbackLabel ?? alt}
-          </span>
-          <span className="break-all font-mono text-2xs text-dim">
-            {src} · {aspect.replace("/", ":")}
-          </span>
+        <div role="img" aria-label={alt}>
+          <PlaceholderArt
+            kind={placeholderKind ?? kindForAspect(aspect)}
+            label={fallbackLabel ?? alt}
+            path={`${src} · ${aspect.replace("/", ":")}`}
+            slot={slot}
+          />
         </div>
       ) : failed ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 px-4 text-center">

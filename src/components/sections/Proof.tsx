@@ -1,20 +1,21 @@
 import { useMemo, useState } from "react";
 import type { LightboxConfig, ProofConfig } from "@config/schema";
 import { FilterChips } from "@/components/ui/FilterChips";
-import { Lightbox } from "@/components/ui/Lightbox";
+import { Lightbox, type LightboxItem } from "@/components/ui/Lightbox";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProofRow } from "@/components/sections/ProofRow";
 
 export interface ProofProps {
   proof: ProofConfig;
   lightbox: LightboxConfig;
+  reducedMotion: boolean;
 }
 
 /**
  * Evidence: filterable grid of captures, each expandable to full size. Only
  * captures not bound to a project show here; bound ones live on their case study.
  */
-export function Proof({ proof, lightbox }: ProofProps) {
+export function Proof({ proof, lightbox, reducedMotion }: ProofProps) {
   const [filter, setFilter] = useState(proof.filterAllLabel);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -38,6 +39,30 @@ export function Proof({ proof, lightbox }: ProofProps) {
       ),
     [unbound, proof.filterAllLabel, filter],
   );
+
+  // Every real picture of every visible row, in order, for the full-size
+  // viewer; `firstSlide[i]` is where row i's pictures start in that list.
+  const { slides, firstSlide } = useMemo(() => {
+    const all: LightboxItem[] = [];
+    const starts: number[] = [];
+    for (const item of visible) {
+      starts.push(all.length);
+      const shots = [
+        { src: item.src, alt: item.alt, missing: item.missing },
+        ...item.gallery,
+      ];
+      shots.forEach((shot, k) => {
+        if (shot.missing) return;
+        all.push({
+          ...item,
+          id: `${item.id}-${k}`,
+          src: shot.src,
+          alt: shot.alt,
+        });
+      });
+    }
+    return { slides: all, firstSlide: starts };
+  }, [visible]);
 
   return (
     <>
@@ -71,13 +96,20 @@ export function Proof({ proof, lightbox }: ProofProps) {
             openLabelTemplate={proof.openLabelTemplate}
             flipped={index % 2 === 1}
             eager={index === 0}
-            onOpen={() => setOpenIndex(index)}
+            reducedMotion={reducedMotion}
+            onOpen={(src) => {
+              const at = slides.findIndex(
+                (slide, k) =>
+                  k >= (firstSlide[index] ?? 0) && slide.src === src,
+              );
+              if (at >= 0) setOpenIndex(at);
+            }}
           />
         ))}
       </div>
 
       <Lightbox
-        items={visible}
+        items={slides}
         index={openIndex}
         onIndexChange={setOpenIndex}
         onClose={() => setOpenIndex(null)}

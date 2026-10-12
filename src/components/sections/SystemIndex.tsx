@@ -7,6 +7,8 @@ export interface SystemIndexProps {
   systems: Project[];
   label: string;
   statusLabels: HeroConfig["statusLabels"];
+  /** `{date}` is replaced with the planned release. */
+  plannedReleaseTemplate: string;
 }
 
 function hostOf(href: string): string {
@@ -22,6 +24,7 @@ export function SystemIndex({
   systems,
   label,
   statusLabels,
+  plannedReleaseTemplate,
 }: SystemIndexProps) {
   return (
     <section
@@ -86,6 +89,14 @@ export function SystemIndex({
                         )}
                       />
                       {statusLabels[system.status]}
+                    </span>
+                  )}
+                  {system.timeline?.plannedRelease && (
+                    <span className="text-subtle">
+                      {plannedReleaseTemplate.replace(
+                        "{date}",
+                        system.timeline.plannedRelease,
+                      )}
                     </span>
                   )}
                   {system.links.demo && (

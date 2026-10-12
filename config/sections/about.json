@@ -3,7 +3,7 @@
   "label": "about",
   "heading": "I own systems from first commit to production.",
   "paragraphs": [
-    "I'm a **full-stack software engineer** who owns systems end to end, from architecture and TypeScript across React and Node.js to CI/CD and the servers they run on. I'm Lead IT Systems Developer at YouCode Technologies, **promoted from Developer to Lead IT within my first year.**",
+    "I'm a **full-stack software engineer** who owns systems end to end, from architecture and TypeScript across React and Node.js to CI/CD and the servers they run on. Most recently I was Lead IT Systems Developer at YouCode Technologies, **promoted from Developer to Lead IT within my first year**, and I'm open to my next role.",
     "I've been the sole developer of production systems with real users, including *Usapp*, an end-to-end encrypted messaging app on iOS and Android that every other company product sends its push notifications through, and a civic platform live in three cities.",
     "I build **security automation into CI/CD** instead of bolting it on, and I use **Claude Code every day** to ship faster, with every generated change reviewed and tested before it merges. This site is part of the evidence: **every section, color and sentence is editable config, no code changes.**"
   ],

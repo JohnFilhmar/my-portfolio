@@ -1,9 +1,13 @@
+import { RecommendationCard } from "@/components/recommendations/RecommendationCard";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useMemo, useState, type ReactNode } from "react";
 import type {
   LightboxConfig,
   Project,
   ProjectsConfig,
   ProofItem,
+  Recommendation,
+  RecommendationsConfig,
 } from "@config/schema";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Lightbox, type LightboxItem } from "@/components/ui/Lightbox";
@@ -27,6 +31,9 @@ export interface CaseStudyProps {
   backHref: string;
   /** The flagship after this one, wrapping around; null when it is the only one. */
   next: { id: string; title: string } | null;
+  /** Recommendations about this project. */
+  recommendations: Recommendation[];
+  recommendationLabels: RecommendationsConfig;
 }
 
 function Block({
@@ -60,9 +67,12 @@ export function CaseStudy({
   lightbox,
   backHref,
   next,
+  recommendations,
+  recommendationLabels,
 }: CaseStudyProps) {
   const labels = projects.caseStudy;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const reducedMotion = useReducedMotion();
 
   const viewable = useMemo<LightboxItem[]>(
     () => [
@@ -162,6 +172,7 @@ export function CaseStudy({
                 openLabelTemplate={openLabelTemplate}
                 flipped={index % 2 === 1}
                 eager={false}
+                reducedMotion={reducedMotion}
                 onOpen={() => openById(item.id)}
               />
             ))}
@@ -176,6 +187,24 @@ export function CaseStudy({
             openLabelTemplate={openLabelTemplate}
             onOpen={openById}
           />
+        </Block>
+      )}
+
+      {recommendations.length > 0 && (
+        <Block
+          label={recommendationLabels.linkedHeading}
+          className="mt-section-y"
+        >
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            {recommendations.map((rec) => (
+              <RecommendationCard
+                key={rec.id}
+                rec={rec}
+                labels={recommendationLabels}
+                links={[]}
+              />
+            ))}
+          </div>
         </Block>
       )}
 

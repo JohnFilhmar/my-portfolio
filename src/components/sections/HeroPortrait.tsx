@@ -1,6 +1,6 @@
 import { useState, type CSSProperties } from "react";
 import type { HeroConfig } from "@config/schema";
-import { ImageFrame } from "@/components/ui/ImageFrame";
+import { PlaceholderArt } from "@/components/ui/PlaceholderArt";
 import { cn } from "@/lib/utils";
 
 export interface HeroPortraitProps {
@@ -24,27 +24,19 @@ const LIGHT = ["160deg", "215deg", "120deg"];
  * The hero photo, toned blue by the theme, standing in a grain-textured
  * frame its head rises out of. Hover lifts it and fades in the true color.
  * With more than one photo in public/portrait, a click wipes the next one up
- * from the bottom and moves the light in the frame.
+ * from the bottom and moves the light in the frame. Until photos exist, the
+ * same frame cycles through drawn placeholders, so the layout can be judged.
  */
 export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
-  const { images, alt, cycleLabel, emptyLabel } = portrait;
+  const { images, alt, cycleLabel, emptyLabel, placeholderCount } = portrait;
   const [index, setIndex] = useState(0);
   const [previous, setPrevious] = useState<number | null>(null);
-
-  if (images.length === 0) {
-    return (
-      <ImageFrame
-        src="/portrait/"
-        alt={alt}
-        aspect="1/1"
-        missing
-        fallbackLabel={emptyLabel}
-        className={className}
-      />
-    );
-  }
-
-  const cycles = images.length > 1;
+  const empty = images.length === 0;
+  const slots: Array<string | null> = empty
+    ? Array.from({ length: placeholderCount }, () => null)
+    : images;
+  const total = slots.length;
+  const cycles = total > 1;
   const light: CSSProperties & Record<"--ga", string> = {
     "--ga": LIGHT[index % LIGHT.length] ?? "160deg",
   };
@@ -66,35 +58,47 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
         aria-label={alt}
         className="absolute inset-0 transition-transform duration-base ease-standard group-hover:-translate-y-2"
       >
-        {images.map((src, i) => {
+        {slots.map((src, i) => {
           const state =
             i === index ? "active" : i === previous ? "leaving" : "idle";
           return (
             <span
-              key={src}
+              key={src ?? `slot-${i}`}
               aria-hidden="true"
               className={cn("absolute inset-0", LAYER[state])}
             >
-              {/* Plain tags for the same reason as ImageFrame: no optimizer in the standalone image. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={src}
-                alt=""
-                loading={i === 0 ? "eager" : "lazy"}
-                decoding="async"
-                className={IMG}
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={src}
-                alt=""
-                loading={i === 0 ? "eager" : "lazy"}
-                decoding="async"
-                className={cn(
-                  IMG,
-                  "portrait-tint transition-opacity duration-base ease-standard group-hover:opacity-0",
-                )}
-              />
+              {src === null ? (
+                <PlaceholderArt
+                  kind="person"
+                  label={emptyLabel}
+                  path={`assets/portrait/${String(i + 1).padStart(2, "0")}.png`}
+                  plain
+                  className="text-heading"
+                />
+              ) : (
+                <>
+                  {/* Plain tags for the same reason as ImageFrame: no optimizer in the standalone image. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={src}
+                    alt=""
+                    loading={i === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    className={IMG}
+                  />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={src}
+                    alt=""
+                    loading={i === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    className={cn(
+                      IMG,
+                      "portrait-tint transition-opacity duration-base ease-standard group-hover:opacity-0",
+                    )}
+                  />
+                </>
+              )}
             </span>
           );
         })}
@@ -103,10 +107,10 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
         <>
           <button
             type="button"
-            aria-label={`${cycleLabel} (${index + 1} of ${images.length})`}
+            aria-label={`${cycleLabel} (${index + 1} of ${total})`}
             onClick={() => {
               setPrevious(index);
-              setIndex((index + 1) % images.length);
+              setIndex((index + 1) % total);
             }}
             className="absolute inset-0 z-[3] cursor-pointer border-none bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
           />
@@ -115,7 +119,7 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
             className="pointer-events-none absolute bottom-4 left-[calc(6%+1rem)] z-[4] rounded-sm bg-surface px-2 py-1 font-mono text-2xs text-heading"
           >
             {String(index + 1).padStart(2, "0")} /{" "}
-            {String(images.length).padStart(2, "0")}
+            {String(total).padStart(2, "0")}
           </figcaption>
         </>
       )}
