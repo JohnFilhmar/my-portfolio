@@ -31,7 +31,7 @@
   "greeting": "Hi, I'm John's AI assistant. Ask about his full-stack work, infrastructure and DevSecOps, security engineering, or availability, or tap a suggested question.",
   "systemPromptTemplate": "You are {{assistantName}}, a terminal-styled assistant embedded in John Filhmar Ola's portfolio website. Visitors (often recruiters and engineers) ask you about John's work.\n\nGround every answer strictly in the knowledge base below. If the answer isn't in it, say so honestly and offer this instead: {{contactHandoff}}\n\nStyle: concise, warm, specific. Two short paragraphs maximum. Plain text only, no markdown headings or bullet lists. Refer to John in the third person. Never invent projects, employers, dates or numbers.\n\n=== KNOWLEDGE BASE ===\n{{knowledgeBase}}\n\n=== COMMON QUESTIONS (tone reference) ===\n{{faqs}}",
   "knowledgeBase": {
-    "summary": "John Filhmar Ola is a Lead IT and full-stack engineer based in Dasmariñas, Cavite, Philippines (UTC+8). At YouCode Technologies he owned multiple production systems end to end: architecture, full-stack development, CI/CD, security automation, and on-premise infrastructure, and was promoted from Developer to Lead IT within his first year. Open to work; he replies to email within 24 hours.",
+    "summary": "John Filhmar Ola is a full-stack software engineer based in Dasmariñas, Cavite, Philippines (UTC+8). He owns systems end to end, from architecture and TypeScript across React and Node.js to CI/CD and the servers they run on. He is Lead IT Systems Developer at YouCode Technologies Corporation (July 2025 to present), promoted from Developer to Lead IT within his first year, and owns six commercial systems there. He uses Claude Code daily, with every generated change reviewed and tested. Open to work; he replies to email within 24 hours.",
     "sections": [
       {
         "title": "Strengths",
@@ -39,15 +39,15 @@
       },
       {
         "title": "Projects",
-        "content": "At YouCode Technologies (all sole-developed; internal architecture, structure and stack withheld under NDA): Usapp, a secure real-time messaging platform and the notification backbone for the company's product suite; a per-client HR platform (HRIS) covering the full employee lifecycle for government and private organisations; a white-label civic super-app live for three cities (MyDasma / Dasmariñas, MySorsogon / Sorsogon City, MyLegazpi / Legazpi); an offline-first learning platform (LMS) with on-device exams and verifiable micro-credentials; YouFlow, an AI-native Kanban platform with automatic work estimation, automated daily management reports, and a Model Context Protocol (MCP) interface that lets AI assistants work the board as real team members; and the YouGuard edge bridge linking on-site access-control and camera hardware to the cloud. Independent work: JMS E-Talyer, multi-branch automotive service management, live on a self-managed VPS with a four-workflow CI/CD pipeline and layered security scanning. PeraPlano, privacy-first Android budgeting app that derives tracking from transaction push notifications; in development. Kalusugapp, digital health records for rural clinics. GeneSys, a game-based learning platform for senior-high General Biology (teachers host quiz rooms, students join by code), live for a Grade-12 research study. Flood Notification System, IoT early-warning with sirens, warning lights and GSM SMS."
+        "content": "Tara LEVEL UP! (tara.filhmar.online): a gamified quest app where a local LLM verifies each finished task from a photo, voice or short quiz entirely on the phone, awards XP under fixed rules, and recomputes the leaderboard server-side to stop cheating; built from scratch in 21 hours at the AppBuildersPH Hackathon 2026 with team BOOM TARA TARA G. Usapp (usapp.ph): end-to-end encrypted messaging with client-side keys, passwordless OTP sign-in with revocable device sessions, WebSocket delivery coordinated through Redis, and a partner API; live on iOS and Android and the push-notification backbone for every other company product (React Native, NestJS, gRPC, RabbitMQ, Socket.IO, Redis, PostgreSQL, MongoDB). Real-Time Trade Blotter (fusion.filhmar.online): built in about a week with Claude Code for a trading platform assessment, with exact decimal prices, a database-enforced audit trail, optimistic concurrency and keyset pagination; deployed to AWS behind nginx with TLS, with 325 unit, 39 integration and 10 end-to-end tests and a load-test p95 of 209 ms. JMS E-Talyer (jms-e-talyer.shop): an offline-capable PWA for multi-branch automotive shops with barcode scanning and server-authoritative conflict resolution that replays offline orders safely on reconnect; live in production with 400+ backend tests and security scanning gating every release, on a server John operates (Next.js, Express, MongoDB, Redis, Docker, GitHub Actions). YouFlow (kanban.youcodetech.com): an MCP server where each AI agent acts with one user's exact permissions, AI estimates held behind a supervisor approval gate, and an append-only audit log (Express, Next.js, Prisma, PostgreSQL, Redis). YouGuard Master Bridge Server: one Go service with per-hardware-family adapters that writes every event to disk before sending and replays unacknowledged events oldest first on reconnect, and streams RTSP camera feeds to a live WebRTC video wall; deployed on customer sites. Also at YouCode: a per-client HR platform, a white-label civic super-app live for three cities (MyDasma, MySorsogon, MyLegazpi), and an offline-first learning platform. Other work: Kalusugapp, his BSIT capstone, a patient records and appointment system deployed at the Victoria Municipal Health Office; PeraPlano, a privacy-first Android budgeting app (in development); GeneSys, a game-based biology learning platform; and the Flood Notification System, an IoT early-warning system."
       },
       {
         "title": "Stack",
-        "content": "Languages: TypeScript, JavaScript, Python, PHP, C/C++, Bash. Frontend/mobile: React, React Native (Expo), TailwindCSS. Backend: NestJS, Node.js, gRPC, RabbitMQ, WebSockets, microservices. Data: PostgreSQL, MongoDB, MySQL, Redis. DevSecOps/infra: Docker, GitHub Actions, self-hosted runners, Traefik, nginx, Linux, on-premise VPS. Security: Semgrep, CodeQL, Trivy, gitleaks, cosign, SBOM/SLSA. Monitoring/testing: Prometheus, Grafana, Loki, k6."
+        "content": "Languages: TypeScript, JavaScript, Python, Go, Java, C#, SQL, Bash. Front end: React, Next.js, React Native (Expo), Tailwind CSS, TanStack Query, PWAs. Back end: Node.js, Express, NestJS, Python (Django), REST APIs, gRPC, WebSockets, Socket.IO. Messaging: RabbitMQ (AMQP), Redis Pub/Sub, background jobs. Data: PostgreSQL, MySQL, MongoDB, SQLite, Redis, Prisma, pgvector. DevOps: Docker, GitHub Actions, CI/CD, Linux, nginx, AWS EC2, Prometheus, Grafana. Security: SAST, SCA, DAST, Trivy, gitleaks, cosign, SOPS. AI features: LLM APIs, MCP servers, prompt engineering, human review gates. Testing: Jest, Vitest, Playwright, JUnit, k6 load testing."
       },
       {
         "title": "Career",
-        "content": "Feb to May 2025: Ynnovision Enterprise Solutions, 486-hour frontend/web development internship. Jul 2025 to Sep 2026: YouCode Technologies, joined as Developer and was promoted to Lead IT within the first year; owned multiple production systems, CI/CD across the product suite, and on-premise infrastructure operations."
+        "content": "Feb to May 2025: Frontend and Web Developer Intern at Ynnovision Enterprise Solutions, a 486-hour internship building responsive front-end features. July 2025 to present: Lead IT Systems Developer at YouCode Technologies Corporation; joined as Developer and was promoted to Lead IT within the first year; owns six commercial systems end to end, builds TypeScript microservices over gRPC and RabbitMQ, owns CI/CD with SAST, SCA, container and secret scanning and signed deploys, and runs Prometheus and Grafana monitoring. Education: BS Information Technology, Mindoro State University (2021 to 2025). Programming (Java) NC III, TESDA via BCRV Tech-Voc (2025): top 1 awardee of the cohort, Best in Participation and Best in LMS Submission, graduation inspirational speaker. AppBuildersPH Hackathon 2026 (October 2026, SM Makati): built Tara LEVEL UP!, a local-AI mobile app, in 21 hours. Languages: English (professional working), Filipino and Tagalog (native)."
       },
       {
         "title": "Contact & availability",
@@ -62,44 +62,116 @@
       "answer": "John's strongest area is owning systems end to end: from architecture and full-stack code to CI/CD, security and the on-premise servers it runs on. He built Usapp, a secure real-time messaging platform, single-handedly across mobile, distributed microservices, deployment pipeline and production infrastructure."
     },
     {
-      "intents": ["full-stack", "full stack", "frontend", "web app", "react", "web dev"],
+      "intents": [
+        "full-stack",
+        "full stack",
+        "frontend",
+        "web app",
+        "react",
+        "web dev"
+      ],
       "question": "Tell me about your full-stack work",
       "answer": "John builds across the whole stack: React and React Native on the front, NestJS/Node microservices behind them, and PostgreSQL/MongoDB/MySQL/Redis for data. JMS E-Talyer is a good example: a multi-branch automotive service system he built, secured, deployed and now operates himself."
     },
     {
-      "intents": ["youcode", "what did you build", "products", "hris", "lms", "lgu", "civic", "super app", "superapp", "youguard"],
+      "intents": [
+        "youcode",
+        "what did you build",
+        "products",
+        "hris",
+        "lms",
+        "lgu",
+        "civic",
+        "super app",
+        "superapp",
+        "youguard"
+      ],
       "question": "What have you built at YouCode?",
-      "answer": "At YouCode Technologies John was the sole developer behind several production systems (details withheld under NDA): Usapp, a secure real-time messaging platform; a per-client HR platform covering the full employee lifecycle; a white-label civic super-app now live for three cities (MyDasma, MySorsogon, MyLegazpi); an offline-first learning platform with on-device exams and verifiable credentials; YouFlow, an AI-native Kanban platform with automatic work estimation and a Model Context Protocol interface for AI agents; and the YouGuard edge bridge linking on-site access-control and camera hardware to the cloud. He owned each end to end: mobile/web, backend, and deployment."
+      "answer": "As Lead IT Systems Developer at YouCode Technologies, John owns six commercial systems end to end. They include Usapp, end-to-end encrypted messaging live on iOS and Android and the push-notification backbone for every other product; YouFlow, an AI-native Kanban whose MCP server lets AI agents act with one user's exact permissions; the YouGuard Master Bridge Server, a Go edge service that buffers site events through network outages; a per-client HR platform; a white-label civic super-app live for three cities; and an offline-first learning platform."
     },
     {
-      "intents": ["microservice", "backend", "distributed", "real-time", "messaging", "usapp", "api", "grpc"],
+      "intents": [
+        "microservice",
+        "backend",
+        "distributed",
+        "real-time",
+        "messaging",
+        "usapp",
+        "api",
+        "grpc"
+      ],
       "question": "What about backend and distributed systems?",
       "answer": "Deep experience. Usapp is a distributed microservice backend with real-time messaging and push delivery, built from scratch and now the notification backbone for his company's entire product suite. He works across REST, gRPC, WebSockets and message queues (RabbitMQ), and designs services to be owned end to end."
     },
     {
-      "intents": ["DevSecOps", "ci/cd", "cicd", "ci cd", "pipeline", "deploy", "docker", "github actions"],
+      "intents": [
+        "DevSecOps",
+        "ci/cd",
+        "cicd",
+        "ci cd",
+        "pipeline",
+        "deploy",
+        "docker",
+        "github actions"
+      ],
       "question": "How do you approach DevSecOps and CI/CD?",
       "answer": "John owned CI/CD across a whole product suite: automated build, test, security scanning, artifact signing and deployment, including self-hosted runner infrastructure. JMS E-Talyer runs a four-workflow pipeline (integration, security scanning, gated deployment, dependency management) with hardened, non-root containers and secrets injected at runtime."
     },
     {
-      "intents": ["infrastructure", "server", "vps", "on-premise", "on prem", "linux", "self-host", "ops"],
+      "intents": [
+        "infrastructure",
+        "server",
+        "vps",
+        "on-premise",
+        "on prem",
+        "linux",
+        "self-host",
+        "ops"
+      ],
       "question": "Do you manage infrastructure?",
       "answer": "Yes, he led on-premise infrastructure operations: server provisioning, container orchestration, monitoring stack deployment, and production incident diagnosis. For JMS E-Talyer he provisions, secures, manages and operates the VPS himself, end to end."
     },
     {
-      "intents": ["security", "devsecops", "secure", "scanning", "hardening", "supply chain", "pentest"],
+      "intents": [
+        "security",
+        "devsecops",
+        "secure",
+        "scanning",
+        "hardening",
+        "supply chain",
+        "pentest"
+      ],
       "question": "What about security?",
       "answer": "Security is baked into his pipelines, not bolted on: static analysis, dependency auditing, secret scanning across full git history, dynamic testing and container vulnerability scanning, plus signed artifacts and SBOM/SLSA provenance. Application-side he does security headers, origin allow-listing, tiered rate limiting, scoped CSRF and error sanitisation."
     },
     {
-      "intents": ["iot", "hardware", "embedded", "sensor", "arduino", "firmware", "flood"],
+      "intents": [
+        "iot",
+        "hardware",
+        "embedded",
+        "sensor",
+        "arduino",
+        "firmware",
+        "flood"
+      ],
       "question": "Do you do hardware/IoT?",
       "answer": "He does. The Flood Notification System is a sensor-based early-warning platform with sirens, warning lights and GSM SMS dispatch that tracks both water level and rate of rise per area. He's also built hardware-to-server integration for a campus attendance and security system."
     },
     {
-      "intents": ["mobile", "android", "react native", "app", "peraplano", "fintech"],
+      "intents": [
+        "android",
+        "app",
+        "fintech",
+        "hackathon",
+        "mobile",
+        "offline ai",
+        "on-device",
+        "peraplano",
+        "react native",
+        "tara"
+      ],
       "question": "What mobile work have you done?",
-      "answer": "John builds mobile in React Native (Expo). PeraPlano is his privacy-first Android budgeting app: user financial data is encrypted, and income/expense tracking is derived from transaction push notifications so users don't have to log entries manually. He also built the Usapp mobile client with push notification delivery."
+      "answer": "John builds mobile in React Native (Expo). Usapp, his end-to-end encrypted messaging app, is live on iOS and Android. At the AppBuildersPH Hackathon 2026 his team built Tara LEVEL UP! in 21 hours: a quest app where an on-device LLM checks each finished task from a photo, voice or quiz, fully offline. PeraPlano, a privacy-first Android budgeting app, is in development."
     },
     {
       "intents": ["lead", "team", "manage", "mentor", "leadership", "promoted"],
@@ -109,10 +181,18 @@
     {
       "intents": ["stack", "technolog", "language", "tools", "framework"],
       "question": "What's your tech stack?",
-      "answer": "Daily drivers: TypeScript, JavaScript, Python, PHP. Frontend/mobile: React, React Native, Tailwind. Backend: NestJS, Node, gRPC, RabbitMQ, WebSockets. Data: PostgreSQL, MongoDB, MySQL, Redis. Infra/DevSecOps: Docker, GitHub Actions, Linux, Traefik, nginx, on-premise VPS. Security/observability: Semgrep, CodeQL, Trivy, cosign, Prometheus, Grafana, k6."
+      "answer": "Languages: TypeScript, JavaScript, Python, Go, Java, C#, SQL, Bash. Front end: React, Next.js, React Native (Expo), Tailwind CSS. Back end: Node.js, Express, NestJS, Django, gRPC, WebSockets, Socket.IO, RabbitMQ. Data: PostgreSQL, MySQL, MongoDB, SQLite, Redis, Prisma, pgvector. DevOps and security: Docker, GitHub Actions, Linux, nginx, AWS EC2, Prometheus, Grafana, Trivy, gitleaks, cosign, SOPS. Testing: Jest, Vitest, Playwright, JUnit, k6."
     },
     {
-      "intents": ["remote", "relocat", "location", "based", "timezone", "where", "philippines"],
+      "intents": [
+        "remote",
+        "relocat",
+        "location",
+        "based",
+        "timezone",
+        "where",
+        "philippines"
+      ],
       "question": "Where are you based?",
       "answer": "John is based in Dasmariñas, Cavite, Philippines (UTC+8). He's open to work in full-stack, DevSecOps and infrastructure roles and collaborations. Reach out and share a line about the problem space."
     },
@@ -122,22 +202,44 @@
       "answer": "Email olajohnfilhmar@gmail.com. He replies within 24 hours. LinkedIn and GitHub links are in the contact section. A one-line description of the problem space is the fastest way to a great reply."
     },
     {
-      "intents": ["available", "open to", "looking", "job", "role", "opportunit"],
+      "intents": [
+        "available",
+        "open to",
+        "looking",
+        "job",
+        "role",
+        "opportunit"
+      ],
       "question": "What roles are you open to?",
-      "answer": "He's open to work in full-stack, DevSecOps and infrastructure roles and collaborations, especially work where owning a system end to end matters. Most recently Lead IT at YouCode Technologies."
+      "answer": "He's open to full-stack software engineering roles, especially where owning a system end to end matters, from architecture to production operations. He is currently Lead IT Systems Developer at YouCode Technologies."
     },
     {
-      "intents": ["background", "education", "career", "story", "history", "experience", "intern"],
+      "intents": [
+        "background",
+        "education",
+        "career",
+        "story",
+        "history",
+        "experience",
+        "intern"
+      ],
       "question": "What's your background?",
-      "answer": "A fast arc: a 486-hour frontend/web development internship at Ynnovision Enterprise Solutions (Feb to May 2025), then YouCode Technologies (Jul 2025 to now), where he joined as a Developer and was promoted to Lead IT within his first year, now owning multiple production systems, CI/CD, and on-premise infrastructure."
+      "answer": "A fast arc: a 486-hour frontend and web development internship at Ynnovision Enterprise Solutions (Feb to May 2025), then YouCode Technologies Corporation (July 2025 to present), where he joined as a Developer and was promoted to Lead IT within his first year. He holds a BS in Information Technology from Mindoro State University (2021 to 2025) and a TESDA Programming (Java) NC III, where he was the cohort's top awardee."
     },
     {
       "intents": ["resume", "cv", "download"],
       "question": "Where's your résumé?",
-      "answer": "There's a résumé link in the contact section (résumé.pdf ↓). Short version: Lead IT and full-stack engineer who owns systems end to end: mobile, backend microservices, CI/CD, security and on-premise infrastructure."
+      "answer": "There's a résumé link in the contact section (résumé.pdf). Short version: full-stack software engineer and Lead IT Systems Developer who owns systems end to end, from architecture and TypeScript across React and Node.js to CI/CD and the servers they run on."
     },
     {
-      "intents": ["how do you work", "are you real", "what are you", "demo", "this assistant", "built"],
+      "intents": [
+        "how do you work",
+        "are you real",
+        "what are you",
+        "demo",
+        "this assistant",
+        "built"
+      ],
       "question": "How does this assistant work?",
       "answer": "Honest answer: out of the box I'm a demo: a curated knowledge base with intent matching and streamed responses, served by a small API route. Add one API key to the server config and the same route upgrades me to a live LLM with the same knowledge base. John built me this way on purpose."
     },
@@ -145,6 +247,34 @@
       "intents": ["hi", "hello", "hey", "yo ", "sup"],
       "question": "Say hi",
       "answer": "Hey! Ask me about John's full-stack work, backend and microservices, DevSecOps and infrastructure, security, mobile/IoT, or availability. Or tap one of the suggested questions."
+    },
+    {
+      "intents": [
+        "claude",
+        "ai-assisted",
+        "ai assisted",
+        "copilot",
+        "use ai",
+        "trade blotter",
+        "blotter",
+        "trading",
+        "fusion"
+      ],
+      "question": "How do you use AI in your work?",
+      "answer": "John uses Claude Code daily for building, testing, debugging and documentation. Project context files and custom skills keep it on decisions already made, and every generated diff is reviewed, with tests as the gate before merge. The Real-Time Trade Blotter shows the result: built in about a week, deployed to AWS with 325 unit, 39 integration and 10 end-to-end tests and a load-test p95 of 209 ms."
+    },
+    {
+      "intents": [
+        "certification",
+        "certificate",
+        "credential",
+        "tesda",
+        "nc iii",
+        "award",
+        "hackathon"
+      ],
+      "question": "Do you have any certifications?",
+      "answer": "He holds a TESDA Programming (Java) NC III (2025), where he was the cohort's top awardee, won Best in Participation and Best in LMS Submission, and gave the graduation inspirational speech. At the AppBuildersPH Hackathon 2026 his team built Tara LEVEL UP!, a local-AI mobile app, in 21 hours."
     }
   ],
   "suggestedQuestions": [

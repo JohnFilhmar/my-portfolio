@@ -122,7 +122,7 @@ export function loadConfig(): AppConfig {
       ...certifications,
       items: certifications.items.map((item) => ({
         ...withResolvedImage(item),
-        expired: isExpired(item.expires, new Date()),
+        expired: isExpired(item.expires ?? null, new Date()),
       })),
     },
     notes: {

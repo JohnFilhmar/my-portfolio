@@ -62,19 +62,21 @@ export function CertificationCard({
           </dt>
           <dd className="m-0 text-subtle">{item.issued}</dd>
         </div>
-        <div className="flex gap-1.5">
-          <dt className="m-0 uppercase tracking-[0.08em] text-dim">
-            {labels.expiresLabel}
-          </dt>
-          <dd className="m-0 text-subtle">
-            {item.expires ?? labels.neverExpiresLabel}
-            {item.expired && (
-              <span className="ml-1.5 text-danger">
-                · {labels.expiredLabel}
-              </span>
-            )}
-          </dd>
-        </div>
+        {item.expires !== undefined && (
+          <div className="flex gap-1.5">
+            <dt className="m-0 uppercase tracking-[0.08em] text-dim">
+              {labels.expiresLabel}
+            </dt>
+            <dd className="m-0 text-subtle">
+              {item.expires ?? labels.neverExpiresLabel}
+              {item.expired && (
+                <span className="ml-1.5 text-danger">
+                  · {labels.expiredLabel}
+                </span>
+              )}
+            </dd>
+          </div>
+        )}
         {item.credentialId && (
           <div className="flex min-w-0 gap-1.5">
             <dt className="m-0 uppercase tracking-[0.08em] text-dim">

@@ -7,10 +7,10 @@
   "items": [
     {
       "institution": "Mindoro State University",
-      "degree": "BS Information Technology (BSIT)",
+      "degree": "BS Information Technology",
       "start": "2021",
       "end": "2025",
-      "note": "Graduated. Shifted from AB English (2019 to 2021) to BSIT.",
+      "note": "Capstone: Kalusugapp, a patient records and appointment system deployed at the Victoria Municipal Health Office.",
       "photos": [
         {
           "src": "/education/graduation.webp",
@@ -37,7 +37,7 @@
       "degree": "Programming (Java) NC III · TESDA",
       "start": "Jul 2024",
       "end": "Oct 2024",
-      "note": "TESDA-accredited technical-vocational qualification taken alongside the degree, in Calapan City, Oriental Mindoro.",
+      "note": "Top 1 awardee of the cohort, Best in Participation and Best in LMS Submission, and graduation inspirational speaker. Capstone: Healthy Gram, a Java desktop app built on OOP principles.",
       "photos": [
         {
           "src": "/education/bcrv-training.webp",

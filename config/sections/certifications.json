@@ -1,8 +1,8 @@
 {
-  "_readme": "Certifications and credentials. Entries show on the home page and on /certifications, where visitors can filter them by skill. The home section and the nav link hide themselves while `items` is empty; /certifications shows `emptyMessage` instead. Copy this shape into `items`:\n\n{\n  \"id\": \"aws-saa\",\n  \"name\": \"AWS Certified Solutions Architect · Associate\",\n  \"issuer\": \"Amazon Web Services\",\n  \"issued\": \"2026-03\",\n  \"expires\": \"2029-03\",\n  \"credentialId\": \"ABCD-1234-EFGH\",\n  \"verifyUrl\": \"https://www.credly.com/badges/...\",\n  \"image\": \"/certifications/aws-saa.webp\",\n  \"imageAlt\": \"AWS Solutions Architect Associate badge\",\n  \"skills\": [\"AWS\", \"Architecture\"]\n}\n\nEvery field except id, name, issuer and issued is optional. Set `expires` to null for credentials that do not lapse. `verifyUrl` is what turns the entry into something an employer can check, so add it whenever the issuer publishes one. `image` must exist under ./public or it is dropped and the card renders without a badge; put the original badge in assets/certifications and run `npm run images` to get the .webp.",
+  "_readme": "Certifications and credentials. Entries show on the home page and on /certifications, where visitors can filter them by skill. The home section and the nav link hide themselves while `items` is empty; /certifications shows `emptyMessage` instead. Copy this shape into `items`:\n\n{\n  \"id\": \"aws-saa\",\n  \"name\": \"AWS Certified Solutions Architect · Associate\",\n  \"issuer\": \"Amazon Web Services\",\n  \"issued\": \"2026-03\",\n  \"expires\": \"2029-03\",\n  \"credentialId\": \"ABCD-1234-EFGH\",\n  \"verifyUrl\": \"https://www.credly.com/badges/...\",\n  \"image\": \"/certifications/aws-saa.webp\",\n  \"imageAlt\": \"AWS Solutions Architect Associate badge\",\n  \"skills\": [\"AWS\", \"Architecture\"]\n}\n\nEvery field except id, name, issuer and issued is optional. Set `expires` to null for credentials that do not lapse, and leave it out when you do not know, so the card makes no claim either way. `verifyUrl` is what turns the entry into something an employer can check, so add it whenever the issuer publishes one. `image` must exist under ./public or it is dropped and the card renders without a badge; put the original badge in assets/certifications and run `npm run images` to get the .webp.",
   "label": "certifications",
-  "heading": "Credentials you can check.",
-  "blurb": "Each entry links to the issuer's own verification page, so none of this has to be taken on trust.",
+  "heading": "Credentials and recognition.",
+  "blurb": "Qualifications and competition results, with the issuer's verification link wherever one exists.",
   "issuedLabel": "issued",
   "expiresLabel": "expires",
   "neverExpiresLabel": "no expiry",
@@ -12,5 +12,20 @@
   "emptyMessage": "No credentials listed yet. They appear here as each one is verified.",
   "filterLabel": "Filter credentials by skill",
   "allSkillsLabel": "all",
-  "items": []
+  "items": [
+    {
+      "id": "appbuildersph-hackathon-2026",
+      "name": "AppBuildersPH Hackathon 2026",
+      "issuer": "App Builders PH · SM Makati",
+      "issued": "Oct 2026",
+      "skills": ["On-device AI", "Mobile"]
+    },
+    {
+      "id": "tesda-java-nc-iii",
+      "name": "Programming (Java) NC III",
+      "issuer": "TESDA · BCRV Tech-Voc",
+      "issued": "2025",
+      "skills": ["Java", "OOP"]
+    }
+  ]
 }

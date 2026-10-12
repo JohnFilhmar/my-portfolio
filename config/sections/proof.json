@@ -23,7 +23,6 @@
     },
     {
       "id": "peraplano-ledger",
-      "project": "peraplano",
       "src": "/proof/peraplano-ledger.webp",
       "alt": "PeraPlano parsing a BPI credit notification into amount, direction, merchant, wallet and category fields, then writing a Payroll entry to the ledger",
       "title": "peraplano-ledger.webp",

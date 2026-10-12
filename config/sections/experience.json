@@ -6,19 +6,14 @@
   "photosLabelTemplate": "Photos from {name}",
   "items": [
     {
-      "company": "YouCode Technologies",
-      "title": "Lead IT",
+      "company": "YouCode Technologies Corporation",
+      "title": "Lead IT Systems Developer",
       "start": "Jul 2025",
-      "end": "Sep 2026",
+      "end": null,
       "bullets": [
-        "Promoted from Developer to Lead IT (2026) within the first year; owned multiple production systems end to end: architecture, development, CI/CD, security automation, and on-premise infrastructure across the product suite.",
-        "Sole developer of Usapp, a secure real-time messaging platform: architected and built from scratch across the mobile app, distributed backend microservices, deployment pipeline and production server management.",
-        "Delivered production systems now in active commercial use: a white-label civic super-app live for three LGUs (MyDasma, MySorsogon, MyLegazpi), a per-client flexible-hierarchy HRIS serving government and private-sector clients, and an offline-first learning platform (LMS), each built end to end.",
-        "Owned CI/CD across the product suite: automated build, test, security scanning, artifact signing and deployment pipelines, including self-hosted runner infrastructure.",
-        "Led on-premise infrastructure operations: server provisioning, container orchestration, monitoring stack deployment, and production incident diagnosis, including automated diagnostic tooling for resource saturation and service health.",
-        "Designed cross-product notification architecture: all company systems dispatch push notifications through the messaging platform, consolidating delivery and reducing SMS dependency and cost.",
-        "Built hardware-to-server integration for a campus management system, enabling automated daily attendance capture and school security monitoring.",
-        "Established performance and capacity baselines through load testing and infrastructure benchmarking, producing formal technical findings used in vendor and stakeholder decisions."
+        "Promoted to Lead IT within the first year; own six commercial systems end to end across architecture, development, testing, CI/CD and production operations.",
+        "Built TypeScript microservices over gRPC and RabbitMQ with per-service PostgreSQL and MongoDB, Redis caching, and WebSocket delivery fanned out across gateway instances.",
+        "Own CI/CD for the product suite with automated tests, SAST, SCA, container and secret scanning, and signed containerized deploys; run Prometheus and Grafana monitoring and resolve live incidents."
       ],
       "photos": [
         {
@@ -49,13 +44,11 @@
     },
     {
       "company": "Ynnovision Enterprise Solutions",
-      "title": "Frontend / Web Developer Intern",
+      "title": "Frontend and Web Developer Intern",
       "start": "Feb 2025",
       "end": "May 2025",
       "bullets": [
-        "486-hour development internship building and improving web application features.",
-        "Delivered assigned development tasks to deadline with consistent code quality.",
-        "Contributed improvements to system stability, usability and overall performance."
+        "Built responsive front-end features across production web apps during a 486-hour internship, turning design mockups into cross-browser UI and fixing interface defects."
       ],
       "photos": [
         {
