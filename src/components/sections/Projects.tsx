@@ -1,82 +1,94 @@
-import { useMemo, useState } from "react";
-import type { Project, ProjectsConfig } from "@config/schema";
-import { FilterChips } from "@/components/ui/FilterChips";
+import type { HeroConfig, ProjectsConfig } from "@config/schema";
+import { ImageFrame } from "@/components/ui/ImageFrame";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ProjectCard } from "@/components/sections/ProjectCard";
-import { ProjectRow } from "@/components/sections/ProjectRow";
+import { Tag } from "@/components/ui/Tag";
+import { PROJECTS_PATH, workPath } from "@/lib/navigation";
+import { cn } from "@/lib/utils";
 
 export interface ProjectsProps {
   projects: ProjectsConfig;
+  statusLabels: HeroConfig["statusLabels"];
 }
 
 /**
- * Everything that is not a flagship (flagships lead the hero index and have
- * their own pages): standard projects share the card grid, compact ones
- * collapse into expandable rows. Filtering narrows both groups at once and an
- * empty group renders nothing.
+ * Home "work" section: only the featured projects, as cards that open their
+ * case studies, and one link to /projects for everything else.
  */
-export function Projects({ projects }: ProjectsProps) {
-  const [filter, setFilter] = useState(projects.filterAllLabel);
-  const rest = useMemo(
-    () => projects.items.filter((item) => item.tier !== "flagship"),
-    [projects.items],
-  );
-
-  const domains = useMemo(() => {
-    const seen: string[] = [];
-    for (const item of rest) {
-      for (const domain of [item.domain, ...item.secondaryDomains]) {
-        if (!seen.includes(domain)) seen.push(domain);
-      }
-    }
-    return seen;
-  }, [rest]);
-
-  const visible: Project[] = rest.filter(
-    (project) =>
-      filter === projects.filterAllLabel ||
-      project.domain === filter ||
-      project.secondaryDomains.includes(filter),
-  );
-  const standard = visible.filter((project) => project.tier === "standard");
-  const compact = visible.filter((project) => project.tier === "compact");
+export function Projects({ projects, statusLabels }: ProjectsProps) {
+  const featured = projects.items.filter((item) => item.tier === "flagship");
+  const others = projects.items.length - featured.length;
+  const page = projects.page;
 
   return (
     <>
-      <SectionHeading className="mb-6">{projects.heading}</SectionHeading>
+      <SectionHeading className="mb-8">{projects.heading}</SectionHeading>
 
-      <FilterChips
-        groupLabel={projects.filterGroupLabel}
-        options={
-          projects.showFilters ? [projects.filterAllLabel, ...domains] : []
-        }
-        active={filter}
-        onChange={setFilter}
-        className="mb-[26px]"
-      />
+      <ul className="m-0 grid list-none gap-5 p-0 md:grid-cols-2 xl:grid-cols-3">
+        {featured.map((project) => (
+          <li key={project.id}>
+            <a
+              href={workPath(project.id)}
+              className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface text-inherit no-underline transition-[transform,border-color] duration-base ease-standard hover:-translate-y-1 hover:border-border-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              {project.cover && (
+                <ImageFrame
+                  src={project.cover.src}
+                  alt={project.cover.alt}
+                  aspect="16/10"
+                  missing={project.cover.missing}
+                  fallbackLabel={project.title}
+                  className="border-b border-border-muted"
+                />
+              )}
+              <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+                {project.status && (
+                  <span className="inline-flex items-center gap-2 font-mono text-xs text-heading">
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "h-2 w-2 rounded-full",
+                        project.status === "live"
+                          ? "bg-signal"
+                          : "border border-heading",
+                      )}
+                    />
+                    {statusLabels[project.status]}
+                    {project.timeline?.plannedRelease && (
+                      <span className="text-subtle">
+                        · {project.timeline.plannedRelease}
+                      </span>
+                    )}
+                  </span>
+                )}
+                <h3 className="stretch-semi-expanded m-0 font-display text-title font-semibold leading-snug text-heading">
+                  {project.title}
+                </h3>
+                <p className="m-0 flex-1 text-base leading-relaxed text-muted">
+                  {project.hook}
+                </p>
+                <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
+                  {project.stack.slice(0, 5).map((tech) => (
+                    <li key={tech}>
+                      <Tag variant="stack">{tech}</Tag>
+                    </li>
+                  ))}
+                </ul>
+                <span className="font-mono text-sm text-accent transition-transform duration-base ease-standard group-hover:translate-x-1">
+                  {page.caseStudyLabel}
+                </span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
 
-      {standard.length > 0 && (
-        <div className="mb-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))] gap-3.5">
-          {standard.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              projects={projects}
-            />
-          ))}
-        </div>
-      )}
-
-      {compact.length > 0 && (
-        <div>
-          {compact.map((project) => (
-            <ProjectRow
-              key={project.id}
-              project={project}
-              projects={projects}
-            />
-          ))}
-        </div>
+      {others > 0 && (
+        <a
+          href={PROJECTS_PATH}
+          className="mt-8 inline-block font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          {page.allLinkTemplate.replace("{n}", String(others))}
+        </a>
       )}
     </>
   );

@@ -9,11 +9,11 @@
       "company": "YouCode Technologies Corporation",
       "title": "Lead IT Systems Developer",
       "start": "Jul 2025",
-      "end": null,
+      "end": "Sep 2026",
       "bullets": [
-        "Promoted to Lead IT within the first year; own six commercial systems end to end across architecture, development, testing, CI/CD and production operations.",
+        "Promoted to Lead IT within the first year; owned six commercial systems end to end across architecture, development, testing, CI/CD and production operations.",
         "Built TypeScript microservices over gRPC and RabbitMQ with per-service PostgreSQL and MongoDB, Redis caching, and WebSocket delivery fanned out across gateway instances.",
-        "Own CI/CD for the product suite with automated tests, SAST, SCA, container and secret scanning, and signed containerized deploys; run Prometheus and Grafana monitoring and resolve live incidents."
+        "Owned CI/CD for the product suite with automated tests, SAST, SCA, container and secret scanning, and signed containerized deploys; ran Prometheus and Grafana monitoring and resolved live incidents."
       ],
       "photos": [
         {
@@ -40,7 +40,8 @@
           "caption": "Promoted to Lead IT within the first year",
           "aspect": "4/3"
         }
-      ]
+      ],
+      "id": "youcode"
     },
     {
       "company": "Ynnovision Enterprise Solutions",
@@ -63,7 +64,8 @@
           "caption": "Certificate of completion · 486 hours",
           "aspect": "4/3"
         }
-      ]
+      ],
+      "id": "ynnovision"
     }
   ]
 }

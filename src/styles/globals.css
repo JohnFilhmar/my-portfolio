@@ -19,6 +19,14 @@
   .stretch-expanded {
     font-stretch: 125%;
   }
+  /* Faint drafting grid behind empty image slots (PlaceholderArt). */
+  .placeholder-field {
+    background-color: var(--color-surface-inset);
+    background-image:
+      linear-gradient(var(--color-border-muted) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border-muted) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
   /* The hero portrait's blue duotone, from theme.json `media.portraitTint`. */
   .portrait-tint {
     filter: var(--portrait-tint);

@@ -1,150 +1,446 @@
 {
-  "_readme": "Skills section. Skills with `level` >= `coreLevel` render with the core-strength marker and accent styling. `level` is 1–5; omit it for a plain tag.",
+  "_readme": "Technical and soft skills. `note` is the evidence shown with a skill: how many of my repositories use it, or \"at YouCode\" for work done in my employer's repositories. A skill at or above `coreLevel` gets the core marker; here that means it is in five or more of my repositories or was used daily at YouCode. `soft` lists soft skills with the concrete evidence behind each.",
   "label": "expertise",
-  "heading": "Across the stack. Deep where it counts.",
-  "legend": "▸ = core strength",
+  "heading": "What I work with, and how.",
+  "legend": "▸ core: in 5+ of my repositories, or used daily at YouCode",
   "coreMarker": "▸",
   "coreLevel": 4,
   "groups": [
     {
       "id": "languages",
       "label": "languages",
-      "blurb": "Typed everywhere, from web to firmware.",
+      "blurb": "Typed by default, with SQL and shell close behind.",
       "skills": [
-        { "name": "TypeScript", "level": 5 },
-        { "name": "JavaScript", "level": 5 },
-        { "name": "Python", "level": 4 },
-        { "name": "Bash", "level": 4 },
-        { "name": "PHP", "level": 4 },
-        { "name": "C / C++", "level": 3 },
-        { "name": "C#", "level": 3 },
-        { "name": "Java", "level": 3 }
+        {
+          "name": "TypeScript",
+          "level": 5,
+          "note": "12 repos"
+        },
+        {
+          "name": "SQL",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Bash",
+          "level": 5,
+          "note": "6 repos"
+        },
+        {
+          "name": "JavaScript",
+          "note": "3 repos"
+        },
+        {
+          "name": "Python",
+          "note": "2 repos"
+        },
+        {
+          "name": "Kotlin",
+          "note": "1 repo"
+        },
+        {
+          "name": "Ruby",
+          "note": "1 repo"
+        },
+        {
+          "name": "Go",
+          "note": "at YouCode"
+        },
+        {
+          "name": "Java",
+          "note": "TESDA NC III"
+        }
       ]
     },
     {
       "id": "frontend",
-      "label": "frontend & mobile",
-      "blurb": "Interfaces that feel instant.",
+      "label": "front end",
+      "blurb": "Interfaces that feel instant and work offline.",
       "skills": [
-        { "name": "React", "level": 5 },
-        { "name": "React Native (Expo)", "level": 5 },
-        { "name": "TailwindCSS", "level": 4 },
-        { "name": "HTML5", "level": 4 },
-        { "name": "CSS", "level": 4 },
-        { "name": "Responsive UI", "level": 4 }
+        {
+          "name": "React",
+          "level": 5,
+          "note": "14 repos"
+        },
+        {
+          "name": "Tailwind CSS",
+          "level": 5,
+          "note": "14 repos"
+        },
+        {
+          "name": "TanStack Query",
+          "level": 5,
+          "note": "9 repos"
+        },
+        {
+          "name": "Next.js",
+          "level": 5,
+          "note": "7 repos"
+        },
+        {
+          "name": "Vite",
+          "level": 5,
+          "note": "6 repos"
+        },
+        {
+          "name": "Zustand",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Radix UI",
+          "note": "3 repos"
+        },
+        {
+          "name": "GSAP, Motion, Lenis",
+          "note": "3 repos"
+        },
+        {
+          "name": "PWAs and offline web",
+          "note": "2 repos"
+        },
+        {
+          "name": "Three.js, React Three Fiber",
+          "note": "2 repos"
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "label": "mobile",
+      "blurb": "React Native apps that keep working without a signal.",
+      "skills": [
+        {
+          "name": "React Native, Expo Router",
+          "level": 5,
+          "note": "4 repos"
+        },
+        {
+          "name": "NativeWind",
+          "note": "4 repos"
+        },
+        {
+          "name": "Reanimated",
+          "note": "4 repos"
+        },
+        {
+          "name": "Offline-first storage",
+          "note": "3 repos"
+        },
+        {
+          "name": "EAS builds, OTA updates",
+          "note": "2 repos"
+        },
+        {
+          "name": "On-device LLM and speech",
+          "note": "2 repos"
+        },
+        {
+          "name": "Kotlin native modules",
+          "note": "1 repo"
+        }
       ]
     },
     {
       "id": "backend",
-      "label": "backend & apis",
-      "blurb": "Distributed services that stay up under load.",
+      "label": "back end",
+      "blurb": "Services with contracts, queues and real-time delivery.",
       "skills": [
-        { "name": "NestJS", "level": 5 },
-        { "name": "Node.js", "level": 5 },
-        { "name": "Microservices", "level": 4 },
-        { "name": "gRPC", "level": 4 },
-        { "name": "WebSockets", "level": 4 },
-        { "name": "RabbitMQ", "level": 4 },
-        { "name": "Express", "level": 4 },
-        { "name": "REST APIs", "level": 4 }
+        {
+          "name": "Node.js, Express",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Zod shared contracts",
+          "level": 5,
+          "note": "11 repos"
+        },
+        {
+          "name": "Socket.IO",
+          "level": 5,
+          "note": "6 repos"
+        },
+        {
+          "name": "NestJS",
+          "level": 5,
+          "note": "3 repos, at YouCode"
+        },
+        {
+          "name": "gRPC",
+          "level": 5,
+          "note": "at YouCode"
+        },
+        {
+          "name": "RabbitMQ",
+          "level": 5,
+          "note": "at YouCode"
+        },
+        {
+          "name": "BullMQ, pg-boss, Celery",
+          "note": "3 repos"
+        },
+        {
+          "name": "Pino logging",
+          "note": "4 repos"
+        },
+        {
+          "name": "Django REST Framework",
+          "note": "1 repo"
+        },
+        {
+          "name": "Ruby on Rails",
+          "note": "1 repo"
+        }
       ]
     },
     {
       "id": "data",
-      "label": "databases & storage",
-      "blurb": "Schema-first, cached where it matters.",
+      "label": "data",
+      "blurb": "Relational first, cached where it counts.",
       "skills": [
-        { "name": "PostgreSQL", "level": 4 },
-        { "name": "MongoDB", "level": 4 },
-        { "name": "MySQL", "level": 4 },
-        { "name": "Redis", "level": 4 },
-        { "name": "Schema design", "level": 4 },
-        { "name": "MinIO / S3-compatible", "level": 3 }
+        {
+          "name": "PostgreSQL",
+          "level": 5,
+          "note": "4 repos, at YouCode"
+        },
+        {
+          "name": "Redis",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "MySQL",
+          "note": "3 repos"
+        },
+        {
+          "name": "SQLite",
+          "note": "3 repos"
+        },
+        {
+          "name": "Prisma",
+          "note": "3 repos"
+        },
+        {
+          "name": "MongoDB",
+          "level": 5,
+          "note": "2 repos, at YouCode"
+        },
+        {
+          "name": "Drizzle",
+          "note": "2 repos"
+        }
       ]
     },
     {
-      "id": "DevSecOps",
-      "label": "DevSecOps & ci/cd",
-      "blurb": "Automated from commit to production.",
+      "id": "devops",
+      "label": "DevOps",
+      "blurb": "From commit to a signed image on a server I run.",
       "skills": [
-        { "name": "Docker", "level": 5 },
-        { "name": "GitHub Actions", "level": 5 },
-        { "name": "Self-hosted runners", "level": 4 },
-        { "name": "Automated pipelines", "level": 4 },
-        { "name": "Docker Compose", "level": 4 },
-        { "name": "nginx", "level": 4 },
-        { "name": "Traefik", "level": 3 }
-      ]
-    },
-    {
-      "id": "infrastructure",
-      "label": "infrastructure",
-      "blurb": "On-premise servers, provisioned and hardened by hand.",
-      "skills": [
-        { "name": "Linux (Ubuntu/Debian)", "level": 5 },
-        { "name": "On-premise VPS", "level": 5 },
-        { "name": "SSH hardening", "level": 4 },
-        { "name": "systemd", "level": 4 },
-        { "name": "cron", "level": 4 },
-        { "name": "Networking", "level": 4 },
-        { "name": "WireGuard VPN", "level": 3 }
+        {
+          "name": "Docker, Compose",
+          "level": 5,
+          "note": "11 repos"
+        },
+        {
+          "name": "GitHub Actions",
+          "level": 5,
+          "note": "8 repos"
+        },
+        {
+          "name": "nginx",
+          "level": 5,
+          "note": "8 repos"
+        },
+        {
+          "name": "Container hardening",
+          "level": 5,
+          "note": "7 repos"
+        },
+        {
+          "name": "Self-hosted runners",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Gated staging and production",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Prometheus, Grafana",
+          "level": 5,
+          "note": "3 repos, at YouCode"
+        },
+        {
+          "name": "GHCR",
+          "note": "3 repos"
+        },
+        {
+          "name": "AWS EC2",
+          "note": "1 repo"
+        }
       ]
     },
     {
       "id": "security",
-      "label": "security engineering",
-      "blurb": "Shift-left, supply-chain aware.",
+      "label": "security",
+      "blurb": "Scanning and signing in the pipeline, not after it.",
       "skills": [
-        { "name": "Dependabot", "level": 4 },
-        { "name": "Semgrep", "level": 3 },
-        { "name": "CodeQL", "level": 3 },
-        { "name": "Snyk", "level": 3 },
-        { "name": "Trivy", "level": 3 },
-        { "name": "gitleaks", "level": 3 },
-        { "name": "OWASP ZAP", "level": 3 },
-        { "name": "cosign", "level": 3 },
-        { "name": "SBOM", "level": 3 },
-        { "name": "SLSA provenance", "level": 3 }
+        {
+          "name": "Gitleaks",
+          "level": 5,
+          "note": "7 repos"
+        },
+        {
+          "name": "bcrypt, Argon2",
+          "level": 5,
+          "note": "7 repos"
+        },
+        {
+          "name": "Trivy",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Dependabot",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Dependency audit gates",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "JWT auth",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Helmet",
+          "note": "4 repos"
+        },
+        {
+          "name": "CodeQL",
+          "note": "3 repos"
+        },
+        {
+          "name": "Semgrep",
+          "note": "2 repos"
+        },
+        {
+          "name": "cosign, SBOM",
+          "note": "2 repos"
+        },
+        {
+          "name": "OWASP ZAP",
+          "note": "1 repo"
+        },
+        {
+          "name": "SOPS",
+          "note": "1 repo"
+        }
       ]
     },
     {
-      "id": "monitoring",
-      "label": "monitoring & testing",
-      "blurb": "Observability and load testing before it breaks.",
+      "id": "testing",
+      "label": "testing",
+      "blurb": "Tests are the gate before anything merges.",
       "skills": [
-        { "name": "Prometheus", "level": 4 },
-        { "name": "Grafana", "level": 4 },
-        { "name": "k6", "level": 4 },
-        { "name": "Incident diagnosis", "level": 4 },
-        { "name": "Loki", "level": 3 },
-        { "name": "node-exporter", "level": 3 },
-        { "name": "cAdvisor", "level": 3 },
-        { "name": "fio", "level": 3 }
+        {
+          "name": "Vitest",
+          "level": 5,
+          "note": "7 repos"
+        },
+        {
+          "name": "Jest",
+          "level": 5,
+          "note": "6 repos"
+        },
+        {
+          "name": "Testing Library",
+          "level": 5,
+          "note": "6 repos"
+        },
+        {
+          "name": "Playwright",
+          "level": 5,
+          "note": "5 repos"
+        },
+        {
+          "name": "Supertest",
+          "note": "3 repos"
+        },
+        {
+          "name": "axe accessibility",
+          "note": "2 repos"
+        },
+        {
+          "name": "k6 load testing",
+          "note": "at YouCode"
+        }
       ]
     },
     {
-      "id": "iot",
-      "label": "embedded & iot",
-      "blurb": "Where software meets metal.",
+      "id": "ai",
+      "label": "AI",
+      "blurb": "Building with models, and building faster with them.",
       "skills": [
-        { "name": "Arduino", "level": 4 },
-        { "name": "Embedded C/C++", "level": 4 },
-        { "name": "Sensor integration", "level": 4 },
-        { "name": "GSM / SMS", "level": 3 }
+        {
+          "name": "AI-assisted engineering",
+          "level": 5,
+          "note": "10 repos"
+        },
+        {
+          "name": "LLM APIs (Anthropic, OpenAI)",
+          "level": 5,
+          "note": "6 repos"
+        },
+        {
+          "name": "On-device inference",
+          "note": "2 repos"
+        },
+        {
+          "name": "Ollama",
+          "note": "2 repos"
+        },
+        {
+          "name": "MCP servers",
+          "note": "1 repo, at YouCode"
+        }
       ]
+    }
+  ],
+  "softHeading": "How I work",
+  "soft": [
+    {
+      "name": "Technical writing",
+      "evidence": "I wrote 24 architecture decision records for jabbing, decision records and a deploy runbook for trust-desk, and about 90 docs for PeraPlano."
     },
     {
-      "id": "practices",
-      "label": "practices & leadership",
-      "blurb": "Full-stack ownership, teams that ship.",
-      "skills": [
-        { "name": "Full-stack ownership", "level": 5 },
-        { "name": "Microservice design", "level": 4 },
-        { "name": "Cross-team collaboration", "level": 4 },
-        { "name": "Code review", "level": 4 },
-        { "name": "Technical documentation", "level": 4 },
-        { "name": "Agile delivery", "level": 4 }
-      ]
+      "name": "Planning and phased delivery",
+      "evidence": "tbn_game shipped in phases 0 to 4j, each with a written plan, a report and its own pull request; talyer ran ten documented phases and a gap audit."
+    },
+    {
+      "name": "Learning fast",
+      "evidence": "I taught myself Ruby and Rails while building trust-desk, and kept the learning guide and exercises in the repo."
+    },
+    {
+      "name": "Product thinking",
+      "evidence": "augrr's brief puts its users first: \"The end users are teachers, not developers. Every decision in this document is subordinate to that fact.\""
+    },
+    {
+      "name": "Transparency",
+      "evidence": "My AI usage reports record what the model wrote, what I decided and what it got wrong, and trust-desk keeps a bug log."
+    },
+    {
+      "name": "Ownership of quality",
+      "evidence": "On talyer I hold back dependency updates that fail, run every stock and money write in a transaction, and test restores from the nightly backups."
+    },
+    {
+      "name": "Teamwork under pressure",
+      "evidence": "Built Tara LEVEL UP! in 21 hours with team BOOM TARA TARA G at the AppBuildersPH Hackathon 2026."
     }
   ]
 }

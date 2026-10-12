@@ -77,6 +77,7 @@ export function Hero({
           systems={flagships}
           label={hero.indexLabel}
           statusLabels={hero.statusLabels}
+          plannedReleaseTemplate={hero.plannedReleaseTemplate}
         />
       )}
     </header>

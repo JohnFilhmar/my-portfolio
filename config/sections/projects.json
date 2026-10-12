@@ -19,37 +19,6 @@
   },
   "items": [
     {
-      "id": "tara-level-up",
-      "title": "Tara LEVEL UP!",
-      "hook": "Gamified quests checked by an on-device LLM, fully offline.",
-      "problem": "Habit and motivation apps lean on the honor system or cloud AI that needs a live connection.",
-      "role": "Built from scratch in 21 hours with team BOOM TARA TARA G at the AppBuildersPH Hackathon 2026.",
-      "stack": [
-        "On-Device LLM",
-        "Offline Inference",
-        "Multimodal AI",
-        "Android"
-      ],
-      "highlights": [
-        "A local LLM verifies each finished task from a photo, a voice note or a short quiz, entirely on the phone.",
-        "XP is awarded under fixed rules, and the leaderboard is recomputed server-side to stop cheating.",
-        "Multimodal inference runs fully offline, with no signal required."
-      ],
-      "results": "Built in 21 hours at the AppBuildersPH Hackathon 2026 (SM Makati, October 2026), running multimodal AI fully offline on the phone.",
-      "links": {
-        "demo": "https://tara.filhmar.online"
-      },
-      "domain": "mobile",
-      "secondaryDomains": [],
-      "tier": "standard",
-      "metrics": [
-        {
-          "value": "21 h",
-          "label": "from scratch to working app"
-        }
-      ]
-    },
-    {
       "id": "usapp",
       "title": "Usapp",
       "hook": "End-to-end encrypted messaging on iOS and Android, and the push-notification backbone for every other company product.",
@@ -104,53 +73,8 @@
           "caption": "Key workflow",
           "aspect": "9/19.5"
         }
-      ]
-    },
-    {
-      "id": "trade-blotter",
-      "title": "Real-Time Trade Blotter",
-      "hook": "Every trade booking, amendment and cancellation reaches every user instantly and correctly.",
-      "problem": "A trading platform assessment needed a real-time blotter where every trade booking, amendment and cancellation reaches all users instantly and correctly.",
-      "role": "Built end to end in about a week with Claude Code, documented in an AI usage report and prompt log.",
-      "stack": [
-        "TypeScript",
-        "React",
-        "Express",
-        "PostgreSQL",
-        "Socket.IO",
-        "Redis",
-        "Docker",
-        "AWS EC2",
-        "Claude Code"
       ],
-      "highlights": [
-        "Exact decimal prices, never floating point.",
-        "A database-enforced audit trail of every change.",
-        "Optimistic concurrency, so two users cannot silently overwrite each other's amendment.",
-        "Keyset pagination for large blotters."
-      ],
-      "results": "Deployed to AWS behind nginx with TLS · 325 unit, 39 integration and 10 end-to-end tests · load-test p95 of 209 ms.",
-      "links": {
-        "demo": "https://fusion.filhmar.online"
-      },
-      "domain": "full-stack",
-      "secondaryDomains": ["backend"],
-      "tier": "flagship",
-      "status": "live",
-      "metrics": [
-        {
-          "value": "325",
-          "label": "unit tests"
-        },
-        {
-          "value": "209 ms",
-          "label": "p95 under load"
-        },
-        {
-          "value": "~1 week",
-          "label": "to build"
-        }
-      ]
+      "context": "production"
     },
     {
       "id": "jms-e-talyer",
@@ -213,6 +137,176 @@
           "value": "400+",
           "label": "backend tests"
         }
+      ],
+      "context": "production"
+    },
+    {
+      "id": "peraplano",
+      "title": "PeraPlano",
+      "hook": "Privacy-first Android budgeting that tracks spending from your transaction notifications.",
+      "problem": "Manual expense logging is high-friction and most budgeting apps expose sensitive financial data. Users needed private tracking that updates itself.",
+      "role": "Sole developer: Android app, encryption model, and notification-derived transaction tracking.",
+      "stack": [
+        "Mobile",
+        "Android",
+        "React Native",
+        "Fintech",
+        "Encryption",
+        "Privacy"
+      ],
+      "highlights": [
+        "Encrypted user financial data: privacy-by-design for sensitive personal records.",
+        "Derives income and expense tracking from transaction push notifications, minimising manual input.",
+        "Daily, monthly and annual budgeting and savings goals with threshold alerts.",
+        "Roadmap includes optional premium features via in-app purchases."
+      ],
+      "results": "In development · planned for release in December 2026 with polished features · privacy-by-design · tracking derived from transaction push notifications.",
+      "links": {
+        "demo": "https://peraplano.filhmar.online"
+      },
+      "domain": "mobile",
+      "secondaryDomains": ["security"],
+      "tier": "flagship",
+      "status": "in-development",
+      "cover": {
+        "src": "/work/peraplano/cover.webp",
+        "alt": "PeraPlano interface",
+        "aspect": "16/10"
+      },
+      "shots": [
+        {
+          "src": "/work/peraplano/architecture.webp",
+          "alt": "PeraPlano system architecture diagram",
+          "caption": "System architecture",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/peraplano/screen-1.webp",
+          "alt": "PeraPlano main screen",
+          "caption": "Main screen",
+          "aspect": "9/19.5"
+        },
+        {
+          "src": "/work/peraplano/screen-2.webp",
+          "alt": "PeraPlano key workflow screen",
+          "caption": "Key workflow",
+          "aspect": "9/19.5"
+        }
+      ],
+      "timeline": {
+        "plannedRelease": "Dec 2026"
+      }
+    },
+    {
+      "id": "tara-level-up",
+      "title": "Tara LEVEL UP!",
+      "hook": "Gamified quests checked by an on-device LLM, fully offline.",
+      "problem": "Habit and motivation apps lean on the honor system or cloud AI that needs a live connection.",
+      "role": "Built from scratch in 21 hours with team BOOM TARA TARA G at the AppBuildersPH Hackathon 2026.",
+      "stack": [
+        "On-Device LLM",
+        "Offline Inference",
+        "Multimodal AI",
+        "Android"
+      ],
+      "highlights": [
+        "A local LLM verifies each finished task from a photo, a voice note or a short quiz, entirely on the phone.",
+        "XP is awarded under fixed rules, and the leaderboard is recomputed server-side to stop cheating.",
+        "Multimodal inference runs fully offline, with no signal required."
+      ],
+      "results": "Built in 21 hours at the AppBuildersPH Hackathon 2026 (SM Makati, October 2026), running multimodal AI fully offline on the phone.",
+      "links": {
+        "demo": "https://tara.filhmar.online"
+      },
+      "domain": "mobile",
+      "secondaryDomains": [],
+      "tier": "standard",
+      "metrics": [
+        {
+          "value": "21 h",
+          "label": "from scratch to working app"
+        }
+      ],
+      "context": "hackathon",
+      "shots": [
+        {
+          "src": "/work/tara-level-up/01.webp",
+          "alt": "Tara LEVEL UP!, image 1",
+          "aspect": "9/19.5"
+        },
+        {
+          "src": "/work/tara-level-up/02.webp",
+          "alt": "Tara LEVEL UP!, image 2",
+          "aspect": "9/19.5"
+        },
+        {
+          "src": "/work/tara-level-up/03.webp",
+          "alt": "Tara LEVEL UP!, image 3",
+          "aspect": "9/19.5"
+        }
+      ]
+    },
+    {
+      "id": "trade-blotter",
+      "title": "Real-Time Trade Blotter",
+      "hook": "Every trade booking, amendment and cancellation reaches every user instantly and correctly.",
+      "problem": "A trading platform assessment needed a real-time blotter where every trade booking, amendment and cancellation reaches all users instantly and correctly.",
+      "role": "Built end to end in about a week with Claude Code, documented in an AI usage report and prompt log.",
+      "stack": [
+        "TypeScript",
+        "React",
+        "Express",
+        "PostgreSQL",
+        "Socket.IO",
+        "Redis",
+        "Docker",
+        "AWS EC2",
+        "Claude Code"
+      ],
+      "highlights": [
+        "Exact decimal prices, never floating point.",
+        "A database-enforced audit trail of every change.",
+        "Optimistic concurrency, so two users cannot silently overwrite each other's amendment.",
+        "Keyset pagination for large blotters."
+      ],
+      "results": "Deployed to AWS behind nginx with TLS · 325 unit, 39 integration and 10 end-to-end tests · load-test p95 of 209 ms.",
+      "links": {
+        "demo": "https://fusion.filhmar.online"
+      },
+      "domain": "full-stack",
+      "secondaryDomains": ["backend"],
+      "tier": "standard",
+      "metrics": [
+        {
+          "value": "325",
+          "label": "unit tests"
+        },
+        {
+          "value": "209 ms",
+          "label": "p95 under load"
+        },
+        {
+          "value": "~1 week",
+          "label": "to build"
+        }
+      ],
+      "context": "assessment",
+      "shots": [
+        {
+          "src": "/work/trade-blotter/01.webp",
+          "alt": "Real-Time Trade Blotter, image 1",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/trade-blotter/02.webp",
+          "alt": "Real-Time Trade Blotter, image 2",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/trade-blotter/03.webp",
+          "alt": "Real-Time Trade Blotter, image 3",
+          "aspect": "16/10"
+        }
       ]
     },
     {
@@ -241,7 +335,25 @@
       },
       "domain": "full-stack",
       "secondaryDomains": ["backend"],
-      "tier": "compact"
+      "tier": "compact",
+      "context": "production",
+      "shots": [
+        {
+          "src": "/work/youcode-youflow/01.webp",
+          "alt": "YouFlow, image 1",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/youcode-youflow/02.webp",
+          "alt": "YouFlow, image 2",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/youcode-youflow/03.webp",
+          "alt": "YouFlow, image 3",
+          "aspect": "16/10"
+        }
+      ]
     },
     {
       "id": "youcode-youguard-bridge",
@@ -269,7 +381,25 @@
       "links": {},
       "domain": "iot",
       "secondaryDomains": ["backend"],
-      "tier": "compact"
+      "tier": "compact",
+      "context": "production",
+      "shots": [
+        {
+          "src": "/work/youcode-youguard-bridge/01.webp",
+          "alt": "YouGuard Master Bridge Server, image 1",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/work/youcode-youguard-bridge/02.webp",
+          "alt": "YouGuard Master Bridge Server, image 2",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/work/youcode-youguard-bridge/03.webp",
+          "alt": "YouGuard Master Bridge Server, image 3",
+          "aspect": "4/3"
+        }
+      ]
     },
     {
       "id": "youcode-hris",
@@ -295,7 +425,26 @@
       "links": {},
       "domain": "full-stack",
       "secondaryDomains": ["backend"],
-      "tier": "compact"
+      "tier": "compact",
+      "context": "production",
+      "nda": true,
+      "shots": [
+        {
+          "src": "/work/youcode-hris/01.webp",
+          "alt": "YouCode HRIS, image 1",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/youcode-hris/02.webp",
+          "alt": "YouCode HRIS, image 2",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/youcode-hris/03.webp",
+          "alt": "YouCode HRIS, image 3",
+          "aspect": "16/10"
+        }
+      ]
     },
     {
       "id": "youcode-civic-superapp",
@@ -321,7 +470,26 @@
       "links": {},
       "domain": "full-stack",
       "secondaryDomains": ["mobile"],
-      "tier": "compact"
+      "tier": "compact",
+      "context": "production",
+      "nda": true,
+      "shots": [
+        {
+          "src": "/work/youcode-civic-superapp/01.webp",
+          "alt": "Civic Super App Platform, image 1",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/youcode-civic-superapp/02.webp",
+          "alt": "Civic Super App Platform, image 2",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/youcode-civic-superapp/03.webp",
+          "alt": "Civic Super App Platform, image 3",
+          "aspect": "16/10"
+        }
+      ]
     },
     {
       "id": "youcode-lms",
@@ -340,59 +508,24 @@
       "links": {},
       "domain": "full-stack",
       "secondaryDomains": ["mobile"],
-      "tier": "compact"
-    },
-    {
-      "id": "peraplano",
-      "title": "PeraPlano",
-      "hook": "Privacy-first Android budgeting that tracks spending from your transaction notifications.",
-      "problem": "Manual expense logging is high-friction and most budgeting apps expose sensitive financial data. Users needed private tracking that updates itself.",
-      "role": "Sole developer: Android app, encryption model, and notification-derived transaction tracking.",
-      "stack": [
-        "Mobile",
-        "Android",
-        "React Native",
-        "Fintech",
-        "Encryption",
-        "Privacy"
-      ],
-      "highlights": [
-        "Encrypted user financial data: privacy-by-design for sensitive personal records.",
-        "Derives income and expense tracking from transaction push notifications, minimising manual input.",
-        "Daily, monthly and annual budgeting and savings goals with threshold alerts.",
-        "Roadmap includes optional premium features via in-app purchases."
-      ],
-      "results": "In development · free-to-use · privacy-by-design · tracking derived from transaction push notifications.",
-      "links": {
-        "demo": "https://peraplano.filhmar.online"
-      },
-      "domain": "mobile",
-      "secondaryDomains": ["security"],
       "tier": "compact",
-      "status": "in-development",
-      "cover": {
-        "src": "/work/peraplano/cover.webp",
-        "alt": "PeraPlano interface",
-        "aspect": "16/10"
-      },
+      "context": "production",
+      "nda": true,
       "shots": [
         {
-          "src": "/work/peraplano/architecture.webp",
-          "alt": "PeraPlano system architecture diagram",
-          "caption": "System architecture",
+          "src": "/work/youcode-lms/01.webp",
+          "alt": "Offline-First Learning Platform, image 1",
           "aspect": "16/10"
         },
         {
-          "src": "/work/peraplano/screen-1.webp",
-          "alt": "PeraPlano main screen",
-          "caption": "Main screen",
-          "aspect": "9/19.5"
+          "src": "/work/youcode-lms/02.webp",
+          "alt": "Offline-First Learning Platform, image 2",
+          "aspect": "16/10"
         },
         {
-          "src": "/work/peraplano/screen-2.webp",
-          "alt": "PeraPlano key workflow screen",
-          "caption": "Key workflow",
-          "aspect": "9/19.5"
+          "src": "/work/youcode-lms/03.webp",
+          "alt": "Offline-First Learning Platform, image 3",
+          "aspect": "16/10"
         }
       ]
     },
@@ -421,7 +554,25 @@
       },
       "domain": "full-stack",
       "secondaryDomains": [],
-      "tier": "compact"
+      "tier": "compact",
+      "context": "academic",
+      "shots": [
+        {
+          "src": "/work/kalusugapp/01.webp",
+          "alt": "Kalusugapp, image 1",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/kalusugapp/02.webp",
+          "alt": "Kalusugapp, image 2",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/kalusugapp/03.webp",
+          "alt": "Kalusugapp, image 3",
+          "aspect": "16/10"
+        }
+      ]
     },
     {
       "id": "genesys",
@@ -452,7 +603,24 @@
       },
       "domain": "full-stack",
       "secondaryDomains": [],
-      "tier": "compact"
+      "tier": "compact",
+      "shots": [
+        {
+          "src": "/work/genesys/01.webp",
+          "alt": "GeneSys, image 1",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/genesys/02.webp",
+          "alt": "GeneSys, image 2",
+          "aspect": "16/10"
+        },
+        {
+          "src": "/work/genesys/03.webp",
+          "alt": "GeneSys, image 3",
+          "aspect": "16/10"
+        }
+      ]
     },
     {
       "id": "flood-notification-system",
@@ -480,7 +648,32 @@
       },
       "domain": "iot",
       "secondaryDomains": [],
-      "tier": "compact"
+      "tier": "compact",
+      "shots": [
+        {
+          "src": "/work/flood-notification-system/01.webp",
+          "alt": "Flood Notification System, image 1",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/work/flood-notification-system/02.webp",
+          "alt": "Flood Notification System, image 2",
+          "aspect": "4/3"
+        },
+        {
+          "src": "/work/flood-notification-system/03.webp",
+          "alt": "Flood Notification System, image 3",
+          "aspect": "4/3"
+        }
+      ]
     }
-  ]
+  ],
+  "page": {
+    "label": "projects",
+    "heading": "Everything else I've built.",
+    "blurb": "Production systems under NDA, client and personal work, hackathon builds and assessments: when each one started, when it reached production, and what it ran on.",
+    "allLinkTemplate": "All other projects ({n}) →",
+    "featuredHeading": "Featured work",
+    "caseStudyLabel": "Read the case study →"
+  }
 }

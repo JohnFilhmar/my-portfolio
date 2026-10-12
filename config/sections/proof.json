@@ -9,6 +9,36 @@
   "openLabelTemplate": "Open {title} full size",
   "items": [
     {
+      "id": "usapp-live",
+      "src": "/proof/usapp/01.webp",
+      "alt": "Usapp on a phone, screen 1",
+      "title": "usapp",
+      "caption": "Usapp",
+      "blurb": "End-to-end encrypted messaging live on iOS and Android, and the push-notification backbone for every other company product.",
+      "category": "live systems",
+      "meta": "",
+      "href": "https://usapp.ph",
+      "aspect": "9/19.5",
+      "gallery": [
+        {
+          "src": "/proof/usapp/02.webp",
+          "alt": "Usapp on a phone, screen 2"
+        },
+        {
+          "src": "/proof/usapp/03.webp",
+          "alt": "Usapp on a phone, screen 3"
+        },
+        {
+          "src": "/proof/usapp/04.webp",
+          "alt": "Usapp on a phone, screen 4"
+        },
+        {
+          "src": "/proof/usapp/05.webp",
+          "alt": "Usapp on a phone, screen 5"
+        }
+      ]
+    },
+    {
       "id": "usapp-chat",
       "project": "usapp",
       "src": "/proof/usapp-chat.webp",
@@ -31,19 +61,8 @@
       "category": "live systems",
       "meta": "captured 2026-09-08 · peraplano.filhmar.online",
       "href": "https://peraplano.filhmar.online",
-      "aspect": "432/859"
-    },
-    {
-      "id": "genesys-quiz",
-      "src": "/proof/genesys-quiz.webp",
-      "alt": "A GeneSys quiz question on recombinant DNA technology with four options, a countdown timer and a running score",
-      "title": "genesys-quiz.webp",
-      "caption": "GeneSys",
-      "blurb": "A quiz room mid-round, timer counting down and score tracking correct, wrong and missed. Written to the Philippine K-12 General Biology curriculum.",
-      "category": "live systems",
-      "meta": "captured 2026-09-08 · genesys.filhmar.online",
-      "href": "https://genesys.filhmar.online",
-      "aspect": "540/476"
+      "aspect": "432/859",
+      "project": "peraplano"
     },
     {
       "id": "jms-e-talyer-home",

@@ -160,6 +160,8 @@ export const themeSchema = z.object({
     scanlineColor: z.string(),
     textureSize: z.string(),
     glow: z.boolean().default(true),
+    /** Interactive dot field behind the page (pointer and click aware). */
+    ambient: z.boolean().default(true),
   }),
 });
 export type ThemeConfig = z.infer<typeof themeSchema>;
@@ -264,6 +266,8 @@ export const siteSchema = z.object({
       mainLandmarkLabel: z.string().default("Main content"),
       scrollProgressLabel: z.string().default("Reading progress"),
       themeToggleLabel: z.string().default("Dark theme"),
+      menuLabel: z.string().default("Menu"),
+      menuCloseLabel: z.string().default("Close"),
     })
     .prefault({}),
   palette: paletteSchema,
@@ -303,11 +307,15 @@ export const heroSchema = z.object({
     cycleLabel: z.string().default("Show the next photo"),
     /** Placeholder text until a photo lands in public/portrait. */
     emptyLabel: z.string().default("portrait"),
+    /** How many placeholder photos to cycle through while none exist. */
+    placeholderCount: z.number().int().min(1).max(9).default(3),
     /** Filled by the loader: every image in public/portrait, by file name. */
     images: z.array(z.string()).default([]),
   }),
   /** Heading over the index of flagship projects. */
   indexLabel: z.string(),
+  /** Shown under an in-development system's status. `{date}` is replaced. */
+  plannedReleaseTemplate: z.string().default("release planned {date}"),
   /** Visible text for each project `status` in the index. */
   statusLabels: z
     .object({
@@ -341,6 +349,8 @@ export const skillSchema = z.object({
   /** 1–5. Skills at or above the group file's `coreLevel` get the core-strength treatment. */
   level: z.number().int().min(1).max(5).optional(),
   tags: z.array(z.string()).optional(),
+  /** Short evidence shown with the skill, e.g. "12 repos" or "at YouCode". */
+  note: z.string().optional(),
 });
 export type Skill = z.infer<typeof skillSchema>;
 
@@ -360,6 +370,12 @@ export const skillsSchema = z.object({
   coreMarker: z.string().default("▸"),
   coreLevel: z.number().int().min(1).max(5).default(4),
   groups: z.array(skillGroupSchema),
+  /** Heading over the soft skills. */
+  softHeading: z.string().default("How I work"),
+  /** Soft skills, each with the concrete evidence behind it. */
+  soft: z
+    .array(z.object({ name: z.string(), evidence: z.string() }))
+    .default([]),
 });
 export type SkillsConfig = z.infer<typeof skillsSchema>;
 
@@ -393,6 +409,35 @@ export const projectSchema = z.object({
   tier: z.enum(["flagship", "standard", "compact"]).default("standard"),
   /** Where the system stands today. Shown beside it in the hero index. */
   status: projectStatusSchema.optional(),
+  /** What kind of work it was; shown as a badge on /projects. */
+  context: z
+    .enum([
+      "production",
+      "client",
+      "personal",
+      "assessment",
+      "hackathon",
+      "academic",
+    ])
+    .optional(),
+  /** Details are limited by a non-disclosure agreement; shows an NDA badge. */
+  nda: z.boolean().default(false),
+  /**
+   * Dates in the project's life, free-form like "Mar 2025". Each one shows
+   * only when set, so fill them in as you have them.
+   */
+  timeline: z
+    .object({
+      /** First line of code. */
+      started: z.string().optional(),
+      /** First production release. */
+      firstRelease: z.string().optional(),
+      /** For work still in development. */
+      plannedRelease: z.string().optional(),
+      /** When active development stopped or the work was handed over. */
+      ended: z.string().optional(),
+    })
+    .optional(),
   /** Lead picture for the top of the case study. */
   cover: mediaItemSchema.optional(),
   /**
@@ -432,6 +477,47 @@ export const projectsSchema = z.object({
     repo: z.string().default("repo"),
     writeup: z.string().default("write-up"),
   }),
+  /** Copy for /projects, the page that lists everything not featured. */
+  page: z
+    .object({
+      label: z.string().default("projects"),
+      heading: z.string().default("Everything else I've built."),
+      blurb: z.string().default(""),
+      /** Link under the featured work on the home page. `{n}` = count. */
+      allLinkTemplate: z.string().default("All other projects ({n}) →"),
+      featuredHeading: z.string().default("Featured work"),
+      caseStudyLabel: z.string().default("Read the case study →"),
+      timelineLabels: z
+        .object({
+          started: z.string().default("first line of code"),
+          firstRelease: z.string().default("in production"),
+          plannedRelease: z.string().default("planned release"),
+          ended: z.string().default("wrapped up"),
+        })
+        .prefault({}),
+      /** Stands in for a date not supplied yet (placeholder mode only). */
+      pendingDateLabel: z.string().default("date to come"),
+      /** `{d}` = duration, e.g. "8 months". */
+      durationTemplate: z.string().default("{d} from first code to production"),
+      ndaLabel: z.string().default("NDA"),
+      ndaNote: z
+        .string()
+        .default(
+          "Built under a non-disclosure agreement, so internals stay private.",
+        ),
+      contextLabels: z
+        .object({
+          production: z.string().default("production"),
+          client: z.string().default("client work"),
+          personal: z.string().default("personal"),
+          assessment: z.string().default("assessment"),
+          hackathon: z.string().default("hackathon"),
+          academic: z.string().default("academic"),
+        })
+        .prefault({}),
+      galleryLabel: z.string().default("{title} images"),
+    })
+    .prefault({}),
   items: z.array(projectSchema),
 });
 export type ProjectsConfig = z.infer<typeof projectsSchema>;
@@ -464,6 +550,20 @@ export const proofItemSchema = z.object({
    * ones stay in the home evidence section and only show once the file exists.
    */
   project: z.string().optional(),
+  /**
+   * More pictures of the same thing. With any, the row becomes an
+   * auto-rotating carousel that starts with `src`.
+   */
+  gallery: z
+    .array(
+      z.object({
+        src: z.string(),
+        alt: z.string(),
+        /** Set by the config loader. Never authored. */
+        missing: z.boolean().default(false),
+      }),
+    )
+    .default([]),
   /** Set by the config loader when `src` has no file in ./public. Never authored. */
   missing: z.boolean().default(false),
 });
@@ -486,6 +586,8 @@ export type ProofConfig = z.infer<typeof proofSchema>;
 /* -------------------------------- experience ------------------------------- */
 
 export const experienceItemSchema = z.object({
+  /** Lets recommendations point at this role, e.g. "youcode". */
+  id: z.string().optional(),
   company: z.string(),
   title: z.string(),
   start: z.string(),
@@ -684,9 +786,59 @@ export interface AppConfig {
   education: EducationConfig;
   certifications: CertificationsConfig;
   notes: NotesConfig;
+  recommendations: RecommendationsConfig;
   contact: ContactConfig;
   assistant: AssistantConfig;
 }
+
+/* ----------------------------- recommendations ----------------------------- */
+
+export const recommendationSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  /** Their title, e.g. "CTO" or "Barangay health worker". */
+  role: z.string(),
+  organization: z.string().optional(),
+  relationship: z.enum(["employer", "colleague", "client", "end-user"]),
+  quote: z.string(),
+  /** Free-form, e.g. "Sep 2026". */
+  date: z.string().optional(),
+  /** Photo under ./public. Dropped if the file is absent; initials show instead. */
+  photo: z.string().optional(),
+  /** Where it can be checked, e.g. the LinkedIn recommendation. */
+  sourceHref: z.string().optional(),
+  /** Experience id from experience.json this is about, e.g. "youcode". */
+  experience: z.string().optional(),
+  /** Project id from projects.json this is about, e.g. "usapp". */
+  project: z.string().optional(),
+});
+export type Recommendation = z.infer<typeof recommendationSchema>;
+
+export const recommendationsSchema = z.object({
+  _readme: readme,
+  label: z.string(),
+  heading: z.string(),
+  blurb: z.string(),
+  emptyMessage: z.string(),
+  filterLabel: z.string().default("Filter recommendations by relationship"),
+  allLabel: z.string().default("all"),
+  relationshipLabels: z
+    .object({
+      employer: z.string().default("employer"),
+      colleague: z.string().default("colleague"),
+      client: z.string().default("client"),
+      "end-user": z.string().default("end user"),
+    })
+    .prefault({}),
+  /** Link text to what it is about. `{name}` = company or project. */
+  aboutExperienceTemplate: z.string().default("at {name}"),
+  aboutProjectTemplate: z.string().default("on {name}"),
+  sourceLabel: z.string().default("verify"),
+  /** Heading over recommendations shown on a project or case study. */
+  linkedHeading: z.string().default("What people say"),
+  items: z.array(recommendationSchema),
+});
+export type RecommendationsConfig = z.infer<typeof recommendationsSchema>;
 
 /** Runtime assistant mode, resolved server-side from env. */
 export type AssistantMode = "demo" | "live";

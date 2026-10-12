@@ -1,4 +1,10 @@
-import type { ExperienceItem, LightboxConfig } from "@config/schema";
+import type {
+  ExperienceItem,
+  LightboxConfig,
+  Recommendation,
+  RecommendationsConfig,
+} from "@config/schema";
+import { RecommendationCard } from "@/components/recommendations/RecommendationCard";
 import { PhotoStrip } from "@/components/ui/PhotoStrip";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +14,9 @@ export interface TimelineItemProps {
   /** Accessible name for this role's photo strip, already interpolated. */
   photosLabel: string;
   lightbox: LightboxConfig;
+  /** Recommendations about this role; the first two show under it. */
+  recommendations: Recommendation[];
+  recommendationLabels: RecommendationsConfig;
 }
 
 /** One role: date range column + title, company and bullets. */
@@ -16,10 +25,12 @@ export function TimelineItem({
   presentLabel,
   photosLabel,
   lightbox,
+  recommendations,
+  recommendationLabels,
 }: TimelineItemProps) {
   const current = item.end === null;
   return (
-    <div className="grid grid-cols-[minmax(92px,130px)_1fr] gap-[clamp(14px,3vw,28px)] border-t border-border-muted py-[22px]">
+    <div className="grid gap-2 border-t sm:grid-cols-[minmax(92px,130px)_1fr] sm:gap-[clamp(14px,3vw,28px)] border-border-muted py-[22px]">
       <p
         className={cn(
           "m-0 mt-0.5 whitespace-pre-line font-mono text-sm",
@@ -50,6 +61,19 @@ export function TimelineItem({
             </li>
           ))}
         </ul>
+        {recommendations.length > 0 && (
+          <div className="mt-5 grid gap-3 md:grid-cols-2">
+            {recommendations.slice(0, 2).map((rec) => (
+              <RecommendationCard
+                key={rec.id}
+                rec={rec}
+                labels={recommendationLabels}
+                links={[]}
+                compact
+              />
+            ))}
+          </div>
+        )}
         <PhotoStrip
           photos={item.photos}
           groupLabel={photosLabel}

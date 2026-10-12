@@ -7,6 +7,7 @@ import { resolveSections } from "@/lib/sections";
 import { buildSeo, pageSeo, type SeoData } from "@/lib/seo";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { CaseStudy } from "@/components/work/CaseStudy";
+import { recommendationsAbout } from "@/lib/recommendations";
 
 interface PageProps {
   config: AppConfig;
@@ -74,6 +75,10 @@ export default function WorkPage({
         lightbox={config.site.lightbox}
         backHref={backHref}
         next={next}
+        recommendations={recommendationsAbout(config.recommendations.items, {
+          project: project.id,
+        })}
+        recommendationLabels={config.recommendations}
       />
     </SiteShell>
   );

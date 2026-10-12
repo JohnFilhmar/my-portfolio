@@ -97,3 +97,17 @@ export function publicAssetExists(src: string): boolean {
     return false;
   }
 }
+
+/**
+ * Whether empty image slots should render as drawn placeholders: always in
+ * development, and in a production build only with SHOW_PLACEHOLDERS=1, so
+ * visitors never see an unfinished slot by accident.
+ *
+ * @returns True when placeholders should be kept.
+ */
+export function showPlaceholders(): boolean {
+  return (
+    process.env.NODE_ENV !== "production" ||
+    process.env.SHOW_PLACEHOLDERS === "1"
+  );
+}

@@ -1,6 +1,11 @@
 import fs from "fs";
 import path from "path";
-import { PUBLIC_DIR, loadFile, publicAssetExists } from "./files";
+import {
+  PUBLIC_DIR,
+  loadFile,
+  publicAssetExists,
+  showPlaceholders,
+} from "./files";
 import { isExpired } from "./expiry";
 import { loadNotes } from "./notes";
 import { noteSummarySchema, notesSchema } from "./notesSchema";
@@ -13,6 +18,7 @@ import {
   experienceSchema,
   heroSchema,
   projectsSchema,
+  recommendationsSchema,
   proofSchema,
   siteSchema,
   skillsSchema,
@@ -106,12 +112,22 @@ export function loadConfig(): AppConfig {
     },
     // A capture bound to a case study keeps its slot as a placeholder until the
     // file lands. An unbound one is home-page evidence, which is only evidence
-    // if the picture exists, so it is dropped rather than rendered as a gap.
+    // if a picture exists, so it is dropped rather than rendered as a gap,
+    // except where placeholders are on (local development).
     proof: {
       ...proof,
       items: proof.items
-        .map(withMissingFlag)
-        .filter((item) => item.project !== undefined || !item.missing),
+        .map((item) => ({
+          ...withMissingFlag(item),
+          gallery: item.gallery.map(withMissingFlag),
+        }))
+        .filter(
+          (item) =>
+            item.project !== undefined ||
+            !item.missing ||
+            item.gallery.some((shot) => !shot.missing) ||
+            showPlaceholders(),
+        ),
     },
     experience: {
       ...experience,
@@ -130,6 +146,21 @@ export function loadConfig(): AppConfig {
       // Parsing through the summary schema strips each body off the props.
       posts: loadNotes().map((note) => noteSummarySchema.parse(note)),
     },
+    recommendations: (() => {
+      const recs = loadFile(
+        "sections/recommendations.json",
+        recommendationsSchema,
+      );
+      return {
+        ...recs,
+        items: recs.items.map((item) => {
+          if (!item.photo || publicAssetExists(item.photo)) return item;
+          const next = { ...item };
+          delete next.photo;
+          return next;
+        }),
+      };
+    })(),
     contact: loadFile("sections/contact.json", contactSchema),
     assistant: loadFile("assistant.json", assistantSchema),
   };

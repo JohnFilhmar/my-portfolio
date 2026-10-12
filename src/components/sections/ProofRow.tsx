@@ -1,4 +1,5 @@
 import type { ProofItem } from "@config/schema";
+import { Carousel } from "@/components/ui/Carousel";
 import { ImageFrame } from "@/components/ui/ImageFrame";
 import { Tag } from "@/components/ui/Tag";
 import { cn, isExternalHref } from "@/lib/utils";
@@ -11,7 +12,9 @@ export interface ProofRowProps {
   flipped: boolean;
   /** First row loads eagerly; the rest wait until they are scrolled to. */
   eager: boolean;
-  onOpen: () => void;
+  reducedMotion: boolean;
+  /** Opens the picture at `src` full size. */
+  onOpen: (src: string) => void;
 }
 
 /** Ratio below this reads as a portrait shot (a phone, or a tall panel). */
@@ -38,46 +41,64 @@ export function ProofRow({
   openLabelTemplate,
   flipped,
   eager,
+  reducedMotion,
   onOpen,
 }: ProofRowProps) {
+  const slides = [
+    { src: item.src, alt: item.alt, missing: item.missing },
+    ...item.gallery,
+  ];
   const portrait = aspectRatio(item.aspect) < PORTRAIT_RATIO;
   const host = item.href?.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
   return (
     <article className="grid items-center gap-x-column-gap gap-y-6 md:grid-cols-2">
       <div className={cn("min-w-0", flipped && "md:order-2")}>
-        <div
-          className={cn(
-            "overflow-hidden rounded-xl border border-border bg-surface shadow-window",
-            portrait && "mx-auto max-w-[320px]",
-          )}
-        >
-          {item.missing ? (
-            <ImageFrame
-              src={item.src}
-              alt={item.alt}
-              aspect={item.aspect}
-              fallbackLabel={item.caption}
-              missing
-            />
-          ) : (
-            <button
-              type="button"
-              onClick={onOpen}
-              aria-label={openLabelTemplate.replace("{title}", item.title)}
-              className="block w-full cursor-zoom-in border-none bg-transparent p-0 transition duration-base hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
-            >
+        {item.gallery.length > 0 ? (
+          <Carousel
+            slides={slides}
+            aspect={item.aspect}
+            label={item.caption}
+            reducedMotion={reducedMotion}
+            onOpen={(i) => {
+              const slide = slides[i];
+              if (slide) onOpen(slide.src);
+            }}
+          />
+        ) : (
+          <div
+            className={cn(
+              "overflow-hidden rounded-xl border border-border bg-surface shadow-window",
+              portrait && "mx-auto max-w-[320px]",
+            )}
+          >
+            {item.missing ? (
               <ImageFrame
                 src={item.src}
                 alt={item.alt}
                 aspect={item.aspect}
-                eager={eager}
-                fit={portrait ? "contain" : "cover"}
-                fallbackLabel={item.title}
+                fallbackLabel={item.caption}
+                missing
               />
-            </button>
-          )}
-        </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => onOpen(item.src)}
+                aria-label={openLabelTemplate.replace("{title}", item.title)}
+                className="block w-full cursor-zoom-in border-none bg-transparent p-0 transition duration-base hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
+              >
+                <ImageFrame
+                  src={item.src}
+                  alt={item.alt}
+                  aspect={item.aspect}
+                  eager={eager}
+                  fit={portrait ? "contain" : "cover"}
+                  fallbackLabel={item.title}
+                />
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       <div className={cn("min-w-0", flipped && "md:order-1")}>

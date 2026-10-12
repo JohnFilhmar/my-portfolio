@@ -1,14 +1,24 @@
-import type { ExperienceConfig, LightboxConfig } from "@config/schema";
+import type {
+  ExperienceConfig,
+  LightboxConfig,
+  RecommendationsConfig,
+} from "@config/schema";
+import { recommendationsAbout } from "@/lib/recommendations";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { TimelineItem } from "@/components/sections/TimelineItem";
 
 export interface ExperienceProps {
   experience: ExperienceConfig;
   lightbox: LightboxConfig;
+  recommendations: RecommendationsConfig;
 }
 
 /** Experience: vertical timeline of roles. */
-export function Experience({ experience, lightbox }: ExperienceProps) {
+export function Experience({
+  experience,
+  lightbox,
+  recommendations,
+}: ExperienceProps) {
   return (
     <>
       <SectionHeading className="mb-9">{experience.heading}</SectionHeading>
@@ -23,6 +33,14 @@ export function Experience({ experience, lightbox }: ExperienceProps) {
               item.company,
             )}
             lightbox={lightbox}
+            recommendations={
+              item.id
+                ? recommendationsAbout(recommendations.items, {
+                    experience: item.id,
+                  })
+                : []
+            }
+            recommendationLabels={recommendations}
           />
         ))}
       </div>
