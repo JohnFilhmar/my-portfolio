@@ -260,8 +260,8 @@ export function GlyphPortrait({
           ref={preRef}
           className={cn(
             "relative m-0 select-none whitespace-pre bg-clip-text font-mono font-semibold leading-none tracking-cell text-transparent",
-            // Lifts the glyphs off the dimmed photo: darker on light, brighter on dark.
-            "brightness-75 contrast-125 saturate-150 dark:brightness-125",
+            // Lifts the glyphs off the dimmed photo on the dark frame.
+            "brightness-125 contrast-125 saturate-150",
             PHOTO,
           )}
         />

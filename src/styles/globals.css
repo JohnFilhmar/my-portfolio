@@ -28,19 +28,19 @@
     background-size: 24px 24px;
   }
   /*
-   * The frame behind the portrait: a steel-blue field built from the palette
-   * tokens, with film grain over it so it reads as a surface. Its light turns
-   * (--ga) when the photo changes.
+   * The frame behind the portrait: a near-black field tinted by the accent,
+   * dark in both themes so the photo-colored glyphs always read, with film
+   * grain over it so it reads as a surface. Its light turns (--ga) when the
+   * photo changes.
    */
   .portrait-backdrop {
     overflow: hidden;
     isolation: isolate;
     background: linear-gradient(
       var(--ga),
-      color-mix(in oklab, var(--color-accent) 52%, var(--color-surface)) 0%,
-      var(--color-surface-inset) 58%,
-      color-mix(in oklab, var(--color-accent) 28%, var(--color-background-alt))
-        100%
+      color-mix(in oklab, var(--color-accent) 34%, #05070b) 0%,
+      #07090d 58%,
+      color-mix(in oklab, var(--color-accent) 18%, #05070b) 100%
     );
     transition: --ga 900ms var(--easing-standard);
   }

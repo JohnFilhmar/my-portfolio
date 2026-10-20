@@ -44,7 +44,7 @@ function pointIn(event: MouseEvent<Element>): { x: number; y: number } {
 
 /**
  * The hero portrait, drawn in ASCII glyphs that build up slowly on load,
- * standing in a grain-textured frame its head rises out of. Hovering morphs a
+ * standing in a dark, grain-textured frame. Hovering morphs a
  * photo into its hover partner (`NN-hover`); clicking sends a pulse through
  * the glyphs into the next pair and moves the light in the frame. Touch skips
  * hover and taps cycle. Until grids exist, the same frame cycles through
@@ -100,7 +100,7 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
       <div
         aria-hidden="true"
         style={light}
-        className="portrait-backdrop absolute inset-x-[6%] bottom-0 top-[18%] rounded-3xl"
+        className="portrait-backdrop absolute inset-x-[6%] bottom-0 top-[10%] rounded-3xl"
       />
       <div
         role="img"
