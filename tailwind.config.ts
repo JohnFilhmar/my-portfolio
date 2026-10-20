@@ -77,6 +77,10 @@ const config: Config = {
         mono: "var(--font-mono)",
         sans: "var(--font-sans)",
       },
+      letterSpacing: {
+        // Widens a 0.6em monospace advance to a square 1em cell (glyph portrait).
+        cell: "0.4em",
+      },
       fontSize: fontSizeVars,
       borderRadius: radiusVars,
       boxShadow: shadowVars,
@@ -111,6 +115,10 @@ const config: Config = {
         "pulse-ring": "pulse-ring 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite",
         "rise-in":
           "rise-in var(--duration-reveal) var(--easing-reveal) 120ms both",
+        // The glyph portrait's dimmed photo: slower than the glyphs on load.
+        "photo-in": "fade-in 2400ms var(--easing-standard) 600ms both",
+        "photo-swap":
+          "fade-in var(--duration-reveal) var(--easing-standard) both",
       },
       maxWidth: {
         container: "var(--space-container-max)",

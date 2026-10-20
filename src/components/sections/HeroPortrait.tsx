@@ -1,5 +1,16 @@
-import { useState, type CSSProperties } from "react";
+import {
+  useMemo,
+  useState,
+  type CSSProperties,
+  type MouseEvent,
+  type PointerEvent,
+} from "react";
 import type { HeroConfig } from "@config/schema";
+import {
+  GlyphPortrait,
+  type GlyphChange,
+  type GlyphMode,
+} from "@/components/sections/GlyphPortrait";
 import { PlaceholderArt } from "@/components/ui/PlaceholderArt";
 import { cn } from "@/lib/utils";
 
@@ -15,34 +26,72 @@ const LAYER = {
   idle: "opacity-0 [clip-path:inset(100%_0_0_0)]",
 } as const;
 
-const IMG = "absolute inset-0 h-full w-full object-contain object-bottom";
-
 /** The angle the backdrop's light comes from for each photo, cycling. */
 const LIGHT = ["160deg", "215deg", "120deg"];
 
+/** Roughly where a face sits in the frame: the first build spreads from here. */
+const FACE = { x: 0.5, y: 0.4 };
+
+/** The pointer's position as fractions of the element it is over. */
+function pointIn(event: MouseEvent<Element>): { x: number; y: number } {
+  if (event.detail === 0 && event.type === "click") return FACE;
+  const box = event.currentTarget.getBoundingClientRect();
+  return {
+    x: (event.clientX - box.left) / box.width,
+    y: (event.clientY - box.top) / box.height,
+  };
+}
+
 /**
- * The hero photo, toned blue by the theme, standing in a grain-textured
- * frame its head rises out of. Hover lifts it and fades in the true color.
- * With more than one photo in public/portrait, a click wipes the next one up
- * from the bottom and moves the light in the frame. Until photos exist, the
- * same frame cycles through drawn placeholders, so the layout can be judged.
+ * The hero portrait, drawn in ASCII glyphs that build up slowly on load,
+ * standing in a dark, grain-textured frame. Hovering morphs a
+ * photo into its hover partner (`NN-hover`); clicking sends a pulse through
+ * the glyphs into the next pair and moves the light in the frame. Touch skips
+ * hover and taps cycle. Until grids exist, the same frame cycles through
+ * drawn placeholders, so the layout can be judged.
  */
 export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
-  const { images, alt, cycleLabel, emptyLabel, placeholderCount } = portrait;
+  const { frames, alt, cycleLabel, emptyLabel, placeholderCount } = portrait;
+  const glyphs = frames.length > 0;
+  const total = glyphs ? frames.length : placeholderCount;
+  const cycles = total > 1;
   const [index, setIndex] = useState(0);
   const [previous, setPrevious] = useState<number | null>(null);
-  const empty = images.length === 0;
-  const slots: Array<string | null> = empty
-    ? Array.from({ length: placeholderCount }, () => null)
-    : images;
-  const total = slots.length;
-  const cycles = total > 1;
+  const [hovered, setHovered] = useState(false);
+  const [change, setChange] = useState<GlyphChange | null>(() =>
+    frames[0] ? { shot: frames[0].main, origin: FACE, mode: "build" } : null,
+  );
+  const preload = useMemo(
+    () => frames.flatMap((f) => (f.hover ? [f.main, f.hover] : [f.main])),
+    [frames],
+  );
   const light: CSSProperties & Record<"--ga", string> = {
     "--ga": LIGHT[index % LIGHT.length] ?? "160deg",
   };
 
+  // Asks the glyphs for photo `i` (or its hover partner), unless already showing it.
+  const show = (
+    i: number,
+    hover: boolean,
+    origin: GlyphChange["origin"],
+    mode: GlyphMode,
+  ) => {
+    const frame = frames[i];
+    if (!frame) return;
+    const shot = hover && frame.hover ? frame.hover : frame.main;
+    if (shot !== change?.shot) setChange({ shot, origin, mode });
+  };
+
+  const hover = (event: PointerEvent<HTMLElement>, on: boolean) => {
+    if (event.pointerType === "touch") return;
+    setHovered(on);
+    show(index, on, pointIn(event), "swap");
+  };
+
   return (
     <figure
+      onPointerEnter={(e) => hover(e, true)}
+      onPointerLeave={(e) => hover(e, false)}
       className={cn(
         "group relative m-0 aspect-square w-full max-w-[calc(100dvh-var(--space-header-height)-var(--space-hero-top))] animate-rise-in",
         className,
@@ -51,23 +100,25 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
       <div
         aria-hidden="true"
         style={light}
-        className="portrait-backdrop absolute inset-x-[6%] bottom-0 top-[18%] rounded-3xl"
+        className="portrait-backdrop absolute inset-x-[6%] bottom-0 top-[10%] rounded-3xl"
       />
       <div
         role="img"
         aria-label={alt}
         className="absolute inset-0 transition-transform duration-base ease-standard group-hover:-translate-y-2"
       >
-        {slots.map((src, i) => {
-          const state =
-            i === index ? "active" : i === previous ? "leaving" : "idle";
-          return (
-            <span
-              key={src ?? `slot-${i}`}
-              aria-hidden="true"
-              className={cn("absolute inset-0", LAYER[state])}
-            >
-              {src === null ? (
+        {glyphs && change ? (
+          <GlyphPortrait change={change} preload={preload} />
+        ) : (
+          Array.from({ length: placeholderCount }, (_, i) => {
+            const state =
+              i === index ? "active" : i === previous ? "leaving" : "idle";
+            return (
+              <span
+                key={i}
+                aria-hidden="true"
+                className={cn("absolute inset-0", LAYER[state])}
+              >
                 <PlaceholderArt
                   kind="person"
                   label={emptyLabel}
@@ -75,42 +126,21 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
                   plain
                   className="text-heading"
                 />
-              ) : (
-                <>
-                  {/* Plain tags for the same reason as ImageFrame: no optimizer in the standalone image. */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={src}
-                    alt=""
-                    loading={i === 0 ? "eager" : "lazy"}
-                    decoding="async"
-                    className={IMG}
-                  />
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={src}
-                    alt=""
-                    loading={i === 0 ? "eager" : "lazy"}
-                    decoding="async"
-                    className={cn(
-                      IMG,
-                      "portrait-tint transition-opacity duration-base ease-standard group-hover:opacity-0",
-                    )}
-                  />
-                </>
-              )}
-            </span>
-          );
-        })}
+              </span>
+            );
+          })
+        )}
       </div>
       {cycles && (
         <>
           <button
             type="button"
             aria-label={`${cycleLabel} (${index + 1} of ${total})`}
-            onClick={() => {
+            onClick={(e) => {
+              const next = (index + 1) % total;
               setPrevious(index);
-              setIndex((index + 1) % total);
+              setIndex(next);
+              show(next, hovered, pointIn(e), "pulse");
             }}
             className="absolute inset-0 z-[3] cursor-pointer border-none bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
           />

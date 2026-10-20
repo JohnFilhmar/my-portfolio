@@ -58,7 +58,7 @@
       "title": "peraplano-ledger.webp",
       "caption": "PeraPlano",
       "blurb": "One bank notification becoming a ledger entry: parsed into amount, direction, merchant and category, then committed and reflected in what is safe to spend. All of it on the device.",
-      "category": "live systems",
+      "category": "in beta",
       "meta": "captured 2026-09-08 · peraplano.filhmar.online",
       "href": "https://peraplano.filhmar.online",
       "aspect": "432/859",

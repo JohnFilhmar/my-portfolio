@@ -12,6 +12,14 @@
   "seo": {
     "image": "/og.png",
     "imageAlt": "John Filhmar Ola: Full Stack Software Engineer",
+    "description": "Full-stack software engineer John Filhmar Ola builds and runs production systems: TypeScript, React, Node.js, CI/CD and servers. Open to work.",
+    "titles": {
+      "/projects": "Software projects",
+      "/certifications": "Certifications and competition results",
+      "/ask": "Ask my AI assistant",
+      "/notes": "Engineering notes",
+      "/recommendations": "Recommendations"
+    },
     "keywords": [
       "John Filhmar Ola",
       "full stack software engineer",
@@ -163,7 +171,7 @@
     },
     {
       "type": "education",
-      "enabled": false
+      "enabled": true
     },
     {
       "type": "certifications",

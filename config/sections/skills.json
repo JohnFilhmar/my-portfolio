@@ -39,10 +39,6 @@
           "note": "1 repo"
         },
         {
-          "name": "Ruby",
-          "note": "1 repo"
-        },
-        {
           "name": "Go",
           "note": "at YouCode"
         },
@@ -79,7 +75,7 @@
         },
         {
           "name": "Vite",
-          "level": 5,
+          "level": 3,
           "note": "6 repos"
         },
         {
@@ -88,11 +84,13 @@
           "note": "5 repos"
         },
         {
-          "name": "Radix UI",
-          "note": "3 repos"
+          "name": "Redux"
         },
         {
-          "name": "GSAP, Motion, Lenis",
+          "name": "Context API"
+        },
+        {
+          "name": "Lenis smooth scrolling",
           "note": "3 repos"
         },
         {
@@ -111,7 +109,7 @@
       "blurb": "React Native apps that keep working without a signal.",
       "skills": [
         {
-          "name": "React Native, Expo Router",
+          "name": "React Native (Expo), React Navigation",
           "level": 5,
           "note": "4 repos"
         },
@@ -178,19 +176,26 @@
         },
         {
           "name": "BullMQ, pg-boss, Celery",
-          "note": "3 repos"
+          "note": "3 repos",
+          "level": 3
         },
         {
           "name": "Pino logging",
-          "note": "4 repos"
+          "note": "4 repos",
+          "level": 3
         },
         {
           "name": "Django REST Framework",
-          "note": "1 repo"
+          "note": "1 repo",
+          "level": 3
         },
         {
-          "name": "Ruby on Rails",
-          "note": "1 repo"
+          "name": "C#, ASP.NET Core (.NET 10)",
+          "note": "trade blotter (.NET)"
+        },
+        {
+          "name": "SignalR",
+          "note": "trade blotter (.NET)"
         }
       ]
     },
@@ -228,7 +233,16 @@
         },
         {
           "name": "Drizzle",
-          "note": "2 repos"
+          "note": "2 repos",
+          "level": 3
+        },
+        {
+          "name": "SQL Server",
+          "note": "trade blotter (.NET)"
+        },
+        {
+          "name": "SQLCipher",
+          "note": "PeraPlano"
         }
       ]
     },
@@ -279,6 +293,9 @@
         {
           "name": "AWS EC2",
           "note": "1 repo"
+        },
+        {
+          "name": "Vercel"
         }
       ]
     },
@@ -359,26 +376,16 @@
           "note": "6 repos"
         },
         {
-          "name": "Testing Library",
-          "level": 5,
-          "note": "6 repos"
-        },
-        {
           "name": "Playwright",
           "level": 5,
           "note": "5 repos"
         },
         {
-          "name": "Supertest",
-          "note": "3 repos"
-        },
-        {
-          "name": "axe accessibility",
-          "note": "2 repos"
-        },
-        {
           "name": "k6 load testing",
           "note": "at YouCode"
+        },
+        {
+          "name": "Testcontainers"
         }
       ]
     },
@@ -393,7 +400,12 @@
           "note": "10 repos"
         },
         {
-          "name": "LLM APIs (Anthropic, OpenAI)",
+          "name": "Claude Code",
+          "level": 5,
+          "note": "daily"
+        },
+        {
+          "name": "LLM APIs (Anthropic Claude; OpenAI previously)",
           "level": 5,
           "note": "6 repos"
         },
@@ -404,6 +416,12 @@
         {
           "name": "Ollama",
           "note": "2 repos"
+        },
+        {
+          "name": "llama.cpp"
+        },
+        {
+          "name": "vLLM"
         },
         {
           "name": "MCP servers",
@@ -424,7 +442,7 @@
     },
     {
       "name": "Learning fast",
-      "evidence": "I taught myself Ruby and Rails while building trust-desk, and kept the learning guide and exercises in the repo."
+      "evidence": "I learned C# and ASP.NET Core to build the .NET version of the trade blotter: three services on SQL Server and SignalR, with 472 tests."
     },
     {
       "name": "Product thinking",

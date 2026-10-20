@@ -19,11 +19,7 @@ type FormStatus = "idle" | "sending" | "sent" | "error";
 const COOLDOWN_SECONDS = 30;
 
 /** Contact: email CTA + socials on the left, send-message card on the right. */
-export function Contact({
-  contact,
-  site,
-  contactViaApi,
-}: ContactProps) {
+export function Contact({ contact, site, contactViaApi }: ContactProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -178,7 +174,10 @@ export function Contact({
                 {status === "sending"
                   ? contact.form.sendingLabel
                   : cooldown > 0
-                    ? contact.form.cooldownLabel.replace("{s}", String(cooldown))
+                    ? contact.form.cooldownLabel.replace(
+                        "{s}",
+                        String(cooldown),
+                      )
                     : contact.form.submitLabel}
               </Button>
               <span

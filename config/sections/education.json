@@ -10,7 +10,7 @@
       "degree": "BS Information Technology",
       "start": "2021",
       "end": "2025",
-      "note": "Capstone: Kalusugapp, a patient records and appointment system deployed at the Victoria Municipal Health Office.",
+      "note": "Capstone: Kalusugapp, a patient records and appointment system deployed privately at the Victoria Municipal Health Office.",
       "photos": [
         {
           "src": "/education/graduation.webp",
@@ -43,12 +43,6 @@
           "src": "/education/bcrv-training.webp",
           "alt": "Java programming training at BCRV Tech-Voc",
           "caption": "Java programming training · BCRV Tech-Voc",
-          "aspect": "4/3"
-        },
-        {
-          "src": "/education/bcrv-certificate.webp",
-          "alt": "TESDA Programming (Java) NC III certificate from BCRV Tech-Voc",
-          "caption": "Programming (Java) NC III certificate",
           "aspect": "4/3"
         }
       ]

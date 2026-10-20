@@ -1,0 +1,120 @@
+<!doctype html>
+<!--
+  Social share image template for public/og.png (1200x630).
+  Colors come from the dark palette in config/theme.json; text matches
+  config/site.json. To regenerate: open this file in a browser with a
+  1200x630 viewport and save a PNG screenshot of the page to public/og.png.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>og image</title>
+    <style>
+      @font-face {
+        font-family: "Archivo";
+        src: url("../src/fonts/archivo-latin-wdth-normal.woff2") format("woff2");
+        font-weight: 100 900;
+        font-stretch: 62% 125%;
+      }
+      @font-face {
+        font-family: "IBM Plex Sans";
+        src: url("../src/fonts/ibm-plex-sans-latin-400-normal.woff2")
+          format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "IBM Plex Mono";
+        src: url("../src/fonts/ibm-plex-mono-latin-500-normal.woff2")
+          format("woff2");
+        font-weight: 500;
+      }
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+      }
+      body {
+        background: #13232f;
+        color: #eaf0f5;
+        font-family: "IBM Plex Sans", sans-serif;
+        padding: 84px 84px 72px;
+        display: flex;
+        flex-direction: column;
+        background-image:
+          linear-gradient(#1a2c3a 1px, transparent 1px),
+          linear-gradient(90deg, #1a2c3a 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+      .name {
+        font-family: "Archivo", sans-serif;
+        font-weight: 800;
+        font-stretch: 112%;
+        font-size: 92px;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+      .name span {
+        color: #93b8e8;
+      }
+      .role {
+        margin-top: 28px;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 500;
+        font-size: 34px;
+        color: #93b8e8;
+      }
+      .tagline {
+        margin-top: 22px;
+        font-size: 28px;
+        color: #a9b9c6;
+      }
+      footer {
+        margin-top: auto;
+        padding-top: 32px;
+        border-top: 1px solid #2f4555;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 500;
+      }
+      .site {
+        font-size: 26px;
+        color: #eaf0f5;
+      }
+      .tags {
+        display: flex;
+        gap: 12px;
+      }
+      .tags li {
+        list-style: none;
+        font-size: 19px;
+        color: #c3d0db;
+        border: 1px solid #3b5264;
+        border-radius: 999px;
+        padding: 8px 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="name">John Filhmar Ola<span>.</span></div>
+    <div class="role">Full Stack Software Engineer</div>
+    <p class="tagline">
+      I build systems end to end, from first commit to production operation.
+    </p>
+    <footer>
+      <div class="site">filhmar.online</div>
+      <ul class="tags">
+        <li>Full-Stack</li>
+        <li>React Native</li>
+        <li>Node.js</li>
+        <li>AI Workflows</li>
+      </ul>
+    </footer>
+  </body>
+</html>

@@ -2,7 +2,12 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
 import { loadAssistantConfig } from "@config/index";
 import type { AssistantConfig, AssistantMode } from "@config/schema";
-import { refundAnswer, remainingAnswers, reserveAnswer, visitorKey } from "@/lib/aiQuota";
+import {
+  refundAnswer,
+  remainingAnswers,
+  reserveAnswer,
+  visitorKey,
+} from "@/lib/aiQuota";
 import {
   FAQ_CONFIDENT_SCORE,
   MAX_HISTORY_ITEM_CHARS,
@@ -13,7 +18,11 @@ import {
   looksLikeInjection,
   matchIntent,
 } from "@/lib/assistant";
-import { getAssistantEnv, resolveAssistantMode, type AssistantEnv } from "@/lib/env";
+import {
+  getAssistantEnv,
+  resolveAssistantMode,
+  type AssistantEnv,
+} from "@/lib/env";
 import { getProvider, type ChatMessage, type LLMProvider } from "@/lib/llm";
 import { checkRateLimit, getClientIp } from "@/lib/rateLimit";
 
@@ -110,7 +119,11 @@ interface Context {
 function loadContext(res: NextApiResponse): Context | null {
   try {
     const env = getAssistantEnv();
-    return { env, assistant: loadAssistantConfig(), mode: resolveAssistantMode(env) };
+    return {
+      env,
+      assistant: loadAssistantConfig(),
+      mode: resolveAssistantMode(env),
+    };
   } catch (err) {
     // Detail goes to the server log only; the client sees nothing internal.
     console.error("[api/assistant] configuration error:", err);
@@ -187,7 +200,11 @@ export default async function handler(
   }
 
   if (mode === "demo") {
-    sendText(res, "demo", matchIntent(message, assistant.faqs, assistant.fallbackMessage));
+    sendText(
+      res,
+      "demo",
+      matchIntent(message, assistant.faqs, assistant.fallbackMessage),
+    );
     return;
   }
 

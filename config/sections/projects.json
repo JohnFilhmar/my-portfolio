@@ -147,12 +147,13 @@
       "problem": "Manual expense logging is high-friction and most budgeting apps expose sensitive financial data. Users needed private tracking that updates itself.",
       "role": "Sole developer: Android app, encryption model, and notification-derived transaction tracking.",
       "stack": [
-        "Mobile",
-        "Android",
-        "React Native",
-        "Fintech",
-        "Encryption",
-        "Privacy"
+        "React Native (Expo)",
+        "React Navigation",
+        "TypeScript",
+        "On-device AI",
+        "SQLCipher",
+        "TanStack Query",
+        "Kotlin"
       ],
       "highlights": [
         "Encrypted user financial data: privacy-by-design for sensitive personal records.",
@@ -160,14 +161,14 @@
         "Daily, monthly and annual budgeting and savings goals with threshold alerts.",
         "Roadmap includes optional premium features via in-app purchases."
       ],
-      "results": "In development · planned for release in December 2026 with polished features · privacy-by-design · tracking derived from transaction push notifications.",
+      "results": "In closed beta with selected users · public release planned for December 2026 · privacy-by-design · tracking derived from transaction push notifications.",
       "links": {
         "demo": "https://peraplano.filhmar.online"
       },
       "domain": "mobile",
-      "secondaryDomains": ["security"],
+      "secondaryDomains": ["security", "fintech"],
       "tier": "flagship",
-      "status": "in-development",
+      "status": "beta",
       "cover": {
         "src": "/work/peraplano/cover.webp",
         "alt": "PeraPlano interface",
@@ -548,10 +549,8 @@
         "Appointment scheduling and management.",
         "Built for low-resource clinic environments."
       ],
-      "results": "Deployed at the Victoria Municipal Health Office · digital records replacing paper.",
-      "links": {
-        "demo": "https://kalusugapp.com"
-      },
+      "results": "Built as my BSIT capstone and deployed privately at the Victoria Municipal Health Office. The site's IT team and interns have maintained and extended it since.",
+      "links": {},
       "domain": "full-stack",
       "secondaryDomains": [],
       "tier": "compact",
@@ -572,7 +571,8 @@
           "alt": "Kalusugapp, image 3",
           "aspect": "16/10"
         }
-      ]
+      ],
+      "status": "completed"
     },
     {
       "id": "genesys",

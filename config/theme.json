@@ -129,9 +129,6 @@
       "chatReplyDelayMs": 360
     }
   },
-  "media": {
-    "portraitTint": "grayscale(1) sepia(0.55) hue-rotate(170deg) saturate(1.5)"
-  },
   "terminal": {
     "texture": "none",
     "textureLine": "rgba(11, 24, 36, 0.05)",

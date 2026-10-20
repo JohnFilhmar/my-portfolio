@@ -46,6 +46,7 @@ jobs:
             echo "::error::Sample content from npm run sample:seed is committed. Run npm run sample:clean, then commit again."
             exit 1
           fi
+      - run: npm run format:check
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test

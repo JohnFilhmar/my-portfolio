@@ -59,7 +59,10 @@ export function getAssistantEnv(): AssistantEnv {
       DEFAULT_RATE_LIMIT_PER_MINUTE,
     ),
     llmQuota: readPositiveInt("ASSISTANT_LLM_QUOTA", DEFAULT_LLM_QUOTA),
-    dailyLlmCap: readPositiveInt("ASSISTANT_DAILY_LLM_CAP", DEFAULT_DAILY_LLM_CAP),
+    dailyLlmCap: readPositiveInt(
+      "ASSISTANT_DAILY_LLM_CAP",
+      DEFAULT_DAILY_LLM_CAP,
+    ),
   };
 }
 

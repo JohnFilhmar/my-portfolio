@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
           : null,
       backHref: projectsSection ? `/#${projectsSection.id}` : "/",
       seo: pageSeo(home, {
-        title: project.title,
+        title: `${project.title} case study`,
         description: project.hook,
         path: workPath(project.id),
       }),

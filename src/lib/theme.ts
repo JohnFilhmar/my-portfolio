@@ -128,7 +128,6 @@ export function buildCssVariables(
     add(`--easing-${kebab(name)}`, value);
   }
 
-  add("--portrait-tint", theme.media.portraitTint);
   add("--texture-line", theme.terminal.textureLine);
   add("--texture-size", theme.terminal.textureSize);
 

@@ -29,7 +29,8 @@ test("a visitor gets exactly their daily answers, and a refund gives one back", 
 
 test("the site-wide cap stops every visitor once it is spent", () => {
   const probe = { perVisitor: 1_000_000, perSite: 1_000 };
-  const usedSoFar = 1_000 - remainingAnswers(visitorKey("fresh", "probe"), probe);
+  const usedSoFar =
+    1_000 - remainingAnswers(visitorKey("fresh", "probe"), probe);
   const limits = { perVisitor: 5, perSite: usedSoFar + 2 };
   assert.notEqual(reserveAnswer(visitorKey("192.0.2.1", "a"), limits), null);
   assert.notEqual(reserveAnswer(visitorKey("192.0.2.2", "b"), limits), null);

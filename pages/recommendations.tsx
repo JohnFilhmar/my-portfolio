@@ -32,6 +32,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
         title: recs.label,
         description: recs.blurb,
         path: RECOMMENDATIONS_PATH,
+        noindex: recs.items.length === 0,
       }),
     },
   };

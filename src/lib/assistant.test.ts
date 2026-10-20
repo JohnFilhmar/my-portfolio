@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { FAQ_CONFIDENT_SCORE, bestFaq, looksLikeInjection } from "./assistant.ts";
+import {
+  FAQ_CONFIDENT_SCORE,
+  bestFaq,
+  looksLikeInjection,
+} from "./assistant.ts";
 
 test("instruction-injection attempts are caught before any model call", () => {
   for (const attack of [
@@ -28,8 +32,16 @@ test("ordinary questions about John's work pass the guard", () => {
 
 test("a confident FAQ match is answered from config", () => {
   const faqs = [
-    { intents: ["contact", "email", "reach"], question: "How do I contact John?", answer: "Email him." },
-    { intents: ["tech stack", "stack"], question: "What is his stack?", answer: "Next.js, NestJS, Docker." },
+    {
+      intents: ["contact", "email", "reach"],
+      question: "How do I contact John?",
+      answer: "Email him.",
+    },
+    {
+      intents: ["tech stack", "stack"],
+      question: "What is his stack?",
+      answer: "Next.js, NestJS, Docker.",
+    },
   ];
   const match = bestFaq("what's his tech stack?", faqs);
   assert.equal(match?.faq.answer, "Next.js, NestJS, Docker.");

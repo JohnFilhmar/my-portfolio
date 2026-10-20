@@ -17,10 +17,7 @@ export function Seo({
       <meta name="description" content={seo.description} />
       {seo.keywords && <meta name="keywords" content={seo.keywords} />}
       <meta name="author" content={seo.siteName} />
-      <meta
-        name="robots"
-        content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-      />
+      <meta name="robots" content={seo.robots} />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta
         name="theme-color"
@@ -64,10 +61,13 @@ export function Seo({
       )}
 
       {/* Structured data (schema.org) for Google rich results */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: seo.jsonLd }}
-      />
+      {seo.jsonLd.map((block, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: block }}
+        />
+      ))}
     </Head>
   );
 }
