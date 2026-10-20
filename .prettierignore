@@ -3,3 +3,5 @@ node_modules
 pnpm-lock.yaml
 design/reference.html
 src/fonts
+# glyph grids written by `npm run images`
+public/portrait/glyphs

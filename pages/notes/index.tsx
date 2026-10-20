@@ -26,6 +26,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async () => {
         title: config.notes.label,
         description: config.notes.blurb,
         path: NOTES_PATH,
+        noindex: config.notes.posts.length === 0,
       }),
     },
   };

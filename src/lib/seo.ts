@@ -1,5 +1,9 @@
 import type { SiteConfig } from "@config/schema";
 
+const INDEX =
+  "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+const NOINDEX = "noindex, follow";
+
 export interface SeoData {
   title: string;
   description: string;
@@ -16,8 +20,16 @@ export interface SeoData {
   keywords: string;
   /** e.g. "@handle", or "" when not configured. */
   twitterHandle: string;
-  /** Pre-serialized JSON-LD (schema.org @graph) for the <script> tag. */
-  jsonLd: string;
+  /** Content of the robots meta tag. */
+  robots: string;
+  /** Search titles by route, from site.json `seo.titles`. */
+  titles: Record<string, string>;
+  /**
+   * Pre-serialized JSON-LD blocks, one <script> each: the site-wide graph
+   * (Person + WebSite), then this page's own node (ProfilePage on home,
+   * BreadcrumbList elsewhere).
+   */
+  jsonLd: string[];
 }
 
 /** Join the site origin with a possibly-relative path into an absolute URL. */
@@ -26,16 +38,22 @@ function absoluteUrl(siteUrl: string, path: string): string {
   return `${siteUrl.replace(/\/+$/, "")}/${path.replace(/^\/+/, "")}`;
 }
 
-/** Build all page metadata + structured data from site.json. */
+/**
+ * Builds the home page metadata and structured data from site.json.
+ *
+ * @param site - Validated site config.
+ * @param siteUrlRaw - Public origin, with or without a trailing slash.
+ * @returns Metadata for the home page; `pageSeo` derives the others from it.
+ */
 export function buildSeo(site: SiteConfig, siteUrlRaw: string): SeoData {
   const siteUrl = siteUrlRaw.replace(/\/+$/, "");
   const title = `${site.name}: ${site.role}`;
   const image = absoluteUrl(siteUrl, site.seo.image);
   const imageAlt = site.seo.imageAlt || title;
 
-  // schema.org graph: a Person (the subject) + the WebSite it lives on.
-  // `sameAs` wires the social profiles together for knowledge-graph linking.
-  const jsonLd = JSON.stringify({
+  // The Person is the subject; `sameAs` wires the social profiles together
+  // for knowledge-graph linking.
+  const graph = JSON.stringify({
     "@context": "https://schema.org",
     "@graph": [
       {
@@ -60,10 +78,19 @@ export function buildSeo(site: SiteConfig, siteUrlRaw: string): SeoData {
       },
     ],
   });
+  const profile = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${siteUrl}/#profile`,
+    url: siteUrl,
+    name: title,
+    mainEntity: { "@id": `${siteUrl}/#person` },
+    isPartOf: { "@id": `${siteUrl}/#website` },
+  });
 
   return {
     title,
-    description: site.description,
+    description: site.seo.description ?? site.description,
     siteUrl,
     url: siteUrl,
     siteName: site.name,
@@ -74,29 +101,50 @@ export function buildSeo(site: SiteConfig, siteUrlRaw: string): SeoData {
     imageAlt,
     keywords: site.seo.keywords.join(", "),
     twitterHandle: site.seo.twitterHandle ?? "",
-    jsonLd,
+    robots: INDEX,
+    titles: site.seo.titles,
+    jsonLd: [graph, profile],
   };
 }
 
 /**
  * Metadata for a page other than home: same site identity and social image,
- * with its own title, description and canonical URL.
+ * with its own title, description, canonical URL and breadcrumb.
  *
  * @param base - The home metadata from `buildSeo`.
+ * @param page.title - Fallback title when site.json `seo.titles` has no entry for `path`.
  * @param page.path - Root-relative route, e.g. "/work/usapp".
+ * @param page.noindex - Keep the page out of search results, e.g. while it has no content.
  * @returns A copy of `base` with page-level fields replaced.
  */
 export function pageSeo(
   base: SeoData,
-  page: { title: string; description: string; path: string },
+  page: { title: string; description: string; path: string; noindex?: boolean },
 ): SeoData {
-  const title = `${page.title} · ${base.siteName}`;
+  const name = base.titles[page.path] ?? page.title;
+  const title = `${name} · ${base.siteName}`;
+  const url = absoluteUrl(base.siteUrl, page.path);
+  const breadcrumb = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: base.siteName,
+        item: base.siteUrl,
+      },
+      { "@type": "ListItem", position: 2, name, item: url },
+    ],
+  });
   return {
     ...base,
     title,
     ogTitle: title,
     description: page.description,
     ogDescription: page.description,
-    url: absoluteUrl(base.siteUrl, page.path),
+    url,
+    robots: page.noindex ? NOINDEX : INDEX,
+    jsonLd: [base.jsonLd[0] ?? "", breadcrumb],
   };
 }

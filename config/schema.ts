@@ -233,6 +233,16 @@ export const seoSchema = z
     twitterHandle: z.string().optional(),
     /** Optional keyword hints (low SEO weight, but harmless). */
     keywords: z.array(z.string()).default([]),
+    /**
+     * Home page meta description, about 150-160 characters so search results
+     * show it whole. Falls back to the site `description`.
+     */
+    description: z.string().optional(),
+    /**
+     * Search titles by route, e.g. { "/projects": "Software projects" }. The
+     * site name is appended. Routes not listed use the page's own label.
+     */
+    titles: z.record(z.string(), z.string()).default({}),
   })
   .prefault({});
 export type SeoMeta = z.infer<typeof seoSchema>;
