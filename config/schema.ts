@@ -291,6 +291,7 @@ export const projectStatusSchema = z.enum([
   "live",
   "in-development",
   "completed",
+  "beta",
 ]);
 export type ProjectStatus = z.infer<typeof projectStatusSchema>;
 
@@ -322,6 +323,7 @@ export const heroSchema = z.object({
       live: z.string().default("live"),
       "in-development": z.string().default("in development"),
       completed: z.string().default("completed"),
+      beta: z.string().default("closed beta"),
     })
     .prefault({}),
 });

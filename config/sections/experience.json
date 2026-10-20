@@ -1,7 +1,7 @@
 {
   "_readme": "Experience section. `end: null` marks the current role (dates render in accent with `presentLabel`). Each role can carry a `photos` array rendered as a small strip under its bullets: {src, alt, caption, aspect}. `src` is a path under ./public, and the loader drops any photo whose file is missing, so the placeholders below stay invisible until you add the file at that exact path. Use aspect \"4/3\" for normal photos, \"16/9\" for wide shots and \"9/16\" for phone photos.",
   "label": "experience",
-  "heading": "Building and operating production systems.",
+  "heading": "Where I've worked.",
   "presentLabel": "now",
   "photosLabelTemplate": "Photos from {name}",
   "items": [
@@ -66,6 +66,26 @@
         }
       ],
       "id": "ynnovision"
+    },
+    {
+      "company": "Tamaraw Technohub Inc.",
+      "title": "Call Center Agent (Part-time)",
+      "start": "Feb 2022",
+      "end": "Sep 2022",
+      "bullets": [
+        "Made outbound cold calls part-time while studying, building clear and confident communication with customers."
+      ],
+      "id": "tamaraw"
+    },
+    {
+      "company": "McDonald's Philippines (Golden Arches Development Corporation)",
+      "title": "Service Crew (Part-time)",
+      "start": "Feb 2019",
+      "end": "Sep 2019",
+      "bullets": [
+        "Delivered fast, quality service to guests as a fully trained crew member in a 24/7 store."
+      ],
+      "id": "mcdonalds"
     }
   ]
 }
