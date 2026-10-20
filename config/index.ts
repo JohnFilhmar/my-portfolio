@@ -24,6 +24,8 @@ import {
   skillsSchema,
   themeSchema,
   type AppConfig,
+  type HeroConfig,
+  type PortraitShot,
 } from "./schema";
 
 /**
@@ -58,18 +60,37 @@ function withResolvedPhotos<T extends { photos: Array<{ src: string }> }>(
 }
 
 const PORTRAIT_DIR = "portrait";
-const IMAGE_FILE = /\.(png|jpe?g|webp|avif)$/i;
+const HOVER_SUFFIX = "-hover";
 
-/** Every image in public/portrait as a public URL, sorted by file name. */
-function portraitImages(): string[] {
+/** A baked photo by base name, or null when its grid or WebP is missing. */
+function portraitShot(base: string): PortraitShot | null {
+  const name = encodeURIComponent(base);
+  const shot = {
+    glyphs: `/${PORTRAIT_DIR}/glyphs/${name}.json`,
+    image: `/${PORTRAIT_DIR}/${name}.webp`,
+  };
+  return publicAssetExists(shot.glyphs) && publicAssetExists(shot.image)
+    ? shot
+    : null;
+}
+
+/** Every baked portrait in file-name order, paired with its hover partner. */
+function portraitFrames(): HeroConfig["portrait"]["frames"] {
   try {
     return fs
       .readdirSync(
-        /*turbopackIgnore: true*/ path.join(PUBLIC_DIR, PORTRAIT_DIR),
+        /*turbopackIgnore: true*/ path.join(PUBLIC_DIR, PORTRAIT_DIR, "glyphs"),
       )
-      .filter((name) => IMAGE_FILE.test(name))
+      .filter((name) => name.endsWith(".json"))
+      .map((name) => name.slice(0, -".json".length))
+      .filter((base) => !base.endsWith(HOVER_SUFFIX))
       .sort()
-      .map((name) => `/${PORTRAIT_DIR}/${encodeURIComponent(name)}`);
+      .flatMap((base) => {
+        const main = portraitShot(base);
+        const hover = portraitShot(`${base}${HOVER_SUFFIX}`);
+        if (!main) return [];
+        return [hover ? { main, hover } : { main }];
+      });
   } catch {
     return [];
   }
@@ -94,7 +115,7 @@ export function loadConfig(): AppConfig {
       const hero = loadFile("sections/hero.json", heroSchema);
       return {
         ...hero,
-        portrait: { ...hero.portrait, images: portraitImages() },
+        portrait: { ...hero.portrait, frames: portraitFrames() },
       };
     })(),
     about: {

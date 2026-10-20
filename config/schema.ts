@@ -149,10 +149,6 @@ export const themeSchema = z.object({
       chatReplyDelayMs: z.number().int().nonnegative(),
     }),
   }),
-  media: z.object({
-    /** CSS filter that tones the hero portrait into the palette's blue. */
-    portraitTint: z.string(),
-  }),
   terminal: z.object({
     texture: z.enum(["grid", "scanlines", "none"]).default("grid"),
     textureLine: z.string(),
@@ -295,6 +291,13 @@ export const projectStatusSchema = z.enum([
 ]);
 export type ProjectStatus = z.infer<typeof projectStatusSchema>;
 
+/** One hero photo: its glyph grid and the WebP the glyphs take their color from. */
+export const portraitShotSchema = z.object({
+  glyphs: z.string(),
+  image: z.string(),
+});
+export type PortraitShot = z.infer<typeof portraitShotSchema>;
+
 export const heroSchema = z.object({
   _readme: readme,
   /** The page's h1: what you do, in one sentence. */
@@ -302,7 +305,10 @@ export const heroSchema = z.object({
   ctas: z.array(ctaSchema),
   /** Line under the headline: current role, location, availability. */
   statusLine: z.array(spanSchema),
-  /** The big photo beside the headline. Clicking it shows the next one. */
+  /**
+   * The portrait beside the headline, drawn in ASCII glyphs. Hovering shows a
+   * photo's hover partner; clicking moves to the next pair.
+   */
   portrait: z.object({
     alt: z.string(),
     cycleLabel: z.string().default("Show the next photo"),
@@ -310,8 +316,18 @@ export const heroSchema = z.object({
     emptyLabel: z.string().default("portrait"),
     /** How many placeholder photos to cycle through while none exist. */
     placeholderCount: z.number().int().min(1).max(9).default(3),
-    /** Filled by the loader: every image in public/portrait, by file name. */
-    images: z.array(z.string()).default([]),
+    /**
+     * Filled by the loader, in file-name order: each photo baked by `npm run
+     * images` (`NN`), with `NN-hover` as its hover partner when present.
+     */
+    frames: z
+      .array(
+        z.object({
+          main: portraitShotSchema,
+          hover: portraitShotSchema.optional(),
+        }),
+      )
+      .default([]),
   }),
   /** Heading over the index of flagship projects. */
   indexLabel: z.string(),

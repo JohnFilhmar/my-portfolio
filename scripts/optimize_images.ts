@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import sharp from "sharp";
+import { encodeGlyphGrid } from "../src/lib/glyphPortrait/encode.ts";
 
 /**
  * Originals live in ./assets (kept out of git and the Docker image); the
@@ -15,6 +16,11 @@ const SOURCE = /\.(png|jpe?g|webp|avif|tiff?|gif)$/i;
 /** Long edge in pixels: crisp on a 2x screen at the largest size the site shows. */
 const MAX_EDGE = 1920;
 const QUALITY = 80;
+/** Portrait originals also become character grids for the hero's glyph portrait. */
+const PORTRAIT_DIR = "portrait";
+const GLYPH_DIR = path.join(PUBLIC_DIR, PORTRAIT_DIR, "glyphs");
+/** Cells per side. Each one is a DOM character, so this trades detail for frame time. */
+const GLYPH_SIZE = 160;
 
 export interface OptimizedImage {
   source: string;
@@ -22,6 +28,25 @@ export interface OptimizedImage {
   bytesBefore: number;
   bytesAfter: number;
   skipped: boolean;
+}
+
+/** Bakes one portrait into a glyph grid JSON file, one pixel per cell. */
+async function bakeGlyphs(source: string, output: string): Promise<void> {
+  const { data, info } = await sharp(source)
+    .rotate()
+    .resize({ width: GLYPH_SIZE, height: GLYPH_SIZE, fit: "inside" })
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const grid = encodeGlyphGrid({
+    pixels: data,
+    width: info.width,
+    height: info.height,
+    cols: GLYPH_SIZE,
+    rows: GLYPH_SIZE,
+  });
+  fs.mkdirSync(path.dirname(output), { recursive: true });
+  fs.writeFileSync(output, JSON.stringify(grid));
 }
 
 function listSources(dir: string): string[] {
@@ -39,10 +64,11 @@ function listSources(dir: string): string[] {
 /**
  * Converts every original under ./assets to WebP under ./public. Phone photos
  * are turned upright from their EXIF orientation, then all metadata (camera,
- * GPS) is dropped. Outputs newer than their source are left alone.
+ * GPS) is dropped. Portraits in assets/portrait also get a glyph grid in
+ * public/portrait/glyphs. Outputs newer than their source are left alone.
  *
  * @param options.force - Re-encode even when the output is up to date.
- * @returns One entry per original, in path order.
+ * @returns One entry per output (two for a portrait), in source path order.
  */
 export async function optimizeImages(
   options: { force?: boolean } = {},
@@ -52,6 +78,22 @@ export async function optimizeImages(
     const relative = path.relative(ASSETS_DIR, source);
     const output = path.join(PUBLIC_DIR, relative.replace(/\.[^.]+$/, ".webp"));
     const before = fs.statSync(source);
+    if (path.dirname(relative) === PORTRAIT_DIR) {
+      const glyphs = path.join(
+        GLYPH_DIR,
+        path.basename(relative).replace(/\.[^.]+$/, ".json"),
+      );
+      const fresh =
+        fs.existsSync(glyphs) && fs.statSync(glyphs).mtimeMs >= before.mtimeMs;
+      if (!fresh || options.force) await bakeGlyphs(source, glyphs);
+      results.push({
+        source,
+        output: glyphs,
+        bytesBefore: before.size,
+        bytesAfter: fs.statSync(glyphs).size,
+        skipped: fresh && !options.force,
+      });
+    }
     const upToDate =
       fs.existsSync(output) && fs.statSync(output).mtimeMs >= before.mtimeMs;
     if (upToDate && !options.force) {

@@ -27,10 +27,6 @@
       linear-gradient(90deg, var(--color-border-muted) 1px, transparent 1px);
     background-size: 24px 24px;
   }
-  /* The hero portrait's blue duotone, from theme.json `media.portraitTint`. */
-  .portrait-tint {
-    filter: var(--portrait-tint);
-  }
   /*
    * The frame behind the portrait: a steel-blue field built from the palette
    * tokens, with film grain over it so it reads as a surface. Its light turns
