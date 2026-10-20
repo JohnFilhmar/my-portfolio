@@ -179,7 +179,7 @@ export function CommandPalette({
     <div
       onClick={close}
       data-lenis-prevent
-      className="fixed inset-0 z-[100] bg-overlay backdrop-blur-sm"
+      className="fixed inset-0 z-100 bg-overlay backdrop-blur-xs"
     >
       <div
         role="dialog"
@@ -209,7 +209,7 @@ export function CommandPalette({
               aria-autocomplete="list"
               aria-label={palette.inputAriaLabel}
               placeholder={palette.placeholder}
-              className="min-w-0 flex-1 border-none bg-transparent font-mono text-[15px] text-bright caret-accent outline-none placeholder:text-dim"
+              className="min-w-0 flex-1 border-none bg-transparent font-mono text-[15px] text-bright caret-accent outline-hidden placeholder:text-dim"
             />
             <span className="rounded-xs border border-border-chip px-1.5 py-0.5 font-mono text-2xs text-dim">
               {palette.escLabel}

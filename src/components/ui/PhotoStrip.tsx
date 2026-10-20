@@ -42,7 +42,7 @@ export function PhotoStrip({ photos, groupLabel, labels }: PhotoStripProps) {
               type="button"
               onClick={() => setOpenIndex(index)}
               aria-label={photo.caption || photo.alt}
-              className="block w-[112px] cursor-zoom-in overflow-hidden rounded-md border border-border-muted bg-transparent p-0 transition duration-base hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="block w-[112px] cursor-zoom-in overflow-hidden rounded-md border border-border-muted bg-transparent p-0 transition duration-base hover:border-accent focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               <ImageFrame
                 src={photo.src}

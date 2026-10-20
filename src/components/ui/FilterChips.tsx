@@ -37,7 +37,7 @@ export function FilterChips({
             onClick={() => onChange(option)}
             className={cn(
               "cursor-pointer rounded-md border px-[13px] py-[7px] font-mono text-xs transition-colors duration-fast",
-              "hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+              "hover:border-accent focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
               isActive
                 ? "border-accent bg-accent text-accent-contrast"
                 : "border-border-chip bg-surface text-subtle",

@@ -56,8 +56,7 @@ const fontSizeVars = Object.fromEntries(
 
 const config: Config = {
   content: ["./pages/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
-  // The init script in pages/_document.tsx always sets data-theme before paint.
-  darkMode: ["selector", '[data-theme="dark"]'],
+  // Dark mode is the `dark` custom variant in globals.css (v4 reads it there).
   theme: {
     extend: {
       colors: {
@@ -135,8 +134,8 @@ const config: Config = {
       },
     },
   },
-  // Touch screens fire :hover on tap and leave it stuck; gate every hover: utility.
-  future: { hoverOnlyWhenSupported: true },
+  // v4 already gates every hover: utility behind (hover: hover), so taps on
+  // touch screens no longer leave hover styles stuck.
   plugins: [],
 };
 

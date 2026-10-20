@@ -173,7 +173,7 @@ export function SectionRenderer({
                 id={section.id}
                 ariaLabel={config.contact.label}
                 reducedMotion={reducedMotion}
-                className="!pb-contact-bottom"
+                className="pb-contact-bottom!"
               >
                 <Contact
                   contact={config.contact}

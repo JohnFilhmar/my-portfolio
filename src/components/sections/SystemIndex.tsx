@@ -45,7 +45,7 @@ export function SystemIndex({
             <li key={system.id} className="border-b border-border-strong py-6">
               <a
                 href={workPath(system.id)}
-                className="group block no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+                className="group block no-underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
               >
                 {/* Rows alternate edges and slide in from their own side as they scroll into view. */}
                 <span
@@ -104,7 +104,7 @@ export function SystemIndex({
                       href={system.links.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-subtle underline-offset-4 hover:text-heading hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                      className="text-subtle underline-offset-4 hover:text-heading hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                     >
                       {hostOf(system.links.demo)} ↗
                     </a>

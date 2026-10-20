@@ -125,9 +125,7 @@ export function Carousel({
               aria-hidden={!active}
               className={cn(
                 "absolute inset-0 transition-[opacity,transform] duration-reveal ease-standard",
-                active
-                  ? "z-[1] scale-100 opacity-100"
-                  : "scale-[1.02] opacity-0",
+                active ? "z-1 scale-100 opacity-100" : "scale-[1.02] opacity-0",
               )}
             >
               {onOpen && !slide.missing ? (
@@ -136,7 +134,7 @@ export function Carousel({
                   tabIndex={active ? 0 : -1}
                   onClick={() => onOpen(i)}
                   aria-label={`Open ${slide.alt} full size`}
-                  className="block h-full w-full cursor-zoom-in border-none bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
+                  className="block h-full w-full cursor-zoom-in border-none bg-transparent p-0 focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
                 >
                   {frame}
                 </button>
@@ -158,7 +156,7 @@ export function Carousel({
                 onClick={() => go(i)}
                 aria-label={`Show slide ${i + 1} of ${total}`}
                 aria-current={i === index ? "true" : undefined}
-                className="flex h-6 cursor-pointer items-center border-none bg-transparent px-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+                className="flex h-6 cursor-pointer items-center border-none bg-transparent px-0.5 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-accent"
               >
                 <span
                   className={cn(
@@ -176,7 +174,7 @@ export function Carousel({
                 type="button"
                 onClick={() => go(index + step)}
                 aria-label={step < 0 ? "Previous slide" : "Next slide"}
-                className="grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-control-border bg-surface font-mono text-sm text-heading transition-colors duration-fast hover:bg-hover-tint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="grid h-9 w-9 cursor-pointer place-items-center rounded-full border border-control-border bg-surface font-mono text-sm text-heading transition-colors duration-fast hover:bg-hover-tint focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <span aria-hidden="true">{step < 0 ? "←" : "→"}</span>
               </button>

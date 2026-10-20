@@ -56,7 +56,7 @@ export function ShotGrid({ shots, openLabelTemplate, onOpen }: ShotGridProps) {
                 type="button"
                 onClick={() => onOpen(shot.src)}
                 aria-label={openLabelTemplate.replace("{title}", label)}
-                className="block w-full cursor-zoom-in border-none bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="block w-full cursor-zoom-in border-none bg-transparent p-0 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 {frame}
               </button>

@@ -42,7 +42,7 @@ export function CertificationCard({
             {item.name}
           </Heading>
           <div className="flex items-start gap-2">
-            <p className="m-0 min-w-0 break-words font-mono text-sm text-faint">
+            <p className="m-0 min-w-0 wrap-break-word font-mono text-sm text-faint">
               {item.issuer}
             </p>
             <span className="flex-1" />
@@ -103,7 +103,7 @@ export function CertificationCard({
           {...(isExternalHref(item.verifyUrl)
             ? { target: "_blank", rel: "noopener noreferrer" }
             : {})}
-          className="mt-auto font-mono text-sm text-accent no-underline hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="mt-auto font-mono text-sm text-accent no-underline hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {labels.verifyLabel} ↗
         </a>

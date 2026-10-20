@@ -24,7 +24,7 @@ export function IconLink({
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={cn(
         "font-mono text-[13px] text-foreground no-underline transition-colors duration-fast hover:text-accent",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+        "focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
         className,
       )}
     >

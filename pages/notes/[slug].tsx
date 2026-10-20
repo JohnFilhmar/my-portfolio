@@ -51,7 +51,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
 };
 
 const NEIGHBOUR_LINK =
-  "group block py-6 no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
+  "group block py-6 no-underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 export default function NotePage({
   config,
@@ -66,7 +66,7 @@ export default function NotePage({
       <article className="mx-auto w-full max-w-container px-container-pad pb-section-y pt-hero-top">
         <a
           href={NOTES_PATH}
-          className="font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           ← {notes.backLabel}
         </a>

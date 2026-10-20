@@ -176,7 +176,7 @@ export function ProjectEntry({
                 {...(isExternalHref(href)
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
-                className="font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 {projects.linkLabels[kind]} ↗
               </a>

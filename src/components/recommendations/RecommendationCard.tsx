@@ -91,7 +91,7 @@ export function RecommendationCard({
             <a
               key={link.href}
               href={link.href}
-              className="text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="text-accent underline underline-offset-4 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               {link.label}
             </a>
@@ -102,7 +102,7 @@ export function RecommendationCard({
             {...(isExternalHref(rec.sourceHref)
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
-            className="text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="text-accent underline underline-offset-4 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             {labels.sourceLabel} ↗
           </a>

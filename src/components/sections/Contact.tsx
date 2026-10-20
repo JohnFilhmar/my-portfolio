@@ -73,7 +73,7 @@ export function Contact({ contact, site, contactViaApi }: ContactProps) {
   };
 
   const inputClass =
-    "box-border w-full rounded-lg border border-border-chip bg-surface-inset px-3 py-2.5 font-mono text-[16px] text-bright caret-accent outline-none transition-colors duration-fast placeholder:text-dim focus:border-accent";
+    "box-border w-full rounded-lg border border-border-chip bg-surface-inset px-3 py-2.5 font-mono text-[16px] text-bright caret-accent outline-hidden transition-colors duration-fast placeholder:text-dim focus:border-accent";
 
   return (
     <>

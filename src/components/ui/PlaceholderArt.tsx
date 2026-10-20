@@ -162,7 +162,7 @@ export function PlaceholderArt({
       <Drawing kind={kind} />
       {!plain && (
         <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-2 font-mono text-2xs">
-          <span className="min-w-0 break-words rounded-xs bg-surface px-2 py-1 text-subtle">
+          <span className="min-w-0 wrap-break-word rounded-xs bg-surface px-2 py-1 text-subtle">
             {label}
           </span>
           {slot && (
