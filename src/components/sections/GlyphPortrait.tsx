@@ -226,7 +226,7 @@ export function GlyphPortrait({
     <div
       aria-hidden="true"
       className={cn(
-        "absolute inset-0 flex items-end justify-center [container-type:size]",
+        "absolute inset-0 flex items-end justify-center @container-size",
         className,
       )}
     >

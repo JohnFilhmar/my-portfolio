@@ -91,7 +91,7 @@ export function Lightbox({
     <div
       onClick={onClose}
       data-lenis-prevent
-      className="fixed inset-0 z-[120] overflow-y-auto bg-overlay px-4 py-[6vh] backdrop-blur-sm"
+      className="fixed inset-0 z-120 overflow-y-auto bg-overlay px-4 py-[6vh] backdrop-blur-xs"
     >
       <div
         role="dialog"
@@ -123,7 +123,7 @@ export function Lightbox({
             type="button"
             onClick={onClose}
             aria-label={labels.closeLabel}
-            className="ml-1 cursor-pointer rounded-xs border border-border-chip bg-surface px-1.5 py-0.5 font-mono text-2xs text-subtle transition-colors duration-fast hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="ml-1 cursor-pointer rounded-xs border border-border-chip bg-surface px-1.5 py-0.5 font-mono text-2xs text-subtle transition-colors duration-fast hover:border-accent hover:text-accent focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             esc
           </button>
@@ -167,7 +167,7 @@ export function Lightbox({
               {...(isExternalHref(current.href)
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
-              className="font-mono text-sm text-accent no-underline hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="font-mono text-sm text-accent no-underline hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               {labels.visitLabel} ↗
             </a>
@@ -198,7 +198,7 @@ function StepButton({
       className={cn(
         "absolute top-1/2 -translate-y-1/2 cursor-pointer rounded-lg border border-border-strong bg-launcher-veil px-3 py-2.5 font-mono text-md text-bright",
         "transition-colors duration-fast hover:border-accent hover:text-accent",
-        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+        "focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
         side === "left" ? "left-3" : "right-3",
       )}
     >

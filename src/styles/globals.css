@@ -1,6 +1,39 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Theme token names come from config/theme.json through the JS config. */
+@config "../../tailwind.config.ts";
+
+/*
+ * theme.json's xs/sm/base/lg sizes share names with Tailwind's defaults, which
+ * in v4 carry a line-height. These sizes only ever set font-size, so drop it.
+ */
+@theme {
+  --text-xs--line-height: initial;
+  --text-sm--line-height: initial;
+  --text-base--line-height: initial;
+  --text-lg--line-height: initial;
+}
+
+/* The init script in pages/_document.tsx always sets data-theme before paint. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 /*
  * All values below reference CSS custom properties emitted at runtime from
@@ -9,42 +42,44 @@
  */
 
 /*
- * Archivo's width axis, which Tailwind 3.4 has no scale for. Width encodes
+ * Archivo's width axis, which Tailwind has no scale for. Width encodes
  * hierarchy: the h1 runs semi-expanded, the hero's system names fully expanded.
  */
-@layer utilities {
-  .stretch-semi-expanded {
-    font-stretch: 112.5%;
-  }
-  .stretch-expanded {
-    font-stretch: 125%;
-  }
+
+@utility stretch-semi-expanded {
+  font-stretch: 112.5%;
+}
+
+@utility stretch-expanded {
+  font-stretch: 125%;
+}
+
+@utility placeholder-field {
   /* Faint drafting grid behind empty image slots (PlaceholderArt). */
-  .placeholder-field {
-    background-color: var(--color-surface-inset);
-    background-image:
-      linear-gradient(var(--color-border-muted) 1px, transparent 1px),
-      linear-gradient(90deg, var(--color-border-muted) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
+  background-color: var(--color-surface-inset);
+  background-image:
+    linear-gradient(var(--color-border-muted) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-border-muted) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@utility portrait-backdrop {
   /*
    * The frame behind the portrait: a near-black field tinted by the accent,
    * dark in both themes so the photo-colored glyphs always read, with film
    * grain over it so it reads as a surface. Its light turns (--ga) when the
    * photo changes.
    */
-  .portrait-backdrop {
-    overflow: hidden;
-    isolation: isolate;
-    background: linear-gradient(
-      var(--ga),
-      color-mix(in oklab, var(--color-accent) 34%, #05070b) 0%,
-      #07090d 58%,
-      color-mix(in oklab, var(--color-accent) 18%, #05070b) 100%
-    );
-    transition: --ga 900ms var(--easing-standard);
-  }
-  .portrait-backdrop::after {
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(
+    var(--ga),
+    color-mix(in oklab, var(--color-accent) 34%, #05070b) 0%,
+    #07090d 58%,
+    color-mix(in oklab, var(--color-accent) 18%, #05070b) 100%
+  );
+  transition: --ga 900ms var(--easing-standard);
+  &::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -91,34 +126,40 @@
   initial-value: 160deg;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/*
+ * Element defaults live in the base layer so any utility on the element wins,
+ * as it did in v3 by specificity. Unlayered rules would beat every utility.
+ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  margin: 0;
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
+  body {
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
 
-::selection {
-  background: var(--color-accent);
-  color: var(--color-selection-contrast);
-}
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-selection-contrast);
+  }
 
-a {
-  color: var(--color-accent);
-}
+  a {
+    color: var(--color-accent);
+  }
 
-/* Custom disclosure marker for project case studies. */
-summary.no-marker {
-  list-style: none;
-}
-summary.no-marker::-webkit-details-marker {
-  display: none;
+  /* Custom disclosure marker for project case studies. */
+  summary.no-marker {
+    list-style: none;
+  }
+  summary.no-marker::-webkit-details-marker {
+    display: none;
+  }
 }
 
 .no-scrollbar {

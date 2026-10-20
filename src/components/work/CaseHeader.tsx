@@ -26,7 +26,7 @@ export function CaseHeader({ project, projects, backHref }: CaseHeaderProps) {
     <>
       <a
         href={backHref}
-        className="font-mono text-sm text-subtle no-underline hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="font-mono text-sm text-subtle no-underline hover:text-accent focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         {projects.caseStudy.backLabel}
       </a>
@@ -61,7 +61,7 @@ export function CaseHeader({ project, projects, backHref }: CaseHeaderProps) {
                   {...(isExternalHref(href)
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
-                  className="font-mono text-sm text-accent no-underline hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  className="font-mono text-sm text-accent no-underline hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   {projects.linkLabels[kind]} ↗
                 </a>

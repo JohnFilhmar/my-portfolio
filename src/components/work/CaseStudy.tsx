@@ -215,7 +215,7 @@ export function CaseStudy({
         >
           <a
             href={workPath(next.id)}
-            className="group inline-grid gap-1 no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+            className="group inline-grid gap-1 no-underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
           >
             <span className="font-mono text-sm text-subtle">
               {labels.nextLabel}

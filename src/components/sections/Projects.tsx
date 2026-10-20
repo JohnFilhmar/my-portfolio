@@ -28,7 +28,7 @@ export function Projects({ projects, statusLabels }: ProjectsProps) {
           <li key={project.id}>
             <a
               href={workPath(project.id)}
-              className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface text-inherit no-underline transition-[transform,border-color] duration-base ease-standard hover:-translate-y-1 hover:border-border-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface text-inherit no-underline transition-[transform,border-color] duration-base ease-standard hover:-translate-y-1 hover:border-border-hover focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               {project.cover && (
                 <ImageFrame
@@ -85,7 +85,7 @@ export function Projects({ projects, statusLabels }: ProjectsProps) {
       {others > 0 && (
         <a
           href={PROJECTS_PATH}
-          className="mt-8 inline-block font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="mt-8 inline-block font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {page.allLinkTemplate.replace("{n}", String(others))}
         </a>

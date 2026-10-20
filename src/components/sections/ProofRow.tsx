@@ -85,7 +85,7 @@ export function ProofRow({
                 type="button"
                 onClick={() => onOpen(item.src)}
                 aria-label={openLabelTemplate.replace("{title}", item.title)}
-                className="block w-full cursor-zoom-in border-none bg-transparent p-0 transition duration-base hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
+                className="block w-full cursor-zoom-in border-none bg-transparent p-0 transition duration-base hover:opacity-95 focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
               >
                 <ImageFrame
                   src={item.src}
@@ -122,7 +122,7 @@ export function ProofRow({
             {...(isExternalHref(item.href)
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
-            className="mt-3 inline-block font-mono text-sm text-accent no-underline hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="mt-3 inline-block font-mono text-sm text-accent no-underline hover:underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             {host} ↗
           </a>

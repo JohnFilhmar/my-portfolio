@@ -15,7 +15,7 @@ export function NotesSection({ notes }: NotesSectionProps) {
         <SectionHeading className="m-0">{notes.latestHeading}</SectionHeading>
         <a
           href={NOTES_PATH}
-          className="font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="font-mono text-sm text-accent underline underline-offset-4 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {notes.allLabel} →
         </a>

@@ -41,7 +41,7 @@ export function NoteRow({
           <Heading className="m-0 font-display text-title font-semibold leading-snug text-heading">
             <a
               href={notePath(note.slug)}
-              className="group inline-flex items-baseline gap-3 text-heading no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              className="group inline-flex items-baseline gap-3 text-heading no-underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
             >
               <span className="transition-transform duration-base ease-standard group-hover:translate-x-1.5">
                 {note.title}

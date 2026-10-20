@@ -81,7 +81,7 @@ export function AssistantOverlay({
       aria-modal="true"
       aria-labelledby="assistant-overlay-title"
       onKeyDown={onKeyDown}
-      className="fixed inset-0 z-[90] flex items-end justify-center sm:items-center sm:p-6"
+      className="fixed inset-0 z-90 flex items-end justify-center sm:items-center sm:p-6"
     >
       <div
         aria-hidden="true"
@@ -107,7 +107,7 @@ export function AssistantOverlay({
             type="button"
             onClick={onClose}
             aria-label={assistant.closeLabel}
-            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border border-control-border bg-transparent font-mono text-lg text-heading transition-colors duration-fast hover:bg-hover-tint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border border-control-border bg-transparent font-mono text-lg text-heading transition-colors duration-fast hover:bg-hover-tint focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             <span aria-hidden="true">×</span>
           </button>
@@ -147,7 +147,7 @@ export function AssistantOverlay({
           {waiting && (
             <p
               aria-hidden="true"
-              className="m-0 flex animate-row-in items-center gap-1.5 py-5 font-mono text-sm text-subtle sm:pl-[calc(8rem+1.5rem)]"
+              className="m-0 flex animate-row-in items-center gap-1.5 py-5 font-mono text-sm text-subtle sm:pl-38"
             >
               {[0, 1, 2].map((dot) => (
                 <span
@@ -169,7 +169,7 @@ export function AssistantOverlay({
                     inputRef.current?.focus();
                   }}
                   style={{ animationDelay: `${120 + i * 50}ms` }}
-                  className="animate-row-in cursor-pointer rounded-pill border border-control-border bg-surface-alt px-3.5 py-2 text-left text-sm text-foreground transition-colors duration-fast hover:bg-hover-tint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  className="animate-row-in cursor-pointer rounded-pill border border-control-border bg-surface-alt px-3.5 py-2 text-left text-sm text-foreground transition-colors duration-fast hover:bg-hover-tint focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   {question}
                 </button>
@@ -195,13 +195,13 @@ export function AssistantOverlay({
             onChange={(event) => chat.setInput(event.target.value)}
             aria-label={assistant.inputAriaLabel}
             placeholder={assistant.inputPlaceholder}
-            className="min-w-0 flex-1 border-none bg-transparent py-3 text-[16px] text-heading outline-none placeholder:text-subtle"
+            className="min-w-0 flex-1 border-none bg-transparent py-3 text-[16px] text-heading outline-hidden placeholder:text-subtle"
           />
           <button
             type="submit"
             disabled={chat.busy}
             aria-label={assistant.sendAriaLabel}
-            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border-none bg-accent text-accent-contrast transition-transform duration-fast active:scale-95 disabled:cursor-default disabled:bg-surface-inset disabled:text-faint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border-none bg-accent text-accent-contrast transition-transform duration-fast active:scale-95 disabled:cursor-default disabled:bg-surface-inset disabled:text-faint focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             <span aria-hidden="true">→</span>
           </button>

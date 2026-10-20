@@ -68,11 +68,11 @@ export function Header({
         href={homeAnchor(item.href, onHome)}
         aria-current={current ? "true" : undefined}
         className={cn(
-          "whitespace-nowrap rounded-sm px-2.5 py-[7px] font-mono text-sm no-underline transition-colors duration-fast",
-          "hover:bg-hover-tint hover:text-heading focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent",
+          "whitespace-nowrap rounded-sm px-2.5 py-[7px] font-mono text-sm transition-colors duration-fast",
+          "hover:bg-hover-tint hover:text-heading focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent",
           current
             ? "text-heading underline decoration-2 underline-offset-8"
-            : "text-subtle",
+            : "text-subtle no-underline",
         )}
       >
         {item.label}
@@ -100,7 +100,7 @@ export function Header({
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(progress * 100)}
-        className="absolute inset-x-0 bottom-[-1px] h-px"
+        className="absolute inset-x-0 -bottom-px h-px"
       >
         <span
           style={{ transform: `scaleX(${progress})` }}
@@ -110,7 +110,7 @@ export function Header({
       <div className="mx-auto flex h-header max-w-container items-center gap-3 px-container-pad">
         <a
           href={onHome ? `#${topId}` : "/"}
-          className="stretch-expanded whitespace-nowrap font-display text-sm font-extrabold uppercase text-heading no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
+          className="stretch-expanded whitespace-nowrap font-display text-sm font-extrabold uppercase text-heading no-underline focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
         >
           {site.name}
         </a>
@@ -121,7 +121,7 @@ export function Header({
         {site.availability && (
           <a
             href={homeAnchor(site.availability.href, onHome)}
-            className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-pill border border-control-border px-3 py-1 font-mono text-xs text-heading no-underline transition-colors duration-fast hover:bg-hover-tint focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent xl:inline-flex"
+            className="hidden shrink-0 items-center gap-2 whitespace-nowrap rounded-pill border border-control-border px-3 py-1 font-mono text-xs text-heading no-underline transition-colors duration-fast hover:bg-hover-tint focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent xl:inline-flex"
           >
             <span aria-hidden="true" className="relative flex h-2 w-2">
               <span className="absolute inset-0 animate-pulse-ring rounded-full bg-signal" />
@@ -139,7 +139,7 @@ export function Header({
           aria-expanded={menuOpen}
           aria-controls="site-menu"
           onClick={() => setMenuOpen((open) => !open)}
-          className="cursor-pointer rounded-md border border-border-chip bg-surface-alt px-2.5 py-1.5 font-mono text-xs text-heading transition-colors duration-fast hover:border-ghost focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
+          className="cursor-pointer rounded-md border border-border-chip bg-surface-alt px-2.5 py-1.5 font-mono text-xs text-heading transition-colors duration-fast hover:border-ghost focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
         >
           {menuOpen ? site.a11y.menuCloseLabel : site.a11y.menuLabel}
         </button>
@@ -148,7 +148,7 @@ export function Header({
           onClick={onOpenPalette}
           aria-label={site.palette.buttonTitle}
           title={site.palette.buttonTitle}
-          className="cursor-pointer rounded-md border border-border-chip bg-surface-alt px-[9px] py-[5px] font-mono text-xs text-subtle transition-colors duration-fast hover:border-ghost hover:text-heading focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="cursor-pointer rounded-md border border-border-chip bg-surface-alt px-[9px] py-[5px] font-mono text-xs text-subtle transition-colors duration-fast hover:border-ghost hover:text-heading focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {site.palette.buttonLabel}
         </button>

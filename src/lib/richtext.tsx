@@ -47,7 +47,7 @@ export function renderInline(text: string): ReactNode[] {
           {...(isExternalHref(href)
             ? { target: "_blank", rel: "noopener noreferrer" }
             : {})}
-          className="text-accent underline decoration-1 underline-offset-[3px] hover:decoration-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="text-accent underline decoration-1 underline-offset-[3px] hover:decoration-2 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {label}
         </a>

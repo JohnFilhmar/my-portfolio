@@ -11,7 +11,7 @@ export function AssistantLauncher({ assistant }: AssistantLauncherProps) {
     <a
       href={ASK_PATH}
       aria-label={assistant.launcher.ariaLabel}
-      className="fixed bottom-[18px] right-[18px] z-[60] whitespace-nowrap rounded-pill border border-accent-halo bg-surface px-4 py-2.5 font-mono text-sm text-accent no-underline shadow-float transition-colors duration-fast hover:bg-accent hover:text-accent-contrast focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
+      className="fixed bottom-[18px] right-[18px] z-60 whitespace-nowrap rounded-pill border border-accent-halo bg-surface px-4 py-2.5 font-mono text-sm text-accent no-underline shadow-float transition-colors duration-fast hover:bg-accent hover:text-accent-contrast focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-accent"
     >
       {assistant.launcher.label}
     </a>

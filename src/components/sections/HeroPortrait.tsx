@@ -21,8 +21,8 @@ export interface HeroPortraitProps {
 
 const LAYER = {
   active:
-    "z-[2] opacity-100 [clip-path:inset(0)] transition-[clip-path] duration-reveal ease-standard",
-  leaving: "z-[1] opacity-0 transition-opacity duration-reveal ease-standard",
+    "z-2 opacity-100 [clip-path:inset(0)] transition-[clip-path] duration-reveal ease-standard",
+  leaving: "z-1 opacity-0 transition-opacity duration-reveal ease-standard",
   idle: "opacity-0 [clip-path:inset(100%_0_0_0)]",
 } as const;
 
@@ -142,11 +142,11 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
               setIndex(next);
               show(next, hovered, pointIn(e), "pulse");
             }}
-            className="absolute inset-0 z-[3] cursor-pointer border-none bg-transparent focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
+            className="absolute inset-0 z-3 cursor-pointer border-none bg-transparent focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
           />
           <figcaption
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-4 left-[calc(6%+1rem)] z-[4] rounded-sm bg-surface px-2 py-1 font-mono text-2xs text-heading"
+            className="pointer-events-none absolute bottom-4 left-[calc(6%+1rem)] z-4 rounded-sm bg-surface px-2 py-1 font-mono text-2xs text-heading"
           >
             {String(index + 1).padStart(2, "0")} /{" "}
             {String(total).padStart(2, "0")}

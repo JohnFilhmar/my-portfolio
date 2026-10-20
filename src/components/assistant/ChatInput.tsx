@@ -35,7 +35,7 @@ export function ChatInput({
         }}
         aria-label={assistant.inputAriaLabel}
         placeholder={assistant.inputPlaceholder}
-        className="min-w-0 flex-1 border-none bg-transparent py-1.5 font-mono text-[16px] text-bright caret-accent outline-none placeholder:text-dim"
+        className="min-w-0 flex-1 border-none bg-transparent py-1.5 font-mono text-[16px] text-bright caret-accent outline-hidden placeholder:text-dim"
       />
       <button
         type="button"
@@ -44,7 +44,7 @@ export function ChatInput({
         aria-label={assistant.sendAriaLabel}
         className={cn(
           "cursor-pointer rounded-md border-none bg-accent px-[13px] py-2 font-mono text-sm text-accent-contrast transition duration-fast",
-          "hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bright",
+          "hover:brightness-110 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bright",
           busy && "cursor-default opacity-45",
         )}
       >
