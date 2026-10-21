@@ -64,6 +64,64 @@
 }
 
 /*
+ * Hero portrait hand-off between the ASCII glyphs and the photo. A feathered
+ * ellipse spreads from the change's origin (--ox/--oy, set inline): when the
+ * stage resolves, the photo grows outward through it and the glyphs give way;
+ * when it unresolves, a hole opens in the photo and the glyphs show through.
+ * Both radii are registered so the masks animate with a plain transition.
+ */
+@property --reveal {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+@property --dissolve {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 130%;
+}
+.glyph-stage {
+  --feather: 35%;
+  --reveal: 0%;
+  --dissolve: 130%;
+  transition:
+    --reveal 1800ms cubic-bezier(0.45, 0, 0.25, 1),
+    --dissolve 1000ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.glyph-stage[data-resolved] {
+  --reveal: 130%;
+  --dissolve: 0%;
+}
+.glyph-stage .glyph-photo {
+  mask-image: radial-gradient(
+    ellipse at var(--ox) var(--oy),
+    transparent calc(var(--dissolve) - var(--feather)),
+    #000 var(--dissolve)
+  );
+}
+.glyph-stage .glyph-text {
+  mask-image: radial-gradient(
+    ellipse at var(--ox) var(--oy),
+    #000 calc(var(--dissolve) - var(--feather)),
+    transparent var(--dissolve)
+  );
+}
+.glyph-stage[data-resolved] .glyph-photo {
+  mask-image: radial-gradient(
+    ellipse at var(--ox) var(--oy),
+    #000 calc(var(--reveal) - var(--feather)),
+    transparent var(--reveal)
+  );
+}
+.glyph-stage[data-resolved] .glyph-text {
+  mask-image: radial-gradient(
+    ellipse at var(--ox) var(--oy),
+    transparent calc(var(--reveal) - var(--feather)),
+    #000 var(--reveal)
+  );
+}
+
+/*
  * Hero index names slide in from their own edge as the row scrolls into
  * view, driven by the scroll position itself. Browsers without scroll-driven
  * animations show the names in place.

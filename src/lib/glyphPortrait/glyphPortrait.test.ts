@@ -1,8 +1,14 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { GlyphAnimator } from "./animator.ts";
 import { encodeGlyphGrid } from "./encode.ts";
-import { GLYPH_RAMP, glyphGridSchema, gridLevels } from "./grid.ts";
+import { glyphGridSchema, gridLevels } from "./grid.ts";
+import {
+  BLOCK_RAMP,
+  RAMP_START,
+  blockText,
+  rampSteps,
+  resampleLevels,
+} from "./resample.ts";
 
 /** A 4×4 RGBA image: a transparent left half, a grey-to-white right half. */
 function cutout(): Uint8Array {
@@ -57,52 +63,42 @@ test("rejects a grid whose lines do not match its size", () => {
   );
 });
 
-test("builds up to the target, then shimmers without leaving the silhouette", () => {
-  const rows: string[] = ["", ""];
-  const animator = new GlyphAnimator({
-    cols: 3,
-    rows: 2,
-    writeRow: (row, text) => (rows[row] = text),
-    random: () => 0.25,
-    shimmer: 0.5,
+test("the ramp starts at 40 columns and aspect 0.40 and ends on the full grid", () => {
+  const steps = rampSteps(12, 160);
+  assert.deepEqual(steps[0], {
+    cols: RAMP_START.cols,
+    rows: Math.round(RAMP_START.cols * RAMP_START.aspect),
   });
-  const levels = Int8Array.from([-1, 9, 0, 5, -1, 9]);
-  animator.morphTo(levels, 0, {
-    delay: (col) => col * 100,
-    scramble: 200,
-    pulse: false,
-  });
-  animator.tick(0);
-  assert.equal(
-    rows[0],
-    "   ",
-    "nothing has started at t=0 except column 0, which is blank",
-  );
-  animator.tick(1000);
-  assert.equal(animator.isMorphing(), false);
-  assert.deepEqual(rows, [
-    ` ${GLYPH_RAMP[9]}${GLYPH_RAMP[0]}`,
-    `${GLYPH_RAMP[5]} ${GLYPH_RAMP[9]}`,
-  ]);
-  animator.tick(1100);
-  assert.equal(rows[0]?.[0], " ");
-  assert.equal(rows[1]?.[1], " ");
+  assert.deepEqual(steps.at(-1), { cols: 160, rows: 160 });
+  for (let i = 1; i < steps.length; i++) {
+    assert.ok(
+      (steps[i]?.cols ?? 0) >= (steps[i - 1]?.cols ?? 0),
+      "never coarser",
+    );
+  }
 });
 
-test("an instant change lands even when the first tick comes late", () => {
-  const rows: string[] = [""];
-  const animator = new GlyphAnimator({
-    cols: 2,
-    rows: 1,
-    writeRow: (r, t) => (rows[r] = t),
-    shimmer: 0,
-  });
-  animator.morphTo(Int8Array.from([9, 2]), 0, {
-    delay: () => 0,
-    scramble: 0,
-    pulse: false,
-  });
-  animator.tick(5000);
-  assert.equal(rows[0], `${GLYPH_RAMP[9]}${GLYPH_RAMP[2]}`);
-  assert.equal(animator.isMorphing(), false);
+test("resampling keeps the silhouette and averages its levels", () => {
+  // 4×2: left half empty, right half levels 2 and 6.
+  const levels = Int8Array.from([-1, -1, 2, 6, -1, -1, 2, 6]);
+  const half = resampleLevels(
+    levels,
+    { cols: 4, rows: 2 },
+    { cols: 2, rows: 1 },
+  );
+  assert.deepEqual([...half], [-1, 4]);
+  const same = resampleLevels(
+    levels,
+    { cols: 4, rows: 2 },
+    { cols: 4, rows: 2 },
+  );
+  assert.deepEqual([...same], [...levels]);
+});
+
+test("block text never leaves a silhouette cell blank", () => {
+  const text = blockText(Int8Array.from([-1, 0, 9, 5]), { cols: 2, rows: 2 });
+  const [top, bottom] = text.split("\n");
+  assert.equal(top, ` ${BLOCK_RAMP[0]}`);
+  assert.equal(bottom?.[0], BLOCK_RAMP.at(-1));
+  assert.notEqual(bottom?.[1], " ");
 });

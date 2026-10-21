@@ -75,10 +75,10 @@ const config: Config = {
         display: "var(--font-display)",
         mono: "var(--font-mono)",
         sans: "var(--font-sans)",
-      },
-      letterSpacing: {
-        // Widens a 0.6em monospace advance to a square 1em cell (glyph portrait).
-        cell: "0.4em",
+        // System monospaces that carry the ░▒▓█ block elements (IBM Plex Mono
+        // does not), for the hero portrait's build-up.
+        blocks:
+          '"Cascadia Mono", Consolas, Menlo, "DejaVu Sans Mono", "Liberation Mono", monospace',
       },
       fontSize: fontSizeVars,
       borderRadius: radiusVars,
