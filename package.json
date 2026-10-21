@@ -26,7 +26,7 @@
     "nodemailer": "^10.1.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "zod": "^4.6.6"
+    "zod": "^4.6.7"
   },
   "overrides": {
     "glob": "^10.5.0"
@@ -40,7 +40,7 @@
     "eslint": "^10.12.0",
     "eslint-config-next": "^16.4.0",
     "eslint-config-prettier": "^10.1.8",
-    "postcss": "^8.5.29",
+    "postcss": "^8.5.30",
     "prettier": "^3.9.10",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.3.3",
