@@ -37,7 +37,7 @@ export function Footer({ site, sections, path, hiddenPaths }: FooterProps) {
             <a
               key={item.href}
               href={homeAnchor(item.href, path === "/")}
-              className="font-mono text-sm text-subtle no-underline transition-colors duration-fast hover:text-accent"
+              className="inline-block font-mono text-sm text-subtle no-underline transition-colors duration-fast hover:text-accent focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent pointer-coarse:py-2.5"
             >
               {item.label}
             </a>

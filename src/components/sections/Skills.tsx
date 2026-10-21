@@ -21,7 +21,7 @@ export function Skills({ skills }: SkillsProps) {
         role="region"
         aria-label={skills.heading}
         tabIndex={0}
-        className="no-scrollbar -mx-container-pad flex snap-x snap-mandatory scroll-px-container-pad gap-3.5 overflow-x-auto px-container-pad md:mx-0 md:grid md:grid-cols-[repeat(auto-fit,minmax(min(100%,310px),1fr))] md:overflow-visible md:px-0 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-accent"
+        className="no-scrollbar -mx-container-pad flex items-start snap-x snap-mandatory scroll-px-container-pad gap-3.5 overflow-x-auto px-container-pad md:mx-0 md:grid md:items-stretch md:grid-cols-[repeat(auto-fit,minmax(min(100%,310px),1fr))] md:overflow-visible md:px-0 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-accent"
       >
         {skills.groups.map((group) => (
           <Card

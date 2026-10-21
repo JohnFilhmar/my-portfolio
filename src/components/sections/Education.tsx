@@ -19,7 +19,7 @@ export function Education({ education, lightbox }: EducationProps) {
           return (
             <div
               key={`${item.institution}-${item.start}`}
-              className="grid grid-cols-[minmax(92px,130px)_1fr] gap-[clamp(14px,3vw,28px)] border-t border-border-muted py-[22px]"
+              className="grid gap-2 border-t border-border-muted py-[22px] sm:grid-cols-[minmax(92px,130px)_1fr] sm:gap-[clamp(14px,3vw,28px)]"
             >
               <p
                 className={cn(

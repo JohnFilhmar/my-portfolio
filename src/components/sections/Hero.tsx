@@ -17,7 +17,8 @@ export interface HeroProps {
 
 /**
  * Hero: role, the one-sentence headline, availability and actions beside a
- * large portrait that bleeds to the page edge, then the system index.
+ * large portrait that bleeds to the page edge (above them on phones), then
+ * the system index.
  */
 export function Hero({
   sectionId,
@@ -32,8 +33,8 @@ export function Hero({
       id={sectionId}
       className="mx-auto w-full max-w-container scroll-mt-scroll-margin px-container-pad pb-hero-bottom pt-hero-top"
     >
-      <div className="grid items-end gap-x-column-gap gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-        <div className="lg:self-center">
+      <div className="grid items-end gap-x-column-gap gap-y-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="md:self-center">
           <p className="m-0 font-mono text-sm text-subtle">{site.role}</p>
           <h1 className="stretch-semi-expanded m-0 mt-4 font-display text-hero font-semibold leading-[1.02] tracking-[-0.02em] text-heading">
             {hero.headline}
@@ -68,7 +69,8 @@ export function Hero({
         </div>
         <HeroPortrait
           portrait={hero.portrait}
-          className="-mx-container-pad w-[calc(100%+2*var(--space-container-pad))] lg:ml-auto lg:w-[calc(100%+var(--space-container-pad))]"
+          // Phones lead with the portrait; from tablet up it sits beside the text.
+          className="-mx-container-pad -order-1 w-[calc(100%+2*var(--space-container-pad))] md:order-none md:ml-auto md:w-[calc(100%+var(--space-container-pad))]"
         />
       </div>
 

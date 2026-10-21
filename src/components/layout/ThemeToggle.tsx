@@ -47,7 +47,7 @@ export function ThemeToggle({ label, reducedMotion }: ThemeToggleProps) {
           reducedMotion,
         );
       }}
-      className="grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-md border border-control-border bg-surface-alt text-heading transition-colors duration-fast hover:bg-hover-tint focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-95"
+      className="grid size-8 shrink-0 cursor-pointer place-items-center rounded-md border border-control-border bg-surface-alt text-heading pointer-coarse:size-11 transition-colors duration-fast hover:bg-hover-tint focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:scale-95"
     >
       <svg
         aria-hidden="true"

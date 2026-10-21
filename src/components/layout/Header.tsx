@@ -68,7 +68,7 @@ export function Header({
         href={homeAnchor(item.href, onHome)}
         aria-current={current ? "true" : undefined}
         className={cn(
-          "whitespace-nowrap rounded-sm px-2.5 py-[7px] font-mono text-sm transition-colors duration-fast",
+          "whitespace-nowrap rounded-sm px-2.5 py-[7px] font-mono text-sm transition-colors duration-fast pointer-coarse:py-3",
           "hover:bg-hover-tint hover:text-heading focus-visible:outline-solid focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent",
           current
             ? "text-heading underline decoration-2 underline-offset-8"
@@ -139,7 +139,7 @@ export function Header({
           aria-expanded={menuOpen}
           aria-controls="site-menu"
           onClick={() => setMenuOpen((open) => !open)}
-          className="cursor-pointer rounded-md border border-border-chip bg-surface-alt px-2.5 py-1.5 font-mono text-xs text-heading transition-colors duration-fast hover:border-ghost focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
+          className="cursor-pointer rounded-md border border-border-chip bg-surface-alt px-2.5 py-1.5 font-mono text-xs text-heading transition-colors duration-fast hover:border-ghost focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent pointer-coarse:min-h-11 pointer-coarse:px-4 lg:hidden"
         >
           {menuOpen ? site.a11y.menuCloseLabel : site.a11y.menuLabel}
         </button>
@@ -148,7 +148,8 @@ export function Header({
           onClick={onOpenPalette}
           aria-label={site.palette.buttonTitle}
           title={site.palette.buttonTitle}
-          className="cursor-pointer rounded-md border border-border-chip bg-surface-alt px-[9px] py-[5px] font-mono text-xs text-subtle transition-colors duration-fast hover:border-ghost hover:text-heading focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          // A keyboard shortcut button: phones get the Menu button instead.
+          className="hidden cursor-pointer rounded-md border border-border-chip bg-surface-alt px-[9px] py-[5px] font-mono text-xs text-subtle transition-colors duration-fast hover:border-ghost hover:text-heading focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent pointer-coarse:min-h-11 pointer-coarse:px-3.5 sm:inline-block"
         >
           {site.palette.buttonLabel}
         </button>
@@ -165,7 +166,7 @@ export function Header({
             <a
               href={homeAnchor(site.availability.href, onHome)}
               onClick={() => setMenuOpen(false)}
-              className="mx-auto mt-4 flex max-w-container items-center gap-2 font-mono text-xs text-heading no-underline"
+              className="mx-auto mt-4 flex max-w-container items-center gap-2 font-mono text-xs text-heading no-underline pointer-coarse:min-h-11"
             >
               <span
                 aria-hidden="true"
