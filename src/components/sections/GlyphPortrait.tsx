@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { PortraitShot } from "@config/schema";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { GlyphAnimator, type MorphPlan } from "@/lib/glyphPortrait/animator";
@@ -30,7 +30,6 @@ export interface GlyphPortraitProps {
 const MORPH_FRAME_MS = 33;
 const PRELOAD_DELAY_MS = 2500;
 const PHOTO = "bg-contain bg-bottom bg-no-repeat";
-const FADE = "transition-opacity duration-reveal ease-standard";
 
 const grids = new Map<string, Promise<GlyphGrid>>();
 
@@ -102,10 +101,11 @@ function mountGrid(pre: HTMLPreElement, grid: GlyphGrid): GlyphAnimator {
 
 /**
  * A portrait that arrives as ASCII and resolves into the real photo. Each
- * `change` hides the photo, shows the glyphs (colored by the photo through
- * `background-clip: text`), morphs them into the new picture spreading from
- * its origin, then fades the glyphs out as the new photo fades in. With
- * reduced motion the photo swaps directly.
+ * `change` dissolves the photo into glyphs (colored by the photo through
+ * `background-clip: text`) in a feathered wave from its origin, morphs them
+ * into the new picture, then reveals the new photo in a wave from the same
+ * origin (the masks live in globals.css under `.glyph-stage`). With reduced
+ * motion the photo swaps directly.
  */
 export function GlyphPortrait({
   change,
@@ -121,6 +121,7 @@ export function GlyphPortrait({
   const [size, setSize] = useState<{ cols: number; rows: number } | null>(null);
   const [photo, setPhoto] = useState<string | null>(null);
   const [resolved, setResolved] = useState(false);
+  const [origin, setOrigin] = useState(change.origin);
   const reduced = useReducedMotion();
 
   useEffect(() => {
@@ -183,6 +184,7 @@ export function GlyphPortrait({
         }
         pre.style.backgroundImage = `url("${change.shot.image}")`;
         pendingRef.current = change.shot.image;
+        setOrigin(change.origin);
         setResolved(false);
         animator.morphTo(
           gridLevels(grid),
@@ -209,6 +211,14 @@ export function GlyphPortrait({
     return () => window.clearTimeout(timer);
   }, [preload]);
 
+  const stageStyle: CSSProperties & Record<"--ox" | "--oy", string> = {
+    "--ox": `${origin.x * 100}%`,
+    "--oy": `${origin.y * 100}%`,
+    ...(size && {
+      fontSize: `min(calc(100cqw / ${size.cols}), calc(100cqh / ${size.rows}))`,
+    }),
+  };
+
   return (
     <div
       aria-hidden="true"
@@ -218,35 +228,26 @@ export function GlyphPortrait({
       )}
     >
       <div
-        className="relative"
-        style={
-          size
-            ? {
-                fontSize: `min(calc(100cqw / ${size.cols}), calc(100cqh / ${size.rows}))`,
-              }
-            : undefined
-        }
+        data-resolved={resolved || undefined}
+        className="glyph-stage relative"
+        style={stageStyle}
       >
         {photo && (
           <div
             style={{ backgroundImage: `url("${photo}")` }}
             className={cn(
-              "absolute inset-0 contrast-125 saturate-110",
+              "glyph-photo absolute inset-0 contrast-125 saturate-110",
               PHOTO,
-              FADE,
-              resolved ? "opacity-100" : "opacity-0",
             )}
           />
         )}
         <pre
           ref={preRef}
           className={cn(
-            "relative m-0 select-none whitespace-pre bg-clip-text font-mono font-semibold leading-none tracking-cell text-transparent",
+            "glyph-text relative m-0 select-none whitespace-pre bg-clip-text font-mono font-semibold leading-none tracking-cell text-transparent",
             // Lifts the photo-colored glyphs off the page: darker on light, brighter on dark.
             "brightness-75 contrast-125 saturate-150 dark:brightness-125",
             PHOTO,
-            FADE,
-            resolved ? "opacity-0" : "opacity-100",
           )}
         />
       </div>

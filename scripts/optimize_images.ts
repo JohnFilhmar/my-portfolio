@@ -19,6 +19,9 @@ const QUALITY = 80;
 /** Portrait originals also become character grids for the hero's glyph portrait. */
 const PORTRAIT_DIR = "portrait";
 const GLYPH_DIR = path.join(PUBLIC_DIR, PORTRAIT_DIR, "glyphs");
+/** Hero portraits: long edge and quality, up from small cut-out previews if needed. */
+const PORTRAIT_EDGE = 1400;
+const PORTRAIT_QUALITY = 90;
 /** Cells per side. Each one is a DOM character, so this trades detail for frame time. */
 const GLYPH_SIZE = 160;
 
@@ -107,15 +110,33 @@ export async function optimizeImages(
       continue;
     }
     fs.mkdirSync(path.dirname(output), { recursive: true });
-    await sharp(source)
-      .rotate()
-      .resize({
+    const portrait = path.dirname(relative) === PORTRAIT_DIR;
+    const image = sharp(source).rotate();
+    if (portrait) {
+      // Cut-outs are often small previews; Lanczos plus a light sharpen reads
+      // crisper at hero size than the browser's own upscale.
+      image
+        .resize({
+          width: PORTRAIT_EDGE,
+          height: PORTRAIT_EDGE,
+          fit: "inside",
+          kernel: "lanczos3",
+        })
+        .sharpen({ sigma: 0.6 });
+    } else {
+      image.resize({
         width: MAX_EDGE,
         height: MAX_EDGE,
         fit: "inside",
         withoutEnlargement: true,
+      });
+    }
+    await image
+      .webp({
+        quality: portrait ? PORTRAIT_QUALITY : QUALITY,
+        alphaQuality: portrait ? 100 : 90,
+        effort: 5,
       })
-      .webp({ quality: QUALITY, alphaQuality: 90, effort: 5 })
       .toFile(output);
     results.push({
       source,
