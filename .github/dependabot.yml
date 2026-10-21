@@ -11,6 +11,15 @@ updates:
     groups:
       minor-and-patch:
         update-types: [minor, patch]
+    ignore:
+      # Next 16.4 inlines Turbopack's bootstrap script, which the hash-only
+      # script-src CSP blocks, so the site never hydrates. Held at 16.3.8
+      # until the CSP moves to a per-request nonce.
+      - dependency-name: next
+        versions: [">=16.4.0"]
+      # typescript-eslint supports TypeScript below 6.1 only.
+      - dependency-name: typescript
+        versions: [">=6.1.0"]
   - package-ecosystem: docker
     directory: /
     schedule:
