@@ -1,10 +1,7 @@
 import { z } from "zod";
 
-/** Characters from empty to dense. A cell's level is its index here. */
-export const GLYPH_RAMP = " .:-=+*#%@";
-
-/** Highest level a cell can hold: the last character of the ramp. */
-export const MAX_LEVEL = GLYPH_RAMP.length - 1;
+/** Highest density level a cell can hold; levels are stored as digits 0-9. */
+export const MAX_LEVEL = 9;
 
 /**
  * A portrait baked into a character grid by `npm run images`. Each line holds

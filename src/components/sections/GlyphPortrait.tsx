@@ -1,21 +1,25 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { PortraitShot } from "@config/schema";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { GlyphAnimator, type MorphPlan } from "@/lib/glyphPortrait/animator";
 import {
   glyphGridSchema,
   gridLevels,
   type GlyphGrid,
 } from "@/lib/glyphPortrait/grid";
+import {
+  blockText,
+  rampSteps,
+  resampleLevels,
+} from "@/lib/glyphPortrait/resample";
 import { cn } from "@/lib/utils";
 
 /** How a change plays: the first slow build, a click's pulse, or a hover swap. */
 export type GlyphMode = "build" | "pulse" | "swap";
 
-/** One requested change of portrait. A new object starts a new morph. */
+/** One requested change of portrait. A new object starts a new build. */
 export interface GlyphChange {
   shot: PortraitShot;
-  /** Where the change spreads from, as fractions of the frame (0-1). */
+  /** Where the photo dissolves and reveals from, as fractions of the frame (0-1). */
   origin: { x: number; y: number };
   mode: GlyphMode;
 }
@@ -27,7 +31,12 @@ export interface GlyphPortraitProps {
   className?: string;
 }
 
-const MORPH_FRAME_MS = 33;
+/** Steps and milliseconds per step: the first build is slow, later changes quick. */
+const PACE: Record<GlyphMode, { steps: number; ms: number }> = {
+  build: { steps: 18, ms: 150 },
+  pulse: { steps: 10, ms: 90 },
+  swap: { steps: 10, ms: 90 },
+};
 const PRELOAD_DELAY_MS = 2500;
 const PHOTO = "bg-contain bg-bottom bg-no-repeat";
 
@@ -48,156 +57,119 @@ function loadGrid(src: string): Promise<GlyphGrid> {
   return request;
 }
 
-/** Timing for each mode: build is slow and scattered, pulse is a ring, swap is a quick wave. */
-function planFor(
-  change: GlyphChange,
-  grid: GlyphGrid,
-  reduced: boolean,
-): MorphPlan {
-  if (reduced) return { delay: () => 0, scramble: 0, pulse: false };
-  const ox = change.origin.x * grid.cols;
-  const oy = change.origin.y * grid.rows;
-  const reach = Math.hypot(grid.cols, grid.rows);
-  const dist = (col: number, row: number) =>
-    Math.hypot(col - ox, row - oy) / reach;
-  switch (change.mode) {
-    case "build":
-      return {
-        delay: (c, r) => dist(c, r) * 1800 + Math.random() * 1600,
-        scramble: 700,
-        pulse: false,
-      };
-    case "pulse":
-      return { delay: (c, r) => dist(c, r) * 1100, scramble: 320, pulse: true };
-    case "swap":
-      return {
-        delay: (c, r) => dist(c, r) * 700 + Math.random() * 200,
-        scramble: 300,
-        pulse: false,
-      };
-  }
-}
+const photos = new Map<string, Promise<number>>();
 
-/** Gives the <pre> one text node per row and returns an animator writing into them. */
-function mountGrid(pre: HTMLPreElement, grid: GlyphGrid): GlyphAnimator {
-  const rows = Array.from({ length: grid.rows }, () =>
-    document.createTextNode(""),
-  );
-  pre.replaceChildren(
-    ...rows.flatMap((node, i) =>
-      i === 0 ? [node] : [document.createTextNode("\n"), node],
-    ),
-  );
-  return new GlyphAnimator({
-    cols: grid.cols,
-    rows: grid.rows,
-    shimmer: 0,
-    writeRow: (row, text) => {
-      const node = rows[row];
-      if (node) node.data = text;
-    },
-  });
+/** Loads and decodes a photo once per URL, so blocks never render uncolored. */
+function loadPhoto(src: string): Promise<number> {
+  const cached = photos.get(src);
+  if (cached) return cached;
+  const image = new Image();
+  image.src = src;
+  const request = image
+    .decode()
+    .then(() => image.naturalWidth / image.naturalHeight);
+  request.catch(() => photos.delete(src));
+  photos.set(src, request);
+  return request;
 }
 
 /**
- * A portrait that arrives as ASCII and resolves into the real photo. Each
- * `change` dissolves the photo into glyphs (colored by the photo through
- * `background-clip: text`) in a feathered wave from its origin, morphs them
- * into the new picture, then reveals the new photo in a wave from the same
- * origin (the masks live in globals.css under `.glyph-stage`). With reduced
- * motion the photo swaps directly.
+ * Stretches the block text so `step` fills the square stage: a non-uniform
+ * scale makes every block cover its whole cell at any column count and cell
+ * aspect. The photo behind the text (`background-clip: text`) is laid out in
+ * the text's unscaled coordinates so that, once scaled, it sits exactly where
+ * a bottom-aligned "contain" photo would in the square.
+ */
+function fitBlocks(stage: HTMLElement, pre: HTMLElement, aspect: number): void {
+  const side = stage.clientWidth;
+  const sx = side / pre.offsetWidth;
+  const sy = side / pre.offsetHeight;
+  const imageW = aspect <= 1 ? side * aspect : side;
+  const imageH = aspect <= 1 ? side : side / aspect;
+  pre.style.transform = `scale(${sx}, ${sy})`;
+  pre.style.backgroundSize = `${imageW / sx}px ${imageH / sy}px`;
+  pre.style.backgroundPosition = `${(side - imageW) / 2 / sx}px ${(side - imageH) / sy}px`;
+}
+
+/**
+ * A portrait that arrives as block characters and resolves into the real
+ * photo. Each `change` dissolves the photo in a feathered wave from its
+ * origin, then rebuilds the picture in blocks colored by the photo
+ * (`background-clip: text`), stepping from 40 columns at cell aspect 0.40 up
+ * to the full grid, and finally reveals the photo in a wave from the same
+ * origin (masks in globals.css under `.glyph-stage`). With reduced motion it
+ * goes straight to the photo.
  */
 export function GlyphPortrait({
   change,
   preload,
   className,
 }: GlyphPortraitProps) {
+  const stageRef = useRef<HTMLDivElement>(null);
   const preRef = useRef<HTMLPreElement>(null);
-  const animatorRef = useRef<GlyphAnimator | null>(null);
-  const wakeRef = useRef<() => void>(() => {});
+  /** Width over height of the photo currently coloring the blocks. */
+  const aspectRef = useRef(1);
   const reducedRef = useRef(false);
-  /** The photo to reveal once the current morph settles. */
-  const pendingRef = useRef<string | null>(null);
-  const [size, setSize] = useState<{ cols: number; rows: number } | null>(null);
   const [photo, setPhoto] = useState<string | null>(null);
   const [resolved, setResolved] = useState(false);
   const [origin, setOrigin] = useState(change.origin);
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    const pre = preRef.current;
-    if (!pre) return;
-    let frame = 0;
-    let last = 0;
-    let visible = true;
-    const step = (now: number) => {
-      frame = 0;
-      const animator = animatorRef.current;
-      if (!animator || !visible) return;
-      if (now - last >= MORPH_FRAME_MS || reducedRef.current) {
-        animator.tick(now);
-        last = now;
-      }
-      if (animator.isMorphing()) {
-        frame = requestAnimationFrame(step);
-      } else if (pendingRef.current) {
-        setPhoto(pendingRef.current);
-        setResolved(true);
-        pendingRef.current = null;
-      }
-    };
-    const wake = () => {
-      if (!frame) frame = requestAnimationFrame(step);
-    };
-    wakeRef.current = wake;
-    const io = new IntersectionObserver(([entry]) => {
-      visible = entry?.isIntersecting ?? true;
-      if (visible) wake();
-    });
-    io.observe(pre);
-    return () => {
-      cancelAnimationFrame(frame);
-      io.disconnect();
-      wakeRef.current = () => {};
-    };
-  }, []);
-
-  useEffect(() => {
     reducedRef.current = reduced;
   }, [reduced]);
 
   useEffect(() => {
+    const stage = stageRef.current;
+    const pre = preRef.current;
+    if (!stage || !pre) return;
+    const observer = new ResizeObserver(() => {
+      if (pre.textContent) fitBlocks(stage, pre, aspectRef.current);
+    });
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     let cancelled = false;
-    loadGrid(change.shot.glyphs)
-      .then((grid) => {
+    let timer = 0;
+    Promise.all([loadGrid(change.shot.glyphs), loadPhoto(change.shot.image)])
+      .then(([grid, aspect]) => {
+        const stage = stageRef.current;
         const pre = preRef.current;
-        if (cancelled || !pre) return;
-        let animator = animatorRef.current;
-        if (
-          !animator ||
-          animator.cols !== grid.cols ||
-          animator.rows !== grid.rows
-        ) {
-          animator = mountGrid(pre, grid);
-          animatorRef.current = animator;
-          setSize({ cols: grid.cols, rows: grid.rows });
-        }
+        if (cancelled || !stage || !pre) return;
+        aspectRef.current = aspect;
+        const levels = gridLevels(grid);
+        const full = { cols: grid.cols, rows: grid.rows };
+        const pace = PACE[change.mode];
+        const steps = reducedRef.current
+          ? [full]
+          : rampSteps(pace.steps, grid.cols);
         pre.style.backgroundImage = `url("${change.shot.image}")`;
-        pendingRef.current = change.shot.image;
         setOrigin(change.origin);
         setResolved(false);
-        animator.morphTo(
-          gridLevels(grid),
-          performance.now(),
-          planFor(change, grid, reducedRef.current),
-        );
-        wakeRef.current();
+        const show = (i: number) => {
+          if (cancelled) return;
+          const step = steps[i];
+          if (!step) {
+            setPhoto(change.shot.image);
+            setResolved(true);
+            return;
+          }
+          pre.textContent = blockText(resampleLevels(levels, full, step), step);
+          fitBlocks(stage, pre, aspect);
+          timer = window.setTimeout(() => show(i + 1), pace.ms);
+        };
+        // Two frames for the new background to paint, so the coarsest step
+        // never shows as uncolored (invisible) blocks.
+        requestAnimationFrame(() => requestAnimationFrame(() => show(0)));
       })
       .catch(() => {
-        // A missing grid leaves the frame as it is; the next change retries.
+        // A missing grid leaves the portrait as it is; the next change retries.
       });
     return () => {
       cancelled = true;
+      window.clearTimeout(timer);
     };
   }, [change]);
 
@@ -214,9 +186,6 @@ export function GlyphPortrait({
   const stageStyle: CSSProperties & Record<"--ox" | "--oy", string> = {
     "--ox": `${origin.x * 100}%`,
     "--oy": `${origin.y * 100}%`,
-    ...(size && {
-      fontSize: `min(calc(100cqw / ${size.cols}), calc(100cqh / ${size.rows}))`,
-    }),
   };
 
   return (
@@ -228,9 +197,10 @@ export function GlyphPortrait({
       )}
     >
       <div
+        ref={stageRef}
         data-resolved={resolved || undefined}
-        className="glyph-stage relative"
         style={stageStyle}
+        className="glyph-stage relative aspect-square w-[min(100cqw,100cqh)] overflow-hidden"
       >
         {photo && (
           <div
@@ -244,10 +214,10 @@ export function GlyphPortrait({
         <pre
           ref={preRef}
           className={cn(
-            "glyph-text relative m-0 select-none whitespace-pre bg-clip-text font-mono font-semibold leading-none tracking-cell text-transparent",
-            // Lifts the photo-colored glyphs off the page: darker on light, brighter on dark.
+            "glyph-text absolute bottom-0 left-0 m-0 origin-bottom-left select-none whitespace-pre bg-no-repeat bg-clip-text font-blocks text-[16px] leading-[0.82] tracking-[-0.04em] text-transparent",
+            // Rows and columns overlap slightly: block glyphs stop short of their cell, which left seams.
+            // Lifts the photo-colored blocks off the page: darker on light, brighter on dark.
             "brightness-75 contrast-125 saturate-150 dark:brightness-125",
-            PHOTO,
           )}
         />
       </div>
