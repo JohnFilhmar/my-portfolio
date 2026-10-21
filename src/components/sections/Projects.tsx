@@ -25,7 +25,11 @@ export function Projects({ projects, statusLabels }: ProjectsProps) {
 
       <ul className="m-0 grid list-none gap-5 p-0 md:grid-cols-2 xl:grid-cols-3">
         {featured.map((project) => (
-          <li key={project.id}>
+          // An odd card out on the two-column tablet grid spans the row.
+          <li
+            key={project.id}
+            className="md:last:odd:col-span-2 xl:last:odd:col-span-1"
+          >
             <a
               href={workPath(project.id)}
               className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface text-inherit no-underline transition-[transform,border-color] duration-base ease-standard hover:-translate-y-1 hover:border-border-hover focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"

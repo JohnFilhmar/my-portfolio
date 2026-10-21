@@ -125,11 +125,17 @@ export function loadConfig(): AppConfig {
     skills: loadFile("sections/skills.json", skillsSchema),
     projects: {
       ...projects,
-      items: projects.items.map((item) => ({
-        ...item,
-        ...(item.cover && { cover: withMissingFlag(item.cover) }),
-        shots: item.shots.map(withMissingFlag),
-      })),
+      // A cover with no file is dropped (the card goes text-only) unless
+      // placeholders are on, so visitors never see a drawn slot or its path.
+      items: projects.items.map(({ cover, ...item }) => {
+        const resolved = cover && withMissingFlag(cover);
+        const keep = resolved && (!resolved.missing || showPlaceholders());
+        return {
+          ...item,
+          ...(keep && { cover: resolved }),
+          shots: item.shots.map(withMissingFlag),
+        };
+      }),
     },
     // A capture bound to a case study keeps its slot as a placeholder until the
     // file lands. An unbound one is home-page evidence, which is only evidence

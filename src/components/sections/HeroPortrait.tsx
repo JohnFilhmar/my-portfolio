@@ -81,7 +81,7 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
       onPointerEnter={(e) => hover(e, true)}
       onPointerLeave={(e) => hover(e, false)}
       className={cn(
-        "group relative m-0 aspect-square w-full max-w-[calc(100dvh-var(--space-header-height)-var(--space-hero-top))] animate-rise-in",
+        "group relative m-0 aspect-5/4 w-full md:aspect-square max-w-[calc(100dvh-var(--space-header-height)-var(--space-hero-top))] animate-rise-in",
         className,
       )}
     >
