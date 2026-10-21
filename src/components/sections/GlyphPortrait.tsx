@@ -27,17 +27,10 @@ export interface GlyphPortraitProps {
   className?: string;
 }
 
-/** The dimmed photo under the glyphs; the newest fades in over the last. */
-interface Underlay {
-  image: string;
-  key: number;
-  first: boolean;
-}
-
 const MORPH_FRAME_MS = 33;
-const SHIMMER_FRAME_MS = 90;
 const PRELOAD_DELAY_MS = 2500;
 const PHOTO = "bg-contain bg-bottom bg-no-repeat";
+const FADE = "transition-opacity duration-reveal ease-standard";
 
 const grids = new Map<string, Promise<GlyphGrid>>();
 
@@ -56,7 +49,7 @@ function loadGrid(src: string): Promise<GlyphGrid> {
   return request;
 }
 
-/** Timing for each mode: build is slow and scattered, pulse is a ring, swap is quick. */
+/** Timing for each mode: build is slow and scattered, pulse is a ring, swap is a quick wave. */
 function planFor(
   change: GlyphChange,
   grid: GlyphGrid,
@@ -79,19 +72,15 @@ function planFor(
       return { delay: (c, r) => dist(c, r) * 1100, scramble: 320, pulse: true };
     case "swap":
       return {
-        delay: (c, r) => dist(c, r) * 450 + Math.random() * 120,
-        scramble: 200,
+        delay: (c, r) => dist(c, r) * 700 + Math.random() * 200,
+        scramble: 300,
         pulse: false,
       };
   }
 }
 
 /** Gives the <pre> one text node per row and returns an animator writing into them. */
-function mountGrid(
-  pre: HTMLPreElement,
-  grid: GlyphGrid,
-  reduced: boolean,
-): GlyphAnimator {
+function mountGrid(pre: HTMLPreElement, grid: GlyphGrid): GlyphAnimator {
   const rows = Array.from({ length: grid.rows }, () =>
     document.createTextNode(""),
   );
@@ -103,7 +92,7 @@ function mountGrid(
   return new GlyphAnimator({
     cols: grid.cols,
     rows: grid.rows,
-    shimmer: reduced ? 0 : undefined,
+    shimmer: 0,
     writeRow: (row, text) => {
       const node = rows[row];
       if (node) node.data = text;
@@ -112,11 +101,11 @@ function mountGrid(
 }
 
 /**
- * A portrait drawn as live ASCII text over a dimmed copy of the photo. The
- * glyphs take their color from the photo (`background-clip: text`), so they
- * work on either theme. It builds up slowly on first load, then morphs to each
- * new `change`, spreading from its origin, and keeps a faint shimmer while
- * idle. With reduced motion, changes are instant and still.
+ * A portrait that arrives as ASCII and resolves into the real photo. Each
+ * `change` hides the photo, shows the glyphs (colored by the photo through
+ * `background-clip: text`), morphs them into the new picture spreading from
+ * its origin, then fades the glyphs out as the new photo fades in. With
+ * reduced motion the photo swaps directly.
  */
 export function GlyphPortrait({
   change,
@@ -127,9 +116,11 @@ export function GlyphPortrait({
   const animatorRef = useRef<GlyphAnimator | null>(null);
   const wakeRef = useRef<() => void>(() => {});
   const reducedRef = useRef(false);
-  const underlayKey = useRef(0);
+  /** The photo to reveal once the current morph settles. */
+  const pendingRef = useRef<string | null>(null);
   const [size, setSize] = useState<{ cols: number; rows: number } | null>(null);
-  const [underlays, setUnderlays] = useState<Underlay[]>([]);
+  const [photo, setPhoto] = useState<string | null>(null);
+  const [resolved, setResolved] = useState(false);
   const reduced = useReducedMotion();
 
   useEffect(() => {
@@ -142,16 +133,16 @@ export function GlyphPortrait({
       frame = 0;
       const animator = animatorRef.current;
       if (!animator || !visible) return;
-      const keepGoing = animator.isMorphing() || !reducedRef.current;
-      const due =
-        now - last >=
-        (animator.isMorphing() ? MORPH_FRAME_MS : SHIMMER_FRAME_MS);
-      if (due || !keepGoing) {
+      if (now - last >= MORPH_FRAME_MS || reducedRef.current) {
         animator.tick(now);
         last = now;
       }
-      if (animator.isMorphing() || !reducedRef.current) {
+      if (animator.isMorphing()) {
         frame = requestAnimationFrame(step);
+      } else if (pendingRef.current) {
+        setPhoto(pendingRef.current);
+        setResolved(true);
+        pendingRef.current = null;
       }
     };
     const wake = () => {
@@ -172,7 +163,6 @@ export function GlyphPortrait({
 
   useEffect(() => {
     reducedRef.current = reduced;
-    wakeRef.current();
   }, [reduced]);
 
   useEffect(() => {
@@ -187,16 +177,13 @@ export function GlyphPortrait({
           animator.cols !== grid.cols ||
           animator.rows !== grid.rows
         ) {
-          animator = mountGrid(pre, grid, reducedRef.current);
+          animator = mountGrid(pre, grid);
           animatorRef.current = animator;
           setSize({ cols: grid.cols, rows: grid.rows });
         }
         pre.style.backgroundImage = `url("${change.shot.image}")`;
-        const key = ++underlayKey.current;
-        setUnderlays((prev) => [
-          ...prev.slice(-1),
-          { image: change.shot.image, key, first: key === 1 },
-        ]);
+        pendingRef.current = change.shot.image;
+        setResolved(false);
         animator.morphTo(
           gridLevels(grid),
           performance.now(),
@@ -240,29 +227,26 @@ export function GlyphPortrait({
             : undefined
         }
       >
-        {underlays.map((u, i) => (
+        {photo && (
           <div
-            key={u.key}
-            style={{ backgroundImage: `url("${u.image}")` }}
+            style={{ backgroundImage: `url("${photo}")` }}
             className={cn(
-              "absolute inset-0",
+              "absolute inset-0 contrast-125 saturate-110",
               PHOTO,
-              i < underlays.length - 1
-                ? "opacity-0 transition-opacity duration-reveal ease-standard"
-                : cn(
-                    "opacity-15",
-                    u.first ? "animate-photo-in" : "animate-photo-swap",
-                  ),
+              FADE,
+              resolved ? "opacity-100" : "opacity-0",
             )}
           />
-        ))}
+        )}
         <pre
           ref={preRef}
           className={cn(
             "relative m-0 select-none whitespace-pre bg-clip-text font-mono font-semibold leading-none tracking-cell text-transparent",
-            // Lifts the glyphs off the dimmed photo on the dark frame.
-            "brightness-125 contrast-125 saturate-150",
+            // Lifts the photo-colored glyphs off the page: darker on light, brighter on dark.
+            "brightness-75 contrast-125 saturate-150 dark:brightness-125",
             PHOTO,
+            FADE,
+            resolved ? "opacity-0" : "opacity-100",
           )}
         />
       </div>

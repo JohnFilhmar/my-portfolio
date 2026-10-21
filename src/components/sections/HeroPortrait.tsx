@@ -1,10 +1,4 @@
-import {
-  useMemo,
-  useState,
-  type CSSProperties,
-  type MouseEvent,
-  type PointerEvent,
-} from "react";
+import { useMemo, useState, type MouseEvent, type PointerEvent } from "react";
 import type { HeroConfig } from "@config/schema";
 import {
   GlyphPortrait,
@@ -26,9 +20,6 @@ const LAYER = {
   idle: "opacity-0 [clip-path:inset(100%_0_0_0)]",
 } as const;
 
-/** The angle the backdrop's light comes from for each photo, cycling. */
-const LIGHT = ["160deg", "215deg", "120deg"];
-
 /** Roughly where a face sits in the frame: the first build spreads from here. */
 const FACE = { x: 0.5, y: 0.4 };
 
@@ -43,12 +34,12 @@ function pointIn(event: MouseEvent<Element>): { x: number; y: number } {
 }
 
 /**
- * The hero portrait, drawn in ASCII glyphs that build up slowly on load,
- * standing in a dark, grain-textured frame. Hovering morphs a
- * photo into its hover partner (`NN-hover`); clicking sends a pulse through
- * the glyphs into the next pair and moves the light in the frame. Touch skips
- * hover and taps cycle. Until grids exist, the same frame cycles through
- * drawn placeholders, so the layout can be judged.
+ * The hero portrait: ASCII glyphs build up slowly on load, then resolve into
+ * the photo. Hovering turns the photo back into glyphs that morph into its
+ * hover partner (`NN-hover`) and resolve into that photo; clicking sends a
+ * pulse through the glyphs into the next pair. Touch skips hover and taps
+ * cycle. Until grids exist, the same spot cycles through drawn placeholders,
+ * so the layout can be judged.
  */
 export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
   const { frames, alt, cycleLabel, emptyLabel, placeholderCount } = portrait;
@@ -65,9 +56,6 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
     () => frames.flatMap((f) => (f.hover ? [f.main, f.hover] : [f.main])),
     [frames],
   );
-  const light: CSSProperties & Record<"--ga", string> = {
-    "--ga": LIGHT[index % LIGHT.length] ?? "160deg",
-  };
 
   // Asks the glyphs for photo `i` (or its hover partner), unless already showing it.
   const show = (
@@ -97,11 +85,6 @@ export function HeroPortrait({ portrait, className }: HeroPortraitProps) {
         className,
       )}
     >
-      <div
-        aria-hidden="true"
-        style={light}
-        className="portrait-backdrop absolute inset-x-[6%] bottom-0 top-[10%] rounded-3xl"
-      />
       <div
         role="img"
         aria-label={alt}
